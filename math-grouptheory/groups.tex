@@ -1,0 +1,512 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{verbatim}
+\usepackage{tikz} 
+
+\usepackage{syntonly}
+% \syntaxonly <-- use this for checking syntax only
+% \mbox {text} - keep together
+% \fbox {text} - keep together and draw around
+
+%\pagestyle{plain|headings|empty} % header and footer p.27
+%SetFonts
+%\include{filename}, \includeonly{filename1, filename2} , \input[fiename}
+
+%SetFonts% 
+
+\title{Brilliant: Group Theory}
+\author{Dave Fetterman}
+\date{2/23/22}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+Note: Latex reference: http://tug.ctan.org/info/undergradmath/undergradmath.pdf
+\section{Chapter 1.2}
+\subsection{Page 1}
+$R (R_1 (x) ) = A \rightarrow B, B \rightarrow A, C \rightarrow C$.
+So reflection about CE.
+
+\subsection{Page 2}
+$R_2 (R_1 (x) ) = A \rightarrow B, B \rightarrow C, C \rightarrow A$.
+So rotation clockwise ${120^\circ}$
+
+\subsection{Page 5}
+$ R \star R = H \star H = V \star V = I $ on the letter "I".
+
+
+\subsection {Page 6 - 9}
+Cayley table for rotating letter "I":
+
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+  & I & H & V & R \\ \hline
+I & I & H & V & R \\ \hline
+H & H & I & R & V \\ \hline
+V & V & R & I & H \\ \hline
+R & R & V & H & I \\ \hline
+\end{tabular}
+
+\emph{Note: check out https://www.tablesgenerator.com/ here.}
+
+
+\subsection {Page 10}
+
+\begin{itemize}
+\item Klein four group: $ (+, [0, 1] \times [0, 1]) $ is equivalent to the "I" rotation.  
+
+\item First coord could be: Does it rotate?
+\item Second coord could be: Does it flip?
+\end{itemize}
+
+\section {Chapter 1.3}
+
+Group Properties
+
+\begin{itemize}
+\item Some binary operation $( \cdot )$
+\item Identity (not e.g., even integers)
+\item Inverse (not e.g. multiplication modulo non-prime p)
+\item Associativity (not e.g. an average $f(x,y) = (x+y)/2$)?
+\end{itemize}
+
+\section {Chapter 1.4}
+
+Cube symmetries
+
+One way  to think about it: 
+
+\begin{itemize}
+\item Corner \emph{A} maps to one of eight new corners
+\item Each mapping has three orientations of that corner spin  (0 degrees, 120, 240)
+\item Therefore 24
+\end{itemize}
+
+Another way:
+\begin{itemize}
+\item One identity = 1
+\item Type I: Rotate around line joining two opposite face centers: 3 pairs * 3 non-identity spins = 9
+\item Type II: Spin around line joining two opposite corners.  4 pairs * 2 non-identiy spins = 8
+\item Type III: Spin 180 degrees around line from front upper edge to back lower edge.  Combo of a spin and a rotate.  6 pairs = 6.
+\item Sum to 24.
+\end{itemize}
+
+Another way:
+\begin{itemize}
+\item There are four diagonals to a cube.
+\item Their permutations are in 1:1 correspondence with the transformations possible.   (24)
+\item Type I keeps none fixed.  90 degrees: Chain = $4! / 4$ = 6.   180 degrees: two pairs.  Select who $A$ matches = 3.
+\item Type II rotates three, keeps one fixed = 8
+\item Type III does one swap, keeps two fixed = ${4 \choose 2} = 6$
+\end{itemize}
+
+Note also: There are 24 reflection symmetries as well. (1:1 correspondence with rotations via "swap top center labels?")
+
+\section {Chapter 2.1}
+
+\subsection {Page 2-3}
+The integers under multiplication are not a group, as they have no inverse.
+The set of rationals with multiplication as the group operation is not a group as 0 has no inverse
+
+\subsection {Page 5 - 7}
+
+\begin{itemize}
+\item Dihedral group $D_n$ has $2n$ elements, is not commutative, not cyclical.
+\item If n is even, there is exactly one rotational symmetry $R\neq I$
+ =I which commutes with all the other elements of $D_n$ (the 180 degree rotation)
+\end{itemize}
+
+\subsection {Page 8 - 9}
+
+\begin{itemize}
+\item Symmetric group $S_n$ is the set of permutations on n elements.
+\item "in-shuffle" of a deck of four cards is "split in half, interleave top half with bottom half, top card second", or $\phi = (1, 2, 4, 3)$.  $\phi^4 = I$
+\end{itemize}
+
+\subsection {Page 10-11}
+
+\begin{itemize}
+\item Cyclic group $Z_n$ is the set of integers modulo $n$ under addition.  
+\item Note that usually multiplication is the group operation, it usually uses "+".
+\item Every element in $Z_n$ is its own inverse iff n is even.
+\end{itemize}
+
+\section {Chapter 2.2: More Group Examples}
+
+\subsection {Page 1-2}
+
+\begin{itemize}
+\item Order of an element $g$ is smallest $k$ such that $g^k = e$.  Otherwise \emph{infinite order}
+\end{itemize}
+
+\subsection {Page 3}
+
+Quaternion group $Q_8$ rules:
+
+\begin{itemize}
+\item $i^2 = j^2 = k^2 = ijk =  - 1$
+\item Implies $ij = k, jk = i, ki = j$
+\item implies $ji = -k, kj = -i, ik = -j$
+\item So this is not only \emph{non-commutative} but \emph{anti-commutative}
+\item $Q = {\pm 1, \pm i, \pm j, \pm k}$
+\item So one element of order 1, one of order 2 (element -1), remaining six of these elements have order 4
+\end{itemize}
+
+\subsection {Page 4}
+
+Note that  musical notes ($Z_{12}$) has only generators 1, 5, 7, 11.  
+These corresponding to chromatic, circle of fourths (anti-fifths), circle of fifths, downwards chromatic scales!
+
+\subsection {Page 55}
+
+\begin{itemize}
+\item $GL_n(\mathbb{R})$ is invertible n x n matrices in R.
+\item $SL_n(\mathbb{R})$ is determinant 1 n x n matrices in R.
+\item 
+ 
+$A = \begin{pmatrix}
+    -1      & 1 \\
+    0       & 1 \\
+
+\end{pmatrix}
+$
+has order 2,  $B = \begin{pmatrix}
+    -1      & 0 \\
+   0      & 1 \\
+
+\end{pmatrix}$
+has order 2,  but $AB = \begin{pmatrix}
+    1       & 	1 \\
+    0      & 1\\
+
+\end{pmatrix}$ has infinite order!  Non-commutativity strikes.
+
+\end{itemize}
+
+
+\subsection {Page 6-11}
+
+\begin{itemize}
+\item \emph{isomorphism} is a bjiection preserving group operations.
+\item Can think of it as a relabeling of the Cayley table.
+\item Example given is Klein-four and symmetries of tall serif letter "I", or of a diamond/non-square rhombus.
+\item $Z_{12}$ is isomorphic to rotational symmetries of a 12-gon.
+\item $Q_8$ is isomorphic under matrix multiplication to 
+$\Bigg\{\pm \begin{pmatrix}
+    1      & 0 \\
+    0       & 1 \\
+
+\end{pmatrix}
+$, 
+$\pm \begin{pmatrix}
+    i      & 0 \\
+    0       & -i \\
+
+\end{pmatrix}
+$, 
+$\pm \begin{pmatrix}
+    0      & 1 \\
+    -1       & 0 \\
+
+\end{pmatrix}
+$, 
+$\pm \begin{pmatrix}
+    0      & i \\
+    i       & 0 \\
+
+\end{pmatrix}
+\Bigg\} \subset GL_2(\mathbb{R})$ 
+\item $D_3$ is isomorphic to $S_3$ since any permutation is possible and no more.
+\end{itemize}
+
+
+\section {Chapter 2.3: Subgroups}
+
+\subsection {Page 1 - 3}
+
+\begin{itemize}
+\item Subgroups are closure-bound subsets of groups.  
+\item Easy test: $H \subset G$ if for every $h_1, h_2 \in H, h_1h_2 \in H$, and for any $h \in H, h^{-1} \in H$.
+\end{itemize}
+
+\subsection {Page 4}
+
+\begin{itemize}
+\item Cartesian product of groups G, H is also a group: $G \times H = (g, h) \cdot (g', h') = (gg', hh'), g \in G, h \in H$  
+\end{itemize}
+
+\subsection {Lagrange's theorem}
+
+Lemma: $H \subset G.  r,s \in G.  Hr = Hs \iff rs^{-1} \in H$.  Otherwise, $Hr, Hs$ have no element in common.
+
+One direction: $rs^{-1} \in H \rightarrow Hr=Hs$
+\begin{itemize} 
+\item $rs^{-1}  = h \in H$ by supposition
+\item $Hh = Hrs^{-1} = H$
+\item $Hr = Hs$
+\end{itemize}
+
+Other direction: $ Hr=Hs \rightarrow rs^{-1} \in H$
+\begin{itemize} 
+\item $Hr = Hs$ by supposition
+\item $Hrs^{-1} = H, so h_1rs^{-1} = h_2$ for some $h_1, h_2$.
+\item $rs^{-1} = h_1^{-1}h_2 \in H$
+\end{itemize}
+
+Therefore, if Hr and Hs have some element in common, meaning $h_1r=h_2s$, then $rs^{-1} = h_1^{-1}h_2 \in H$.  
+So, by the first direction above, $Hr = Hs$.
+
+\emph{Lagrange construction}:
+\begin{itemize}
+\item Take $r_1 \in G$, so $Hr_1 = H$.  
+\item If $H \neq G$, take $r_2 \in G - Hr_1$ to create $Hr_2$.
+\item Repeat.  We wiil thus create disjoint $Hr_1, Hr_2, ... $ of the same size.  
+\end{itemize}
+
+\subsection {My take on Lagrange}
+
+\begin{itemize}
+\item If $t \in Hr since t = h_1r$ and $t \in Hs since t=h_2s$, then $r = h_1^{-1}h_2s \in Hs$ and likewise for s, so $Hr = Hs$.  So every element is in both or neither.
+\item Therefore "H" is a partition relation on the elements of G.
+\item Size of $Hr$ equals size of H for obvious group reasons.
+\item Every element g of G is in some coset $Hg$.  
+\item Therefore G is partitioned into cosets of equal size, which is size of H.
+\item Therefore size of subgroup H divides size of group G
+\end{itemize}
+
+\begin{comment}
+
+* Cosets form equivalence classes
+** Hr and Hs share either one element (identity) or all elements.
+*** Suppose t in Hr and Hs, and t is not identity.
+*** Then t = h_1*r = h_2 * s
+*** Suppose r, s in H.  Then equal.
+*** Suppose 
+* Cosets are the same size
+* Size of cosets divide group size
+* Therefore size of He = H divides group size
+\end{comment}
+
+\subsection {Page 7-12}
+
+\begin {itemize} 
+\item Note that if H and K are subgroups, so is $H \cap K$.
+\item $Z_6$ has subgroups $Z_6, {0, 2, 4}, {0, 3}, {0}$, all divisors of 6 in this case.
+\item $Z_p$, p prime, has only subgroups $Z_p, {0}$
+\item $Z_p \times Z_p$ has p + 3 subgroups 
+  \begin{itemize}
+  \item $Z_p \times Z_p$
+  \item Generator (0,0)
+  \item Generator (0,1)
+  \item All generators $(1, n), n \in [0, p-1]$ . p of those.
+  \end {itemize} 
+\item Another way to think about  $Z_p \times Z_p$: Outside of (0,0), the remaining $p^2-1$ elements each have order p.  They are generate a group of size p, minus the identity.  So $(p^2-1)/(p-1) + 2 = p+3.$
+\item Subgroup count of $Z_4 \times Z_2$: a counting exercise, based on generators. 
+\begin{itemize}
+\item Look at all cyclic groups of each of the elements.
+\item (0,0) generates 1 group
+\item Order 2: Three elements, which generate three distinct cyclic subgroups
+\item Order 4: Four elements, which generate two distinct subgroups
+\item Order 8: $Z_4 \times Z_2$, non-cyclic
+\item And there's one distict $Z_2 \times Z_2$ group.
+\item \emph{Note: Is there a good (even recursive) formula for this?}
+\end {itemize} 
+
+\end {itemize} 
+
+\section {Chapter 2.4: Abelian Groups}
+
+
+\subsection{Page 1-3}
+\begin{itemize}
+\item Theorem: $Z_a \times Z_b$ is isomorphic to $Z_{ab}$ iff a and b are relatively prime.
+\item DF Proof: If a and b are relatively prime, (1,1) is of order $ab$.  If $a$ and $b$ share factor $c$, then $Z_{ab}$ has an element of order $ab$, but $Z_a \times Z_b$ will have cycled by $a * b / c$.
+\item So decompose e.g. $Z_{12}$ into $Z_4 \times Z_3$, for example.
+\end{itemize}
+
+\subsection{Page 4-6}
+\begin{itemize}
+\item Theorem: Every finite abelian group is isomorphic to a direct product of cyclic groups.
+\item Therefore, the number of these groups of order n is the product of the partitions of each of its prime factors' powers.
+\item Therefore, the number of abelian groups of size $24 = 3* 2^3 = p(3) * p(1) = 3 * 1 = 3, Z_3  \times Z_8, Z_3  \times Z_4 \times Z_2, Z_3  \times Z_2 \times Z_2 \ times Z_2$
+\item Therefore, the number of abelian groups of size $2310 = 2 * 3 *5 * 7 * 11$ is one.
+\end{itemize}
+
+\subsection{Page 7-11: $Z_n^*$ or $U(n)$}
+\begin{itemize}
+\item Group $Z_n^*$: elements of $Z_n$ relatively prime to n, under multiplication. 
+\item $|Z_n^*| = \phi(n)$ , the totient function.
+\item This is a group even if n not prime because there is $ax + bn = 1$  if $x, n$ are relatively prime.
+\item $Z_8^* = \{1,3,5,7\}$ is isomorphic to $Z_2  \times Z_2$ since every element squared is 1.
+\item $Z_10^* = \{1,3,7,9\}$ is isomorphic to $Z_4$ since it is generated by 3.
+\item $Z_15^* = \{1,2,4,7,8,11,13,14\}$ is isomorphic to $Z_4 x Z_2$ by counting element orders.
+\item Note: Primitive roots of n are those that generate $Z_n^*$.  There are primitive roots mod n if and only if $n = 1,2,4,p^k, 2p^k$.
+\item TODO: read https://brilliant.org/wiki/primitive-roots/ and why these are the only solutions. Also, look up \emph{Legendre symbol}
+\end{itemize}
+
+\section {Chapter 2.5: Homomorphisms}
+\subsection(\subsection{Page 1 - X}
+\begin{itemize}
+\item Homomorphism $\phi: \phi(a) *' \phi(b) = \phi(a * b)$.  Note that  * and *' are different  operations.
+\item This means, "translate each via the function, then combine" yields the same result as "combine first, then translate".  So structure is preserved.
+\item Note this is like isomorphism, except homeomorphism can squash some items to zero.
+\item Also, this can change to an entirely separate domain, e.g. $det(AB) = det(A)det(B)$
+\item Easy to prove homomorphism preserves identities and inverses.
+\item Order of transformed element $\phi(g)$ divides order of g, since $g^k = e and \phi(g)^k = \phi(e)$, but consider - we could map everything to the identity! 
+\item
+\end{itemize}
+
+\subsection(\subsection{Page 7- 10: Counting homomorphisms}
+\begin{itemize}
+\item Main idea: Knowing where we send identity determines entire homomorphism for a cyclic group.
+\item Homomorphism count for $Z_4 \rightarrow Z_{10}$: There are 10 places to send identity, but recall that $\phi(1)$ has to have order 4 since $\phi(1 + 1 + 1 + 1) = \phi(0) = 0$.  Therefore, $\phi(1)$ has to be 0 or 5.  So 2 possibilities.
+\item Homomorphism count for $Z_{99} \rightarrow Z_{100}$: Since $\phi(99) = 0 and \phi(1) \times 100$, it must divide both. Therefore, $\phi(1) = 1$, and only one possibility.
+\item  Homomorphism count for $Z_{99} \rightarrow Z_{99}$: 99, since $99 \cdot \phi(1) = 0$, so $\phi(1)$ can go anywhere.
+\item  Homomorphism count for $D_3 \rightarrow Z_3$: 1, since $D_3$ has 3 elements of order 2, 2 of order 3, 1 of order 1.  Only mapping everything to $0$ works.
+\end{itemize}
+
+
+\subsection{Page 11: Counting automorphisms}
+\begin{itemize}
+\item Automorphism is isomorphism from group to itself.
+\item Count of automorphisms of $Z_8$: If 1 maps to an order-8 element, we're isomorphic.  There are four: ${1,3,5,7}$
+\item $Aut(Z_8)$ is isomorphic to $Z_2 \times Z_2$, since $\phi_3(1)^2 = \phi_5(1)^2 = \phi_7(1)^2 = 1$, where $\phi_a$ maps a to 1.  Three elements of order 2 means it's the Klein 4 group.
+\item Count of \emph{automorphisms} (meaning, we need all the elements in the codomain) of $Z_2 \times Z_2 \times Z_2$: Think of $\phi((1,0,0)), \phi((0,1,0)), \phi((0,0,1))$ as the basis for the group.  There are seven choices for the first, six for the next, and \emph{four} for the third.  
+\item The above group is $(\phi(e_1) | \phi(e_2) | \phi(e_3)) = GL(\mathbb{F}_2)$, invertible matrices of 3x3.
+\end{itemize}
+
+
+\section {Chapter 2.6: Quotient Groups}
+\subsection{Aside: Complex multiplication}
+\begin{itemize}
+\item Complex modulus (size) of $a+bi$ is defined as $root(a^2+b^2)$
+\item Complex multiplication: Angles add, moduli multiply
+\item One proof of moduli: $(a+bi)(c+di) = (ac - bd) + (ad+bc)i$
+and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 2adbc}$
+\item One proof of angles: Convert to $r_1(cos(a) + sin(a))r_2(cos(b)+sin(b))$ and multiply
+\item More visual proof: Think of $c_1(a+bi) = c_1a + i(c_1b)$. $a$ scales original vector, and $bi$ rotates by 90 degrees and scales.
+\end{itemize}
+
+\subsection{Page 1-6}
+\begin{itemize}
+\item $S^1$, is defined as the group of complex numbers with modulus 1.
+\item The coset $zS^1$ is any complex number multiplied by $S^1$ , which is a circle about the origin.  $z=2$ and $z=2i$ would be in the same coset.  These cosets are members of $C^*$ with the same modulus (length).
+\item These are disjoint cosets that fill out $\mathbb{C}^*$ (don't include the zero, since no inverse).
+\item If you consider $H=x+iy$, $x > 0, y=0$ (positive reals) then the cosets are rays from the origin.  Any $zH$ is just the different sizes of that (say, unit) vector.  These cosets are members of $C^*$ with the same angle.
+\item \textbf{quotient group} of $\mathbb{C}^*$ by $S^1$:
+	\begin{itemize}
+	\item Members are cosets
+	\item Multiplying is defined as $aH \times bH = abH, H \in S^1, a,b \in \mathbb{C}^*$ 
+	\item $S^1$ is therefore the identity.
+	\item This group is isomorphic to $R^+$ under multiplication (or really, like H).
+	\item "A ray of angle A and a ray of angle B multiply to a ray of angle AB, forget about the size".
+	\item This is like collapsing out the divisor, in this case, $S^1$.
+	\item size $|G / H| = |G| / |H|$ since cosets are equally sized.
+	\item \textbf{Gotcha}: Only works (meaning, $g_1, g_1' \in C_1, g_2, g_2' \in C_2$ implies $g_1g_2$ in same coset as $g_1'g_2'$ ) if H is \textbf{normal} in G.  
+	\item Note: Normal means $xH = Hx$, so that makes sense that $g_1Cg_2C = g_1g_2C*C=g_1g_2C$
+	\end{itemize}
+\item So $\mathbb{C}^* / H$ is all the rays with the same modulus, or $S^1$.  
+\item	"A ray of size X and a ray of size Y multuply to a ray of size XY, and forget about the angles".
+\item So $\mathbb{C}^* / S^1 = H, mathbb{C}^* \ H = S^1$!
+\end{itemize}
+
+
+\subsection{Page 7-12}
+\begin{itemize}
+\item Another example: $\mathbb{Z} / 10\mathbb{Z} = \mathbb{Z_{10}}$ under addition.  Forget about the non-unit digits!
+\item Another example: $\mathbb{Q} / \mathbb{Z}$ is $\overline{q} = q + \mathbb{Z}$, so $\overline{1/2} + \overline{2/3} = \overline{1/6}$
+\item Another example: if $N$ is the \textbf{center} (omni-commuter subgroup) of $D_4$, then N is two elements $I, R_{180}$.  Forgetting about those we have cosets $(I, R_{180})N, (R_{90}, R_{270})N, (D_1, D_2)N, (V,H)N$.  All non-identity are degree 2, so isomorphic to $Z_2 \times Z_2$
+\item Another example: $Z_{13}^*$ with multiplication mod 13.  $N = {1,12}$ is a normal subgroup.  $Z_{13}^* / N$ is "forget about the +/- 1 of it and think of these as 1 through 6.  
+\item Another example: \textbf{commutator subgroup} [a,b] is generated by all $aba^{-1}b^{-1}$ for all $a, b \in G$.  So, group members are products of these guys, not necessarily all of that form.
+\item This is just $e$ for an Abelian group.  Its size measures "how far" the group is from being Abelian.  
+\item \textbf{Main idea} of quotients: "what do we force to the identity?"  If we say every $\overline{aba^{-1}b^{-1}} = \overline{1}$, then you can multiby by $ba$ to get $\overline{ab} =  \overline{ba}$.  So $G / [G,G]$ is necessarily Abelian.
+ \end{itemize}
+
+
+\section{Chapter 3.1: Number Theory}
+
+
+\subsection{Page 1- 7}
+\begin{itemize}
+\item A Fermat's little theorem proof
+ \begin{itemize}
+  \item Take prime $p$, and $a$ not divisible by $p$.
+   \item ${a, 2a, 3a ... , (p-1)a} \equiv {1, 2, 3, ... (p-1)} mod p$ since they're the same elements mod p.
+   \item Take the product of each: $a^{p-1}(p-1)! \equiv (p-1)! mod p$
+   \item Divide $(p-1)!$ out (there's an inverse mod p) and you get $a^{p-1} \equiv 1$ mod p
+  \end{itemize}
+ \item Another: Since the order of $a$ in $\mathbb{Z}_p^*$ is $p-1$, $a^{p-1} \equiv 1$ mod p.
+ \item Note: Generalization of Fermat's little theorem using same group argument: $a^{\phi(n)} \equiv 1$ if $a$ and $n$ relatively prime.
+ \end{itemize}
+ 
+ \subsection{Page 8-11}
+ \begin{itemize}
+ \item Wilson's theorem: $1 * 2 * ... * (p-1) \equiv -1$ mod $p$.
+ \item One proof: These all have inverses, except 1 and -1 mod p, which are self-inverting ($x^2 = 1$ solutions).
+ \item This also proves that the product of all elements of a finite Abelian group \emph{which has a single element $g$ of order 2} is that element, $g$.
+ \item A hard proof TODO. The powers of a \textbf{primitive root of p} yield all elements $a mod p$.  So $\mathbb{Z}_p^*$ is cyclical for any prime p.
+\item One more proof: if k relatively prime to p-1, where p a prime > 2, then $1^k + 2^k + ... + (p-1)^k \equiv 0$ mod $p$, since each of these summands is a different member of the group, summing to $\frac{p(p-1)}{2}$
+ \end{itemize}
+ 
+ \section{Chapter 3.2: Games}
+ \subsection{15 puzzle}
+ I think this will go:
+ - The board is a permutation of (1, 2, ... 15), read like a book, with a blank  somewhere in there ,immaterial.
+ - Sliding the blank left or right doesn't change the order.
+ - Sliding it up or down skips three backward or forward.
+ 
+\textbf{Their proof}: Think of this as a series of swaps with $(j, 16)$, 16 being the blank tile.  To return to the bottom right corner, 16 must make an even number of moves.  So only even permutations allowed.  So (14,15) is not a viable swap, nor any of the odd permutations.  
+
+\section{Chapter 3.3: Peg solitaire}
+
+\begin{itemize}
+\item Consider Klein four group: $xy = yx = z, yz = zy = x, xz = zx = y$.  
+\item Label all pegs such that three consecutive are always, in some order: x, y, z
+\item Invariant: product of all occupied spaces.  If x jumps over y to get to z, eliminating jumped peg, xy = z.
+\item 11  x's, 11 z's, 10 y's yield xz = y as the product.
+\end{itemize}
+
+\section{Chapter 3.4: Rubix's Cube}
+
+\begin{itemize}
+\item Each element is the state $(S_{12}, S_8, (Z_2)^{12}, (Z_3)^8$), representing around a fixed set of centers: (middle selections, corner sleections, middle orientation, corner orientation).
+\item Invariant: First and second perms for all F,B,D,U,L,R are odd, so first two args need same permutation parit
+\item Invariant: (Not proven here): Sum of edge orientations (0,1) is zero, sum of corner orientations (0, 1, 2) is zero.
+\item \textbf{Commutator}: $ghg^{-1}h^{-1}$ measure how entangled $g$ and $h$ are.  If they're commutatitive, it is $e$.
+\item For Rubix's cube, commutators  $ghg^{-1}h^{-1}$ are great for only moving pieces where effects of $g$ and $h$ overlap.
+\item $g$ and $h$ are \textbf{conjugates} if some x such that $h = x^{-1}gx$.   "h is same as g, just in a different location".
+\item Conjugate interpretation: "h is move via x, operate with g, move back via x.  "\
+\item For Rubix's cube - you can use conjugates to make whatever change to a different part of the cube (move it to the operating table, operate, move it back).
+\end{itemize}
+
+\section{Chapter 4.1: Normal Subgroups}
+
+\begin{itemize}
+\item Think: Every conjugacy $g^{-1}Hg$ moves a group to another subgroup.  Normal subgroups  $g^{-1}Ng = N$ are the ones \emph{that don't move}
+\item Example of non-normal: Any one of the $n$ sets of $S_{n-1}$ among conjugates of $S_n$.  
+\item Normal definition: Group N is normal if and only if
+	\begin{itemize}
+	\item $gN = Ng$ for all $g \in G$
+	\item $gNg^{-1} = N$ for all $g \in G$ (equiv to above)
+	\item $gng^{-1} \in N$ for all $g \in G$
+	\end{itemize}
+\item Trivial: Any subgroup of index 2 is normal.  G has two distinct cosets $N$, $gN$, but also $N$ and $Ng$ so $gN = Ng$.
+\item Normal doesn't recursively nest.  
+	\begin{itemize}
+	\item If $G$ has normal subgroup $H$ and $H$ has normal subgroup $K$, $K$ is normal in $H$ too (those elements also "pass through K"
+	\item However, $H$ can be normal in $G$ (e.g. ${I, R_{180}, F_v, F_h}$ in $D_4$,  $K$ can be normal in $H$ (e.g. ${I, V}$, but $K$ is not normal in $G: VR_{90} = D_{ul}, R_{90}V = D_{ur}$
+	\end{itemize}
+\item Normal examples in $GL_2(\mathbb{C})$: $SL_2(\mathbb{C})$ (determinant 1) and non-zero diags $zI_2$.  
+\item Non-normal examples in $GL_2(\mathbb{C})$: $GL_2(\mathbb{R})$ and non-zero diags with different entries. Easy to throw some arbitrary ones in Wolfram Alpha and see messed up after conjugation.
+\item G's Center $Z(G)$ are the omni-commuters.  Always normal.
+\item G's Commutator group $[G,G]$: Product of any $aba^{-1}b^{-1}$ for $a, b \in G$. is normal, since $g[a,b]g^{-1} = [gag^{-1}, gbg^{-1}]$.
+
+\end{itemize}
+
+\end{document}
