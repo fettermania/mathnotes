@@ -118,8 +118,7 @@ The set of rationals with multiplication as the group operation is not a group a
 
 \begin{itemize}
 \item Dihedral group $D_n$ has $2n$ elements, is not commutative, not cyclical.
-\item If n is even, there is exactly one rotational symmetry $R\neq I$
- =I which commutes with all the other elements of $D_n$ (the 180 degree rotation)
+\item If n is even, there is exactly one rotational symmetry $R\neq I$ which commutes with all the other elements of $D_n$ (the 180 degree rotation)
 \end{itemize}
 
 \subsection {Page 8 - 9}
@@ -133,8 +132,7 @@ The set of rationals with multiplication as the group operation is not a group a
 
 \begin{itemize}
 \item Cyclic group $Z_n$ is the set of integers modulo $n$ under addition.  
-\item Note that usually multiplication is the group operation, it usually uses "+".
-\item Every element in $Z_n$ is its own inverse iff n is even.
+\item Note that though usually multiplication is the default group operation, this usually uses "+".
 \end{itemize}
 
 \section {Chapter 2.2: More Group Examples}
@@ -142,7 +140,7 @@ The set of rationals with multiplication as the group operation is not a group a
 \subsection {Page 1-2}
 
 \begin{itemize}
-\item Order of an element $g$ is smallest $k$ such that $g^k = e$.  Otherwise \emph{infinite order}
+\item \textbf{Order of an element} $g$ is smallest $k$ such that $g^k = e$.  Otherwise \textbf{infinite order}
 \end{itemize}
 
 \subsection {Page 3}
@@ -193,7 +191,7 @@ has order 2,  but $AB = \begin{pmatrix}
 \subsection {Page 6-11}
 
 \begin{itemize}
-\item \emph{isomorphism} is a bjiection preserving group operations.
+\item \textbf{isomorphism} is a bjiection preserving group operations.
 \item Can think of it as a relabeling of the Cayley table.
 \item Example given is Klein-four and symmetries of tall serif letter "I", or of a diamond/non-square rhombus.
 \item $Z_{12}$ is isomorphic to rotational symmetries of a 12-gon.
@@ -222,7 +220,7 @@ $\pm \begin{pmatrix}
 
 \end{pmatrix}
 \Bigg\} \subset GL_2(\mathbb{R})$ 
-\item $D_3$ is isomorphic to $S_3$ since any permutation is possible and no more.
+\item $D_3$ is isomorphic to $S_3$ since any permutation is possible in $D_3$ and no more.
 \end{itemize}
 
 
@@ -238,10 +236,12 @@ $\pm \begin{pmatrix}
 \subsection {Page 4}
 
 \begin{itemize}
-\item Cartesian product of groups G, H is also a group: $G \times H = (g, h) \cdot (g', h') = (gg', hh'), g \in G, h \in H$  
+\item Cartesian product of groups G, H is also a group: $G \times H = (g, h) \cdot (g', h') = (gg', hh'), g \in G, h \in H$.  Is this also called the \textbf{direct product}? 
 \end{itemize}
 
 \subsection {Lagrange's theorem}
+
+Theorem: Order of every subgroup divides the containing group.
 
 Lemma: $H \subset G.  r,s \in G.  Hr = Hs \iff rs^{-1} \in H$.  Otherwise, $Hr, Hs$ have no element in common.
 
@@ -272,8 +272,8 @@ So, by the first direction above, $Hr = Hs$.
 \subsection {My take on Lagrange}
 
 \begin{itemize}
-\item If $t \in Hr since t = h_1r$ and $t \in Hs since t=h_2s$, then $r = h_1^{-1}h_2s \in Hs$ and likewise for s, so $Hr = Hs$.  So every element is in both or neither.
-\item Therefore "H" is a partition relation on the elements of G.
+\item If $t \in Hr$ since $t = h_1r$ and $t \in Hs$ since $t=h_2s$, then $r = h_1^{-1}h_2s \in Hs$ and likewise for s, so $Hr = Hs$.  So every element is in both or neither.
+\item Therefore $H(x) = Hx$ is a partition relation on the elements of G.
 \item Size of $Hr$ equals size of H for obvious group reasons.
 \item Every element g of G is in some coset $Hg$.  
 \item Therefore G is partitioned into cosets of equal size, which is size of H.
@@ -334,7 +334,7 @@ So, by the first direction above, $Hr = Hs$.
 \begin{itemize}
 \item Theorem: Every finite abelian group is isomorphic to a direct product of cyclic groups.
 \item Therefore, the number of these groups of order n is the product of the partitions of each of its prime factors' powers.
-\item Therefore, the number of abelian groups of size $24 = 3* 2^3 = p(3) * p(1) = 3 * 1 = 3, Z_3  \times Z_8, Z_3  \times Z_4 \times Z_2, Z_3  \times Z_2 \times Z_2 \ times Z_2$
+\item Therefore, the number of abelian groups of size $24 = 3* 2^3 = p(3) * p(1) = 3 * 1 = 3, Z_3  \times Z_8, Z_3  \times Z_4 \times Z_2, Z_3  \times Z_2 \times Z_2 \times Z_2$
 \item Therefore, the number of abelian groups of size $2310 = 2 * 3 *5 * 7 * 11$ is one.
 \end{itemize}
 
@@ -351,22 +351,21 @@ So, by the first direction above, $Hr = Hs$.
 \end{itemize}
 
 \section {Chapter 2.5: Homomorphisms}
-\subsection(\subsection{Page 1 - X}
+\subsection{Page 1 - 6}
 \begin{itemize}
-\item Homomorphism $\phi: \phi(a) *' \phi(b) = \phi(a * b)$.  Note that  * and *' are different  operations.
+\item Homomorphism $\phi: \phi(a) *' \phi(b) = \phi(a * b)$.  Note that  $*$ and $*'$ are different  operations.
 \item This means, "translate each via the function, then combine" yields the same result as "combine first, then translate".  So structure is preserved.
-\item Note this is like isomorphism, except homeomorphism can squash some items to zero.
+\item Note this is like isomorphism, except homomorphism can squash some items to zero.
 \item Also, this can change to an entirely separate domain, e.g. $det(AB) = det(A)det(B)$
 \item Easy to prove homomorphism preserves identities and inverses.
-\item Order of transformed element $\phi(g)$ divides order of g, since $g^k = e and \phi(g)^k = \phi(e)$, but consider - we could map everything to the identity! 
-\item
+\item Order of transformed element $\phi(g)$ divides order of g, since $g^k = e$ and $\phi(g)^k = \phi(e)$, but consider that $\phi(g)$ could hit $e$ at some divisor of $k$ - we could map everything to the identity and make that 1!
 \end{itemize}
 
-\subsection(\subsection{Page 7- 10: Counting homomorphisms}
+\subsection{Page 7- 10: Counting homomorphisms}
 \begin{itemize}
 \item Main idea: Knowing where we send identity determines entire homomorphism for a cyclic group.
 \item Homomorphism count for $Z_4 \rightarrow Z_{10}$: There are 10 places to send identity, but recall that $\phi(1)$ has to have order 4 since $\phi(1 + 1 + 1 + 1) = \phi(0) = 0$.  Therefore, $\phi(1)$ has to be 0 or 5.  So 2 possibilities.
-\item Homomorphism count for $Z_{99} \rightarrow Z_{100}$: Since $\phi(99) = 0 and \phi(1) \times 100$, it must divide both. Therefore, $\phi(1) = 1$, and only one possibility.
+\item Homomorphism count for $Z_{99} \rightarrow Z_{100}$: Since $\phi(99) = 0$ and $\phi(1) \times 100 = 0$, and order of $\phi(1)$ must divide both, only one possibility: $\phi(1) = 1$,.
 \item  Homomorphism count for $Z_{99} \rightarrow Z_{99}$: 99, since $99 \cdot \phi(1) = 0$, so $\phi(1)$ can go anywhere.
 \item  Homomorphism count for $D_3 \rightarrow Z_3$: 1, since $D_3$ has 3 elements of order 2, 2 of order 3, 1 of order 1.  Only mapping everything to $0$ works.
 \end{itemize}
@@ -413,19 +412,18 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 	\end{itemize}
 \item So $\mathbb{C}^* / H$ is all the rays with the same modulus, or $S^1$.  
 \item	"A ray of size X and a ray of size Y multuply to a ray of size XY, and forget about the angles".
-\item So $\mathbb{C}^* / S^1 = H, mathbb{C}^* \ H = S^1$!
+\item So $\mathbb{C}^* / S^1 = H$ and $\mathbb{C}^* / H = S^1$!
 \end{itemize}
 
 
 \subsection{Page 7-12}
 \begin{itemize}
-\item Another example: $\mathbb{Z} / 10\mathbb{Z} = \mathbb{Z_{10}}$ under addition.  Forget about the non-unit digits!
+\item Another example: $\mathbb{Z} / 10\mathbb{Z} = \mathbb{Z}_{10}$ under addition.  Forget about the non-unit digits!
 \item Another example: $\mathbb{Q} / \mathbb{Z}$ is $\overline{q} = q + \mathbb{Z}$, so $\overline{1/2} + \overline{2/3} = \overline{1/6}$
 \item Another example: if $N$ is the \textbf{center} (omni-commuter subgroup) of $D_4$, then N is two elements $I, R_{180}$.  Forgetting about those we have cosets $(I, R_{180})N, (R_{90}, R_{270})N, (D_1, D_2)N, (V,H)N$.  All non-identity are degree 2, so isomorphic to $Z_2 \times Z_2$
 \item Another example: $Z_{13}^*$ with multiplication mod 13.  $N = {1,12}$ is a normal subgroup.  $Z_{13}^* / N$ is "forget about the +/- 1 of it and think of these as 1 through 6.  
-\item Another example: \textbf{commutator subgroup} [a,b] is generated by all $aba^{-1}b^{-1}$ for all $a, b \in G$.  So, group members are products of these guys, not necessarily all of that form.
-\item This is just $e$ for an Abelian group.  Its size measures "how far" the group is from being Abelian.  
-\item \textbf{Main idea} of quotients: "what do we force to the identity?"  If we say every $\overline{aba^{-1}b^{-1}} = \overline{1}$, then you can multiby by $ba$ to get $\overline{ab} =  \overline{ba}$.  So $G / [G,G]$ is necessarily Abelian.
+\item Another example: \textbf{commutator subgroup} [a,b] is generated by all $aba^{-1}b^{-1}$ for all $a, b \in G$.  Note: group members are products of these guys, not necessarily all of that form.  This is just $e$ for an Abelian group.  Its size measures "how far" the group is from being Abelian.  
+\item \textbf{Main idea} of quotients: "what do we force to the identity?"  If we say every $\overline{aba^{-1}b^{-1}} = \overline{1}$, then you can multiply by $ba$ to get $\overline{ab} =  \overline{ba}$.  So $G / [G,G]$ is necessarily Abelian.
  \end{itemize}
 
 
@@ -437,8 +435,8 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 \item A Fermat's little theorem proof
  \begin{itemize}
   \item Take prime $p$, and $a$ not divisible by $p$.
-   \item ${a, 2a, 3a ... , (p-1)a} \equiv {1, 2, 3, ... (p-1)} mod p$ since they're the same elements mod p.
-   \item Take the product of each: $a^{p-1}(p-1)! \equiv (p-1)! mod p$
+   \item ${a, 2a, 3a ... , (p-1)a} \equiv {1, 2, 3, ... (p-1)}$ mod $p$ since they're the same elements mod p.
+   \item Take the product of each: $a^{p-1}(p-1)! \equiv (p-1)!$ mod $p$
    \item Divide $(p-1)!$ out (there's an inverse mod p) and you get $a^{p-1} \equiv 1$ mod p
   \end{itemize}
  \item Another: Since the order of $a$ in $\mathbb{Z}_p^*$ is $p-1$, $a^{p-1} \equiv 1$ mod p.
@@ -450,8 +448,8 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
  \item Wilson's theorem: $1 * 2 * ... * (p-1) \equiv -1$ mod $p$.
  \item One proof: These all have inverses, except 1 and -1 mod p, which are self-inverting ($x^2 = 1$ solutions).
  \item This also proves that the product of all elements of a finite Abelian group \emph{which has a single element $g$ of order 2} is that element, $g$.
- \item A hard proof TODO. The powers of a \textbf{primitive root of p} yield all elements $a mod p$.  So $\mathbb{Z}_p^*$ is cyclical for any prime p.
-\item One more proof: if k relatively prime to p-1, where p a prime > 2, then $1^k + 2^k + ... + (p-1)^k \equiv 0$ mod $p$, since each of these summands is a different member of the group, summing to $\frac{p(p-1)}{2}$
+ \item A hard proof TODO. The powers of a \textbf{primitive root of p} yield all elements $a$ mod $p$.  So $\mathbb{Z}_p^*$ is cyclical for any prime p.
+\item One more proof: if k relatively prime to p-1, where p a prime $> 2$, then $1^k + 2^k + ... + (p-1)^k \equiv 0$ mod $p$, since each of these summands is a different member of the group, summing to $\frac{p(p-1)}{2}$
  \end{itemize}
  
  \section{Chapter 3.2: Games}
@@ -490,31 +488,31 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 \subsection{Normal definition}
 
 \begin{itemize}
-\item Think: Every conjugacy $g^{-1}Hg$ moves a group to another subgroup.  Normal subgroups  $g^{-1}Ng = N$ are the ones \emph{that don't move} when you conjugate them.
+\item \textbf{Normal subgroup intuition}: Every conjugacy $g^{-1}Hg$ moves a group to another subgroup.  Normal subgroups  $g^{-1}Ng = N$ are the ones \emph{that don't move} when you conjugate them.
 \item Example of non-normal: Any one of the $n$ sets of $S_{n-1}$ among conjugates of $S_n$.     Move it, mess with it, move it back - it's broken free by then.
-\item Normal definition: Group N is normal if and only if
+\item Normal definition: Group N is normal if and only if (all equivalent):
 	\begin{itemize}
 	\item $gN = Ng$ for all $g \in G$
 	\item $gNg^{-1} = N$ for all $g \in G$ (equiv to above)
 	\item $gng^{-1} \in N$ for all $g \in G$
 	\end{itemize}
-\item Proof; Any subgroup of index 2 is normal.  G has two distinct cosets $N$, $gN$, but also $N$ and $Ng$ so $gN = Ng$.
+\item \emph{Theorem: Any subgroup of index 2 is normal}.  Proof: G has two distinct cosets $N$, $gN$, but also $N$ and $Ng$ so $gN = Ng$.
 \item Normal doesn't recursively nest.  
 	\begin{itemize}
 	\item If $G$ has normal subgroup $H$ and $H$ has normal subgroup $K$, $K$ is normal in $H$ too (those elements also "pass through K)"
 	\item However, $H$ can be normal in $G$ (e.g. $(I, R_{180}, F_v, F_h)$ in $D_4$,  $K$ can be normal in $H$ (e.g. ${I, V}$, but $K$ is not normal in $G: VR_{90} = D_{ul}, R_{90}V = D_{ur}$
 	\end{itemize}
 \item Normal examples in $GL_2(\mathbb{C})$: $SL_2(\mathbb{C})$ (determinant 1) and non-zero diags $zI_2$.  
-\item Non-normal examples in $GL_2(\mathbb{C})$: $GL_2(\mathbb{R})$ and non-zero diags with different entries. Easy to throw some arbitrary ones in Wolfram Alpha and see messed up after conjugation.
-\item G's Center $Z(G)$ are the omni-commuters.  Always normal.
-\item G's Commutator group $[G,G]$: Product of any $aba^{-1}b^{-1}$ for $a, b \in G$. is normal, since $g[a,b]g^{-1} = [gag^{-1}, gbg^{-1}]$.
+\item Non-normal examples in $GL_2(\mathbb{C})$: $GL_2(\mathbb{R})$ and non-zero diags with different entries. Easy to throw some arbitrary ones in Wolfram Alpha and see everything messed up after conjugation.
+\item G's \textbf{Center}: $Z(G)$ are the omni-commuters.  Always normal.
+\item G's \textbf{Commutator group $[G,G]$}: Product of any $aba^{-1}b^{-1}$ for $a, b \in G$. is normal, since $g[a,b]g^{-1} = [gag^{-1}, gbg^{-1}]$.
 \end{itemize}
 
 \subsection{Normal properties and examples}
 \begin{itemize}
 \item $S_3$ has three normal subgroups: two trivial ones, and $([], [123], [321])$ since it's of index 2.
 \item $Q_8$ has four non-trivial subgroups, all normal: those generated by $I, j$, or $k$, all of order 4, index 2.  $-1$ also generates an order 2 group, but it's the center.
-\item Definition: Product $HK = {hk: h \in H, k in K}$. 
+\item Definition: Product $HK = {hk: h \in H, k \in K}$. 
 \item Property: If $H \cap K$ = $\{1\}$, and $H, K$ are finite, $|HK| = |H| \cdot |K|$.  Why?  
   $h_1k_1 = h_2k_2 \Longrightarrow h_2^{-1}h_1 = k_1^{-1}k_2$, proving they're both $e$ since left is in $H$, right in $K$.
 \item Property : If $H, K$ subgrops of G, then $HK$ is a subgroup too if $H$ or $K$ is normal, otherwise not always.  Why?   
@@ -530,7 +528,7 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 \item \textbf{Normalizer} of G's subgroup H is a subgroup of G which makes H normal: $N_G(H) = \{g \in G: gH= Hg\}$.  This is G if and only if H is normal in G (almost definitional).  Largest subgroup of G where H is normal.
 \item Centralizer is  a normal subgroup of normalizer with two different proofs:
 \begin{itemize}
-\item With $n \in N_G(H), c \in C_G(s)$, show that $ncn^{-1}$ commutes with members of H, so it's in $C_G$, therefore normal.  $hn$ is some $nh'$, and same for $n^{-1}$,, so $ncn^{-1}h = nch'n^{-1} = nh'cn^{-1} = h'ncn^{-1}$ so $ncn^{-1}$ passed through h, is therefore in the centralizer, and so $C_G(H)$ is normal.
+\item With $n \in N_G(H), c \in C_G(s)$, show that $ncn^{-1}$ commutes with members of H, so it's in $C_G$, therefore normal.  $hn$ is some $nh'$, and same for $n^{-1}$, so $ncn^{-1}h = nch'n^{-1} = nh'cn^{-1} = h'ncn^{-1}$ so $ncn^{-1}$ passed through h, is therefore in the centralizer, and so $C_G(H)$ is normal.
 \item Using First isomorphism theorem (later): 
   \begin{itemize}
   \item $N_G(H)$ is the big "dividend" group, $C_G(H)$ is the "divisor", and Aut(H) the "quotient" (codomain of the homomorphism)
@@ -545,5 +543,90 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 \end{itemize}
 
 \section{Chapter 4.2: Isomorphism theorems}
+\begin {itemize}
+\item Example of intuitive isomorphism: $M_2(\mathbb{Z})/N \cong (\mathbb{Z}_2)^4$, where N is the subgroup with even entries.   How?  Can \emph{either list all cosets} or construct a homomorphism $\phi
+   \begin{pmatrix}
+    a     & b \\
+   c     & d \\
+  \end{pmatrix}
+    = (a ($mod$2), b ($mod$2), c ($mod$2), d$ mod $ 2)).$
+
+\subsection{First Isomorphism Theorem and example}
+  \begin{itemize} 
+  \item $G = GL_2(\mathbb{R})$, invertible 2x2 real matrices
+  \item $N = SL_2(\mathbb{R})$ is subgroup of $G$ with determinant 1.
+  \item $\varphi$ is $det$, since $det(AB) = det(A)det(B)$.
+  \item $G / N \cong \mathbb{R}^*$ intuitively, since for any matrix, you can divide by the determinant scalar, and find the representative in the group N.   Can think of N as the kernel of the homomorphism - it doesn't matter, it's mapped to identitty.
+  \item \textbf{First isomorphism theorem}: given surjective homomorphism $\varphi: G \mapsto H$ with kernel $Ker(\varphi) = \{g \in G |\varphi(g) = e_H\}$, then $G / Ker(\varphi) \cong H$. 
+  \item Another example in the above, if 
+    $a= \begin{pmatrix} 0 & 1 \\ 2 & 3 \\   \end{pmatrix},
+     b= \begin{pmatrix} 1 & 2 \\ 3 & 4 \\   \end{pmatrix},$ then $(aN)(bN)$ is some $cN$, where $det(c) = 4$, like $2I$
+  \end{itemize}
+  \end{itemize}
+
+\subsection{Third Isomorphism theorem}
+\begin{itemize}
+\item Theorem: If G / N is abelian, then every subgroup H of G containing N is normal in G.
+  \begin{itemize}
+\item $H / N \subset G / N$, and so $H / N$ is abelian too.
+\item Abelian means $ghN = hgN$
+\item This also shows there is some $n$ such that $gh = hgn$.
+\item But since N is normal in G, $gn = n'g \rightarrow hgn = (hn')g$, and $hn' \in H$, therefore $gh = (hn')g$, and H is normal in G.
+\end{itemize}
+\item Actual theorem says subgroups of G containing N correspond to subgroups of G/N. 
+\item Also, $\frac{G/N}{H/N} \cong \frac{G}{H}$
+\end{itemize}
+
+\subsection{Second Isomorphism theorem}
+\begin{itemize}
+\item Actual theorem says: if $H$ is a subgroup of $G$, and $N$ is a normal subgroup of $G$, then $\frac{H}{H \cap N} \cong \frac{HN}{N}$
+\item In particular, if $H \cap N = \{1\}$, then $\frac{HN}{N} \cong H$.  
+\item Why?  
+\item $HN$ contains both H and N since N is normal.
+\item Therefore $(HN)/N$ is a group.
+\item $\varphi(h) = hN$ is a surjective homomorphism to $(HN)/N$
+\item The kernel is anything in N, which would be $H \cap N$.
+\item Result follows from first isomorphism theorem.
+\end{itemize}
+
+\subsection{Examples using the first isomorphism theorem}
+\begin{itemize}
+\item: Typically, in order to identify $G/N \cong K$, find the surjective homomorphism $G \rightarrow K$ where $Ker(\varphi) = N$.
+\item Example: $G = \mathbb{Z} \times \mathbb{Z}$ with addition, N = group generated by $(1,0)$.  $G/N \cong Z$ intuitively, since you're forgetting the first coordinate.  To make it formal : $\varphi((x,y) = y)$.  
+\item Harder example: $G = \mathbb{Z} \times \mathbb{Z}$ with addition, H = group generated by $(2,3)$, or $(2a, 3a)$.  $G/H \cong Z$, actually, since $\phi((x,y) = 3x - 2y)$ is surjective (think of $\phi((a, a)) = a$ and its kernel is H.
+\item Harder example: $G = \mathbb{Z} \times \mathbb{Z}$ with addition, H = group generated by $(2,4)$, or $(2a, 4a)$.  $G/H \cong Z \times Z_2$, actually, since $\phi((x,y) = 2x  - y, x (mod 2))$ is surjective and its kernel is H.
+\item TODO: Get a better intuition here.  Is this group like, how far away from this null space line am I?
+\end{itemize}
+
+\section{4.3a: Interlude; Group actions}
+
+\subsection{Group Actions}
+Reference: https://brilliant.org/wiki/group-actions
+\begin{itemize}
+\item \textbf{group action} on group $G$, set $X$, is function $f: G \times X \rightarrow X$.  It's often written $f(g,x) = g \cdot x$. which has some groupy properties.
+  \begin{itemize}
+  \item $f(e_G, x) = x$ for all $x \in X$, or $e_G \cdot x = x$
+  \item $f(g, f(h, x)) = f(gh, x)$ for all $x \in X$ ,or $g \cdot (h \cdot x) = (gh) \cdot x$.
+  \item Canonical Example: if G is $S_n$, and $X = \{1, 2, ... n\}$.  
+  \end{itemize}
+
+\item \textbf{fixed point of a group element} $g \in G$ is $x \in X$ such that $g \cdot x = x$.  So, $f = g(x)$ is the (very straightforward) mapping, $g$ is the function, and $x$ would be a point that doesn't change.
+\item For point $x$, \textbf{stabilizer of the point} is called $G_x$, and is the set of $g \in G$ that map $x$ as a fixed point: $g(x) = x$.of a of element $g \in G$ is $x \in X$ such that $g \cdot x = x$.  So, it's the \emph{subgroup} that makes $x$ totally stable.
+\item \textbf{fixed point} of element $g \in G$ is $x \in X$ such that $g \cdot x = x$.  So, $f = g(x)$ is the (very straightforwardx) mapping, $g$ is the function, and $x$ would be a point that doesn't chagne.
+\item \textbf{orbit of element $x \in X$} is how far $x$ reaches, the set of $y \in X$ such that there's a $g \cdot x = y$.
+\item Example: So if $G = \mathbb{Z}_2 = {e, g}, X = \mathbb{Z}$, and the action is $e \cdot x = x, g \cdot x = -x$, then
+  \begin{itemize}
+  \item Fixed points of $e$ are all of them, of $g$ is 0.
+  \item Stabilizers of $x$ are $e$ for all, $e,g$ for 0.
+  \item Orbit of 0 is $\{0\}$, orbit of every other $n$ is $\{n, -n\}$
+  \end{itemize}
+\end{itemize}
+
+
+\section{4.3: Conjugacy classes}
+\begin{itemize}
+\item Within group G, elements h, h' in conjugacy class H have some $g \in G$ such that $h' = ghg^{-1}$ (and therefore,  $g^{-1}h'g = h$.  So, it's an equivalence relation, thus a partition.
+\item Note: if the group G is abelian, $h' = ghg^{-1} \rightarrow gg^{-1} h = h$, so all conjugancy classes there are of size one.
+\end{itemize}
 
 \end{document}
