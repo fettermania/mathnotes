@@ -629,7 +629,13 @@ Reference: https://brilliant.org/wiki/group-actions
   \item Every group acts on itself by left multiplication.  It is transitive and faithful (since the Cayley table is a latin square).  One orbit.
   \item Every group acts on itself by conjugation $g \cdot x = g x g^{-1}$. Orbits are the conjugacy classes.  The \textbf{centralizer} $C_G(x)$ is the stabilizer of $x$.
   \item If $H$ is a subgroup of $G$, then cosets $G / H$ and left multiplication are a group action.  They are a transitive action since there is one orbit: you can always get from $gH$ to $kH$ by $(kg^{-1})H$.
-  \item \textbf{TODO: Understand later at https://wiki.ubc.ca/images/7/71/Problems.pdf}: The above map $G \rightarrow Sym(G/H)$ is a map $f(g) = gHg^{-1}$.  Note if $N$ is a subgroup of H normal in G, then $gNg^{-1} = N$, so $g$ in that case is in the kernel, since it doesn't alter the member of the quotient group.  This is SOMEHOW equal to the intersection of all conjugates $gHg^{-1}$ of $H$, and the largest normal subgroup[ contained in $H$.  So if $H$ doens't have any nontrivial normal subgroups, it is a faithful action.    
+  \item \textbf{Core Group}: The group $\bigcap_{g \in G} gHg^{-1}$ of G's subgroup H is the largest normal subgroup of H.  Proof:
+  \begin{itemize}
+  \item It's contained in H since $hHh^{-1} \in H$, and it's an intersection.
+  \item It's normal because $kCore_G(H)k^{-1} = k (\bigcap_{g \in G} gHg^{-1}) k^{-1}  = \bigcap_{g \in G} kgHg^{-1}k^{-1} = Core_G(H)$ since every $kg$ is just a $g$ but permuted. 
+  \item It's the largest normal one since if there were another normal subgroup $N' \in H$, then $gn'g^{-1} \in N'$ and $gn'g^{-1} = h$ for some $h \in H$, so $n' = g^{-1}hg$, and therefore $n'$ is somewhere in the core group.
+  \item Therefore, the core group is the kernel of the map $G \rightarrow Sym(G/H)$, since those map to H.  So if H doesn't contain any trivial subgroups, it's faithful, and is called \textbf{simple}
+  \end{itemize}  
   \item \textbf{TODO: Understand later}: $PGL_2(\mathbb{C})$ = projective linear group of 2x2 matrices on the complex plane (plus infinity).
   \end{itemize}
 
