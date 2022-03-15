@@ -619,7 +619,29 @@ Reference: https://brilliant.org/wiki/group-actions
   \item Fixed points of $e$ are all of them, of $g$ is 0.
   \item Stabilizers of $x$ are $e$ for all, $e,g$ for 0.
   \item Orbit of 0 is $\{0\}$, orbit of every other $n$ is $\{n, -n\}$
+  \item \emph{orbits} are an equivalency relation!  So they partition $X$.
   \end{itemize}
+ \item Action is \textbf{transitive} if there is only one orbit in the relation (sounds like a regular group): for any $x, y \in X$, there is a $g$ such that $g \cdot x = y$.
+ \item Action is \textbf{faithful} If only $e_G$ if the only omni-stabilizer element is $e_G$.  Intersection of all $G_x$ is $e_G$.
+ \item Another way to think about faithful: Think of $G$ as a homomorophism to $Sym(X)$, permutations of the group.  Faithful actions are injective / have a trivial kernel.
+\item Examples of actions 
+  \begin {itemize}
+  \item Every group acts on itself by left multiplication.  It is transitive and faithful (since the Cayley table is a latin square).  One orbit.
+  \item Every group acts on itself by conjugation $g \cdot x = g x g^{-1}$. Orbits are the conjugacy classes.  The \textbf{centralizer} $C_G(x)$ is the stabilizer of $x$.
+  \item If $H$ is a subgroup of $G$, then cosets $G / H$ and left multiplication are a group action.  They are a transitive action since there is one orbit: you can always get from $gH$ to $kH$ by $(kg^{-1})H$.
+  \item \textbf{TODO: Understand later at https://wiki.ubc.ca/images/7/71/Problems.pdf}: The above map $G \rightarrow Sym(G/H)$ is a map $f(g) = gHg^{-1}$.  Note if $N$ is a subgroup of H normal in G, then $gNg^{-1} = N$, so $g$ in that case is in the kernel, since it doesn't alter the member of the quotient group.  This is SOMEHOW equal to the intersection of all conjugates $gHg^{-1}$ of $H$, and the largest normal subgroup[ contained in $H$.  So if $H$ doens't have any nontrivial normal subgroups, it is a faithful action.    
+  \item \textbf{TODO: Understand later}: $PGL_2(\mathbb{C})$ = projective linear group of 2x2 matrices on the complex plane (plus infinity).
+  \end{itemize}
+
+\item \textbf{Orbit stabilizer theorem}: If $G$ is finite, and $x \in G$ has a stabilizer $G_x$ and orbit orb(x), then $|G| = |G_x| |orb(x)|$.  Proof:
+\begin{itemize}
+\item Since stabilizer is a subgroup, the count of distinct cosets (index) times the subgroup is the size by Lagrange. 
+\item Consider homomorphism $\phi$ from $G / G_x \rightarrow orb(x) = gG_x \rightarrow g \cdot x$
+\item And the set $aG_x$ and $bG_x$ are equal under $\phi$  iff $a(x) = b(x)$, since $b^{-1}aG_x= G_x$, implying $b^{-1}a \in G_x \rightarrow b^{-1}a(x) = x \rightarrow a(x) = b(x)$.  
+\item Also, this map is onto since every element $y \in orb(x)$, meaning some $g \cdot x = y$ is in that $gG_x$ .
+\item Example: \emph{symmetric group}: $S_n: G_x \cong S_{n-1}! \rightarrow |G_x| = (n-1)!$ .  $orb(x) = n$.  So $|G| = n!$.
+\item Example: \emph{cube symmetries}: Vertex is $x$, rotation of adjacent vertices is $G_x$. $|G_x| |O_x| = 3* 8 = 24$.  Can also do with edges and faces.  Turns out cube symmetries $\cong S_4$
+\end{itemize}
 \end{itemize}
 
 
