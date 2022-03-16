@@ -635,9 +635,11 @@ Reference: https://brilliant.org/wiki/group-actions
   \item It's normal because $kCore_G(H)k^{-1} = k (\bigcap_{g \in G} gHg^{-1}) k^{-1}  = \bigcap_{g \in G} kgHg^{-1}k^{-1} = Core_G(H)$ since every $kg$ is just a $g$ but permuted. 
   \item It's the largest normal one since if there were another normal subgroup $N' \in H$, then $gn'g^{-1} \in N'$ and $gn'g^{-1} = h$ for some $h \in H$, so $n' = g^{-1}hg$, and therefore $n'$ is somewhere in the core group.
   \item Therefore, the core group is the kernel of the map $G \rightarrow Sym(G/H)$, since those map to H.  So if H doesn't contain any trivial subgroups, it's faithful, and is called \textbf{simple}
-  \end{itemize}  
-  \item \textbf{TODO: Understand later}: $PGL_2(\mathbb{C})$ = projective linear group of 2x2 matrices on the complex plane (plus infinity).
+  \end{itemize}	  
+  \item Another group action: $PGL_2(\mathbb{C})$ = projective linear group of 2x2 matrices on the complex plane (plus infinity), sending $\begin{pmatrix} a & b \\ c & d\\ \end{pmatrix} \cdot z = \frac{az+b}{cz+d}$.  
+  
   \end{itemize}
+  
 
 \item \textbf{Orbit stabilizer theorem}: If $G$ is finite, and $x \in G$ has a stabilizer $G_x$ and orbit orb(x), then $|G| = |G_x| |orb(x)|$.  Proof:
 \begin{itemize}
@@ -651,10 +653,28 @@ Reference: https://brilliant.org/wiki/group-actions
 \end{itemize}
 
 
-\section{4.3: Conjugacy classes}
+\section{Aside: Conjugacy classes}
+\subsection{Conjugacy classes defined}
 \begin{itemize}
+\item Note: It's easy to take a group to another group by conjugation group action $\phi(g, H): ghg^{-1}$.  Though the whole group gets mapped to another group, the elements inside get mapped to \textbf{conjugacy classes}.
 \item Within group G, elements h, h' in conjugacy class H have some $g \in G$ such that $h' = ghg^{-1}$ (and therefore,  $g^{-1}h'g = h$.  So, it's an equivalence relation, thus a partition.
-\item Note: if the group G is abelian, $h' = ghg^{-1} \rightarrow gg^{-1} h = h$, so all conjugancy classes there are of size one.
+\item Note: if the group G is abelian, $h' = ghg^{-1} \rightarrow gg^{-1} h = h$, so all conjugacy classes there are of size one ($ghg^{-1} = gg^{-1}h = h)$
+\item Each one of these classes corresponds to the orbit of that element $h$ under conjugation.  
+\item Why useful?  They can be used to show structure (and thus classify, look at isomorphisms, etc.) of groups.
+\item Example: In $GL_n(\mathbb{R}), A = PBP^{-1}$ is matrix similarity.  $B$ represents $A$ under a change of bases.
+\item Example: In $S_3$, there are three conjugacy classes: $\{()\}, \{(abc), (bac)\}, \{(ab), (bc), (ac)\}$.  Easy to think about with permutations - this is just relabeling the members going in, doing the permutation, then reversing the labels.
+\item Example: $\mathbb{Z} / 5\mathbb{Z} = \mathbb{Z}_5$ which is Abelian, so 5 classes (one for each element).
 \end{itemize}
+
+\subsection{$A_5$ example and the class equation}
+\begin{itemize}
+
+\item Examples: In $A_5$, types are repped by $(), (12)(34), (12)(23) = (123)$, and $ (12)(23)(34)(45) = (12345)$.  
+\item \textbf{Gotcha}: Note that There are $5! / 5 = 24$ 5-cycles, and that subgroup order has to divide 60, so there must be two conjugacy classes of 5-cycles.  Makes sense that $(12345)$ and $(21345)$ can't be same class, since there's nowhere to "stash" during the relabeling.
+\item Theorem: Sum of conjugacy class orbits is size of group, or, for arbitrary class reps $g_1...g_k, |G| = \sum_{i=1}^k [G:C_G(g_i)]$.  Note that $|Z(G)|$ is all of the reps and classes of size one.  Why does this work?  Orbit-stabilizer says that $C_G(g_i)$ is the stabilizer, and the conjugacy classes form a partition.
+\item \textbf{Class Equation}: Just writing down the size of the equivalence classes.  In $A_5$, this would be $60 = 1 + 15 + 20 + 12 + 12$ (second set of 5-cycles).
+\item Note that any \emph{normal} subgroup in $A_5$ has to be union of those since conjugation by $A_5$ elements maps to the whole conjugacy class.  BUT - there are no sums that divide 60.  So $A_5$ has no normal subgroups, so it is simple!
+\end{itemize}
+
 
 \end{document}
