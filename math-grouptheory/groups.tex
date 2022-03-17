@@ -676,5 +676,48 @@ Reference: https://brilliant.org/wiki/group-actions
 \item Note that any \emph{normal} subgroup in $A_5$ has to be union of those since conjugation by $A_5$ elements maps to the whole conjugacy class.  BUT - there are no sums that divide 60.  So $A_5$ has no normal subgroups, so it is simple!
 \end{itemize}
 
+\section{4.3 Conjugacy class section}
+\begin{itemize}
+\item Reminder of orbit-stabilizer theorem: Number of conjugates of $g$ is the index (more generally, orbit, here under  conjugation group action) of the centralizer (more generally, stabilizer, here under conjugation group action) of $g$.
+\item Example: If $|G| = 60, g \neq 1, g^5 = 1$ then size of conjugacy class is at most 12 since at least $e, g, g^2, g^3, g^4$ are in its centralizer $C_g(G)$.
+\item Example: Class equation of $Q_8$:
+  \begin{itemize}
+  \item $\{1\}$ commute with everything = 8 / 8 = 1
+  \item $\{-1\}$ commutes with everything = 8 / 8 = 1
+  \item $i$ commutes with $1, -1, i, -i$ = 8 / 4 = 2.  Same for j, k,
+  \item Thus, 8 = 1 + 1 + 2 + 2 + 2.
+  \end{itemize}
+\item Example: Class equation of $D_5$, with $\sigma$ as a clockwise rotation, $\tau$ as a flip:
+  \begin{itemize}
+  \item $\{e\}$ commutes with everything = 10 / 10 = 1
+  \item $\{\sigma\}$ commutes with only rotations = 10 / 5  = 2, and conjugates to $\tau\sigma\tau = \sigma^4$.
+  \item $\{\sigma^2\}$ commutes only with rotations = 10 / 5 = 2, and conjugates to $\tau\sigma^2\tau = \sigma^3$.
+  \item $\{tau\}$ commutes only with $\tau, e$, and all five flipped actions $\sigma^k\tau$ are conjugate. = 5.
+  \item Thus, 10 = 1 + 2 + 2 + 5
+  \end{itemize}
+\item Weird \textbf{gotcha}: Note that the abelian $\mathbb{Z}_5$ has 5 conjugacy classes, and $D_5$ has four, and there's an injective homomorphism $z \rightarrow \sigma^z$.  So even though $Z_5$ is a subgroup of $D_5$, it has more conjugacy classes.
+\item $D_n$ has $n$ reflections.  If $n$ is odd, there is only one conjugacy class of reflections, since $(\sigma^i\tau)\tau = \sigma^i$ and $(\tau\sigma^i)\tau = \tau\tau\sigma^{-i}$, so if the paranthesized items are equal (i.e. if $\sigma^i$ commutes with $\tau$), then $\sigma^i = \sigma^{-i}$.  $i=0$ works, but only in even groups does $i=\frac{n}{2}$ work.  Therefore centralizer has size 2 for n odd, 4 for n even, and for these n/2 elements, there is one conjugacy class if n odd, 2 if even.
+\item \emph{Theorem}: If there's a homomorphism $\pi: G \rightarrow K$, then count of  conjugacy classes $c(G) \geq c(K)$.  Homomorphism maps conjugacy classes to conjugacy classes $\phi(ghg^{-1}) = \phi(g)\phi(h)\phi(g)^{-1}$, so if there's a nonzero kernel with $k$ in it, $\pi(1) = \pi(k)$, but 1 and k could be different conjugacy classes in the domain.
+
+\end{itemize}
+
+\section{4.4 Permutations / Symmetric group}
+\begin{itemize}
+\item Note: Every group of size $n$ is a subgroup of $S_n$, since element $g$ induces a permutation on the elements by multiplication.  I suppose then the group is the permutations of each $g$!  Repping under $S_n$ is called the \textbf{regular representation}.
+\item Conjugation is interesting in $S_n$; If $\sigma = (123), \alpha = (13524)$, then $\sigma(13524)\sigma^{-1} = (\sigma(1)(\sigma(3)\sigma(5)\sigma(2)\sigma(4))$.  Why?    (Proof)
+\begin {itemize}
+\item Say $\alpha = (a_1 a_2 ... a_n)$
+\item $\sigma^{-1}\sigma a_1 = a_1$
+\item $\alpha(a_i) = (a_{i+1 mod n})$ 
+\item So for any $a_i, \sigma \alpha \sigma^{-1}(\sigma (a_i)) = \sigma (a_{i+1 mod k})$
+\item So the $\sigma \alpha \sigma^{-1}$ operation on $\sigma(a_i)$ is just like taking $\sigma(a_i)$ and mapping it to the next $\sigma(a_{i+1 mod k})$.
+\end {itemize}
+\item $S_6$ has 11 conjugacy classes corresponding to partitions: $(), (1 2), (1 2 3), (1 2)(3 4), (1 2 3 4), (1 2 3 4 5), (1 2 3)(4 5), (1 2 3 4 5 6), (1 2 3 4)(5 6), (1 2 3)(4 5 6), (1 2)(3 4)(5 6)$.  Think of missing elements x, y, like $(x)(y)...$.
+\item How many permutations fix 1 in $S_n$ ? Clearly this is just $|S_{n-1}| = (n-1)!$
+\item Summing total fixed counts $\sum_{\sigma \in S_n} F(\sigma)$ of every permutation is then $n*(n-1)! = n!$
+\item Random note: $A_4 \ncong D_6$ since $A_4$ since there's an element of order 6 in $D_6$, none in $A_4$.
+\item Tetrahedon rotations group: Isomorphic to $A_4$.  all rotations of form (1)(234) = (23)(34), (2)(13)(34), etc.  Four places to map a vertex, and three spin locations = order 12 (or orbit-stablizer: three rotations in vertex centralizer, four places to go with vertex in orbit).
+\end{itemize}
+
 
 \end{document}
