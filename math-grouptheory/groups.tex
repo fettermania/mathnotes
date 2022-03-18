@@ -719,5 +719,40 @@ Reference: https://brilliant.org/wiki/group-actions
 \item Tetrahedon rotations group: Isomorphic to $A_4$.  all rotations of form (1)(234) = (23)(34), (2)(13)(34), etc.  Four places to map a vertex, and three spin locations = order 12 (or orbit-stablizer: three rotations in vertex centralizer, four places to go with vertex in orbit).
 \end{itemize}
 
+\section{Aside: Legendre symbol}
+
+https://brilliant.org/wiki/legendre-symbol/
+
+\begin{itemize}
+\item $a$ is a \textbf{quadratic residue} mod $m$ if $x^2 \equiv a$ mod $m$ has at least one $x$ solution.  So, I suppose that 1 is always a quadratic residue.    $a$ and $m$ need to be coprime.
+\item If $p$ is an odd prime, $a$ is an integer, Legendre symbol $\Big(\frac{a}{p}\Big)$ is:
+ \begin{itemize}
+ \item 0 if $a \equiv 0$ mod p
+ \item 1 if $a$ is a quadratic residue mod p and $a \neq 0$ mod $p$.
+ \item -1 if $a$ is a non-residue 
+ \end{itemize}
+ \item Sum of quadratic resides of a prime is 0.  Why?  There are no 0's, and every residue is repped twice, once by $a$ and once by $p-a$.  So half are non-residues, half are double-residues.  Why do they pair this way?  $a^2 \equiv b^2 mod p \Rightarrow a^2 - b^2 \equiv 0 mod p \Rightarrow (a-b)(a+b) \equiv 0 mod p \Rightarrow p | (a-b)(a+b) \Rightarrow a+b \equiv 0$ or $a-b \equiv 0$.
+ \item Property:  \textbf{Euler's criterion}: If $p$ is an odd prime, $a$ is not divisible by $p$, then $a^\frac{p-1}{2} = \Big(\frac{a}{p}\Big)$ (mod $p$).  This follows from: (1) If $a = x^2$, then $x^{p-1}$ mod $p \equiv 1$ by Fermats, so take square root.  (2) If not, then because $Z_p$ is a group, every element $x$ has a pal $x^{-1}a$ that multiplies to a.  Product of these is  $a^\frac{p-1}{2} = (p-1)! = -1$ by Wilson's Theorem.
+\item Property:  If $a \equiv b$ (mod $p), \Big(\frac{a}{p}\Big) =   \Big(\frac{b}{p}\Big)$.  Just reduce mod p.
+\item Property  $ \Big(\frac{ab}{p}\Big) =   \Big(\frac{a}{p}\Big)   \Big(\frac{b}{p}\Big)$.  Follows from Euler's criterion ands exponents.
+\item Property:   $\Big(\frac{-1}{p}\Big) = (-1)^\frac{p-1}{2}$, by Euler's criterion, so it is 1 iff $p \equiv 1$ mod 4.
+\item Property:   $\Big(\frac{2}{p}\Big) = (-1)^\frac{p^2-1}{8}$, by \textbf{TODO} something called quadratic reciprocity.
+\item Property:  If $p, q$ distinct odd primes, then $\Big(\frac{q}{p}\Big) \Big(\frac{p}{q}\Big)  = (-1)^\frac{p-1}{2}\frac{q-1}{2}$, by \textbf{TODO} something called quadratic reciprocity.
+
+
+\end{itemize}
+
+
+\section{4.5 Signs of Permutations}
+\begin{itemize}
+\item Note: Cycle structure of $\sigma_3(x) = 3x (mod 11): 3^5 = 1, and 2*3^5=2$.  Observe these two disjoint 5-cycles.
+\item If $a^k = 1 mod p$ and is the smallest to do so, cycle structure of $\sigma_a(x) = ax mod p$ is all disjoint k-cycles.  \emph{Proof}: (1) $\sigma_a$ will have no fixed points, as $ax = x$ means $a = 1$ (mod $p$).  (2) $\sigma_{a^k} = \sigma_a^k = $ identity.  And (3) if $j < k$, $j$ can't be identity.   So $\sigma_a$ is the product of $\frac{p-1}{k}$ disjoint k-cycles.
+\item Also implies that $\sigma_a$ is odd if and only if k is an even number (thus odd cycle) and $\frac{p-1}{k}$ is odd.
+\item \textbf{Theorem}: $\Big(\frac{a}{p}\Big)  = -1$ iff k is even, and $\frac{p-1}{k}$ is odd, or $sgn(\sigma_a) = \Big(\frac{a}{p}\Big)$. Why? Suppose for some $a$, the primitive root $g$ taken to $x$ is $a: g^x = a$.  The order of $g^x$ is $\frac{p-1}{gcd(p-1,x)}$.  Then flip the denoms: $\frac{p-1}{k} = gcd(p-1,x)$, which is odd iff $x$ is odd, or NOT A SQUARE.  Therrefore, $sgn(\sigma_a) = \Big(\frac{a}{p}\Big) $!
+\item An \textbf{inverison} in a permutation is where a pair$a < b$, $\sigma(a) > \sigma(b)$.  
+\item Number of inversions in $\sigma_2$ is straightforward, as for prime p, $\sigma(1, 2, 3 ... p-1/2, p+1/2 .... p-1) \rightarrow (2, 4, 6  ... p-1, 1, .... p-2)$ ends up as $ 1 + 2 + ... + \frac{p-1}{2} = \frac{1}{2} \frac{p-1}{2}\frac{p+1}{2} = \frac{p^2-1}{8}$
+\item The sign of a permutation is also $(-1)^r$, where r is number of inversions.
+\item Putting all this together yields $\Big(\frac{2}{p}\Big)  = sgn(\sigma_2)$ by \textbf{theorem} above, $ = (-1)^r = (-1)^\frac{p^2-1}{8}$, property 5 in the last section.
+\end{itemize}
 
 \end{document}
