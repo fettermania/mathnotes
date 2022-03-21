@@ -755,4 +755,43 @@ https://brilliant.org/wiki/legendre-symbol/
 \item Putting all this together yields $\Big(\frac{2}{p}\Big)  = sgn(\sigma_2)$ by \textbf{theorem} above, $ = (-1)^r = (-1)^\frac{p^2-1}{8}$, property 5 in the last section.
 \end{itemize}
 
+
+
+\section{5.1 Group actions}
+\subsection{Orbit-stabilizer}
+\begin{itemize}
+\item Canonical: Group $S_n$ acts on elements $X = {1, 2, 3 .. n}$.  $G \times X \rightarrow X$
+\item Also canonical: Group acts on its own elements with left-multiplication, always.  $G \times G \rightarrow G$.
+\item \textbf{orbit $O_x$} of element $x$ is all the places $x$ could go.  Note that in a group there is only one orbit (called \textbf{transitive}).
+\item \textbf{Orbit-stabilizer theorem} says, for any $x \in G$, $|G| = |O_x| |G_x|$.
+\item item \textbf{stabilizer} $G_x$ of element $x$ are the elements mapping $x$ to itself.  Note that in a group this is necessarily $G_x = {e}$ since $g \cdot x = x \rightarrow g \cdot x \cdot x^{-1} = x \cdot x^{-1} \rightarrow g = e$.
+\item Example: $2n = |D_n|$, and since every \emph{vertex} element $x$ can be rotated to any other (orbit is size X), stabilizer must be of size 2 (identity, 180 flip)
+\item Example: Rotations of a dodecahedron: Think of the faces - there are five rotations that fix the face, and the face can go to 12 different spots,so size of the group is 60. Turns out, also isomorphic to $A_5$.
+\end{itemize}
+
+\subsection{Action of $GL_2(F)$ on $F^2$}
+\begin{itemize}
+\item Action is on left-multiply: $A \cdot \begin{pmatrix} x \\ y \\ \end{pmatrix} = A \begin{pmatrix} x \\  y \\ \end{pmatrix}$
+\item How many orbits in $\mathbb{R}^2$ under this action? 
+\item  \emph{One orbit}: The point $\begin{pmatrix} 0 \\  0 \\ \end{pmatrix}$ can only map to itself, and no non-zero determ can map to it ($A \begin{pmatrix} x \\  y \\ \end{pmatrix} = \begin{pmatrix} 0 \\  0 \\ \end{pmatrix} \rightarrow \begin{pmatrix} x \\  y \\ \end{pmatrix} =  A^{-1} \begin{pmatrix} 0 \\  0 \\ \end{pmatrix}$, which only works for zero x,y or a zero-deteminant matrix.
+\item \emph{The other orbit}: There's some invertible $A$ to match any $\begin{pmatrix} x \\  y \\ \end{pmatrix} = A \begin{pmatrix} 1 \\ 0 \\ \end{pmatrix} $, either $\begin{pmatrix} a & 1 \\ b & 0 \end{pmatrix}$ if $y \neq 0$ or $\begin{pmatrix} a & 0 \\ 0 & a\end{pmatrix}$ if $y = 0$. 
+\item Example: $GL_2(\mathbb{Z_p})$ acts on $\mathbb{Z_p}^2$, just on integers modulo prime $p$p.
+\item Orbit of $\begin{pmatrix} 1 \\ 0 \\ \end{pmatrix} $ is every non-zero element, so size $p^2-1$.  Stabilizer is anything $\begin{pmatrix} 1 & b \\ 0 & d \end{pmatrix}$ with $d \neq 0$, so $p^2 - p$ elements.
+\end{itemize}
+
+
+\subsection{General group action properties}
+\begin{itemize}
+\item Action is \textbf{regular} if $x, y \in X$ have exactly one  $g \in G$ so $g \cdot x = y$.  So, this means
+  \begin{itemize}
+  \item There's one orbit, since any $x$ can get to any $y$.
+  \item Every element's stabilizer is just the identity (uniqueness).
+  \item $|G| = |X|$ since $|G| = |O_x| |G_X| = |X| * 1$
+  \item Really, any such regular action is isomorphic to $(G , G)$ by left-multiplication.
+  \end{itemize}
+\item If $x, y$ in the same orbit in G ($g \cdot x = y$ for some $g \in G$) for finite G, then $|G_x| = |G_y|$. Why?  First, because of the orbit-stabilizer theorem (same orbit size, same group size).  But also the "conjugating" bijection $f(h) = ghg^{-1}$, since $f(y) = ghg^{-1}(y) = gh(x)$ (since $h \in G_x$), $ = gx = y$.  Can reverse it too.
+\end{itemize}
+
+
+
 \end{document}
