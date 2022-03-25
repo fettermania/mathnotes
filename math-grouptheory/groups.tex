@@ -793,5 +793,69 @@ https://brilliant.org/wiki/legendre-symbol/
 \end{itemize}
 
 
+\section{Burnside's Lemma}
+\begin{itemize}
+\item The number of orbits under a group action is the average, across all group elements, of the fixed point set sizes $|X^g|$.  Another way: set of orbits is called $|X / G|$, so $|X /G| = \frac{1}{|G|}\sum_{g \in G}|X^g|$.
+\item How to use this to count stuff?  
+  \begin{itemize}
+  \item Group the "same elements" of an object under the action as orbits.  So, think of configs of a cube indistinct under rotation to be in the same orbit.
+  \item Count the fixed points under each action $g \in G$.  
+  \item Divide by $|G|$.
+  \end{itemize}
+  \item Colorings of hexagon edges by rotation: $R_0 = n^6, R_1 = R_5 = n, R_2 = R_4 = n^2, R_3 = n^3$, so sum is $\frac{1}{12}(n^6 + 2n + 2n^2 + n^3)$
+  \item Colorings of hexagon edges by reflection OR rotation: across central vertex line = $n^3$, across central edge line = $n^4$, so adding to previous gives total is $\frac{1}{12}(n^6 + 2n + 2n^2 + 4n^3 + 3n^4)$
+ \item Example: Tetrahedron (n vertex colors, m edge colors): Vertex plus center opposite face: $n^2m^2$
+ \item Example: Tetrahedron (n vertex colors, m edge colors): Midpoints of opposite edges (think $(12)(34)$) is $n^4m^2$
+ \item Example: So in total, tetrahedron is identity ($n^6m^4$) plus the previous two: $\frac{1}{12}(n^6m^4 + 3n^4m^2 + 8n^2m^2)$
+ 
+ \section{Aside: Semidirect products: videos}
+ \subsection{Semidirect products (inner and outer)}
+ https://www.youtube.com/watch?v=Pat5Qsmrdaw
+ 
+ \item \textbf{inner semidirect product} $H \rtimes K = G$ decomposes G into two subgroups H and K, with a few rules
+   \begin{itemize}
+   \item $H$ and $K$ are \textbf{complements} in $G$: $HK = G, H \cap K = \{e\}$
+   \item $H \triangleleft G$ (H is normal in G)
+   \item $K \subset G$ (K is a subgroup of G)
+   \end{itemize}
+ \item Note that a general product of groups $HK$ isn't necessarily a group.  But if $H$ is normal, we can guarantee it under the group operation $h_1k_1 \cdot h_2k_2$
+ \begin{itemize}
+ \item $h_1k_1h_2k_2 = h_1k_1h_2(k_1^{-1}k_1)k_2 = h_1(k_1h_2k_1^{-1})(k_1k_2) = (h_1h_3)(k_1k_2) \in HK$ since $k_1h_2k_1^{-1} = h_3$ for some $h_3$ since $H \triangleleft G$
+ \item $(hk)^{-1} = k^{-1}h^{-1}= k^{-1}h^{-1}(kk^{-1}) = (k^{-1}h^{-1}k)k^{-1} \in HK$ similarly.
+ \item Group $H_G = (h,1) \in H \rtimes K$ is a subroup isomorphic to H.  Same with K.
+ 
+ \end{itemize}
+ \item A general semidirect product uses this conjugation $\psi_{k_1}(h) = k_1h_2k_1^{-1}$ to allow us to combine elements of H together and elements of K together almost separately.  Instead of multipiying $(h_1, k_1)(h_2, k_2)$ directly, we use:
+ \begin{itemize}
+ \item $(h_1, k_1)(h_2, k_2) = (h_1 \psi_{k_1}(h_2), k_1k_2)$
+ \item Every inner semidirect product uses $\psi_k(h) = khk^{-1}$.
+ \item In general, the $\psi$ is a member of $K \rightarrow Aut(H)$, or an isomorphism that translates H to H.  So can keep the multiplication.
+ \item Note that if $\psi = \psi_{id}$, then you \emph{end up with a direct product}, or $G = H \times X$.
+ \item Note also that if $H, K \triangleleft G$, then $hkh^{-1}k^{-1} \in H, K \rightarrow hkh^{-1}k^{-1} = e \rightarrow hk = kh$, so the subgroups commute among each other (pass through).  Then, the direct product falls out of using $\psi_k = id$, so $h_1k_1h_2k_2 = h_1\psi_{id}(h_2)k_1k_2 = h_1h_2k_1k_2\in HK$.
+ \end{itemize}
+ \item Even if $G$ is abelian, $H \rtimes K$ need not be! 
+ \item Note that every group $G$ that satisfies the rules above (H is normal in G, K a subgroup, and HK=G) admits a semidirect product under the conjugation action.  
+ \item An \textbf{outer semidirect product} doesn't start with $H, K \in G$.  $H$ and $K$ could be unrelated and with totally separate shapes, as long as $H  \cap K = \{e\}$.  Then, combining H and K with action $\psi$ can create a new group within $H \times K$ called $H \rtimes_{\psi} K  = G$.  There can be many distinct choices of $\psi$, leading to many different products.
+ \end{itemize}
+ 
+ \subsection{Semidirect products: $D_{2n}$}
+https://www.youtube.com/watch?v=DvclxOaWbJM
+
+\begin{itemize}
+\item $D_{2n} = <r> \times <s>$, with r being rotations, s the group of $\{e, s\}$.  S is the flip.
+\item Use the natural  inner semidirect product action (conjugation) for $\psi$.
+\begin{itemize}
+\item Take $\psi_e(r^k) = er^ke^{-1} = r^k.$ 
+\item Take $\psi_e(r^k) = sr^ks^{-1} = r^{-k}ss^{-1} = r^{-k}$.
+\item Then, $D_2n = <r> \rtimes <s>$ 
+\item Example: $(r^4s)(r^3e) = (r^4\psi_s(r^3), s \cdot e) = (r^4r^{-3}, s) = (r,s)$.  Just like the elements would multuply to $rs$.
+\end{itemize}
+\item But semidirect products can make things simpler if we use \emph{isomorphism} to cleaner groups, like $Z_n \times_{\psi} Z_2$, which are isomorphic to $<r>, <s>$ respectively.
+\begin{itemize}
+  \item Then, in  $Z_n \times_{\psi} Z_2$, we use $\psi_0(a) = a, \psi_1(a) = -a$.
+  \item Then, with the same example abve, $(4,1)(3,0) = (4 + \psi_1(3), 1 + 0) = (4 - 3, 1) = (1,1)$.  Same!
+  \end{itemize}
+\end{itemize}
+
 
 \end{document}
