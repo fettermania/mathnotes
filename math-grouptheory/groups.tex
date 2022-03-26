@@ -857,5 +857,43 @@ https://www.youtube.com/watch?v=DvclxOaWbJM
   \end{itemize}
 \end{itemize}
 
+ \section{5.3 Semidirect products}
+
+\begin{itemize}
+\item Exercise: If $G  = N \rtimes H$, and $H$ has $a_h$ elements of order two, similar for $N$ and $a_n$, then $G$ has at least $a_n + a_h$ elements of order two: $(n \in N_2, 1)$, $(1, h \in H_2)$, and possible combinations like $(1,1) \in \mathbb{Z}_3$
+\item Exercise:Therefore $Q_8$ can't be a semidirect product of $\mathbb{Z}_2$ and $\mathbb{Z}_4$ (or $\mathbb{Z}_2 \times \mathbb{Z}_2 \times \mathbb{Z}$) since it only has one element of order two: -1.
+\item Exercise: Heisenberg matrix group
+
+$H_p = \begin{pmatrix}
+    1      & a & b \\
+    0       & 1 & c \\
+    0       & 0 & 1 \\
+\end{pmatrix}$ with $a, b, c \in \mathbb{Z}_p$ ends up being $N \rtimes H$, where  $N = \begin{pmatrix}
+    1      & 0  & b \\
+    0       & 1 & c \\
+    0       & 0 & 1 \\
+\end{pmatrix},  H = \begin{pmatrix}
+    1      & a  & 0 \\
+    0       & 1 & 0 \\
+    0       & 0 & 1 \\
+\end{pmatrix}$
+
+because
+\begin{itemize}
+\item N is normal (how to prove?) in $GL_3(\mathbb{Z}_3)$
+\item H is a subgroup as well
+\item $NH = G (just multiply)$
+\item $N \cap H = \{e\}$
+\end{itemize}
+\item Exercise: Constructing a group using outer semidirect product.
+\begin{itemize}
+  \item Order of $\psi(a) = 2a$ in $\mathbb{Z}_7$ is 3, since $\psi(\psi(\psi(a))) = a$.  So $\psi \in Aut(\mathbb{Z}_7)$.  
+  \item So constructing group  $G = \mathbb{Z}_7  \rtimes_{\psi} \mathbb{Z}_3$, with $\psi(a) = 2a$ makes a (nonabelian) group of size 21.  
+  \item $(a, b)(a', b') = (a+2a', b+b')$ is the rule, I suppose, with $\psi_b = 2a$, regardless of $b$?
+  \end{itemize}
+
+
+\end{itemize}
+
 
 \end{document}
