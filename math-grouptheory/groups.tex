@@ -888,12 +888,91 @@ because
 \item Exercise: Constructing a group using outer semidirect product.
 \begin{itemize}
   \item Order of $\psi(a) = 2a$ in $\mathbb{Z}_7$ is 3, since $\psi(\psi(\psi(a))) = a$.  So $\psi \in Aut(\mathbb{Z}_7)$.  
-  \item So constructing group  $G = \mathbb{Z}_7  \rtimes_{\psi} \mathbb{Z}_3$, with $\psi(a) = 2a$ makes a (nonabelian) group of size 21.  
-  \item $(a, b)(a', b') = (a+2a', b+b')$ is the rule, I suppose, with $\psi_b = 2a$, regardless of $b$?
+  \item So constructing group  $G = \mathbb{Z}_7  \rtimes_{\psi} \mathbb{Z}_3$, with $\psi_1(a) = 2a, \psi_b(a) = \psi_1^b(a)$ makes a (nonabelian) group of size 21.  
+  \item $(a, b)(a', b') = (a+\psi_b(a'), b+b') = (a+2^ba', b+b')$ is the rule.
   \end{itemize}
 
 
 \end{itemize}
 
+\section{Aside: Sylow Theorems}
+
+\subsection{Sylow Theorem I}
+\begin{itemize}
+\item Link: https://www.youtube.com/watch?v=xTCxmr4ISU4
+\item Main idea: If $|G| = p^km, gcd(p,m) =1$, there exists a subgroup of size $p^k$.  So, there are one or more subgroups of size $p^k$ if $k$ is maximized.
+\item Proof: 
+\begin{itemize}
+\item Main idea: for any set $X$ of size $p^k$ (call the totality of them $\Omega$), the coset $gX$ is also of that size, since $\phi(x) = gx$ is injective: $gx = gy \rightarrow g^{-1}gx = g^{-1}gy \rightarrow x = y$. 
+\item $|\Omega| = {p^km \choose p^k}$.  
+\item There's a theorem that ${p^km \choose p^k} \equiv m $ mod $p$.  
+\item So taking g as an action of each $X \in \Omega$, this itself splits $g\Omega$ into orbits.  Then there has to be an orbit  $O = gX$ with size \emph{not a multiple of p}.
+\item Pick a set $X \in orbit O$.  So $G \cdot X = O$.  
+\item By orbit stabilizer, $|G_X| \cdot |G \cdot X| = p^km$, but this $|O| = |G \cdot X|$ is not a mutliple of p.  So $p^k $ divides $ |G_x|$.
+\item If $g \in G_X, a \in X, ga \in X$.  But $gX$ is always in X (of size $p^k$), so $|G_X| \leq p^k$
+\item So $|G_X| \leq |X| = p^k$, but also $p^k$ divides $|G_X|$.  So $p^k = |G_X|$, and this stabilizer group is such a subgroup of G.
+\end{itemize}
+\end{itemize}
+
+\subsection{Sylow Theorem II}
+\begin{itemize}
+\item Link: https://www.youtube.com/watch?v=n8senIN0RgM
+\item Main idea: Any two Sylow p-subgroups $H, K$ of $G$ are conjugate, so $H = gKg^{-1}$ for some $g$
+\item Proof outline:
+\begin{itemize}
+\item Consider the set $\Omega$ of all p-Sylow subgroups of $G$.
+\item Consider the set $G / K$, cosets of $K$ in $G$.  $K$ doesn't have to be normal.  Of size $p^km/p^k = m$.  
+\item The group action of some p-Sylow group $H$ by left multiplication maps $H$ into a number of orbits, totaling size $|H| = p^k$.
+\item By orbit stabilizer theorem, H's orbits $H \cdot gK$ look like $|H| = |H \cdot gK| |N_H(gK)|$, so they all divide $p^k$, so of size $1, p, p^2 ... p^k$.  
+\item However, since the sum of these orbit sizes is $m$, where gcd$(m, p)$ = 1, then there must be an orbit $gK$ of size 1.
+\item This means that for any $h \in H$, $hgK \in gK$, or $g^{-1}hgK = K$, or $g^{-1}hg \in K$.  
+\item This means that $gHg^{-1} \in K \rightarrow g^{-1}Kg \in H$, and the two subgroups are conjugate
+\item So, for any two p-groups $H, K$, we can find a conjugation mapping one to the other.
+\end{itemize}
+
+\end{itemize}
+
+\subsection{Sylow Theorem III}
+\begin{itemize}
+\item Link: https://www.youtube.com/watch?v=543-79vKJFw
+\item Main idea: Call the number of p-subgroups $n_p$.  Remember that if $p^k= 2^3 = 8, p$ is still 2.
+\begin{itemize}
+\item $n_p | m$
+\item $n_p \equiv 1$ mod $p$
+\item $n_p = |G| / |N_H(G)|$, where $N_H(G)$ is the size of the normalizer of H.  It follows $n_p = 1$, then $H$ is normal in $G$ since then $|N_H(G)| = |G|$.
+\end{itemize}
+
+\item Proof: $n_p | m$
+\begin{itemize}
+\item Set: Sylow p-subgroups $\Omega$
+\item Action: $G$ acting on $P \in \Omega$. as $g \cdot P = gPg^{-1}$
+\item Then it is true that orbit $G \cdot P = \Omega$, since $P$ and every other p-subgroup are conjugates.
+\item By orbit stabilizer, $|G\ = |G \cdot P| |G_P| = n_p |G_P|$.
+\item $G_P = { g \in G: gPg^{-1} = P}$, which is the definition of the normalizer $N_G(P)$.
+\item Note that $P \leq N_G(P) \leq G$.
+\item So stabilizer $|G_P|$ under this action is the normalizer.  So  $|G| = n_p |N_G(P)|$.  \textbf{Note: this is the third result}.
+\item $|G| = p^km$, $|P| = p^k$, $P \leq N_G(P)$, so $|N_G(P)| = p^km'$ for some $m'$, since $P$ is a subgroup of $N_G(P)$.
+\item Therefore, $n_p = \frac{m}{m'} \rightarrow m'n_p = m \rightarrow n_p | m$
+\end{itemize}
+
+\item Proof: $n_p \equiv 1$ mod $p$
+\begin{itemize}
+\item Set: Sylow p-subgroups $\Omega$, size is $n_p$.
+\item Action inputs: Take a Sylow p-subgroup $P \in \Omega$.  Take element $p \in P$, p-subgroup $Q \in Omega$.  
+\item Action definition: $p \cdot Q = pQp^{-1}$.  This a conjugate of Q so therefore same size, therefore a p-subgropup $\in \Omega$.
+\item Size of $P$ ,$|P| = p^k$, splitting $\Omega$ into a bunch of orbits.
+\item Similarly to the earlier argument in part 1, all of the orbit sizes need to divide $p^k$ by orbit-stabilizer, so of size $1, p, p^2... p^k$.  
+\item Ignore everything bigger than one.  So we're looking for number of size-one orbits.
+\item Take $Q \in \Omega$ where $|P \cdot Q| = 1$.  Remember $ P \cdot Q$ is the set $\{pQp^{-1}, p \in P\}$
+\item $pQp^{-1} = Q \forall_{p \in P}$ is another way of saying $P \leq N_G(Q \leq G)$.
+\item $Q \leq N_G(Q) \leq G$ as well.  
+\item $|P| = |Q| = p^k, |G| = p^km$, which means $N_G(Q)$ is (inclusive) between these two.
+\item But $P, Q$ are sylow p-subroups of $N_G(Q)$!  So they're conjugate $P = gQg^{-1}, g \in N_G(Q)$
+\item But $Q$ is normal in $N_G(Q)$, so $P = gQg^{-1} = Q$.  
+\item Thus arbitrarily chosen $Q$ has been proven to be $P$.  So $P$ is the only element with an orbit of 1.
+\item We assert this is $\{Q\}$
+
+\end{itemize}
+\end{itemize}
 
 \end{document}
