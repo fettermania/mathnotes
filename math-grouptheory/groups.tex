@@ -971,8 +971,105 @@ because
 \item But $Q$ is normal in $N_G(Q)$, so $P = gQg^{-1} = Q$.  
 \item Thus arbitrarily chosen $Q$ has been proven to be $P$.  So $P$ is the only element with an orbit of 1.
 \item We assert this is $\{Q\}$
-
 \end{itemize}
+\end{itemize}
+
+\section{5.4 Sylow Practice}
+\begin{itemize}
+\item Remember that if $H, K$ are normal subgroups of $G$, then if they're complements $HK = G, H \cap G = \{1\}$, then $(h, k) \rightarrow hk$ is an isomorphism $H \times K \cong G$.
+\item Therefore, inductively extending it, if evrry Sylow subgroup of G is normal, then G is isomorphic to direct prodcut of Sylow subgroups.  This is true in the case of Abelian groups for example.
+
+\item Prove: Every group of order 15 is Abelian.
+\begin{itemize}
+\item 3-subgroup $H: n_3 = 1 mod 3, n_3 | 5 \rightarrow n_3 = 1$
+\item 5-subgroup $K: n_5 = 1 mod 5, n_5 | 3 \rightarrow n_5 = 1$
+\item Both are normal in G (Sylow 3), so $G \cong H \times K$
+\item Counterexamples from the problem: 
+\begin{itemize}
+\item $|G| = 16$: $D_{8}$ is not Abelian.
+\item $|G| = 20$ : $D_{10}$ is not Abelian.
+\item $|G| = 21$ : The semidirect product of $Z_3 \rtimes_{\psi} Z_7$ we saw with $\psi(a) = 2a$ was not abelian.
+\item $|G| = 27$ : TODO Apparently any $p^3$ has two nonabelian groups.  
+\end{itemize}
+\end{itemize}
+
+\item Problem: How many elements of order 3 does a nonabelian group of order 21 have?
+\begin{itemize}
+\item $n_3 = 1 mod 3, n_3 | 7, n_3 \in \{1, 7\}$.
+\item $n_7 = 1 mod 7, n_7 | 7, n_7 = 1$.
+\item If they're both 1, then they're both single normal subgroups, so they must be $\cong \mathbb{Z}_3 \times \mathbb{Z}_7$, but that's Abelian.  Contradicted assumption.
+\item So $n_3 = 7, n_7 = 1$.  All the 7 subgroups are $\cong  \mathbb{Z}_3$ and can't overlap except the identity.  So 7 * 2 = 14 distinct order-3 elements.
+\end{itemize}
+
+\item Problem: How many elements of order 5 does a group of size 60 have?
+\begin{itemize}
+\item $n_5 = 1 mod 5, n_5 | 12 \rightarrow n_5 \in \{1, 6\}$
+\item If $n_5 = 1$, like in $Z_{60}$, then it has 4 elements of order 5.
+\item If $n_5 = 6$, like in $(abcde) \in A_5$, there are $5! / 5 = 24$ elements.  
+\item Both are possible, so either 4 or 24.
+\end{itemize}
+
+\item Problem: If G is of order 12, and $n_2, n_3$ are the count of those 2-, 3-subgourps, then $n_2 > 1, n_3 > 1$ are possible, but not simultaneously. Prove.
+\begin{itemize}
+\item $n_2 = 1 mod 2, n_2 | 6 \rightarrow n_2 \in \{1, 3\}$
+\item $n_3= 1 mod 3, n_3 | 4 \rightarrow n_3 \in \{1, 4\}$
+\item Can both be 1, like $\mathbb{Z}_{12}$.
+\item If $n_2 = 1, n_3 = 4$, then there are 4 * 2 = 8 elements of order 3, and in the $p^2-$group, two of order 4, one of 2, one of 1.  This is $A_4$ with the 3-groups of form $<(abc)>$, and the 2-group $\{(12)(34), (13)(24), (14)(23)\} \cong \mathbb{Z}_2 \times \mathbb{Z}_2$.
+\item If $n_2 = 3, n_3 = 1$, there is the identity, 2 elements of order 3, and up to six in the 2-groups.  Example would be $D_6$, with $n_3 = <r_2>$, and $n_2 = \{\{<r^3, s>\}, sr\{<r^3, s>\}(sr)^{-1} = \{<r^3, sr^2>\},  s^2r\{<r^3, s>\}(sr^2)^{-1} = \{<r^3, sr^4>\}$
+\item $n_3 = 4$ means eight elements of order 3.  $n_2 = 1$ fits one 2-subgroup.  No room for more!  Can't be both!
+\end{itemize}
+
+
+\item Problem: If G is of order 56, and $n_2, n_7$ are the count of those 2-, 7-subgroups, then $n_2 > 1, n_7 > 1$ are possible, but not simultaneously. Prove.
+\begin{itemize}
+\item $n_2= 1 mod 2, n_2 | 7 \rightarrow n_2 \in \{1, 7\}$
+\item $n_ 7= 1 mod 7, n_7 | 8 \rightarrow n_3 \in \{1, 8\}$
+\item If $n_2 = 1, n_7 = 8$, then there are 8 * 6 = 48 elements of order 7.  There is enough room for only one 2-subgroup of size $2^3 = 8$.   There is a semidirect product way to do this.
+\item If $n_2 = 7, n_8 = 1$,  then the 2-groups require at most 49, $n_2$ requires 7, plus the identity is 57, so we need a little overlap in the 2-subgroups.  No example provided.
+\end{itemize}
+
+
+\item Problem: If G is of order 70, G must always contain a normal subgroup of order 35.
+\begin{itemize}
+\item $n_ 5= 1 mod 5, n_2 | 14 \rightarrow n_5 = 1$
+\item $n_ 7= 1 mod 7, n_7 | 10 \rightarrow n_7 = 1$
+\item Therefore $1 = |G| / |N_{H_5}| \rightarrow |N_{H_5}|  = |G|$, so $ H_5 \triangleleft G$.
+\item Therefore $1 = |G| / |N_{H_7}| \rightarrow |N_{H_7}|  = |G|$, so $ H_7 \triangleleft G$.
+\item So the product $H_5 \times H_7 \cong G$, of size 35.
+\end{itemize}
+
+\item Since any two sylow p-subgroups are conjugate, there's a homomorphism by conjugation $f: G \rightarrow S_{n_p}$.
+\item $f$ isn't trivial if $n_p > 1$, since there are always elements that map one subgroup to another.
+\item Kernel of $f$ is normal.
+\item Example: if $n_3 = 4$, then $f: G \rightarrow S_4$ has a kernel which is a proper normal subgroup of $G$.  If $|G|$ doesn't divide $|S_4| = 24$, then $G$ has a proper normal subgroup since it can't be injective.  We use this to prove $G is not simple$.
+
+\item Problem: If $G = D_6$, what is $n_2$?
+\begin{itemize}
+\item $n_2 = 1 mod 2, n_2 | 3, n_2 \in \{1, 3\}$.
+\item So there's $f: D_6 \rightarrow S_3$.  But 12 doesn't divide 6.  So $f$ is not injective, so it has a nontrivial kernel, which is a proper normal subgroup.
+\item The 2-subgroups are given a few problems above: $\{<r^3, s>\}$ and its conjugations by $sr$ and $sr^2$.
+\end{itemize}
+
+\item Problem: Of those 3 2-subgroups of $G = D_6$, use the action $g \cdot H = gHg^{-1}$.  This gives a homomorphism $f: D_6 \rightarrow S_3$.  How many elements does ker(f) have?
+\begin{itemize}
+\item Of the 3 2-subgroups , we're looking for an element $g$ that doesn't change \emph{any} of them.
+\item Note that the center $Z(G) = \{e, r^3\}$ commutes with all.
+\item Note also that $|G| / n_2 = 12 / 3 = 4$, and that every one of these groups has its own elements that conjugate $H$ to itself.
+\item Then, $\{e, r^3\}$ is the intersection of all of the normalizers.  There are two elements of ker(f).
+\end{itemize}
+
+\item Problem: If $|G| = 132 = 4 * 33 = 2^2 * 3 * 11$, prove it is not simple.
+\begin{itemize}
+\item Note that $n_2 \neq 1, n_3 \neq 1, n_{11} \neq 1$ since if it did, that would provide a normal subgroup (since the normalizer is all of G).
+\item Also, if for any of these $n < 11$ , then $|G|$ can't divide $S_n$ since $G$ has a factor of 11.  So this means $f: G \rightarrow S_n$ is not injective, therefore nontrivial kernel , therefore normal subgroup.
+\item So if every one of them is 11 or greater:
+\item $n_2 = 1 mod 2, n_2 | 33, n_2 \geq 11\rightarrow n_2 \in \{11, 33\}$
+\item $n_3 = 1 mod 3, n_3 | 44, n_3 \geq 11\rightarrow n_3 \in \{22\}$
+\item $n_{11} = 1 mod 11, n_{11} | 12, n_{11} \geq 11 \rightarrow n_{11} \in \{12\}$
+\item But there's no way to have even $n_3, n_11$ in there, since $132 < 2 * 22 + 12 * 10$.
+\end{itemize}
+
+
 \end{itemize}
 
 \end{document}
