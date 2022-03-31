@@ -65,27 +65,25 @@ R & R & V & H & I \\ \hline
 \item Second coord could be: Does it flip?
 \end{itemize}
 
-\section {Chapter 1.3}
+\section {Chapter 1.3: Group Properties}
 
 Group Properties
 
 \begin{itemize}
 \item Some binary operation $( \cdot )$
-\item Identity (not e.g., even integers)
-\item Inverse (not e.g. multiplication modulo non-prime p)
-\item Associativity (not e.g. an average $f(x,y) = (x+y)/2$)?
+\item Identity (counterexample: even integers)
+\item Inverse (counterexample: integers with multiplication modulo non-prime p)
+\item Associativity (counterexample - on reals with an average $f(x,y) = (x+y)/2$)?
 \end{itemize}
 
-\section {Chapter 1.4}
+\section {Chapter 1.4: Cube symmetries}
 
-Cube symmetries
-
-One way  to think about it: 
+One way  to think about it
 
 \begin{itemize}
-\item Corner \emph{A} maps to one of eight new corners
+\item Corner \emph{A} maps to one of eight corners
 \item Each mapping has three orientations of that corner spin  (0 degrees, 120, 240)
-\item Therefore 24
+\item Therefore 24.
 \end{itemize}
 
 Another way:
@@ -131,7 +129,7 @@ The set of rationals with multiplication as the group operation is not a group a
 \subsection {Page 10-11}
 
 \begin{itemize}
-\item Cyclic group $Z_n$ is the set of integers modulo $n$ under addition.  
+\item Cyclic group $\mathbb{Z}_n$ is the set of integers modulo $n$ under addition.  
 \item Note that though usually multiplication is the default group operation, this usually uses "+".
 \end{itemize}
 
@@ -158,10 +156,10 @@ Quaternion group $Q_8$ rules:
 
 \subsection {Page 4}
 
-Note that  musical notes ($Z_{12}$) has only generators 1, 5, 7, 11.  
+Note that  musical notes ($\mathbb{Z}_{12}$) has only generators 1, 5, 7, 11.  
 These corresponding to chromatic, circle of fourths (anti-fifths), circle of fifths, downwards chromatic scales!
 
-\subsection {Page 55}
+\subsection {Page 5}
 
 \begin{itemize}
 \item $GL_n(\mathbb{R})$ is invertible n x n matrices in R.
@@ -194,7 +192,7 @@ has order 2,  but $AB = \begin{pmatrix}
 \item \textbf{isomorphism} is a bjiection preserving group operations.
 \item Can think of it as a relabeling of the Cayley table.
 \item Example given is Klein-four and symmetries of tall serif letter "I", or of a diamond/non-square rhombus.
-\item $Z_{12}$ is isomorphic to rotational symmetries of a 12-gon.
+\item $\mathbb{Z}_{12}$ is isomorphic to rotational symmetries of a 12-gon.
 \item $Q_8$ is isomorphic under matrix multiplication to 
 $\Bigg\{\pm \begin{pmatrix}
     1      & 0 \\
@@ -236,33 +234,33 @@ $\pm \begin{pmatrix}
 \subsection {Page 4}
 
 \begin{itemize}
-\item Cartesian product of groups G, H is also a group: $G \times H = (g, h) \cdot (g', h') = (gg', hh'), g \in G, h \in H$.  Is this also called the \textbf{direct product}? 
+\item Cartesian product of groups G, H is also a group: $G \times H = (g, h) \cdot (g', h') = (gg', hh'), g \in G, h \in H$.  Also called the \textbf{direct product}
 \end{itemize}
 
 \subsection {Lagrange's theorem}
 
 Theorem: Order of every subgroup divides the containing group.
 
-Lemma: $H \subset G.  r,s \in G.  Hr = Hs \iff rs^{-1} \in H$.  Otherwise, $Hr, Hs$ have no element in common.
+Lemma: If $H \subset G.  $ and $r,s \in G $ then $Hr = Hs \iff rs^{-1} \in H$.  Otherwise, $Hr, Hs$ have no element in common.
 
 One direction: $rs^{-1} \in H \rightarrow Hr=Hs$
 \begin{itemize} 
 \item $rs^{-1}  = h \in H$ by supposition
-\item $Hh = Hrs^{-1} = H$
+\item $H = Hh = Hrs^{-1}$
 \item $Hr = Hs$
 \end{itemize}
 
 Other direction: $ Hr=Hs \rightarrow rs^{-1} \in H$
 \begin{itemize} 
 \item $Hr = Hs$ by supposition
-\item $Hrs^{-1} = H, so h_1rs^{-1} = h_2$ for some $h_1, h_2$.
+\item $Hrs^{-1} = H$, so $h_1rs^{-1} = h_2$ for some $h_1, h_2$.
 \item $rs^{-1} = h_1^{-1}h_2 \in H$
 \end{itemize}
 
 Therefore, if Hr and Hs have some element in common, meaning $h_1r=h_2s$, then $rs^{-1} = h_1^{-1}h_2 \in H$.  
 So, by the first direction above, $Hr = Hs$.
 
-\emph{Lagrange construction}:
+\emph{Lagrange construction of cosets}:
 \begin{itemize}
 \item Take $r_1 \in G$, so $Hr_1 = H$.  
 \item If $H \neq G$, take $r_2 \in G - Hr_1$ to create $Hr_2$.
@@ -272,7 +270,7 @@ So, by the first direction above, $Hr = Hs$.
 \subsection {My take on Lagrange}
 
 \begin{itemize}
-\item If $t \in Hr$ since $t = h_1r$ and $t \in Hs$ since $t=h_2s$, then $r = h_1^{-1}h_2s \in Hs$ and likewise for s, so $Hr = Hs$.  So every element is in both or neither.
+\item If $t \in Hr$ via $t = h_1r$ and $t \in Hs$ via $t=h_2s$, then $r = h_1^{-1}h_2s \in Hs$ and likewise for s, so $Hr = Hs$.  So every element is in both or neither.
 \item Therefore $H(x) = Hx$ is a partition relation on the elements of G.
 \item Size of $Hr$ equals size of H for obvious group reasons.
 \item Every element g of G is in some coset $Hg$.  
@@ -297,24 +295,24 @@ So, by the first direction above, $Hr = Hs$.
 
 \begin {itemize} 
 \item Note that if H and K are subgroups, so is $H \cap K$.
-\item $Z_6$ has subgroups $Z_6, {0, 2, 4}, {0, 3}, {0}$, all divisors of 6 in this case.
-\item $Z_p$, p prime, has only subgroups $Z_p, {0}$
-\item $Z_p \times Z_p$ has p + 3 subgroups 
+\item $\mathbb{Z}_6$ has subgroups $\mathbb{Z}_6, \{0, 2, 4\}, \{0, 3\}, \{0\}$, all divisors of 6 in this case.
+\item $\mathbb{Z}_p$, p prime, has only subgroups $\mathbb{Z}_p, {0}$
+\item $\mathbb{Z}_p \times \mathbb{Z}_p$ has p + 3 subgroups 
   \begin{itemize}
-  \item $Z_p \times Z_p$
+  \item $\mathbb{Z}_p \times \mathbb{Z}_p$
   \item Generator (0,0)
   \item Generator (0,1)
   \item All generators $(1, n), n \in [0, p-1]$ . p of those.
   \end {itemize} 
-\item Another way to think about  $Z_p \times Z_p$: Outside of (0,0), the remaining $p^2-1$ elements each have order p.  They are generate a group of size p, minus the identity.  So $(p^2-1)/(p-1) + 2 = p+3.$
-\item Subgroup count of $Z_4 \times Z_2$: a counting exercise, based on generators. 
+\item Another way to think about  $\mathbb{Z}_p \times \mathbb{Z}_p$: Outside of (0,0), the remaining $p^2-1$ elements each have order p.  Except the identity, they each generate a group of size p, though groups of $p-1$ of them are duplicates (the same group). generate a group of size p, minus the identity.  So $(p^2-1)/(p-1) + 2$ \emph{(trivial subgroups)}$  = p+3.$
+\item Subgroup count of $\mathbb{Z}_4 \times \mathbb{Z}_2$: a counting exercise, based on generators. 
 \begin{itemize}
 \item Look at all cyclic groups of each of the elements.
 \item (0,0) generates 1 group
 \item Order 2: Three elements, which generate three distinct cyclic subgroups
 \item Order 4: Four elements, which generate two distinct subgroups
-\item Order 8: $Z_4 \times Z_2$, non-cyclic
-\item And there's one distict $Z_2 \times Z_2$ group.
+\item Order 8: $\mathbb{Z}_4 \times \mathbb{Z}_2$, non-cyclic
+\item And there's one distict $\mathbb{Z}_2 \times \mathbb{Z}_2$ group.
 \item \emph{Note: Is there a good (even recursive) formula for this?}
 \end {itemize} 
 
@@ -325,29 +323,28 @@ So, by the first direction above, $Hr = Hs$.
 
 \subsection{Page 1-3}
 \begin{itemize}
-\item Theorem: $Z_a \times Z_b$ is isomorphic to $Z_{ab}$ iff a and b are relatively prime.
-\item DF Proof: If a and b are relatively prime, (1,1) is of order $ab$.  If $a$ and $b$ share factor $c$, then $Z_{ab}$ has an element of order $ab$, but $Z_a \times Z_b$ will have cycled by $a * b / c$.
-\item So decompose e.g. $Z_{12}$ into $Z_4 \times Z_3$, for example.
+\item Theorem: $\mathbb{Z}_a \times \mathbb{Z}_b$ is isomorphic to $\mathbb{Z}_{ab}$ iff a and b are relatively prime.
+\item DF Proof: If a and b are relatively prime, (1,1) is of order $ab$.  If $a$ and $b$ share factor $c$, then $\mathbb{Z}_{ab}$ has an element $x$ of order $ab$, but $\mathbb{Z}_a \times \mathbb{Z}_b$ will have cycled by the time $x^{ab / c}$ rolls around.
+\item So decompose e.g. $\mathbb{Z}_{12}$ into $\mathbb{Z}_4 \times \mathbb{Z}_3$, for example.
 \end{itemize}
 
 \subsection{Page 4-6}
 \begin{itemize}
-\item Theorem: Every finite abelian group is isomorphic to a direct product of cyclic groups.
+\item Theorem: Every finite abelian group is isomorphic to a direct product of cyclic groups.  \emph{Note: This works because for Abelian groups, subgroups are all normal, so keep decomposing into normal complements $G \cong H \times K$}
 \item Therefore, the number of these groups of order n is the product of the partitions of each of its prime factors' powers.
-\item Therefore, the number of abelian groups of size $24 = 3* 2^3 = p(3) * p(1) = 3 * 1 = 3, Z_3  \times Z_8, Z_3  \times Z_4 \times Z_2, Z_3  \times Z_2 \times Z_2 \times Z_2$
+\item Therefore, the number of abelian groups of size $(24 = 3* 2^3)$ is $p(1) * p(3) = 1 * 3 = 3: \mathbb{Z}_3  \times \mathbb{Z}_8, \mathbb{Z}_3  \times \mathbb{Z}_4 \times \mathbb{Z}_2, \mathbb{Z}_3  \times \mathbb{Z}_2 \times \mathbb{Z}_2 \times \mathbb{Z}_2$
 \item Therefore, the number of abelian groups of size $2310 = 2 * 3 *5 * 7 * 11$ is one.
 \end{itemize}
 
-\subsection{Page 7-11: $Z_n^*$ or $U(n)$}
+\subsection{Page 7-11: $\mathbb{Z}_n^*$ or $U(n)$}
 \begin{itemize}
-\item Group $Z_n^*$: elements of $Z_n$ relatively prime to n, under multiplication. 
-\item $|Z_n^*| = \phi(n)$ , the totient function.
+\item Group $\mathbb{Z}_n^*$: elements of $\mathbb{Z}_n$ relatively prime to n, under multiplication. 
+\item $|\mathbb{Z}_n^*| = \phi(n)$ , the totient function.
 \item This is a group even if n not prime because there is $ax + bn = 1$  if $x, n$ are relatively prime.
-\item $Z_8^* = \{1,3,5,7\}$ is isomorphic to $Z_2  \times Z_2$ since every element squared is 1.
-\item $Z_10^* = \{1,3,7,9\}$ is isomorphic to $Z_4$ since it is generated by 3.
-\item $Z_15^* = \{1,2,4,7,8,11,13,14\}$ is isomorphic to $Z_4 x Z_2$ by counting element orders.
-\item Note: Primitive roots of n are those that generate $Z_n^*$.  There are primitive roots mod n if and only if $n = 1,2,4,p^k, 2p^k$.
-\item TODO: read https://brilliant.org/wiki/primitive-roots/ and why these are the only solutions. Also, look up \emph{Legendre symbol}
+\item $\mathbb{Z}_8^* = \{1,3,5,7\}$ is isomorphic to $\mathbb{Z}_2  \times \mathbb{Z}_2$ since every element squared is 1.
+\item $\mathbb{Z}_{10}^* = \{1,3,7,9\}$ is isomorphic to $\mathbb{Z}_4$ since it is generated by 3.
+\item $\mathbb{Z}_{15}^* = \{1,2,4,7,8,11,13,14\}$ is isomorphic to $\mathbb{Z}_4 \times \mathbb{Z}_2$ by counting element orders.
+\item Note: Primitive roots of n are those that generate $\mathbb{Z}_n^*$.  There are primitive roots mod n if and only if $n = 1,2,4,p^k, 2p^k$.  \textbf{TODO: Read the primitive roots proof.}
 \end{itemize}
 
 \section {Chapter 2.5: Homomorphisms}
@@ -355,28 +352,30 @@ So, by the first direction above, $Hr = Hs$.
 \begin{itemize}
 \item Homomorphism $\phi: \phi(a) *' \phi(b) = \phi(a * b)$.  Note that  $*$ and $*'$ are different  operations.
 \item This means, "translate each via the function, then combine" yields the same result as "combine first, then translate".  So structure is preserved.
-\item Note this is like isomorphism, except homomorphism can squash some items to zero.
-\item Also, this can change to an entirely separate domain, e.g. $det(AB) = det(A)det(B)$
+\item Note that if the domain and range are the same, this is like isomorphism, except homomorphism can squash some items to zero.
+\item Also, this range can be entirely different than the domain, e.g. $det(AB) = det(A)det(B)$
 \item Easy to prove homomorphism preserves identities and inverses.
-\item Order of transformed element $\phi(g)$ divides order of g, since $g^k = e$ and $\phi(g)^k = \phi(e)$, but consider that $\phi(g)$ could hit $e$ at some divisor of $k$ - we could map everything to the identity and make that 1!
+\item Order of transformed element $\phi(g)$ divides order of g, since $g^k = e$ and $\phi(g)^k = \phi(e)$, but they're not identical: consider that $\phi(g)$ could hit $e$ at some divisor of $k$ - we could map everything to the identity and make that 1!
 \end{itemize}
 
 \subsection{Page 7- 10: Counting homomorphisms}
+
+TODO Start here
 \begin{itemize}
 \item Main idea: Knowing where we send identity determines entire homomorphism for a cyclic group.
-\item Homomorphism count for $Z_4 \rightarrow Z_{10}$: There are 10 places to send identity, but recall that $\phi(1)$ has to have order 4 since $\phi(1 + 1 + 1 + 1) = \phi(0) = 0$.  Therefore, $\phi(1)$ has to be 0 or 5.  So 2 possibilities.
-\item Homomorphism count for $Z_{99} \rightarrow Z_{100}$: Since $\phi(99) = 0$ and $\phi(1) \times 100 = 0$, and order of $\phi(1)$ must divide both, only one possibility: $\phi(1) = 1$,.
-\item  Homomorphism count for $Z_{99} \rightarrow Z_{99}$: 99, since $99 \cdot \phi(1) = 0$, so $\phi(1)$ can go anywhere.
-\item  Homomorphism count for $D_3 \rightarrow Z_3$: 1, since $D_3$ has 3 elements of order 2, 2 of order 3, 1 of order 1.  Only mapping everything to $0$ works.
+\item Homomorphism count for $\mathbb{Z}_4 \rightarrow \mathbb{Z}_{10}$: There are 10 places to send identity, but recall that $\phi(1)$ has to have order 4 since $\phi(1 + 1 + 1 + 1) = \phi(0) = 0$.  Therefore, $\phi(1)$ has to be 0 or 5.  So 2 possibilities.
+\item Homomorphism count for $\mathbb{Z}_{99} \rightarrow \mathbb{Z}_{100}$: Since $\phi(99) = 0$ and $\phi(1) \times 100 = 0$, and order of $\phi(1)$ must divide both, only one possibility: $\phi(1) = 1$,.
+\item  Homomorphism count for $\mathbb{Z}_{99} \rightarrow \mathbb{Z}_{99}$: 99, since $99 \cdot \phi(1) = 0$, so $\phi(1)$ can go anywhere.
+\item  Homomorphism count for $D_3 \rightarrow \mathbb{Z}_3$: 1, since $D_3$ has 3 elements of order 2, 2 of order 3, 1 of order 1.  Only mapping everything to $0$ works.
 \end{itemize}
 
 
 \subsection{Page 11: Counting automorphisms}
 \begin{itemize}
 \item Automorphism is isomorphism from group to itself.
-\item Count of automorphisms of $Z_8$: If 1 maps to an order-8 element, we're isomorphic.  There are four: ${1,3,5,7}$
-\item $Aut(Z_8)$ is isomorphic to $Z_2 \times Z_2$, since $\phi_3(1)^2 = \phi_5(1)^2 = \phi_7(1)^2 = 1$, where $\phi_a$ maps a to 1.  Three elements of order 2 means it's the Klein 4 group.
-\item Count of \emph{automorphisms} (meaning, we need all the elements in the codomain) of $Z_2 \times Z_2 \times Z_2$: Think of $\phi((1,0,0)), \phi((0,1,0)), \phi((0,0,1))$ as the basis for the group.  There are seven choices for the first, six for the next, and \emph{four} for the third.  
+\item Count of automorphisms of $\mathbb{Z}_8$: If 1 maps to an order-8 element, we're isomorphic.  There are four: ${1,3,5,7}$
+\item $Aut(\mathbb{Z}_8)$ is isomorphic to $\mathbb{Z}_2 \times \mathbb{Z}_2$, since $\phi_3(1)^2 = \phi_5(1)^2 = \phi_7(1)^2 = 1$, where $\phi_a$ maps a to 1.  Three elements of order 2 means it's the Klein 4 group.
+\item Count of \emph{automorphisms} (meaning, we need all the elements in the codomain) of $\mathbb{Z}_2 \times \mathbb{Z}_2 \times \mathbb{Z}_2$: Think of $\phi((1,0,0)), \phi((0,1,0)), \phi((0,0,1))$ as the basis for the group.  There are seven choices for the first, six for the next, and \emph{four} for the third.  
 \item The above group is $(\phi(e_1) | \phi(e_2) | \phi(e_3)) = GL(\mathbb{F}_2)$, invertible matrices of 3x3.
 \end{itemize}
 
@@ -395,10 +394,10 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 \subsection{Page 1-6}
 \begin{itemize}
 \item $S^1$, is defined as the group of complex numbers with modulus 1.
-\item The coset $zS^1$ is any complex number multiplied by $S^1$ , which is a circle about the origin.  $z=2$ and $z=2i$ would be in the same coset.  These cosets are members of $C^*$ with the same modulus (length).
+\item The coset $zS^1$ is any complex number multiplied by $S^1$ , which is a circle about the origin.  $z=2$ and $z=2i$ would be in the same coset.  These cosets are members of $\mathbb{C}^*$ with the same modulus (length).
 \item These are disjoint cosets that fill out $\mathbb{C}^*$ (don't include the zero, since no inverse).
-\item If you consider $H=x+iy$, $x > 0, y=0$ (positive reals) then the cosets are rays from the origin.  Any $zH$ is just the different sizes of that (say, unit) vector.  These cosets are members of $C^*$ with the same angle.
-\item \textbf{quotient group} of $\mathbb{C}^*$ by $S^1$:
+\item If you consider $H=x+iy$, $x > 0, y=0$ (positive reals) then the cosets are rays from the origin.  Any $zH$ is just the different sizes of that (say, unit) vector.  These cosets are members of $\mathbb{C}^*$ with the same angle.
+\item \textbf{quotient group} of $\mathbb{C}^*$ by $S^1: \mathbb{C} / S^1$
 	\begin{itemize}
 	\item Members are cosets
 	\item Multiplying is defined as $aH \times bH = abH, H \in S^1, a,b \in \mathbb{C}^*$ 
@@ -420,9 +419,9 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 \begin{itemize}
 \item Another example: $\mathbb{Z} / 10\mathbb{Z} = \mathbb{Z}_{10}$ under addition.  Forget about the non-unit digits!
 \item Another example: $\mathbb{Q} / \mathbb{Z}$ is $\overline{q} = q + \mathbb{Z}$, so $\overline{1/2} + \overline{2/3} = \overline{1/6}$
-\item Another example: if $N$ is the \textbf{center} (omni-commuter subgroup) of $D_4$, then N is two elements $I, R_{180}$.  Forgetting about those we have cosets $(I, R_{180})N, (R_{90}, R_{270})N, (D_1, D_2)N, (V,H)N$.  All non-identity are degree 2, so isomorphic to $Z_2 \times Z_2$
-\item Another example: $Z_{13}^*$ with multiplication mod 13.  $N = {1,12}$ is a normal subgroup.  $Z_{13}^* / N$ is "forget about the +/- 1 of it and think of these as 1 through 6.  
-\item Another example: \textbf{commutator subgroup} [a,b] is generated by all $aba^{-1}b^{-1}$ for all $a, b \in G$.  Note: group members are products of these guys, not necessarily all of that form.  This is just $e$ for an Abelian group.  Its size measures "how far" the group is from being Abelian.  
+\item Another example: if $N$ is the \textbf{center} (omni-commuter subgroup) of $D_4$, then N is two elements $I, R_{180}$.  Forgetting about those we have cosets $(I, R_{180})N, (R_{90}, R_{270})N, (D_1, D_2)N, (V,H)N$.  All non-identity are degree 2, so isomorphic to $\mathbb{Z}_2 \times \mathbb{Z}_2$
+\item Another example: $\mathbb{Z}_{13}^*$ with multiplication mod 13.  $N = {1,12}$ is a normal subgroup.  $\mathbb{Z}_{13}^* / N$ is "forget about the +/- 1 of it and think of these as 1 through 6.  
+\item Another example: \textbf{commutator subgroup} [a,b] is generated by all $aba^{-1}b^{-1}$ for all $a, b \in G$.  (Note: group members are products of these guys, not necessarily all of that form.)  This is just $e$ for an Abelian group.  Its size measures "how far" the group is from being Abelian.  
 \item \textbf{Main idea} of quotients: "what do we force to the identity?"  If we say every $\overline{aba^{-1}b^{-1}} = \overline{1}$, then you can multiply by $ba$ to get $\overline{ab} =  \overline{ba}$.  So $G / [G,G]$ is necessarily Abelian.
  \end{itemize}
 
@@ -435,12 +434,12 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 \item A Fermat's little theorem proof
  \begin{itemize}
   \item Take prime $p$, and $a$ not divisible by $p$.
-   \item ${a, 2a, 3a ... , (p-1)a} \equiv {1, 2, 3, ... (p-1)}$ mod $p$ since they're the same elements mod p.
+   \item $\{a, 2a, 3a ... , (p-1)a\} = \{1, 2, 3, ... (p-1)\}$ mod $p$ after rearrangement since they're the same elements mod p.
    \item Take the product of each: $a^{p-1}(p-1)! \equiv (p-1)!$ mod $p$
    \item Divide $(p-1)!$ out (there's an inverse mod p) and you get $a^{p-1} \equiv 1$ mod p
   \end{itemize}
  \item Another: Since the order of $a$ in $\mathbb{Z}_p^*$ is $p-1$, $a^{p-1} \equiv 1$ mod p.
- \item Note: Generalization of Fermat's little theorem using same group argument: $a^{\phi(n)} \equiv 1$ if $a$ and $n$ relatively prime.
+ \item Note: Generalization of Fermat's little theorem using same group argument: $a^{\phi(n)} \equiv 1$ if $a$ and $n$ relatively prime, since $\phi(n)$ is the order of the group $\mathbb{Z}_n$, and every element to the power of the group order is 1.
  \end{itemize}
  
  \subsection{Page 8-11}
@@ -448,16 +447,14 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
  \item Wilson's theorem: $1 * 2 * ... * (p-1) \equiv -1$ mod $p$.
  \item One proof: These all have inverses, except 1 and -1 mod p, which are self-inverting ($x^2 = 1$ solutions).
  \item This also proves that the product of all elements of a finite Abelian group \emph{which has a single element $g$ of order 2} is that element, $g$.
- \item A hard proof TODO. The powers of a \textbf{primitive root of p} yield all elements $a$ mod $p$.  So $\mathbb{Z}_p^*$ is cyclical for any prime p.
-\item One more proof: if k relatively prime to p-1, where p a prime $> 2$, then $1^k + 2^k + ... + (p-1)^k \equiv 0$ mod $p$, since each of these summands is a different member of the group, summing to $\frac{p(p-1)}{2}$
+ \item The powers of a \textbf{primitive root of p} yield all elements $a$ mod $p$.  So $\mathbb{Z}_p^*$ is cyclical for any prime p.
+\item One more proof: if k relatively prime to p-1, where p a prime $> 2$, then $1^k + 2^k + ... + (p-1)^k \equiv 0$ mod $p$, since each of these summands is a different member of the group: $(a^k = b^k, k < p \rightarrow a = k $ mod $p$, after looking at the binomial elements) summing to $\frac{p(p-1)}{2}$
  \end{itemize}
  
  \section{Chapter 3.2: Games}
  \subsection{15 puzzle}
- I think this will go:
- - The board is a permutation of (1, 2, ... 15), read like a book, with a blank  somewhere in there ,immaterial.
- - Sliding the blank left or right doesn't change the order.
- - Sliding it up or down skips three backward or forward.
+ 
+ You can't keep 1-13 fixed, blank (16) in the lower right corner, and swap 14 and 15.
  
 \textbf{Their proof}: Think of this as a series of swaps with $(j, 16)$, 16 being the blank tile.  To return to the bottom right corner, 16 must make an even number of moves.  So only even permutations allowed.  So (14,15) is not a viable swap, nor any of the odd permutations.  
 
@@ -465,16 +462,16 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 
 \begin{itemize}
 \item Consider Klein four group: $xy = yx = z, yz = zy = x, xz = zx = y$.  
-\item Label all pegs such that three consecutive are always, in some order: x, y, z
+\item Label all pegs such that three consecutive in any direction on the board are always, in some order: x, y, z
 \item Invariant: product of all occupied spaces.  If x jumps over y to get to z, eliminating jumped peg, xy = z.
-\item 11  x's, 11 z's, 10 y's yield xz = y as the product.
+\item 11  x's, 11 z's, 10 y's yield xz = y as the total board product, an invariant.
 \end{itemize}
 
 \section{Chapter 3.4: Rubix's Cube}
 
 \begin{itemize}
-\item Each element is the state $(S_{12}, S_8, (Z_2)^{12}, (Z_3)^8$), representing around a fixed set of centers: (middle selections, corner sleections, middle orientation, corner orientation).
-\item Invariant: First and second perms for all F,B,D,U,L,R are odd, so first two args need same permutation parit
+\item Each element is the state $(S_{12}, S_8, (\mathbb{Z}_2)^{12}, (\mathbb{Z}_3)^8$), representing around a fixed set of centers: (middle selections, corner selections, middle orientation, corner orientation).  Each permutation is basically what you swap from starting state.
+\item Invariant: First and second terms of the 4-tuple for all F,B,D,U,L,R are odd, so first two args need same permutation parity
 \item Invariant: (Not proven here): Sum of edge orientations (0,1) is zero, sum of corner orientations (0, 1, 2) is zero.
 \item \textbf{Commutator}: $ghg^{-1}h^{-1}$ measure how entangled $g$ and $h$ are.  If they're commutatitive, it is $e$.
 \item For Rubix's cube, commutators  $ghg^{-1}h^{-1}$ are great for only moving pieces where effects of $g$ and $h$ overlap.
@@ -497,38 +494,34 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 	\item $gng^{-1} \in N$ for all $g \in G$
 	\end{itemize}
 \item \emph{Theorem: Any subgroup of index 2 is normal}.  Proof: G has two distinct cosets $N$, $gN$, but also $N$ and $Ng$ so $gN = Ng$.
-\item Normal doesn't recursively nest.  
-	\begin{itemize}
-	\item If $G$ has normal subgroup $H$ and $H$ has normal subgroup $K$, $K$ is normal in $H$ too (those elements also "pass through K)"
-	\item However, $H$ can be normal in $G$ (e.g. $(I, R_{180}, F_v, F_h)$ in $D_4$,  $K$ can be normal in $H$ (e.g. ${I, V}$, but $K$ is not normal in $G: VR_{90} = D_{ul}, R_{90}V = D_{ur}$
-	\end{itemize}
+\item Normal doesn't recursively nest.  \item $H$ can be normal in $G$ (e.g. $(I, R_{180}, F_v, F_h)$ in $D_4$,  $K$ can be normal in $H$ (e.g. ${I, V}$, but $K$ is not normal in $G: VR_{90} = D_{ul}, R_{90}V = D_{ur}$
 \item Normal examples in $GL_2(\mathbb{C})$: $SL_2(\mathbb{C})$ (determinant 1) and non-zero diags $zI_2$.  
-\item Non-normal examples in $GL_2(\mathbb{C})$: $GL_2(\mathbb{R})$ and non-zero diags with different entries. Easy to throw some arbitrary ones in Wolfram Alpha and see everything messed up after conjugation.
+\item Non-normal examples in $GL_2(\mathbb{C})$: $GL_2(\mathbb{R})$.  Non-zero diags with different entries. Easy to throw some arbitrary ones in Wolfram Alpha and see everything messed up after conjugation.
 \item G's \textbf{Center}: $Z(G)$ are the omni-commuters.  Always normal.
-\item G's \textbf{Commutator group $[G,G]$}: Product of any $aba^{-1}b^{-1}$ for $a, b \in G$. is normal, since $g[a,b]g^{-1} = [gag^{-1}, gbg^{-1}]$.
+\item G's \textbf{Commutator group $[G,G]$}: Product of any $aba^{-1}b^{-1}$ for $a, b \in G$. is normal, since $g[a,b]g^{-1} = [gag^{-1}, gbg^{-1}]$, and this can be extended inductively over the constituents.
 \end{itemize}
 
 \subsection{Normal properties and examples}
 \begin{itemize}
 \item $S_3$ has three normal subgroups: two trivial ones, and $([], [123], [321])$ since it's of index 2.
-\item $Q_8$ has four non-trivial subgroups, all normal: those generated by $I, j$, or $k$, all of order 4, index 2.  $-1$ also generates an order 2 group, but it's the center.
+\item $Q_8$ has four non-trivial subgroups, all normal: those generated by $i, j$, or $k$ are all of order 4, index 2.  $-1$ also generates an order 2 group, but it's the center.
 \item Definition: Product $HK = {hk: h \in H, k \in K}$. 
 \item Property: If $H \cap K$ = $\{1\}$, and $H, K$ are finite, $|HK| = |H| \cdot |K|$.  Why?  
   $h_1k_1 = h_2k_2 \Longrightarrow h_2^{-1}h_1 = k_1^{-1}k_2$, proving they're both $e$ since left is in $H$, right in $K$.
-\item Property : If $H, K$ subgrops of G, then $HK$ is a subgroup too if $H$ or $K$ is normal, otherwise not always.  Why?   
+\item Property : If $H, K$ subgruops of G, then $HK$ is a subgroup too if $H$ or $K$ is normal, otherwise not always.  Why?   
   \begin{itemize}
   \item Assume H is normal.
   \item Identity: $e_he_k = e$ is in there.
   \item Inverse: If $hk \in HK$, then $k^{-1}h^{-1} = k^{-1}h^{-1}k^1 * k^{-1}$ is in H, K due to H's normality.
   \item Closure: $h_1k_1 * h_2k_2  = h_1k_1h_2(k_1^{-1}k_1)k_2 =   h_1 (k_1h_2k_1^{-1}) k_1k_2 =  h_1h_3 * k_1k_2$ for some $h_3$
   \end{itemize}
-\item Property: If $H, K$ are normal subgroups of G, $HK$ is normal.  Maybe not otherwise (e.g. take $H = \{1\}, G$ a non-normal subgroup).  Why? More tricks.  $ghkg^{-1} = gh(g^{-1}g)kg^{-1} =(ghg^{-1})(gkg^{-1}) = h'k'$ for some other $h' \in H, k' \in K$.
+\item Property: If $H, K$ are normal subgroups of G, $HK$ is normal.  Why? More tricks.  $ghkg^{-1} = gh(g^{-1}g)kg^{-1} =(ghg^{-1})(gkg^{-1}) = h'k'$ for some other $h' \in H, k' \in K$.  If they're not both normal, no guarantee about $HK$ (e.g. take $H = \{1\}, G$ a non-normal subgroup).  
 
 \item \textbf{Centralizer} of G's subgroup H is a subgroup of G which commutes with all H: $C_G(H) = \{g \in G: gh = hg$ for all $h \in H\}$.  This is G if and only if G is Abelian (almost definitional).  May not contain H.
-\item \textbf{Normalizer} of G's subgroup H is a subgroup of G which makes H normal: $N_G(H) = \{g \in G: gH= Hg\}$.  This is G if and only if H is normal in G (almost definitional).  Largest subgroup of G where H is normal.
+\item \textbf{Normalizer} of G's subgroup H is a subgroup of G which makes H normal: $N_G(H) = \{g \in G: gH= Hg\}$.  This is G if and only if H is normal in G (almost definitional).  Largest subgroup of G where H is normal.  Definitely contains H.
 \item Centralizer is  a normal subgroup of normalizer with two different proofs:
 \begin{itemize}
-\item With $n \in N_G(H), c \in C_G(s)$, show that $ncn^{-1}$ commutes with members of H, so it's in $C_G$, therefore normal.  $hn$ is some $nh'$, and same for $n^{-1}$, so $ncn^{-1}h = nch'n^{-1} = nh'cn^{-1} = h'ncn^{-1}$ so $ncn^{-1}$ passed through h, is therefore in the centralizer, and so $C_G(H)$ is normal.
+\item With $n \in N_G(H), c \in C_G(s)$, show that $ncn^{-1}$ commutes with members of H, so it's in $C_G$, therefore normal.  $hn$ is some $nh'$, and same for $n^{-1}$, so $ncn^{-1}h = nch'n^{-1} = nh'cn^{-1} = hncn^{-1}$ so $ncn^{-1}$ passed through h, is therefore in the centralizer $(ncn' \in C_G(s))$, and so $C_G(H)$ is normal.
 \item Using First isomorphism theorem (later): 
   \begin{itemize}
   \item $N_G(H)$ is the big "dividend" group, $C_G(H)$ is the "divisor", and Aut(H) the "quotient" (codomain of the homomorphism)
@@ -536,7 +529,7 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
   \item The kernel of this homomorphism is that which maps to $I \in Aut(H)$.
   \item The kernel is the centralizer, since $\phi_c(x) = cxc^{-1} = cc^{-1}x = x$, identity.
   \item Therefore, $N_G(H) / Ker(\phi) = N_G(H) / C_G(H) \rightarrow Aut(H).$ so $C_G(H)$ must be normal!
-  \item (Kernels of homomorphisms always normal (DSF Proof): If $\phi: G \rightarrow H$ is a homormophism, and $g \in G, k \in Ker(\phi)$, then $gkg^{-1} \in K$ since $\phi(gkg^{-1}) = \phi(g)\phi(k)\phi(g^{-1}) = \phi(g)\phi(g^{-1}) = e$.  So $K$ is normal in $G$.
+  \item (Kernels of homomorphisms always normal (DSF Proof): If $\phi: G \rightarrow H$ is a homormophism, and $g \in G, k \in Ker(\phi)$, then $gkg^{-1} \in K$ since $\phi(gkg^{-1}) = \phi(g)\phi(k)\phi(g^{-1}) = \phi(g)\phi(g^{-1}) = \phi(g)\phi(g)^{-1} = e$.  So $K$ is normal in $G$.
   \end{itemize}
 \end{itemize}
 
@@ -549,7 +542,7 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
     a     & b \\
    c     & d \\
   \end{pmatrix}
-    = (a ($mod$2), b ($mod$2), c ($mod$2), d$ mod $ 2)).$
+    = (a $ mod $2, b $ mod $ 2, c $ mod $ 2, d $ mod $2 )).$
 
 \subsection{First Isomorphism Theorem and example}
   \begin{itemize} 
@@ -558,6 +551,7 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
   \item $\varphi$ is $det$, since $det(AB) = det(A)det(B)$.
   \item $G / N \cong \mathbb{R}^*$ intuitively, since for any matrix, you can divide by the determinant scalar, and find the representative in the group N.   Can think of N as the kernel of the homomorphism - it doesn't matter, it's mapped to identitty.
   \item \textbf{First isomorphism theorem}: given surjective homomorphism $\varphi: G \mapsto H$ with kernel $Ker(\varphi) = \{g \in G |\varphi(g) = e_H\}$, then $G / Ker(\varphi) \cong H$. 
+  \item Note: This directly implies $G = H \times K \leftrightarrow G / K = H$, with the isomorphism $\phi: (h,k) \rightarrow H$.  The kernel $Ker(\phi) = (0, k) \cong K$, so $ G / Ker(\phi) = G / K = H$
   \item Another example in the above, if 
     $a= \begin{pmatrix} 0 & 1 \\ 2 & 3 \\   \end{pmatrix},
      b= \begin{pmatrix} 1 & 2 \\ 3 & 4 \\   \end{pmatrix},$ then $(aN)(bN)$ is some $cN$, where $det(c) = 4$, like $2I$
@@ -581,27 +575,31 @@ and $\sqrt{a^2+b^2}\sqrt{c^2+d^2} = \sqrt{a^2c^2 + b^2d^2 - 2abcd + ad^2+bc^2 + 
 \begin{itemize}
 \item Actual theorem says: if $H$ is a subgroup of $G$, and $N$ is a normal subgroup of $G$, then $\frac{H}{H \cap N} \cong \frac{HN}{N}$
 \item In particular, if $H \cap N = \{1\}$, then $\frac{HN}{N} \cong H$.  
-\item Why?  
-\item $HN$ contains both H and N since N is normal.
+\item Proof:  
+\begin{itemize}
+\item $HN$ contains both H and N (since identity in both), and N is normal in H ($hnh^{-1} \in N$) since it is normal in G ($h \in G$).
 \item Therefore $(HN)/N$ is a group.
 \item $\varphi(h) = hN$ is a surjective homomorphism to $(HN)/N$
 \item The kernel is anything in N, which would be $H \cap N$.
 \item Result follows from first isomorphism theorem.
 \end{itemize}
+\end{itemize}
 
 \subsection{Examples using the first isomorphism theorem}
 \begin{itemize}
-\item: Typically, in order to identify $G/N \cong K$, find the surjective homomorphism $G \rightarrow K$ where $Ker(\varphi) = N$.
-\item Example: $G = \mathbb{Z} \times \mathbb{Z}$ with addition, N = group generated by $(1,0)$.  $G/N \cong Z$ intuitively, since you're forgetting the first coordinate.  To make it formal : $\varphi((x,y) = y)$.  
+\item Typically, in order to identify $G/N \cong K$, find the surjective homomorphism $G \rightarrow K$ where $Ker(\varphi) = N$.
+\item Example: $G = \mathbb{Z} \times \mathbb{Z}$ with addition, N = group generated by $(1,0)$.  $G/N \cong \mathbb{Z}$ intuitively, since you're forgetting the first coordinate.  To make it formal : $\varphi((x,y) = y)$.  
 \item Harder example: $G = \mathbb{Z} \times \mathbb{Z}$ with addition, H = group generated by $(2,3)$, or $(2a, 3a)$.  $G/H \cong Z$, actually, since $\phi((x,y) = 3x - 2y)$ is surjective (think of $\phi((a, a)) = a$ and its kernel is H.
-\item Harder example: $G = \mathbb{Z} \times \mathbb{Z}$ with addition, H = group generated by $(2,4)$, or $(2a, 4a)$.  $G/H \cong Z \times Z_2$, actually, since $\phi((x,y) = 2x  - y, x (mod 2))$ is surjective and its kernel is H.
+\item Harder example: $G = \mathbb{Z} \times \mathbb{Z}$ with addition, H = group generated by $(2,4)$, or $(2a, 4a)$.  $G/H \cong Z \times \mathbb{Z}_2$, actually, since $\phi((x,y) = 2x  - y, x (mod 2))$ is surjective and its kernel is H.
 \item TODO: Get a better intuition here.  Is this group like, how far away from this null space line am I?
 \end{itemize}
 
-\section{4.3a: Interlude; Group actions}
+\section{4.3a: Interlude: Group actions}
 
 \subsection{Group Actions}
 Reference: https://brilliant.org/wiki/group-actions
+
+Think of group actions like $S_n$ acting on the \emph{set} (not necessarily group)  of $\{1, 2, ... n\}$.
 \begin{itemize}
 \item \textbf{group action} on group $G$, set $X$, is function $f: G \times X \rightarrow X$.  It's often written $f(g,x) = g \cdot x$. which has some groupy properties.
   \begin{itemize}
@@ -611,7 +609,7 @@ Reference: https://brilliant.org/wiki/group-actions
   \end{itemize}
 
 \item \textbf{fixed point of a group element} $g \in G$ is $x \in X$ such that $g \cdot x = x$.  So, $f = g(x)$ is the (very straightforward) mapping, $g$ is the function, and $x$ would be a point that doesn't change.
-\item For point $x$, \textbf{stabilizer of the point} is called $G_x$, and is the set of $g \in G$ that map $x$ as a fixed point: $g(x) = x$.of a of element $g \in G$ is $x \in X$ such that $g \cdot x = x$.  So, it's the \emph{subgroup} that makes $x$ totally stable.
+\item For point $x$, \textbf{stabilizer of the point} is called $G_x$, and is the set of $g \in G$ that map $x$ as a fixed point: $g(x) = x$ of element $g \in G$ is $x \in X$ such that $g \cdot x = x$.  So, it's the \emph{subgroup} of elements that each act stably on $x$.
 \item \textbf{fixed point} of element $g \in G$ is $x \in X$ such that $g \cdot x = x$.  So, $f = g(x)$ is the (very straightforwardx) mapping, $g$ is the function, and $x$ would be a point that doesn't chagne.
 \item \textbf{orbit of element $x \in X$} is how far $x$ reaches, the set of $y \in X$ such that there's a $g \cdot x = y$.
 \item Example: So if $G = \mathbb{Z}_2 = {e, g}, X = \mathbb{Z}$, and the action is $e \cdot x = x, g \cdot x = -x$, then
@@ -634,7 +632,7 @@ Reference: https://brilliant.org/wiki/group-actions
   \item It's contained in H since $hHh^{-1} \in H$, and it's an intersection.
   \item It's normal because $kCore_G(H)k^{-1} = k (\bigcap_{g \in G} gHg^{-1}) k^{-1}  = \bigcap_{g \in G} kgHg^{-1}k^{-1} = Core_G(H)$ since every $kg$ is just a $g$ but permuted. 
   \item It's the largest normal one since if there were another normal subgroup $N' \in H$, then $gn'g^{-1} \in N'$ and $gn'g^{-1} = h$ for some $h \in H$, so $n' = g^{-1}hg$, and therefore $n'$ is somewhere in the core group.
-  \item Therefore, the core group is the kernel of the map $G \rightarrow Sym(G/H)$, since those map to H.  So if H doesn't contain any trivial subgroups, it's faithful, and is called \textbf{simple}
+  \item Therefore, the core group is the kernel of the map $G \rightarrow Sym(G/H)$, since those map to H.  So if H doesn't contain any nontrivial normal subgroups, it's faithful, and is called \textbf{simple}  
   \end{itemize}	  
   \item Another group action: $PGL_2(\mathbb{C})$ = projective linear group of 2x2 matrices on the complex plane (plus infinity), sending $\begin{pmatrix} a & b \\ c & d\\ \end{pmatrix} \cdot z = \frac{az+b}{cz+d}$.  
   
@@ -644,9 +642,9 @@ Reference: https://brilliant.org/wiki/group-actions
 \item \textbf{Orbit stabilizer theorem}: If $G$ is finite, and $x \in G$ has a stabilizer $G_x$ and orbit orb(x), then $|G| = |G_x| |orb(x)|$.  Proof:
 \begin{itemize}
 \item Since stabilizer is a subgroup, the count of distinct cosets (index) times the subgroup is the size by Lagrange. 
-\item Consider homomorphism $\phi$ from $G / G_x \rightarrow orb(x) = gG_x \rightarrow g \cdot x$
-\item And the set $aG_x$ and $bG_x$ are equal under $\phi$  iff $a(x) = b(x)$, since $b^{-1}aG_x= G_x$, implying $b^{-1}a \in G_x \rightarrow b^{-1}a(x) = x \rightarrow a(x) = b(x)$.  
-\item Also, this map is onto since every element $y \in orb(x)$, meaning some $g \cdot x = y$ is in that $gG_x$ .
+\item Consider homomorphism  $G / G_x \rightarrow orb(x): \phi(gG_x) = g \cdot x$
+\item And the set $aG_x$ and $bG_x$ are equal under $\phi$  iff $a(x) = b(x)$, since $b^{-1}aG_x= G_x$, implying $b^{-1}a \in G_x \rightarrow b^{-1}a(x) = x \rightarrow a(x) = b(x)$.  So the stabilizer takes care of the injective part.
+\item Also, this map is onto since every element $y \in orb(x)$, meaning some $g \cdot x = y$ is in that $gG_x$ .  So the orbits take care of the surjective part.
 \item Example: \emph{symmetric group}: $S_n: G_x \cong S_{n-1}! \rightarrow |G_x| = (n-1)!$ .  $orb(x) = n$.  So $|G| = n!$.
 \item Example: \emph{cube symmetries}: Vertex is $x$, rotation of adjacent vertices is $G_x$. $|G_x| |O_x| = 3* 8 = 24$.  Can also do with edges and faces.  Turns out cube symmetries $\cong S_4$
 \end{itemize}
@@ -656,8 +654,9 @@ Reference: https://brilliant.org/wiki/group-actions
 \section{Aside: Conjugacy classes}
 \subsection{Conjugacy classes defined}
 \begin{itemize}
-\item Note: It's easy to take a group to another group by conjugation group action $\phi(g, H): ghg^{-1}$.  Though the whole group gets mapped to another group, the elements inside get mapped to \textbf{conjugacy classes}.
-\item Within group G, elements h, h' in conjugacy class H have some $g \in G$ such that $h' = ghg^{-1}$ (and therefore,  $g^{-1}h'g = h$.  So, it's an equivalence relation, thus a partition.
+\item Note: It's easy to take a group to another group by conjugation group action $\phi(g, H): ghg^{-1}$.  Though the whole group gets mapped to another group, the elements inside get mapped to \textbf{conjugacy classes}. 
+\item To get the conjugacy class that $h$ is in by hand, compute $ghg^{-1}, g \in G$.  You'll find all its co-members.  Repeat.
+\item Within group G, elements h, h' in conjugacy class H have some $g \in G$ such that $h' = ghg^{-1}$ (and therefore,  $g^{-1}h'g = h$).  So, it's an equivalence relation, thus a partition.
 \item Note: if the group G is abelian, $h' = ghg^{-1} \rightarrow gg^{-1} h = h$, so all conjugacy classes there are of size one ($ghg^{-1} = gg^{-1}h = h)$
 \item Each one of these classes corresponds to the orbit of that element $h$ under conjugation.  
 \item Why useful?  They can be used to show structure (and thus classify, look at isomorphisms, etc.) of groups.
@@ -677,14 +676,15 @@ Reference: https://brilliant.org/wiki/group-actions
 \end{itemize}
 
 \section{4.3 Conjugacy class section}
+
 \begin{itemize}
-\item Reminder of orbit-stabilizer theorem: Number of conjugates of $g$ is the index (more generally, orbit, here under  conjugation group action) of the centralizer (more generally, stabilizer, here under conjugation group action) of $g$.
+\item Reminder of orbit-stabilizer theorem: \textbf{Number of conjugates of $g$ is the index} (more generally, orbit, here under  conjugation group action) of the \textbf{centralizer} (more generally, stabilizer, here under conjugation group action) of $g$.  This reminds me: for elements $h$ commutes with, conjugation preserves $h$: $ghg^{-1} = h \leftrightarrow gh=hg$.
 \item Example: If $|G| = 60, g \neq 1, g^5 = 1$ then size of conjugacy class is at most 12 since at least $e, g, g^2, g^3, g^4$ are in its centralizer $C_g(G)$.
 \item Example: Class equation of $Q_8$:
   \begin{itemize}
-  \item $\{1\}$ commute with everything = 8 / 8 = 1
-  \item $\{-1\}$ commutes with everything = 8 / 8 = 1
-  \item $i$ commutes with $1, -1, i, -i$ = 8 / 4 = 2.  Same for j, k,
+  \item $\{1\}$ commute with everything = 8 / 8 = orbit of 1 under $g * 1 * g^{-1}$
+  \item $\{-1\}$ commutes with everything = 8 / 8 = orbit of 1  under $g * -1 * g^{-1}$
+  \item $i$ commutes with $1, -1, i, -i$ = 8 / 4 = orbit of 2 under $g * i * g^{-1}$, which is $\{i, -i\}$  .  Similar for j, k.
   \item Thus, 8 = 1 + 1 + 2 + 2 + 2.
   \end{itemize}
 \item Example: Class equation of $D_5$, with $\sigma$ as a clockwise rotation, $\tau$ as a flip:
@@ -692,10 +692,10 @@ Reference: https://brilliant.org/wiki/group-actions
   \item $\{e\}$ commutes with everything = 10 / 10 = 1
   \item $\{\sigma\}$ commutes with only rotations = 10 / 5  = 2, and conjugates to $\tau\sigma\tau = \sigma^4$.
   \item $\{\sigma^2\}$ commutes only with rotations = 10 / 5 = 2, and conjugates to $\tau\sigma^2\tau = \sigma^3$.
-  \item $\{tau\}$ commutes only with $\tau, e$, and all five flipped actions $\sigma^k\tau$ are conjugate. = 5.
+  \item $\{\tau\}$ commutes only with $\tau, e$m and conjugates to all five flipped actions $\sigma^k\tau$.
   \item Thus, 10 = 1 + 2 + 2 + 5
   \end{itemize}
-\item Weird \textbf{gotcha}: Note that the abelian $\mathbb{Z}_5$ has 5 conjugacy classes, and $D_5$ has four, and there's an injective homomorphism $z \rightarrow \sigma^z$.  So even though $Z_5$ is a subgroup of $D_5$, it has more conjugacy classes.
+\item Weird \textbf{gotcha}: Note that the abelian $\mathbb{Z}_5$ has 5 conjugacy classes, and $D_5$ has four, and there's an injective homomorphism $z \rightarrow \sigma^z$.  So even though $\mathbb{Z}_5$ is a subgroup of $D_5$, it has more conjugacy classes.
 \item $D_n$ has $n$ reflections.  If $n$ is odd, there is only one conjugacy class of reflections, since $(\sigma^i\tau)\tau = \sigma^i$ and $(\tau\sigma^i)\tau = \tau\tau\sigma^{-i}$, so if the paranthesized items are equal (i.e. if $\sigma^i$ commutes with $\tau$), then $\sigma^i = \sigma^{-i}$.  $i=0$ works, but only in even groups does $i=\frac{n}{2}$ work.  Therefore centralizer has size 2 for n odd, 4 for n even, and for these n/2 elements, there is one conjugacy class if n odd, 2 if even.
 \item \emph{Theorem}: If there's a homomorphism $\pi: G \rightarrow K$, then count of  conjugacy classes $c(G) \geq c(K)$.  Homomorphism maps conjugacy classes to conjugacy classes $\phi(ghg^{-1}) = \phi(g)\phi(h)\phi(g)^{-1}$, so if there's a nonzero kernel with $k$ in it, $\pi(1) = \pi(k)$, but 1 and k could be different conjugacy classes in the domain.
 
@@ -731,13 +731,13 @@ https://brilliant.org/wiki/legendre-symbol/
  \item 1 if $a$ is a quadratic residue mod p and $a \neq 0$ mod $p$.
  \item -1 if $a$ is a non-residue 
  \end{itemize}
- \item Sum of quadratic resides of a prime is 0.  Why?  There are no 0's, and every residue is repped twice, once by $a$ and once by $p-a$.  So half are non-residues, half are double-residues.  Why do they pair this way?  $a^2 \equiv b^2 mod p \Rightarrow a^2 - b^2 \equiv 0 mod p \Rightarrow (a-b)(a+b) \equiv 0 mod p \Rightarrow p | (a-b)(a+b) \Rightarrow a+b \equiv 0$ or $a-b \equiv 0$.
- \item Property:  \textbf{Euler's criterion}: If $p$ is an odd prime, $a$ is not divisible by $p$, then $a^\frac{p-1}{2} = \Big(\frac{a}{p}\Big)$ (mod $p$).  This follows from: (1) If $a = x^2$, then $x^{p-1}$ mod $p \equiv 1$ by Fermats, so take square root.  (2) If not, then because $Z_p$ is a group, every element $x$ has a pal $x^{-1}a$ that multiplies to a.  Product of these is  $a^\frac{p-1}{2} = (p-1)! = -1$ by Wilson's Theorem.
+ \item Sum of quadratic resides of a prime is 0.  Why?  There are no 0's, and every residue is repped twice, once by $a$ and once by $p-a$.  So half are non-residues, half are double-residues.  Why do they pair this way?  $a^2 \equiv b^2 $ mod $ p \Rightarrow a^2 - b^2 \equiv 0 $ mod $  p \Rightarrow (a-b)(a+b) \equiv 0 $ mod $ p \Rightarrow p | (a-b)(a+b) \Rightarrow a+b \equiv 0$ or $a-b \equiv 0$.  So $a = b$ or $a + b = p$
+ \item Property:  \textbf{Euler's criterion}: If $p$ is an odd prime, $a$ is not divisible by $p$, then $a^\frac{p-1}{2} = \Big(\frac{a}{p}\Big)$ (mod $p$).  This follows from: (1) If $a = x^2$, then $x^{p-1}$ mod $p \equiv 1$ by Fermat's Little Thereom, so take square root.  (2) If not, then because $\mathbb{Z}_p$ is a group, every element $x$ has a pal $x^{-1}a$ that multiplies to a.  Product of these is  $a^\frac{p-1}{2} = (p-1)! = -1$ by Wilson's Theorem.
 \item Property:  If $a \equiv b$ (mod $p), \Big(\frac{a}{p}\Big) =   \Big(\frac{b}{p}\Big)$.  Just reduce mod p.
 \item Property  $ \Big(\frac{ab}{p}\Big) =   \Big(\frac{a}{p}\Big)   \Big(\frac{b}{p}\Big)$.  Follows from Euler's criterion ands exponents.
 \item Property:   $\Big(\frac{-1}{p}\Big) = (-1)^\frac{p-1}{2}$, by Euler's criterion, so it is 1 iff $p \equiv 1$ mod 4.
 \item Property:   $\Big(\frac{2}{p}\Big) = (-1)^\frac{p^2-1}{8}$, by \textbf{TODO} something called quadratic reciprocity.
-\item Property:  If $p, q$ distinct odd primes, then $\Big(\frac{q}{p}\Big) \Big(\frac{p}{q}\Big)  = (-1)^\frac{p-1}{2}\frac{q-1}{2}$, by \textbf{TODO} something called quadratic reciprocity.
+\item Property:  If $p, q$ distinct odd primes, then $\Big(\frac{q}{p}\Big) \Big(\frac{p}{q}\Big)  = (-1)^{\frac{p-1}{2}\frac{q-1}{2}}$, by \textbf{TODO} something called quadratic reciprocity.
 
 
 \end{itemize}
@@ -745,11 +745,11 @@ https://brilliant.org/wiki/legendre-symbol/
 
 \section{4.5 Signs of Permutations}
 \begin{itemize}
-\item Note: Cycle structure of $\sigma_3(x) = 3x (mod 11): 3^5 = 1, and 2*3^5=2$.  Observe these two disjoint 5-cycles.
-\item If $a^k = 1 mod p$ and is the smallest to do so, cycle structure of $\sigma_a(x) = ax mod p$ is all disjoint k-cycles.  \emph{Proof}: (1) $\sigma_a$ will have no fixed points, as $ax = x$ means $a = 1$ (mod $p$).  (2) $\sigma_{a^k} = \sigma_a^k = $ identity.  And (3) if $j < k$, $j$ can't be identity.   So $\sigma_a$ is the product of $\frac{p-1}{k}$ disjoint k-cycles.
+\item Note: Look at cycle structure of $\sigma_3(x) = 3x $ mod $ 11.$ $ 3^5 = 1, $ and $ 2*3^5=2$.  Observe these two disjoint 5-cycles.
+\item If $a^k = 1 $ mod $ p$ and is the smallest $k$ to do so, cycle structure of $\sigma_a(x) = ax $ mod $ p$ is all disjoint k-cycles.  \emph{Proof}: (1) $\sigma_a$ will have no fixed points, as $ax = x$ means $a = 1$ (mod $p$).  (2) $\sigma_{a^k} = \sigma_a^k = $ identity.  And (3) if $j < k$, $j$ can't be identity.   So $\sigma_a$ is the product of $\frac{p-1}{k}$ disjoint k-cycles.
 \item Also implies that $\sigma_a$ is odd if and only if k is an even number (thus odd cycle) and $\frac{p-1}{k}$ is odd.
 \item \textbf{Theorem}: $\Big(\frac{a}{p}\Big)  = -1$ iff k is even, and $\frac{p-1}{k}$ is odd, or $sgn(\sigma_a) = \Big(\frac{a}{p}\Big)$. Why? Suppose for some $a$, the primitive root $g$ taken to $x$ is $a: g^x = a$.  The order of $g^x$ is $\frac{p-1}{gcd(p-1,x)}$.  Then flip the denoms: $\frac{p-1}{k} = gcd(p-1,x)$, which is odd iff $x$ is odd, or NOT A SQUARE.  Therrefore, $sgn(\sigma_a) = \Big(\frac{a}{p}\Big) $!
-\item An \textbf{inverison} in a permutation is where a pair$a < b$, $\sigma(a) > \sigma(b)$.  
+\item An \textbf{inverison} in a permutation is where a pair $ a < b $, $\sigma(a) > \sigma(b)$.  
 \item Number of inversions in $\sigma_2$ is straightforward, as for prime p, $\sigma(1, 2, 3 ... p-1/2, p+1/2 .... p-1) \rightarrow (2, 4, 6  ... p-1, 1, .... p-2)$ ends up as $ 1 + 2 + ... + \frac{p-1}{2} = \frac{1}{2} \frac{p-1}{2}\frac{p+1}{2} = \frac{p^2-1}{8}$
 \item The sign of a permutation is also $(-1)^r$, where r is number of inversions.
 \item Putting all this together yields $\Big(\frac{2}{p}\Big)  = sgn(\sigma_2)$ by \textbf{theorem} above, $ = (-1)^r = (-1)^\frac{p^2-1}{8}$, property 5 in the last section.
@@ -761,8 +761,8 @@ https://brilliant.org/wiki/legendre-symbol/
 \subsection{Orbit-stabilizer}
 \begin{itemize}
 \item Canonical: Group $S_n$ acts on elements $X = {1, 2, 3 .. n}$.  $G \times X \rightarrow X$
-\item Also canonical: Group acts on its own elements with left-multiplication, always.  $G \times G \rightarrow G$.
-\item \textbf{orbit $O_x$} of element $x$ is all the places $x$ could go.  Note that in a group there is only one orbit (called \textbf{transitive}).
+\item Also canonical: Any group acts on its own elements with left-multiplication, always.  Straightforward action $G \times G \rightarrow G$.
+\item \textbf{orbit $O_x$} of element $x$ is all the places $x$ could go.  Note that in a group there is only one orbit (such an action is called \textbf{transitive}).
 \item \textbf{Orbit-stabilizer theorem} says, for any $x \in G$, $|G| = |O_x| |G_x|$.
 \item item \textbf{stabilizer} $G_x$ of element $x$ are the elements mapping $x$ to itself.  Note that in a group this is necessarily $G_x = {e}$ since $g \cdot x = x \rightarrow g \cdot x \cdot x^{-1} = x \cdot x^{-1} \rightarrow g = e$.
 \item Example: $2n = |D_n|$, and since every \emph{vertex} element $x$ can be rotated to any other (orbit is size X), stabilizer must be of size 2 (identity, 180 flip)
@@ -772,10 +772,10 @@ https://brilliant.org/wiki/legendre-symbol/
 \subsection{Action of $GL_2(F)$ on $F^2$}
 \begin{itemize}
 \item Action is on left-multiply: $A \cdot \begin{pmatrix} x \\ y \\ \end{pmatrix} = A \begin{pmatrix} x \\  y \\ \end{pmatrix}$
-\item How many orbits in $\mathbb{R}^2$ under this action? 
+\item How many orbits in $\mathbb{R}^2$ under this action?   Answer: \emph{two}
 \item  \emph{One orbit}: The point $\begin{pmatrix} 0 \\  0 \\ \end{pmatrix}$ can only map to itself, and no non-zero determ can map to it ($A \begin{pmatrix} x \\  y \\ \end{pmatrix} = \begin{pmatrix} 0 \\  0 \\ \end{pmatrix} \rightarrow \begin{pmatrix} x \\  y \\ \end{pmatrix} =  A^{-1} \begin{pmatrix} 0 \\  0 \\ \end{pmatrix}$, which only works for zero x,y or a zero-deteminant matrix.
 \item \emph{The other orbit}: There's some invertible $A$ to match any $\begin{pmatrix} x \\  y \\ \end{pmatrix} = A \begin{pmatrix} 1 \\ 0 \\ \end{pmatrix} $, either $\begin{pmatrix} a & 1 \\ b & 0 \end{pmatrix}$ if $y \neq 0$ or $\begin{pmatrix} a & 0 \\ 0 & a\end{pmatrix}$ if $y = 0$. 
-\item Example: $GL_2(\mathbb{Z_p})$ acts on $\mathbb{Z_p}^2$, just on integers modulo prime $p$p.
+\item Example: $GL_2(\mathbb{\mathbb{Z}_p})$ acts on $\mathbb{\mathbb{Z}_p}^2$, just on integers modulo prime $p$p.
 \item Orbit of $\begin{pmatrix} 1 \\ 0 \\ \end{pmatrix} $ is every non-zero element, so size $p^2-1$.  Stabilizer is anything $\begin{pmatrix} 1 & b \\ 0 & d \end{pmatrix}$ with $d \neq 0$, so $p^2 - p$ elements.
 \end{itemize}
 
@@ -802,8 +802,8 @@ https://brilliant.org/wiki/legendre-symbol/
   \item Count the fixed points under each action $g \in G$.  
   \item Divide by $|G|$.
   \end{itemize}
-  \item Colorings of hexagon edges by rotation: $R_0 = n^6, R_1 = R_5 = n, R_2 = R_4 = n^2, R_3 = n^3$, so sum is $\frac{1}{12}(n^6 + 2n + 2n^2 + n^3)$
-  \item Colorings of hexagon edges by reflection OR rotation: across central vertex line = $n^3$, across central edge line = $n^4$, so adding to previous gives total is $\frac{1}{12}(n^6 + 2n + 2n^2 + 4n^3 + 3n^4)$
+  \item Colorings of hexagon edges, coincident by each rotation action: $R_0 = n^6, R_1 = R_5 = n, R_2 = R_4 = n^2, R_3 = n^3$, so sum is $\frac{1}{12}(n^6 + 2n + 2n^2 + n^3)$
+  \item Colorings of hexagon edges coincident by reflection OR rotation: across central vertex line = $n^3$, across central edge line = $n^4$, so adding to previous gives total is $\frac{1}{12}(n^6 + 2n + 2n^2 + 4n^3 + 3n^4)$
  \item Example: Tetrahedron (n vertex colors, m edge colors): Vertex plus center opposite face: $n^2m^2$
  \item Example: Tetrahedron (n vertex colors, m edge colors): Midpoints of opposite edges (think $(12)(34)$) is $n^4m^2$
  \item Example: So in total, tetrahedron is identity ($n^6m^4$) plus the previous two: $\frac{1}{12}(n^6m^4 + 3n^4m^2 + 8n^2m^2)$
@@ -818,20 +818,20 @@ https://brilliant.org/wiki/legendre-symbol/
    \item $H \triangleleft G$ (H is normal in G)
    \item $K \subset G$ (K is a subgroup of G)
    \end{itemize}
- \item Note that a general product of groups $HK$ isn't necessarily a group.  But if $H$ is normal, we can guarantee it under the group operation $h_1k_1 \cdot h_2k_2$
+ \item Note that a general product of groups $HK$ isn't necessarily a group.  But if $H$ is normal, we can guarantee inclusion in $HK$ under the group operation $h_1k_1 \cdot h_2k_2$
  \begin{itemize}
  \item $h_1k_1h_2k_2 = h_1k_1h_2(k_1^{-1}k_1)k_2 = h_1(k_1h_2k_1^{-1})(k_1k_2) = (h_1h_3)(k_1k_2) \in HK$ since $k_1h_2k_1^{-1} = h_3$ for some $h_3$ since $H \triangleleft G$
  \item $(hk)^{-1} = k^{-1}h^{-1}= k^{-1}h^{-1}(kk^{-1}) = (k^{-1}h^{-1}k)k^{-1} \in HK$ similarly.
- \item Group $H_G = (h,1) \in H \rtimes K$ is a subroup isomorphic to H.  Same with K.
+ \item Group $H_G = (h,1) \in H \rtimes K$ is a subgroup isomorphic to H.  Same with K.
  
  \end{itemize}
  \item A general semidirect product uses this conjugation $\psi_{k_1}(h) = k_1h_2k_1^{-1}$ to allow us to combine elements of H together and elements of K together almost separately.  Instead of multipiying $(h_1, k_1)(h_2, k_2)$ directly, we use:
  \begin{itemize}
  \item $(h_1, k_1)(h_2, k_2) = (h_1 \psi_{k_1}(h_2), k_1k_2)$
  \item Every inner semidirect product uses $\psi_k(h) = khk^{-1}$.
- \item In general, the $\psi$ is a member of $K \rightarrow Aut(H)$, or an isomorphism that translates H to H.  So can keep the multiplication.
+ \item In general, the $\psi$ is a member of $K \rightarrow Aut(H)$, or an isomorphism that translates H to H.  So can keep the multiplication of the $h$ elements clean.
  \item Note that if $\psi = \psi_{id}$, then you \emph{end up with a direct product}, or $G = H \times X$.
- \item Note also that if $H, K \triangleleft G$, then $hkh^{-1}k^{-1} \in H, K \rightarrow hkh^{-1}k^{-1} = e \rightarrow hk = kh$, so the subgroups commute among each other (pass through).  Then, the direct product falls out of using $\psi_k = id$, so $h_1k_1h_2k_2 = h_1\psi_{id}(h_2)k_1k_2 = h_1h_2k_1k_2\in HK$.
+ \item Note also that if $H, K \triangleleft G$, then $hkh^{-1}k^{-1} \in H, K \rightarrow hkh^{-1}k^{-1} = e \rightarrow hk = kh$, so the subgroups commute among each other (pass through).  Then, the direct product falls out of using $\psi_k = id$, so $h_1k_1h_2k_2 = h_1\psi_{id}(h_2)k_1k_2 = h_1h_2k_1k_2\in HK$.  So in this case, $H \times K \cong G$
  \end{itemize}
  \item Even if $G$ is abelian, $H \rtimes K$ need not be! 
  \item Note that every group $G$ that satisfies the rules above (H is normal in G, K a subgroup, and HK=G) admits a semidirect product under the conjugation action.  
@@ -850,9 +850,9 @@ https://www.youtube.com/watch?v=DvclxOaWbJM
 \item Then, $D_2n = <r> \rtimes <s>$ 
 \item Example: $(r^4s)(r^3e) = (r^4\psi_s(r^3), s \cdot e) = (r^4r^{-3}, s) = (r,s)$.  Just like the elements would multuply to $rs$.
 \end{itemize}
-\item But semidirect products can make things simpler if we use \emph{isomorphism} to cleaner groups, like $Z_n \times_{\psi} Z_2$, which are isomorphic to $<r>, <s>$ respectively.
+\item But semidirect products can make things simpler if we use \emph{isomorphism} to cleaner groups, like $\mathbb{Z}_n \times_{\psi} \mathbb{Z}_2$, which are isomorphic to $<r>, <s>$ respectively.
 \begin{itemize}
-  \item Then, in  $Z_n \times_{\psi} Z_2$, we use $\psi_0(a) = a, \psi_1(a) = -a$.
+  \item Then, in  $\mathbb{Z}_n \rtimes_{\psi} \mathbb{Z}_2$, we use $\psi_0(a) = a, \psi_1(a) = -a$.
   \item Then, with the same example abve, $(4,1)(3,0) = (4 + \psi_1(3), 1 + 0) = (4 - 3, 1) = (1,1)$.  Same!
   \end{itemize}
 \end{itemize}
@@ -860,7 +860,7 @@ https://www.youtube.com/watch?v=DvclxOaWbJM
  \section{5.3 Semidirect products}
 
 \begin{itemize}
-\item Exercise: If $G  = N \rtimes H$, and $H$ has $a_h$ elements of order two, similar for $N$ and $a_n$, then $G$ has at least $a_n + a_h$ elements of order two: $(n \in N_2, 1)$, $(1, h \in H_2)$, and possible combinations like $(1,1) \in \mathbb{Z}_3$
+\item Exercise: If $G  = N \rtimes H$, and $H$ has $a_h$ elements of order two, similar for $N$ and $a_n$, then $G$ has at least $a_n + a_h$ elements of order two: $(n \in N_2, 1)$, $(1, h \in H_2)$, and possible combinations like $(1,1) \in \mathbb{Z}_2 \times \mathbb{Z}_2 $
 \item Exercise:Therefore $Q_8$ can't be a semidirect product of $\mathbb{Z}_2$ and $\mathbb{Z}_4$ (or $\mathbb{Z}_2 \times \mathbb{Z}_2 \times \mathbb{Z}$) since it only has one element of order two: -1.
 \item Exercise: Heisenberg matrix group
 
@@ -882,7 +882,7 @@ because
 \begin{itemize}
 \item N is normal (how to prove?) in $GL_3(\mathbb{Z}_3)$
 \item H is a subgroup as well
-\item $NH = G (just multiply)$
+\item $NH = G $ (just multiply)
 \item $N \cap H = \{e\}$
 \end{itemize}
 \item Exercise: Constructing a group using outer semidirect product.
@@ -906,9 +906,9 @@ because
 \item Main idea: for any set $X$ of size $p^k$ (call the totality of them $\Omega$), the coset $gX$ is also of that size, since $\phi(x) = gx$ is injective: $gx = gy \rightarrow g^{-1}gx = g^{-1}gy \rightarrow x = y$. 
 \item $|\Omega| = {p^km \choose p^k}$.  
 \item There's a theorem that ${p^km \choose p^k} \equiv m $ mod $p$.  
-\item So taking g as an action of each $X \in \Omega$, this itself splits $g\Omega$ into orbits.  Then there has to be an orbit  $O = gX$ with size \emph{not a multiple of p}.
-\item Pick a set $X \in orbit O$.  So $G \cdot X = O$.  
-\item By orbit stabilizer, $|G_X| \cdot |G \cdot X| = p^km$, but this $|O| = |G \cdot X|$ is not a mutliple of p.  So $p^k $ divides $ |G_x|$.
+\item So taking g as an action of each $X \in \Omega$, this itself splits $g\Omega$ into orbits.  Then there has to be an orbit  $O = gX$ with size \emph{not a multiple of p}, since $|\Omega| = {p^km \choose p^k} \equiv m $ mod $p$.   
+\item Pick a set $X \in $ some orbit $ O$.  So $G \cdot X = O$ since that's how orbits work.
+\item By orbit stabilizer, $|G_X| \cdot |G \cdot X| = p^km$, but this $|O| = |G \cdot X|$ is not a mutliple of p.  So $p^k $ divides $ |G_X|$.
 \item If $g \in G_X, a \in X, ga \in X$.  But $gX$ is always in X (of size $p^k$), so $|G_X| \leq p^k$
 \item So $|G_X| \leq |X| = p^k$, but also $p^k$ divides $|G_X|$.  So $p^k = |G_X|$, and this stabilizer group is such a subgroup of G.
 \end{itemize}
@@ -946,8 +946,8 @@ because
 \begin{itemize}
 \item Set: Sylow p-subgroups $\Omega$
 \item Action: $G$ acting on $P \in \Omega$. as $g \cdot P = gPg^{-1}$
-\item Then it is true that orbit $G \cdot P = \Omega$, since $P$ and every other p-subgroup are conjugates.
-\item By orbit stabilizer, $|G\ = |G \cdot P| |G_P| = n_p |G_P|$.
+\item Then it is true that orbit $G \cdot P = \Omega$, since $P$ and every other p-subgroup are conjugates (Sylow II).
+\item By orbit stabilizer, $|G\ = |G \cdot P| |G_P| = n_p |G_P|$ by definition of $n_p$.
 \item $G_P = { g \in G: gPg^{-1} = P}$, which is the definition of the normalizer $N_G(P)$.
 \item Note that $P \leq N_G(P) \leq G$.
 \item So stabilizer $|G_P|$ under this action is the normalizer.  So  $|G| = n_p |N_G(P)|$.  \textbf{Note: this is the third result}.
@@ -958,19 +958,18 @@ because
 \item Proof: $n_p \equiv 1$ mod $p$
 \begin{itemize}
 \item Set: Sylow p-subgroups $\Omega$, size is $n_p$.
-\item Action inputs: Take a Sylow p-subgroup $P \in \Omega$.  Take element $p \in P$, p-subgroup $Q \in Omega$.  
+\item Action inputs: Take a Sylow p-subgroup $P \in \Omega$.  Take element $p \in P$, p-subgroup $Q \in \Omega$.  
 \item Action definition: $p \cdot Q = pQp^{-1}$.  This a conjugate of Q so therefore same size, therefore a p-subgropup $\in \Omega$.
-\item Size of $P$ ,$|P| = p^k$, splitting $\Omega$ into a bunch of orbits.
+\item $|P| = p^k$, and $P$  and multiplying by $P$ splits $\Omega$ into a bunch of orbits.
 \item Similarly to the earlier argument in part 1, all of the orbit sizes need to divide $p^k$ by orbit-stabilizer, so of size $1, p, p^2... p^k$.  
 \item Ignore everything bigger than one.  So we're looking for number of size-one orbits.
 \item Take $Q \in \Omega$ where $|P \cdot Q| = 1$.  Remember $ P \cdot Q$ is the set $\{pQp^{-1}, p \in P\}$
-\item $pQp^{-1} = Q \forall_{p \in P}$ is another way of saying $P \leq N_G(Q \leq G)$.
+\item $pQp^{-1} = Q \forall_{p \in P}$ is another way of saying $P \leq N_G(Q) \leq G$.
 \item $Q \leq N_G(Q) \leq G$ as well.  
 \item $|P| = |Q| = p^k, |G| = p^km$, which means $N_G(Q)$ is (inclusive) between these two.
-\item But $P, Q$ are sylow p-subroups of $N_G(Q)$!  So they're conjugate $P = gQg^{-1}, g \in N_G(Q)$
+\item But $P, Q$ are sylow p-subgroups of $N_G(Q)$!  So they're conjugate $P = gQg^{-1}, g \in N_G(Q)$
 \item But $Q$ is normal in $N_G(Q)$, so $P = gQg^{-1} = Q$.  
 \item Thus arbitrarily chosen $Q$ has been proven to be $P$.  So $P$ is the only element with an orbit of 1.
-\item We assert this is $\{Q\}$
 \end{itemize}
 \end{itemize}
 
@@ -981,38 +980,38 @@ because
 
 \item Prove: Every group of order 15 is Abelian.
 \begin{itemize}
-\item 3-subgroup $H: n_3 = 1 mod 3, n_3 | 5 \rightarrow n_3 = 1$
-\item 5-subgroup $K: n_5 = 1 mod 5, n_5 | 3 \rightarrow n_5 = 1$
+\item 3-subgroup $H: n_3 = 1 $ mod $ 3, n_3 | 5 \rightarrow n_3 = 1$
+\item 5-subgroup $K: n_5 = 1 $ mod $ 5, n_5 | 3 \rightarrow n_5 = 1$
 \item Both are normal in G (Sylow 3), so $G \cong H \times K$
 \item Counterexamples from the problem: 
 \begin{itemize}
 \item $|G| = 16$: $D_{8}$ is not Abelian.
 \item $|G| = 20$ : $D_{10}$ is not Abelian.
-\item $|G| = 21$ : The semidirect product of $Z_3 \rtimes_{\psi} Z_7$ we saw with $\psi(a) = 2a$ was not abelian.
-\item $|G| = 27$ : TODO Apparently any $p^3$ has two nonabelian groups.  
+\item $|G| = 21$ : The semidirect product of $\mathbb{Z}_3 \rtimes_{\psi} \mathbb{Z}_7$ we saw with $\psi(a) = 2a$ was not abelian.
+\item $|G| = 27$ : TODO Apparently any $p^3$ has two nonabelian groups. (maybe like $D_4$ and $Q_8$ for $2^3$)
 \end{itemize}
 \end{itemize}
 
 \item Problem: How many elements of order 3 does a nonabelian group of order 21 have?
 \begin{itemize}
-\item $n_3 = 1 mod 3, n_3 | 7, n_3 \in \{1, 7\}$.
-\item $n_7 = 1 mod 7, n_7 | 7, n_7 = 1$.
+\item $n_3 = 1 $ mod $  3, n_3 | 7, n_3 \in \{1, 7\}$.
+\item $n_7 = 1 $ mod $ 7, n_7 | 7, n_7 = 1$.
 \item If they're both 1, then they're both single normal subgroups, so they must be $\cong \mathbb{Z}_3 \times \mathbb{Z}_7$, but that's Abelian.  Contradicted assumption.
 \item So $n_3 = 7, n_7 = 1$.  All the 7 subgroups are $\cong  \mathbb{Z}_3$ and can't overlap except the identity.  So 7 * 2 = 14 distinct order-3 elements.
 \end{itemize}
 
 \item Problem: How many elements of order 5 does a group of size 60 have?
 \begin{itemize}
-\item $n_5 = 1 mod 5, n_5 | 12 \rightarrow n_5 \in \{1, 6\}$
-\item If $n_5 = 1$, like in $Z_{60}$, then it has 4 elements of order 5.
+\item $n_5 = 1 $ mod $ 5, n_5 | 12 \rightarrow n_5 \in \{1, 6\}$
+\item If $n_5 = 1$, like in $\mathbb{Z}_{60}$, then it has 4 elements of order 5.
 \item If $n_5 = 6$, like in $(abcde) \in A_5$, there are $5! / 5 = 24$ elements.  
 \item Both are possible, so either 4 or 24.
 \end{itemize}
 
 \item Problem: If G is of order 12, and $n_2, n_3$ are the count of those 2-, 3-subgourps, then $n_2 > 1, n_3 > 1$ are possible, but not simultaneously. Prove.
 \begin{itemize}
-\item $n_2 = 1 mod 2, n_2 | 6 \rightarrow n_2 \in \{1, 3\}$
-\item $n_3= 1 mod 3, n_3 | 4 \rightarrow n_3 \in \{1, 4\}$
+\item $n_2 = 1 $ mod $ 2, n_2 | 6 \rightarrow n_2 \in \{1, 3\}$
+\item $n_3= 1 $ mod $ 3, n_3 | 4 \rightarrow n_3 \in \{1, 4\}$
 \item Can both be 1, like $\mathbb{Z}_{12}$.
 \item If $n_2 = 1, n_3 = 4$, then there are 4 * 2 = 8 elements of order 3, and in the $p^2-$group, two of order 4, one of 2, one of 1.  This is $A_4$ with the 3-groups of form $<(abc)>$, and the 2-group $\{(12)(34), (13)(24), (14)(23)\} \cong \mathbb{Z}_2 \times \mathbb{Z}_2$.
 \item If $n_2 = 3, n_3 = 1$, there is the identity, 2 elements of order 3, and up to six in the 2-groups.  Example would be $D_6$, with $n_3 = <r_2>$, and $n_2 = \{\{<r^3, s>\}, sr\{<r^3, s>\}(sr)^{-1} = \{<r^3, sr^2>\},  s^2r\{<r^3, s>\}(sr^2)^{-1} = \{<r^3, sr^4>\}$
@@ -1022,8 +1021,8 @@ because
 
 \item Problem: If G is of order 56, and $n_2, n_7$ are the count of those 2-, 7-subgroups, then $n_2 > 1, n_7 > 1$ are possible, but not simultaneously. Prove.
 \begin{itemize}
-\item $n_2= 1 mod 2, n_2 | 7 \rightarrow n_2 \in \{1, 7\}$
-\item $n_ 7= 1 mod 7, n_7 | 8 \rightarrow n_3 \in \{1, 8\}$
+\item $n_2= 1 $ mod $ 2, n_2 | 7 \rightarrow n_2 \in \{1, 7\}$
+\item $n_ 7= 1 $ mod $ 7, n_7 | 8 \rightarrow n_3 \in \{1, 8\}$
 \item If $n_2 = 1, n_7 = 8$, then there are 8 * 6 = 48 elements of order 7.  There is enough room for only one 2-subgroup of size $2^3 = 8$.   There is a semidirect product way to do this.
 \item If $n_2 = 7, n_8 = 1$,  then the 2-groups require at most 49, $n_2$ requires 7, plus the identity is 57, so we need a little overlap in the 2-subgroups.  No example provided.
 \end{itemize}
@@ -1031,21 +1030,21 @@ because
 
 \item Problem: If G is of order 70, G must always contain a normal subgroup of order 35.
 \begin{itemize}
-\item $n_ 5= 1 mod 5, n_2 | 14 \rightarrow n_5 = 1$
-\item $n_ 7= 1 mod 7, n_7 | 10 \rightarrow n_7 = 1$
+\item $n_ 5= 1 $ mod $ 5, n_2 | 14 \rightarrow n_5 = 1$
+\item $n_ 7= 1 $ mod $ 7, n_7 | 10 \rightarrow n_7 = 1$
 \item Therefore $1 = |G| / |N_{H_5}| \rightarrow |N_{H_5}|  = |G|$, so $ H_5 \triangleleft G$.
 \item Therefore $1 = |G| / |N_{H_7}| \rightarrow |N_{H_7}|  = |G|$, so $ H_7 \triangleleft G$.
 \item So the product $H_5 \times H_7 \cong G$, of size 35.
 \end{itemize}
 
-\item Since any two sylow p-subgroups are conjugate, there's a homomorphism by conjugation $f: G \rightarrow S_{n_p}$.
-\item $f$ isn't trivial if $n_p > 1$, since there are always elements that map one subgroup to another.
-\item Kernel of $f$ is normal.
-\item Example: if $n_3 = 4$, then $f: G \rightarrow S_4$ has a kernel which is a proper normal subgroup of $G$.  If $|G|$ doesn't divide $|S_4| = 24$, then $G$ has a proper normal subgroup since it can't be injective.  We use this to prove $G is not simple$.
+\item Since any two sylow p-subgroups are conjugate, there's a homomorphism by conjugation $f: G \rightarrow S_{n_p}$, $f$ mapping to some permutation function scrambling $n_p$ elements.
+\item $f$ isn't trivial if $n_p > 1$, since there are always elements that map one subgroup to another (Sylow II?)
+\item Kernel of $f$ is normal, like any kernel.
+\item Example: if $n_3 = 4$, then $f: G \rightarrow S_4$ has a kernel which is a proper normal subgroup of $G$.  If $|G|$ doesn't divide $|S_4| = 24$, then $G$ has a proper normal subgroup since it can't be injective.  We use this to prove $G$ is not simple
 
 \item Problem: If $G = D_6$, what is $n_2$?
 \begin{itemize}
-\item $n_2 = 1 mod 2, n_2 | 3, n_2 \in \{1, 3\}$.
+\item $n_2 = 1 $ mod $ 2, n_2 | 3, n_2 \in \{1, 3\}$.
 \item So there's $f: D_6 \rightarrow S_3$.  But 12 doesn't divide 6.  So $f$ is not injective, so it has a nontrivial kernel, which is a proper normal subgroup.
 \item The 2-subgroups are given a few problems above: $\{<r^3, s>\}$ and its conjugations by $sr$ and $sr^2$.
 \end{itemize}
@@ -1063,9 +1062,9 @@ because
 \item Note that $n_2 \neq 1, n_3 \neq 1, n_{11} \neq 1$ since if it did, that would provide a normal subgroup (since the normalizer is all of G).
 \item Also, if for any of these $n < 11$ , then $|G|$ can't divide $S_n$ since $G$ has a factor of 11.  So this means $f: G \rightarrow S_n$ is not injective, therefore nontrivial kernel , therefore normal subgroup.
 \item So if every one of them is 11 or greater:
-\item $n_2 = 1 mod 2, n_2 | 33, n_2 \geq 11\rightarrow n_2 \in \{11, 33\}$
-\item $n_3 = 1 mod 3, n_3 | 44, n_3 \geq 11\rightarrow n_3 \in \{22\}$
-\item $n_{11} = 1 mod 11, n_{11} | 12, n_{11} \geq 11 \rightarrow n_{11} \in \{12\}$
+\item $n_2 = 1 $ mod $ 2 , n_2 | 33, n_2 \geq 11\rightarrow n_2 \in \{11, 33\}$
+\item $n_3 = 1 $ mod $  3, n_3 | 44, n_3 \geq 11\rightarrow n_3 \in \{22\}$
+\item $n_{11} = 1 $ mod $  11, n_{11} | 12, n_{11} \geq 11 \rightarrow n_{11} \in \{12\}$
 \item But there's no way to have even $n_3, n_11$ in there, since $132 < 2 * 22 + 12 * 10$.
 \end{itemize}
 
