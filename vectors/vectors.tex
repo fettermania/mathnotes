@@ -1,0 +1,47 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --\rangle pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{verbatim}
+\usepackage{tikz} 
+
+\usepackage{syntonly}
+% \syntaxonly \langle -- use this for checking syntax only
+% \mbox {text} - keep together
+% \fbox {text} - keep together and draw around
+
+%\pagestyle{plain|headings|empty} % header and footer p.27
+%SetFonts
+%\include{filename}, \includeonly{filename1, filename2} , \input[fiename}
+
+%SetFonts% 
+
+\title{Brilliant: Vector Calculus}
+\author{Dave Fetterman}
+\date{6/21/22}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+Note: Latex reference: http://tug.ctan.org/info/undergradmath/undergradmath.pdf
+\section{Chapter 1.2: Calculus of Motion}
+
+Consider vectors of motion against $t$ of the form $ \overrightarrow{x}(t) = \langle x(t), y(t), \ldots \rangle$.
+\begin{itemize}
+\item A \textbf{line} through $p = (a, b, c)$ parallel to $\overrightarrow{v} = \langle v_x, v_y, v_z\rangle$ is $\overrightarrow{x}(t) = \overrightarrow{p} + t \overrightarrow{v}$ 
+\item \textbf{velocity} is characterized completely by $\overrightarrow{v}(t) = \overrightarrow{x}'(t) = \langle x'(t), y'(t), z'(t)\rangle$.
+\item The \textbf{speed} of an object along that line versus $t$ is the length of $v$ ($\|v\|$)  
+\item Therefore, the speed of an object along line 
+$$ \langle x(t), y(t), z(t)\rangle = \langle 0, 2, -3\rangle + t\langle 1,-2,2\rangle$$ is $$\sqrt{1^2+(-2)^2 + 2^2} = 3$$
+\item Note that $\overrightarrow{v}$ need not be constant.  The speed of $$\overrightarrow{x}(t) =  \overrightarrow{p} + 3 \sin(2\pi t)\hat{u}, \| \hat{u} \| = 1$$ would then be $$\| 6\pi \cos(2 \pi t) \hat{u} \| = |6\pi \cos(2 \pi t)|$$
+\item \textbf{Acceleration} $a(t) = v'(t) = x''(t)$ is straightforward.  Acceleration of $$x(t) = \langle -1 + \cos(t), 1, \cos(t)\rangle = \langle -\cos(t), 0, -\cos(t)\rangle$$
+\item An example position vector for a planet of distance $r$ from the sun could be $\langle r \cos(t), r \sin(t) \rangle$.  The acceleration vector points in the opposite direction: $\langle - r \cos(t), - r \sin(t) \rangle$.  In addition to being the analytical second derivative, consider that the \emph{force} of gravity, (which, by $F = ma$ is proportional to acceleration) points towards the sun.  
+\item A \textbf{helix} could be a 3D extension like $\langle r \cos(t), r \sin(t), b\cdot t \rangle$.  
+\end{itemize}
+
+
+\end{document}
