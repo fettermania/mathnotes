@@ -28,7 +28,7 @@
 \begin{document}
 \maketitle
 Note: Latex reference: http://tug.ctan.org/info/undergradmath/undergradmath.pdf
-\section{Chapter 1.2: Calculus of Motion}
+\section{Chapter 2.1: Calculus of Motion}
 
 Consider vectors of motion against $t$ of the form $ \overrightarrow{x}(t) = \langle x(t), y(t), \ldots \rangle$.
 \begin{itemize}
@@ -43,5 +43,18 @@ $$ \langle x(t), y(t), z(t)\rangle = \langle 0, 2, -3\rangle + t\langle 1,-2,2\r
 \item A \textbf{helix} could be a 3D extension like $\langle r \cos(t), r \sin(t), b\cdot t \rangle$.  
 \end{itemize}
 
+\section{Chapter 2.2: Space Curves}
+\begin{itemize}
+\item TODO: Problem 5 - rotating ellipses and solving intersections with planes
+\item Note that while $\overrightarrow{x}(t) = \langle \cos(t), \sin(t), 5 \rangle$ and  $\overrightarrow{x}(t) = \langle \cos(2t), \sin(2t), 5 \rangle$ describe the same curve, the space curve also records motion in time, so the \emph{velocity} may be different.
+\item If $\overrightarrow{x}(t) = t\overrightarrow{v}$, then speed is $\frac{\| \overrightarrow{x}(t+\Delta t) - \overrightarrow{t} \|}{\Delta t} = \| \overrightarrow{v} \|$,  direction is $\frac{\overrightarrow{v}}{\| \overrightarrow{v} \|}$, and velocity $\overrightarrow{v}$ is the product of speed and direction.
+\item So $\overrightarrow{v}(t) = \lim_{\Delta t \rightarrow 0} \frac{\overrightarrow{x}(t + \Delta t) - \overrightarrow{x}(t)}{\Delta t} = \overrightarrow{x}'(t) = \frac{d\overrightarrow{x}}{dt} = \langle x'(t), y'(t), z'(t) \rangle$
+\item Neat conceptual result: any $y = f(x)$ can be made into $x(t) = \langle t, f(t), 0 \rangle$, and then $v(t) = \langle 1, f'(t), 0 \rangle$, which points along the tangent line at $\langle t, f(t), 0 \rangle$.
+\item Note that dot product derivatives work like regular product: $[\overrightarrow{a}(t) \cdot \overrightarrow{b}(t)]' = \overrightarrow{a}'(t) \cdot \overrightarrow{b}(t) + \overrightarrow{a}(t) \cdot \overrightarrow{b}'(t)$, 
+but the cross product does not work the same since $\frac{d}{dt}[a \times b] = a' \times b + a \times b'$, but since $a \times b' = -b' \times a$, can't switch the order to $a' \times b + b' \times a$ due to this non-commutativity.
+\item If $$\overrightarrow{x}(t) = \overrightarrow{p}+ t \overrightarrow{v},$$ calculating velocity with respect to origin  becomes
+$$ \frac{d}{dt} \| \overrightarrow{x}(t) \| = \frac{\overrightarrow{x}(t) \cdot \overrightarrow{x}'(t)}{\| \overrightarrow{x}(t) \|} = \frac{\overrightarrow{x}}{\| \overrightarrow{x} \|} \cdot \overrightarrow{v},$$ after rewriting the distance formula and chugging through the chain rule.
+\item However, it becomes more clear when considering that $(\overrightarrow{v} \cdot \hat{x}) \hat{x}$ is the projection of the velocity vector onto the position vector.  So, the length of this is the rate of change of distance from origin!
+\end{itemize}
 
 \end{document}
