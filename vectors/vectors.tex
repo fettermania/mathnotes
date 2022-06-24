@@ -57,4 +57,26 @@ $$ \frac{d}{dt} \| \overrightarrow{x}(t) \| = \frac{\overrightarrow{x}(t) \cdot 
 \item However, it becomes more clear when considering that $(\overrightarrow{v} \cdot \hat{x}) \hat{x}$ is the projection of the velocity vector onto the position vector.  So, the length of this is the rate of change of distance from origin!
 \end{itemize}
 
+\section{Chapter 2.3: Integrals and Arc Length}{
+\begin{itemize}
+\item Integral of a vector function can be defined componentwise in a straightforward way: $\int_a^b {\overrightarrow{x}(t)} = \langle \int_a^b {x(t)},  \int_a^b {y(t)},  \int_a^b {z(t)} \rangle $ 
+\item Example: if ball launched from origin with velocity $\langle 1, 2, 3 \rangle$ and acceleration $\langle 0, 0, -1 \rangle$, it lands at
+\begin{align} 
+\frac{dv}{dt}dt = \langle 0, 0, -1 \rangle \\ 
+\int{\frac{dv}{dt}dt} = v =  \langle C , D , -t +F \rangle  = \langle 1, 2, 3 \rangle =  \langle 1, 2, -t + 3\rangle, t = 0 \\
+x = \int{v}  = \langle t+K, 2t+M, -\frac{1}{2}t^2 + 3t + N \rangle, x(\overrightarrow{0}) = \langle 0 ,0, 0\rangle \\ 
+\overrightarrow{x}(t) = \langle t, 2t, 3t-\frac{1}{2}t^2 \rangle \\
+z(t) = 0 \rightarrow t = 6 \rightarrow \overrightarrow{x}(6) = \langle 6, 12, 0 \rangle \\
+\end{align} 
+\item Also, generalizing $ds = \sqrt{(dx)^2  + (dy)^2}$, the length of an arc from point $a$ to $b$ aporoaches $\int_a^b \| x'(t) \| dt$
+\item Example: a helix $\langle a \cos (\omega t), a \sin (\omega t), b \omega t \rangle$, parametrized by time $t$ can be rewritten in terms of $s$, the arc length: 
+\begin{align}
+s =  \int \|x'(t)\| dt \\
+s = \int \sqrt{(-\omega a \sin (\omega t))^2 + (\omega a \cos (\omega t))^2 + (b \omega)^2}dt \\
+s = |\omega| \int \sqrt{(a^2 + b^2)}dt \\ 
+s = |\omega| \sqrt{a^2 + b^2}t
+\end{align}
+\item \emph{Note: It's weird to think of time in terms of length}.  Could be analytically useful?
+\end{itemize}
+
 \end{document}
