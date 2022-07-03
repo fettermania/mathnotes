@@ -57,7 +57,7 @@ $$ \frac{d}{dt} \| \overrightarrow{x}(t) \| = \frac{\overrightarrow{x}(t) \cdot 
 \item However, it becomes more clear when considering that $(\overrightarrow{v} \cdot \hat{x}) \hat{x}$ is the projection of the velocity vector onto the position vector.  So, the length of this is the rate of change of distance from origin!
 \end{itemize}
 
-\section{Chapter 2.3: Integrals and Arc Length}{
+\section{Chapter 2.3: Integrals and Arc Length}
 \begin{itemize}
 \item Integral of a vector function can be defined componentwise in a straightforward way: $\int_a^b {\overrightarrow{x}(t)} = \langle \int_a^b {x(t)},  \int_a^b {y(t)},  \int_a^b {z(t)} \rangle $ 
 \item Example: if ball launched from origin with velocity $\langle 1, 2, 3 \rangle$ and acceleration $\langle 0, 0, -1 \rangle$, it lands at
@@ -74,9 +74,142 @@ z(t) = 0 \rightarrow t = 6 \rightarrow \overrightarrow{x}(6) = \langle 6, 12, 0 
 s =  \int \|x'(t)\| dt \\
 s = \int \sqrt{(-\omega a \sin (\omega t))^2 + (\omega a \cos (\omega t))^2 + (b \omega)^2}dt \\
 s = |\omega| \int \sqrt{(a^2 + b^2)}dt \\ 
-s = |\omega| \sqrt{a^2 + b^2}t
+s = |\omega| t \sqrt{a^2 + b^2}
 \end{align}
 \item \emph{Note: It's weird to think of time in terms of length}.  Could be analytically useful?
 \end{itemize}
+
+
+\section{Chapter 2.4: Frenet Formulae}
+
+Main idea: Establish three new vectors $\hat{T}(s), \hat{N}(s), \hat{B}(s)$ that change as we move along a space curve, instead of $\overrightarrow{x}(t)$ that changes over an external "time" idea.
+
+Remember that  $s = \int_0^t \| \overrightarrow{x}'(\tilde{t}) \| d\tilde{t}$, so $\frac{ds}{dt} = \| \overrightarrow{x}'(t)\|$ .
+
+\subsection{$\hat{T}$: Vector tangent to space curve}
+\begin{itemize}
+\item Remember arc length is $s = \int_0^t \| \overrightarrow{x}'(\tilde{t})d\tilde{t} \|$
+\item $\hat{T}$ is just normalized grad: $\frac{\overrightarrow{x}'(t)}{\|\overrightarrow{x}'(t)\|}$
+\item This implies $\frac{d\overrightarrow{x}}{ds} = \hat{T}$ since 
+\begin{align}
+s = \int_0^t \| \overrightarrow{x}'(\tilde{t})d\tilde{t} \| \\
+\frac{ds}{dt} = \| \overrightarrow{x}(t) \| \\
+\hat{T} = \frac{\overrightarrow{x}'(t)}{\|\overrightarrow{x}'(t)\|}  = \frac{d\overrightarrow{x}}{dt} \cdot \frac{dt}{ds} \\
+\hat{T} = \frac{d\overrightarrow{x}}{ds} \\
+\end{align}
+\end{itemize}
+
+
+\subsection{$\hat{N}$: Vector normal to space curve and also in the direction of acceleration}
+Normal vectors include
+\begin{itemize}
+\item $\frac{\hat{T}(t)} { \| \hat{T}(t) \|}$ since, as $\| \hat(T) \| $ is just 1:
+\begin{align}
+d(\| \hat{T} \|^2) = 0 \\
+d(\| \hat{T} \|^2) = d(\hat{T} \cdot \hat{T}) = \hat{T}(t) \cdot 2\hat{T}'(t) \\
+\hat{T}(t) \cdot \hat{T}'(t)  = 0
+\end{align}
+\item $\frac{ \frac{d\hat{T}}{ds}  }  { \| \frac{d\hat{T}}{ds}  \| }$ since it's the same as the above, but parametrized over $s$ instead of $t$.  Doesn't change the direction of the vector!
+\end{itemize}
+
+Example:if  $\overrightarrow{x}(t) = \langle R\cos(\omega t), R\sin(\omega t), 0 \rangle$, then acceleration $\overrightarrow{a}(t)$ is
+\begin{itemize}
+\item $\overrightarrow{a} = \frac{d^2\overrightarrow{x}}{dt^2}$ just by definition
+\item $\overrightarrow{a} = -\omega^2 \overrightarrow{x}$ just by calculation
+\item $\hat{T}(t) = \langle -\sin(\omega t), \cos (\omega t), 0 \rangle$
+\item $\| \hat{T}(t) \| = 1$
+\item $\hat{N} = \frac{\hat{T}(t)} { \| \hat{T}(t) \|} =  \langle -cos(\omega t), -\sin (\omega t), 0 \rangle$
+\item So $\overrightarrow{a} = R\omega^2\hat{N}$ by these formulae.
+\end{itemize}
+
+This leads us to believe acceleration and $\hat{N}$, the normed derivative of $\hat{T}$ are related.
+
+The part of acceleration $\overrightarrow{a}$ parallel to $\hat{T}$ is the projection $(\overrightarrow{a} \cdot \hat{T}) \hat{T}$
+
+The perpendicular part is then $\overrightarrow{a}$ minus that: $\overrightarrow{a} - (\overrightarrow{a} \cdot \hat{T}) \hat{T}$
+
+This also equals $(\frac{ds}{dt})^2 \|\frac{d\hat{T}}{ds} \| \hat{N}$ because
+\begin{align}
+\overrightarrow{x} = \frac{dx}{dt} = T = \hat{T} \cdot \|  \frac{dx}{dt} \| \\
+s = \int_0^t \| \overrightarrow{x}'(t) \rightarrow \frac{ds}{dt} = \| \overrightarrow{x}'(t) \|  \\
+\hat{N} = \frac{d\hat{T}}{ds} normalized, so \\
+\overrightarrow{a} = \frac{d^2\overrightarrow{x}}{dt^2} = \frac{d}{dt}(\| \overrightarrow{x}'(t)\hat{T}(t)\|) = \frac{d \|\overrightarrow{x}'(t) \|}{dt}\hat{T} + \| \overrightarrow{x}'(t) \| \frac{d\hat{T}}{dt} \\
+= \frac{d \|\overrightarrow{x}'(t) \|}{dt}\hat{T} + \frac{ds}{dt} \frac{d\hat{T}}{ds} \frac{ds}{dt} \\ 
+= \frac{d \|\overrightarrow{x}'(t) \|}{dt}\hat{T} + (\frac{d{s}}{dt} )^2 \| \frac{d\hat{T}}{ds} \| \hat{N}
+\end{align}
+
+This is ``a = parallel part plus perpendicular (N) part'', so the second term is $a_{\bot}$
+
+\subsection{Binormal vector $\hat{B}$}
+
+Note that curvature $\kappa(s) = \| \frac{d\hat{T}}{ds}\|$ is geometric (depends on s, not time) and changes as $\hat{T}$ changes.
+
+Example: Curvature of $\overrightarrow{x}(t) = \langle \cos(t), \sin(t), bt \rangle$ 
+\begin{align}
+x'(t) = \langle -\sin(t), \cos(t), b \rangle \\ 
+\|x'(t) \| = \sqrt(1 + b^2) \\ 
+s = \int_0^t\|x'(t)\| = \int_0^t \sqrt{(1+b^2)} = t\sqrt{(1+b^2)} \rightarrow t = \frac{s}{\sqrt{1+b^2}}
+\end{align}
+
+
+\subsection{$\hat{T}$ is:} 
+\begin{itemize}
+\item $\overrightarrow{x}'(t)$ normalized
+\item The tangent vector to the curve
+\item The same whether paremetrized by $\hat{T}'(t)$ or $\frac{dx}{ds}$
+\end{itemize}
+
+\subsection{$\hat{N}$ is:} 
+\begin{itemize}
+\item $\overrightarrow{x}''(t)$ normalized as $\frac { \frac{d\hat{T}}{ds} }   {\|  \frac{d\hat{T}}{ds}  \|}  = \hat{N}$
+\item The normal vector to the curve
+\item $\bot$ to $\hat{T}$ in direction of acceleration.  So a multiple of acceleration vector.
+\item The same whether paremetrized by $\hat{T}'(t)$ or $\frac{dx}{ds}$
+\end{itemize}
+
+\subsection{$\hat{T}$ and $\hat{N}$}:
+
+\begin{itemize}
+\item Form a plane, since first, any normal vector's derivative is perpendicular to the vector
+\begin{align}
+\frac{d}{ds} \|\hat{T}\|^2 = \frac{d}{ds} \hat{T} \cdot \hat{T} \\
+= 2\hat{T} \cdot \hat{T}' \\
+\frac{d}{ds} \|\hat{T}\|^2 = \frac{d}{ds} 1 = 0 \\
+\end{align}
+and 
+\begin{align}
+\hat{T} \cdot \hat{N} =   \hat{T} \cdot \frac { \frac{d\hat{T}}{ds} }   {\|  \frac{d\hat{T}}{ds}  \|} \\ 
+=  \hat{T} \cdot \frac { \hat{T}'(s)}  {\|  \frac{d\hat{T}}{ds}  \|} = 0 
+\end{align}
+\item $\kappa$ is curvature: how much we're curving in that $T \times N$ plane.
+\item $\kappa =   \|  \frac{d\hat{T}}{ds}  \| $ 
+\item Therefore, by above, $\frac{d\hat{T}}{ds} = \kappa \hat{N}$ \textbf{(Frenet equation 1)}
+
+\end{itemize}
+
+\subsection{$\hat{B}$ is binormal: perpendicular to both}
+\begin{itemize}
+\item defined as $\hat{B} = \hat{T} \times \hat{N}$
+\item Therefore, by derivative 
+\begin{align}
+\frac{d\hat{B}}{ds} = \frac{d\hat{T}}{ds} \times \hat{N} +  \hat{T} \times \frac{d\hat{N}}{ds}\\ 
+\frac{d\hat{B}}{ds} = \kappa \hat{N} \times \hat{N}  +  \hat{T} \times \frac{d\hat{N}}{ds}\\ 
+\frac{d\hat{B}}{ds} =  \hat{T} \times \frac{d\hat{N}}{ds}\\ 
+\end{align}
+but this means T is orthogonal to dB, and we already know B and dB are orthogonal.
+We're working in 3d with the cross product, so dB is parallel to N.
+\item Therefore, we define "torsion" $\tau$ so that $- \frac{d\hat{B}}{ds}  = \tau \hat{N}$  \textbf{(Frenet equation 2)}.  Negative sign by convention.
+\item Can also cross by $N$ on both sides to get $- \frac{d\hat{B}}{ds}  \times \hat{N} = \tau $ 
+\item $\hat{B}$ measures how the plane defined by $\hat{T}, \hat{N}$ twists around.  On a circle, $\hat{B}$ wouldn't change, so the derivative would be zero.
+\item \textbf{Final Frenet equation}.  Prereq: $\hat{B} = \hat{T} \times \hat{N} \rightarrow \hat{N} = \hat{B} \times \hat{T} \rightarrow \hat{T} = \hat{N} \times \hat{B}$
+\begin{align}
+\frac{d\hat{N}}{ds} = \frac{d\hat{B}}{ds} \times \hat{T} +   \hat{B} \times  \frac{d\hat{T}}{ds} \\
+\frac{d\hat{N}}{ds} = -\tau \hat{N} \times \hat{T} + \hat{B} \times \kappa \hat{N} \\ 
+\frac{d\hat{N}}{ds}  = \tau \hat{B} - \kappa \hat{T}
+\end{align}
+
+\end{itemize}
+
+
 
 \end{document}
