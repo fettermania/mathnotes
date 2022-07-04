@@ -210,6 +210,171 @@ We're working in 3d with the cross product, so dB is parallel to N.
 
 \end{itemize}
 
+\section{Chapter 2.5: Parametrized Surfaces}
+
+Main ideas:
+\begin{itemize}
+\item Can parameterize by $\overrightarrow{x}(u,v) = x(u,v), y(u,v), z(u,v)$
+\item Can perhaps parameterize $f(x,y,z) = c$ by $z = g(x,y)$
+\item Can also use ideas like $\nabla f = 0$ to find a normal.
+\end{itemize}
+
+There are many out-of-the-box paremetrizations including:
+
+\begin{itemize}
+\item Sphere at 0,0,0: $\overrightarrow{x}(u,v) = \langle R\cos(u)\sin(v), Rsin(u)\sin(v), R\cos(v)\rangle$, where $u \in [0, 2\pi), v \in [0, \pi]$
+\item Rotate function $y = f(x)$ around the x-axis: $\overrightarrow{x}(u,v) = \langle u, f(u)\cos(v), f(u)\sin(v) \rangle$, where $u \in D, v \in [0, 2\pi]$
+\end{itemize}
+
+Tangent vectors to $\overrightarrow{x}(u,v)$ are $\frac{\delta \overrightarrow{x}} {du}, \frac{\delta \overrightarrow{x}} {dv}$, so unit normal is 	$\pm \frac 
+					{\frac{d \overrightarrow{x}} {du} \times \frac{\delta \overrightarrow{x}}{dv}}
+					{\| \frac{d \overrightarrow{x}} {du} \times \frac{\delta \overrightarrow{x}}{dv} \|}
+					$
+					
+Example: Torus $\overrightarrow{x} = \langle [2 + \cos(v)]\cos(u),  [2 + \cos(v)]\sin(u), \sin(v)\rangle, u,v \in [0,2 \pi)$.  What's the tangent plane at $u = \frac{\pi}{4}, v=0$?
+\begin{align}
+dx/du = \langle -\sin(u)(2 + \cos(v)),  \cos(u)(2 + \cos(v)), 0 \rangle \\
+dx/dv = \langle -\sin(v)\cos(u), -\sin(v)\sin(u), \cos(v) \rangle \\
+u = \frac{\pi}{4}, v=0 \rightarrow dx/du  \\
+= -\frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0, dx/dv = 0, 0, 1 \\
+dx/du \times dx/dv = \langle  \frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0\rangle \\
+\hat{n} =  \langle \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0 \rangle \\
+\hat{n}  \cdot \overrightarrow{x} = 0 \rightarrow \hat{n} \cdot (x - x_0, y-y_0, z-z_0) = 0 \\
+\rightarrow ... \rightarrow x + y = 3\sqrt{2}  \\
+\end{align}
+
+
+
+\subsection{Example: Ellipsoid $x^2 + 2y^2 + z^2 = 4$}
+What's the normal at $(1, \frac{1}{\sqrt{2}}, \sqrt{2})$?
+
+\textbf{Method 1: parametrize with spherical u, v}
+First, transform to sphere with change of coordinates
+\begin{align}
+x^2 + 2y^2 + z^2 = 4 \\
+X = x/2, Y=\frac{Y}{\sqrt{2}}, Z = z/2 \\
+X^2 + Y^2 + Z^2 = 1 \\
+X = \cos(u)\sin(v), Y = \sin(u)\sin(v), Z = \cos(v) \\
+p = (1, \frac{1}{\sqrt{2}}, \sqrt{2})  \rightarrow u = v = \frac{\pi}{4} \\
+\frac{dx}{du}(\frac{\pi}{4}, \frac{\pi}{4}) = \langle -1, \frac{1}{\sqrt{2}}, 0 \rangle \\
+\frac{dx}{dv}(\frac{\pi}{4}, \frac{\pi}{4}) = \langle 1, \frac{1}{\sqrt{2}}, -\sqrt{2} \rangle \\
+\frac{dx}{du}(\frac{\pi}{4}, \frac{\pi}{4}) \times \frac{dx}{dv}(\frac{\pi}{4}, \frac{\pi}{4}) = \langle 1, \sqrt{2}, \sqrt{2}\rangle \\
+\hat{n}_{out} = \frac{\langle -1, -\sqrt{2}, -\sqrt{2}\rangle }{\sqrt{5}}
+\end{align}
+
+
+\textbf{Method 2: rewrite as z = g(x,y)}
+
+\begin{align}
+x^2 + 2y^2 + z^2 = 4 \\
+z = (4 - x^2 - 2y^2)^\frac{1}{2} \\
+dz / dx = \frac{1}{2} \times -2x (4 - x^2 - 2y^2)^{-\frac{1}{2}} = -\frac{1}{\sqrt{2}} \\
+dz / dy = \frac{1}{2} \times -4y (4 - x^2 - 2y^2)^{-\frac{1}{2}} =-2\sqrt{2}/\sqrt{2} = -1\\
+f \approx \sqrt{2}  + dz / dx(1, \frac{1}{\sqrt{2}})(x - 1) + dz / dy (1,  \frac{1}{\sqrt{2}}) (y - \frac{1}{\sqrt{2}})\\
+\rightarrow ... \rightarrow \frac{1}{\sqrt{2}}x + y + z = 2\sqrt{2} \\
+\end{align}
+
+giving us normal vector $\langle \frac{1}{\sqrt{2}}, 1, 1 \rangle = \frac{\langle 1, \sqrt{2}, \sqrt{2}\rangle }{\sqrt{5}}$
+after normalization.
+
+\textbf{Method 3: gradient}
+
+Gradient is always normal to the tangent plane.
+Recognize level set of $f(x,y,z) = x^2 + 2y^2 + z^2$.  
+
+$\nabla f = \langle 2x, 4y, 2z \rangle \rightarrow \nabla f(1, \frac{1}{\sqrt{2}}, \sqrt{2}) = \langle 2, 2\sqrt{2}, 2\sqrt{2}\rangle$
+
+Then normalize.
+
+\subsection{Mobius strip and "direction of out"}
+Mobius strip is 
+\begin{itemize}
+\item $x = 2\cos(u) + v\cos(\frac{u}{2})$
+\item $y = 2\sin(u) + v\cos(\frac{u}{2})$
+\item $z = v \sin(\frac{u}{2})$
+\item $u \in [0, 2\pi], v \in [-\frac{1}{2}, \frac{1}{2}]$
+\end{itemize}
+
+$\hat{n} = \frac
+	{\overrightarrow{x}_u \times  \overrightarrow{x}_v}
+	{\|\overrightarrow{x}_u \times  \overrightarrow{x}_v\|}
+	$ at (0,0) is $\langle 0, 0, -1 \rangle$, 
+	
+but at $(2\pi, 0)$ is the same point, but $\hat{n} = \langle 0, 0, 1 \rangle$!!
+	
+
+
+\section{Chapter 2.6: Vector Fields}
+
+(Lots of intuition questions here...)
+
+One nugget: using \textbf{gradient vector fields}:
+Suppose $\overrightarrow{F}(x,y) = \langle 2, -4y^3 \rangle$.  
+Then if F = $\nabla f$, then F's arrows are perpendicular to a level set $f = c$.
+So look at $f  =  2x -y^4 $ and find perpendicular arrows to these.  That's actually F!
+
+\textbf{Linear approximation for $\overrightarrow{F}: D \in \mathbf{R}^n \rightarrow \mathbf{R}^m$}
+
+Main idea: 
+$\overrightarrow{F}(\overrightarrow{x}) = \overrightarrow{F}(\overrightarrow{a}) + A(\overrightarrow{a})(\overrightarrow{x} - \overrightarrow{a})$
+
+Note that $A$ takes in vectors of size $n$ (so it has that many columns), and has $m$ functions (rows) that operate on it.
+So the Jacobian, $A$, has as row $i$, column $j$, the quantity $\frac{dF_i}{dx_j}(\overrightarrow{a})$.
+
+$dF_i/d\overrightarrow{x}$ extends across row $i$.
+
+\section{Chapter 2.7: Jack and the Beanstalk (Newton's method)}
+
+\textbf{Basis for Newton's:}
+
+If we're estimating $x_1$ by following the derivative at $x_0$, this means we're looking at the line with x-intercept $x_1$, with slope $f'(x_0)$.
+
+  So instead of $y = mx+b$, we'll flip the two and use 
+  
+ $x = y/m + x_{int}$ 
+ 
+or $x_0 = f(x_0)\frac{1}{f'(x_0)} + x_1$, 
+
+or $x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}$.
+
+Note that, under Newton's something like $|x|$ will converge immediately, $x^3$ will converge moderately, and a S-curve might barely converge if at all.
+
+The extension of this with the Jacobian matrix $A = DF'(x_0)$ is $\overrightarrow{x}_1 = \overrightarrow{x}_0 - (D\overrightarrow{F}(\overrightarrow{x}_0))^{-1}\overrightarrow{F}(x_0)$ 
+
+
+\section{Chapter 2.8: Electrostatic bootcamp}
+
+Electric charge radiates out equally in all directions, and is inversely proportional to distance.  
+
+Formula, with $Q$ as the charge, $\epsilon_0$ is a constant: $\overrightarrow{E}(x,y,z) = \frac{Q}{4\pi\epsilon_0\|x\|^2}\hat{x}$
+
+\textbf{Field line} is a special case of a {flow line} - the space cure that follows $\overrightarrow{F}$'s arrows.  The tangent vector to the flow line is $\overrightarrow{F}(\overrightarrow{x}(t))$ (t is not time here), so $\frac{d\overrightarrow{x}}{dt} = \overrightarrow{F}(\overrightarrow{x}(t))$
+
+Example: Vector field $\overrightarrow{F}(x,y) = \langle -2y, 3x \rangle$.  What's the flow line through (2,0)?
+
+Solution: Need to solve 
+$dx/dt = -2y, dy/dt = 3x$.  Key is "separating the equations".  Remember x and y are functions of t!
+
+\begin{align}
+\frac{d^2x}{dt^2} = -2 \frac{dy}{dt}= -2 \times 3x = -6x.\\
+\frac{d^2y}{dt^2} = -2 \frac{dy}{dt}= -2 \times 3x = -6y.\\
+x(t) = -6x''(t), y(t) = -6y''(t) \\
+\rightarrow x = A\cos(\sqrt{6}t)+ B\sin(\sqrt{6}t),  y = C\cos(\sqrt{6}t)+ D\sin(\sqrt{6}t) \\
+\frac{dx}{dt} = -2y(t) \rightarrow   \frac{\sqrt{6}}{2}A\sin(\sqrt{6}t)- \frac{\sqrt{6}}{2}B\cos(\sqrt{6}t)  = y(t) \\
+x(t=0) = 2 \rightarrow A = 2 \\
+y(t=0) = 0 \rightarrow B = 0 \\
+\overrightarrow{F}(t) = \langle 2\cos(\sqrt{6}t), \sqrt{6}\sin(\sqrt{6}t),\rangle \\
+\end{align}
+
+Note: \textbf{Field lines} follow rules:
+\begin{itemize}
+\item Go from positive charges to negative
+\item Density of lines directly relates to how much charge a point has
+\item Lines don't intersect.
+\item Corollary: If count of out equals count of in, point has zero charge
+\item "Number" (to be defined) of field lines in and out of a \emph{surface} related to the charge inside.  Upcoming.
+\end{itemize}
 
 
 \end{document}
+
