@@ -375,6 +375,44 @@ Note: \textbf{Field lines} follow rules:
 \item "Number" (to be defined) of field lines in and out of a \emph{surface} related to the charge inside.  Upcoming.
 \end{itemize}
 
+\section{3.1: Surface Integrals}
 
+Example: Fluid pressure in a tank is:
+\begin{itemize}
+\item Proportional (via some weight constant $p_{fluid}$) to depth of the point
+\item Pushes out via the normal $\hat{n}$ 
+\item So, for the x side of a cube of length l, this would be 
+
+$\overrightarrow{F}_{x=l} = (\iint_{[0,l] \times [0,l]} p_{fluid} [1 - \frac{z}{l}] dy dz) \hat{i}$
+\end{itemize}
+
+\textbf{Example}: Hemisphere of size l, sitting at (0, 0, 0)
+
+Finding the out pointing unit normal of hemisphere at point $(x, y, -\sqrt{l^2-x^2-y^2})$
+
+Note: Can just eyeball this, but one way is the \textbf{gradient}.  
+Take the level set 
+
+
+\begin{align}
+g(x,y,z) = x^2  + y^2 + (z - l)^2 - l^2 = 0 \\
+\nabla g(x,y,z) = \langle 2x , 2y , 2(z-l)  \rangle \\
+\hat{n} = \pm \frac{\nabla g(x,y,z)}{ \|\nabla g(x,y,z) \|} \\ 
+\hat{n} = \pm \frac{\langle x , y , (z-l)  \rangle}{\sqrt{x^2 + y^2 + (z-l)^2}} \\
+\hat{n} = \pm \frac{\langle x , y , (z-l) \rangle}{\sqrt{l^2}} \\
+\hat{n} = \pm \langle \frac{x}{l}, \frac{y}{l} ,\frac{z}{l} - 1\rangle \\
+\end{align}
+
+
+Note: Integrating over a patch dA on the surface means finding the area of micro-patches 
+$\delta A_{ij}$, which is the parallelogram defined by 
+\begin{align}
+s_1 = \langle \Delta x_i, 0, \Delta x_i f_x(x_i^*,y_j^*) \rangle \\
+s_2 = \langle 0, \Delta y_j, \Delta y_j f_y(x_i^*,y_j^*) \rangle \\ 
+\Delta A_{ij} \approx \| s_1 \times s_2 \| \\ 
+= \sqrt{ (1 + [ f_x(x_i^*,y_j^*)]^2 + [f_y(x_i^*,y_j^*)]^2 }\Delta x_i \Delta y)_j \\ 
+\end{align}
+
+So the total pressure ends up being $\overrightarrow{F}_{tot} = p_{fluid} \iint p  \hat{n}  dA$
 \end{document}
 
