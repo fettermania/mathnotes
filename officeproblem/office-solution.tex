@@ -32,7 +32,7 @@ style=alphabetic,
 \title{The Office DVD Problem}
 \author{Dave Fetterman}
 \affil{Obviously Unemployed}
-\date{7/10/22}
+\date{7/11/22}
 \begin{document}
 \maketitle
 
@@ -68,7 +68,7 @@ We can approach this problem from the simplest version to the most complex.
 \subsection{Problem 1} 
 
 Suppose $j = k = 0$ and $x = y = 0$. In other words, suppose we have a \emph{point} starting at the bottom left corner
- (origin).  Under what conditions (i.e. choice of $m$) does this bounce into a corner?
+ (origin). Under what conditions (i.e. choice of $m$) does this bounce into a corner?
 
 
 \subsection{Problem 2} 
@@ -84,13 +84,13 @@ Suppose we have maximally open (reasonable) conditions, with $x \in [\frac{j}{2}
 
 Note: If our initial slope is zero $m = \langle 1, 0 \rangle$ or ``infinite'' ($m = \langle 0, 1 \rangle$, actually disallowed in our setup), the solution is obvious: if we're axis-aligned at the outset, we'll be in a corner shortly, otherwise we never will be.
 
-Note also that, for the sake of simplicity, we can treat $m$ as always positive (the box going up and to the right).  If not, inverting the problem ($m \rightarrow -m, y = h - y)$ will work equivalently.  The box initially moving leftwards (disallowed in the problem setup) reduces to our setup by the same sort of flip.
+Note also that, for the sake of simplicity, we can treat $m$ as always positive (the box going up and to the right). If not, inverting the problem ($m \rightarrow -m, y = h - y)$ will work equivalently. The box initially moving leftwards (disallowed in the problem setup) reduces to our setup by the same sort of flip.
 
 \subsection{Problem 1 solution}
 
 The key insight here is that though the point bounces ``within a box'' until meeting $(0,0), (0, h), (l, 0), $ or $(l, h)$ (as in Figure 2), we can instead look at the path of the point in an unconstrained space, seeing if we hit a point of the form $(a \cdot l, b \cdot h)$ with $a,b \in \mathbb{N}$.
 
-On meeting the point $(0, \frac{2}{3})$, we can either consider what happens if we reflect ``back'' into our original box as in the left side of Figure 3, or, equivalently, if we pass ``through'' to a mirrored box on the right side of Figure 3.  We quickly see that:
+On meeting the point $(0, \frac{2}{3})$, we can either consider what happens if we reflect ``back'' into our original box as in the left side of Figure 3, or, equivalently, if we pass ``through'' to a mirrored box on the right side of Figure 3. We quickly see that:
 
 \begin{itemize} 
 \item If the left-hand side meets a corner, the mirror-image on the right-hand side will meet a corner as well.
@@ -105,7 +105,7 @@ On meeting the point $(0, \frac{2}{3})$, we can either consider what happens if 
  \caption{``Passing through'' on the right equivalent to ``bouncing back left''}
 \end{figure}
 
-Note that this applies for top-bottom just as easily as left-right (Figure 4).  
+Note that this applies for top-bottom just as easily as left-right (Figure 4). 
 
 \begin{figure}[!htb]
 \centering
@@ -113,7 +113,7 @@ Note that this applies for top-bottom just as easily as left-right (Figure 4).
  \caption{``Passing through'' the top equivalent to ``bouncing back down''}
 \end{figure}
 
-Therefore, composing these two, we can cast the path of the smaller rectangle as entirely ``up and to the right''.  This allows us to reframe the question as: \textbf{Starting at $(0,0)$, will a line of slope $m$ reach a corner of a lattice of $l \times h$ blocks} or, equivalently, reach a point $(a \cdot l, b \cdot h)$ for some pair $a,b \in \mathbb{N}$?
+Therefore, composing these two, we can cast the path of the smaller rectangle as entirely ``up and to the right''. This allows us to reframe the question as: \textbf{Starting at $(0,0)$, will a line of slope $m$ reach a corner of a lattice of $l \times h$ blocks} or, equivalently, reach a point $(a \cdot l, b \cdot h)$ for some pair $a,b \in \mathbb{N}$?
 
 \begin{figure}[!htb]
 \centering
@@ -134,11 +134,11 @@ We see that we reach a corner \textbf{if and only if $\frac{h}{m \cdot l}$ is a 
 
 \subsection{Problem 2 solution}
 
-The key insight here is that instead of each ``frame'' extending from $(0, 0)$ to $(l, h)$, with the box's center ($x, y)$ constrained to the rectangle defined by $[\frac{j}{2}, l - \frac{j}{2}], \times [\frac{k}{2}, h - \frac{k}{2}]$, we can instead treat the \emph{center} of that $[\frac{j}{2}, l - \frac{j}{2}], \times [\frac{k}{2}, h - \frac{k}{2}]$ box as a point like in problem 1.  
+The key insight here is that instead of each ``frame'' extending from $(0, 0)$ to $(l, h)$, with the box's center ($x, y)$ constrained to the rectangle defined by $[\frac{j}{2}, l - \frac{j}{2}], \times [\frac{k}{2}, h - \frac{k}{2}]$, we can instead treat the \emph{center} of that $[\frac{j}{2}, l - \frac{j}{2}], \times [\frac{k}{2}, h - \frac{k}{2}]$ box as a point like in problem 1. 
 
 It is then clear that we can use problem 1's main insight to the center point as opposed to the small rectangle: that the small rectangle, say, $\frac{j}{2}$ left of the right border of one frame will take an trajectory eqjuivalent to that of a rectangle $\frac{j}{2}$ right of the left border of the adjoining right frame.
 
-So, restate the problem as $j, k = 0, x \rightarrow x - \frac{j}{2}, y \rightarrow \frac{k}{2}$ and solve as in problem 1.
+So, restate the problem as $j, k = 0; l \rightarrow l - j; h \rightarrow h - k;  x \rightarrow x - \frac{j}{2}; y \rightarrow y - \frac{k}{2}$ and solve as in problem 1.
 
 \begin{figure}[!htb]
 \centering
@@ -152,7 +152,7 @@ Here, we're looking at the set of solutions where $(x, y) \neq (0, 0)$.
 
 For simplicity, we'll consider only a zero-dimensional rectangle ($j = k = 0$) here; otherwise, it can be reduced as in the solution to problem 2 before coming back here.
 
-It's clear that there are many non-solutions here.  Consider, on a grid $h = l = 1$, starting at point $(\frac{1}{2}, 0)$ with a slope $m = 1$.  The point will clearly bounce around between $(1, \frac{1}{2}), (\frac{1}{2}, 1), (0, \frac{1}{2})$ and $ (\frac{1}{2}, 0)$ forever without meeting a corner (Figure 7).
+It's clear that there are many non-solutions here. Consider, on a grid $h = l = 1$, starting at point $(\frac{1}{2}, 0)$ with a slope $m = 1$. The point will clearly bounce around between $(1, \frac{1}{2}), (\frac{1}{2}, 1), (0, \frac{1}{2})$ and $ (\frac{1}{2}, 0)$ forever without meeting a corner (Figure 7).
 
 \begin{figure}[!htb]
 \centering
@@ -168,7 +168,7 @@ First, find the intercept with the next x boundary as in Figure 8.
 \caption{Finding the intercept $y^* = y + m(l-x)$}
 \end{figure}
 
-If we're going to end in a corner, then adding this intercept $y^*$ this to a series of $a$ `runs' of length $l$ should meet at a lattice point of $b$ `rises' of height $h$, according to slope $m$.  Note that $y^*$ may be greater than $h$ (so it could be many ``squares up''), and also note that if $y^* = 0$, then we're already found our corner.  
+If we're going to end in a corner, then adding this intercept $y^*$ this to a series of $a$ `runs' of length $l$ should meet at a lattice point of $b$ `rises' of height $h$, according to slope $m$. Note that $y^*$ may be greater than $h$ (so it could be many ``squares up''), and also note that if $y^* = 0$, then we're already found our corner. 
 
 Given all of these quantities $y^*, m, h, l$, we're looking to discover nonnegative integers $a$ and $b$ that allow us to solve this equation:
 
@@ -178,24 +178,24 @@ y^* = b \cdot h -  a\cdot m \cdot l \\
 1 = b \cdot \frac{h}{y^*} -  a\cdot \frac{m \cdot l}{y^*} 
 \end{align}
 
-There are three (not entirely separate) cases here:
+There are four (not entirely separate) cases here:
 
 \begin{itemize}
-\item $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are both integers. In this case, we can use Euler's algorithm to find the greatest common denominator of $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$, as well as $b$, $a$.  If that GCD equals one, the algorithm will give us $b$ and $a$.  Otherwise, there is no solution (we never hit a corner).
-\item $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are rational but there is at least one non-integer among them.  In this case, multiply out the denominators by the necessary factor $d$ to make them integers, and reduce to the first case looking for GCD $d$.  If our GCD is $d$ or divides $d$, we will hit a corner, otherwise we will bounce infinitely.  Note that Figure 7's scenario ($y^* = \frac{3}{2}, m = h = l = 1$) reduces to $1 = b \cdot \frac{2}{3} - a  \cdot \frac{2}{3} \Rightarrow 3 = 2a-2b$, which has no integer solution pair.
-\item Exactly one of $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ is irrational.  Then there is clearly no solution without $a$ or $b$ equaling zero (which we've eliminated).
-\item Both $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are irrational.  This reduces to:
+\item $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are both integers. In this case, we can use Euler's algorithm to find the greatest common denominator of $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$, as well as $b$, $a$. If that GCD equals one, the algorithm will give us $b$ and $a$. Otherwise, there is no solution (we never hit a corner).
+\item $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are rational but there is at least one non-integer among them. In this case, multiply out the denominators by the necessary factor $d$ to make them integers, and reduce to the first case looking for GCD $d$. If our GCD is $d$ or divides $d$, we will hit a corner, otherwise we will bounce infinitely. Note that Figure 7's scenario ($y^* = \frac{3}{2}, m = h = l = 1$) reduces to $1 = b \cdot \frac{2}{3} - a  \cdot \frac{2}{3} \Rightarrow 3 = 2a-2b$, which has no integer solution pair.
+\item Exactly one of $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ is irrational. Then there is clearly no solution without $a$ or $b$ equaling zero (which we've eliminated).
+\item Both $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are irrational. This reduces to:
 \begin{align}
 \frac{y^*}{h} = b - a\frac{m \cdot l}{h} \\
 -\frac{y^*}{h} = a\frac{m \cdot l}{h} \mod 1 
 \end{align}
-Though we look close to a solution, this rearranging hasn't gotten us much farther since we can't multiply by $\frac{h}{m \cdot l}$ while retaining modulus 1.  For example, try corner-bouncer $y^* = 1+\sqrt{2}, l = 1, h = \frac{1}{2} + \sqrt{2}, m = \sqrt{2}$, yielding $a = 1, b = 2$; equation (8) is satisfied but multiplying by $\frac{h}{m \cdot l}$ doesn't work.  The best we can hope for is that $-y^*$ and $m \cdot l$ have an obvious relationship.
+Though we look close to a solution, this rearranging hasn't gotten us much farther since we can't multiply by $\frac{h}{m \cdot l}$ while retaining modulus 1. For example, try corner-bouncer $y^* = 1+\sqrt{2}, l = 1, h = \frac{1}{2} + \sqrt{2}, m = \sqrt{2}$, yielding $a = 1, b = 2$; equation (8) is satisfied but multiplying by $\frac{h}{m \cdot l}$ doesn't work. The best we can hope for is that $-y^*$ and $m \cdot l$ have an obvious relationship.
 
 \end{itemize}
 
-As an aside, the likelihood that a randomly chosen set of reals $y^*, m, h, l$ will produce a corner bump is zero.   To see this, let's take a set $h, l, m$ and replace $m \rightarrow m \frac{l}{h}$ so we can consider $h, l = 1$.  
+As an aside, the likelihood that a randomly chosen set of reals $y^*, m, h, l$ will produce a corner bump is zero.  To see this, let's take a set $h, l, m$ and replace $m \rightarrow m \frac{l}{h}$ so we can consider $h, l = 1$. 
 
-Let's say our intercept happens one block to the right.  This fixes our $y^*$ to a single, determined value.  Same with two blocks, three, etc.  Assuming there is an intercept somewhere down the line, there are a countable number of $y^*$ selections which will make this system work, one for each integer greater than zero.  However there are certainly an \emph{uncountable} number of $y^*$ selections with $y^* \in (0, 1)$!
+Let's say our intercept happens one block to the right. This fixes our $y^*$ to a single, determined value. Same with two blocks, three, etc. Assuming there is an intercept somewhere down the line, there are a countable number of $y^*$ selections which will make this system work, one for each integer greater than zero. However there are certainly an \emph{uncountable} number of $y^*$ selections with $y^* \in (0, 1)$!
 
 
 
