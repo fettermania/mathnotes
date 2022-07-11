@@ -16,6 +16,7 @@ style=alphabetic,
 \usepackage{verbatim}
 \usepackage{tikz} 
 \usepackage{subfig}
+\usepackage{hyperref}
 
 \usepackage{syntonly}
 % \syntaxonly <-- use this for checking syntax only
@@ -37,10 +38,10 @@ style=alphabetic,
 
 Screensavers have captivated [this] man since the 1990s. If watched long enough, what will the spirits of the machine tell us?
 
-Specifically, the question of whether a bouncing rectangle will slide \emph{exactly} into the corner of the screen, for a satisfying, perfectly diametric rebound, was even addressed on \emph{The Office}:
-\url{https://www.youtube.com/watch?v=QOtuX0jL85Y}
+Specifically, the question of whether a bouncing rectangle will slide \emph{exactly} into the corner of the screen, for a satisfying, perfectly diametric rebound, was even addressed on \emph{The Office}
+\href{https://www.youtube.com/watch?v=QOtuX0jL85Y}{(link)}.
 
-However, though these characters reportedly watched this sleep-mode drama play out for years until payoff, we ask - under what conditions \emph{will} the rectangle perfectly bounce into the screen's corner?
+However, though these characters reportedly watched this sleep-mode drama play out for years until payoff, we ask - under what conditions will the rectangle \emph{definitely} perfectly bounce into the screen's corner?
  
 \begin{figure}
 \centering
@@ -48,10 +49,17 @@ However, though these characters reportedly watched this sleep-mode drama play o
 \caption{The Office DVD problem's most generic setup}
 \end{figure}
 
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.5]{problem1trajectory}
+ \caption{Success for $m = \frac{2}{3}, j, k = 0, h, l = 1$ (not to scale)}
+\end{figure}
+
 \subsection{Statement} 
 Suppose we have a screen of length $l$, height $h$, containing an axis-aligned rectangle of length $j$ and height $k$ centered at point $(x, y)$.
 
-Suppose this rectangle is launched at direction $\langle 1, m\rangle$ \footnote {Think of this as slope $m$} and ``bounces'' according to billiard rules \footnote{Glancing off a horizontal boundary, our trajectory goes from $\langle 1, m \rangle$ to $\langle 1, -m \rangle$, with $\langle \pm 1, m \rangle$ to $\langle \mp 1, m \rangle$ for horizontal}.
+Suppose this rectangle is launched at direction $\langle 1, m\rangle$ \footnote {Think of this as slope $m$} and ``bounces'' according to billiard rules \footnote{Glancing off a horizontal boundary, our trajectory goes from $\langle 1, m \rangle$ to $\langle 1, -m \rangle$, with $\langle \pm 1, m \rangle$ to $\langle \mp 1, m \rangle$ for a horizontal one}.
 
 Given $l, h, j, k, m \in \mathbb{R}$, can we tell whether the rectangle ever bounce perfectly into a corner?  
 
@@ -59,86 +67,138 @@ We can approach this problem from the simplest version to the most complex.
 
 \subsection{Problem 1} 
 
-Suppose $j = k = 0$ and $x = y = 0$. In other words, suppose we have a \emph{point} starting at the corner
- (origin).  Under what conditions does this bounce into a corner?
+Suppose $j = k = 0$ and $x = y = 0$. In other words, suppose we have a \emph{point} starting at the bottom left corner
+ (origin).  Under what conditions (i.e. choice of $m$) does this bounce into a corner?
 
 
 \subsection{Problem 2} 
 
-Suppose $j, k > 0, x = \frac{j}{2}, y = \frac{k}{2}$. In other words, suppose we have a rectangle starting at the corner. Under what conditions does this bounce into a corner?
+Suppose $j, k > 0, x = \frac{j}{2}, y = \frac{k}{2}$. In other words, suppose we have a rectangle starting at the bottom left corner. Under what conditions does this bounce into a corner?
 
 \subsection{Problem 3} 
 
-Suppose we have maximally open (reasonble) conditions, with $x \in [\frac{j}{2}, l - \frac{j}{2}], y \in [\frac{k}{2}, h - \frac{k}{2}]$. Under what conditions does this bounce into a corner?
+Suppose we have maximally open (reasonable) conditions, with $x \in [\frac{j}{2}, l - \frac{j}{2}], y \in [\frac{k}{2}, h - \frac{k}{2}]$ (that is, a $j \times k$ rectangle fitting entirely in the screen). Under what conditions does this bounce into a corner?
 
 
 \section{Solutions}
 
-Note: If our initial slope is zero $m = \langle 1, 0 \rangle$ or ``infinite'' (sort of disallowed in setup), the solution is trivial: if we're in a corner now, we'll be in one shortly, otherwise we never will.s
+Note: If our initial slope is zero $m = \langle 1, 0 \rangle$ or ``infinite'' ($m = \langle 0, 1 \rangle$, actually disallowed in our setup), the solution is obvious: if we're axis-aligned at the outset, we'll be in a corner shortly, otherwise we never will be.
 
-Note also that, for the sake of simplicitly, we can treat $m$ as always positive (going up and to the right).  If not, inverting the problem ($m \rightarrow -m, y = h - y)$ yields the same answer.  The box initially moving leftwards (disallowed in the problem) submits to the same kind of reduction by the same sort of symmetry.
+Note also that, for the sake of simplicity, we can treat $m$ as always positive (the box going up and to the right).  If not, inverting the problem ($m \rightarrow -m, y = h - y)$ will work equivalently.  The box initially moving leftwards (disallowed in the problem setup) reduces to our setup by the same sort of flip.
 
 \subsection{Problem 1 solution}
 
-The key insight here is that though the point bounces "within a box" until meeting $(0,0), (0, h), (l, 0), $ or $(l, h)$, (as in Figure 2) we can instead look at the path of the point in an unconstrained space, seeing if we hit a point of the form $a \cdot l, b \cdot h$ with $a,b \in \mathbb{N}$.
+The key insight here is that though the point bounces ``within a box'' until meeting $(0,0), (0, h), (l, 0), $ or $(l, h)$ (as in Figure 2), we can instead look at the path of the point in an unconstrained space, seeing if we hit a point of the form $(a \cdot l, b \cdot h)$ with $a,b \in \mathbb{N}$.
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.5]{problem1trajectory}
- \caption{Sol 1:Success for $m = \frac{2}{3}, h, l = 1, j, k = 0$}
-\end{figure}
-
-Consider that, on meeting the point $(0, \frac{2}{3})$, we can either consider what happens if we reflect "back" as in Figure 2, or, equivalently, if we pass "through" as in Figure 3.  We quickly see that:
-
-
+On meeting the point $(0, \frac{2}{3})$, we can either consider what happens if we reflect ``back'' into our original box as in the left side of Figure 3, or, equivalently, if we pass ``through'' to a mirrored box on the right side of Figure 3.  We quickly see that:
 
 \begin{itemize} 
-\item If the left-hand side meets a corner, the mirror-image on the right-hand side will meet a corner.
-\item Likewise for the converse: the right meeting a corner means the left has as well.
+\item If the left-hand side meets a corner, the mirror-image on the right-hand side will meet a corner as well.
+\item Likewise for the converse: the right meeting a corner means the left hand will as well.
 \item If the left-hand side does \emph{not} meet a corner, the right-hand side cannot.
 \item Likewise for the converse.
 \end{itemize}
 
-
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.5]{mirrorright}
- \caption{Sol 1: TODO}
+ \caption{``Passing through'' on the right equivalent to ``bouncing back left''}
 \end{figure}
 
-This applies for top-bottom just as easily as left-right.
+Note that this applies for top-bottom just as easily as left-right (Figure 4).  
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.5]{mirrorup}
- \caption{Sol 1: TODO}
+ \caption{``Passing through'' the top equivalent to ``bouncing back down''}
 \end{figure}
 
-Therefore, composing these two, we can cast the path of the smaller rectangle as entirely ``up and to the right''.  
+Therefore, composing these two, we can cast the path of the smaller rectangle as entirely ``up and to the right''.  This allows us to reframe the question as: \textbf{Starting at $(0,0)$, will a line of slope $m$ reach a corner of a lattice of $l \times h$ blocks} or, equivalently, reach a point $(a \cdot l, b \cdot h)$ for some pair $a,b \in \mathbb{N}$?
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.4]{fullpath}
- \caption{Sol 1: TODO}
+ \caption{Recasting the bouncing path as ``up and to the right'' on the l, h lattice}
 \end{figure}
 
 
+\begin{align}
+a \cdot m \cdot l = b \cdot h \\
+\frac{a}{b} = \frac{h}{m \cdot l} \\ 
+\Rightarrow \frac{h}{m \cdot l} \in \mathbb{Q} 
+\end{align}
+
+We see that we reach a corner \textbf{if and only if $\frac{h}{m \cdot l}$ is a rational number} (quotient of integers).
 
 
-TODO TODO TODO TODOT
 
 \subsection{Problem 2 solution}
 
 The key insight here is that instead of each ``frame'' extending from $(0, 0)$ to $(l, h)$, with the box's center ($x, y)$ constrained to the rectangle defined by $[\frac{j}{2}, l - \frac{j}{2}], \times [\frac{k}{2}, h - \frac{k}{2}]$, we can instead treat the \emph{center} of that $[\frac{j}{2}, l - \frac{j}{2}], \times [\frac{k}{2}, h - \frac{k}{2}]$ box as a point like in problem 1.  
 
-It is then clear that we can use problem 1's main insight to the center point as opposed to the small rectangle: that the small rectangle, say, $\frac{j}{2}$ left of the right border of one frame will take an equivalent trajectory to one $\frac{j}{2}$ right of the left border of the adjoining right frame.
+It is then clear that we can use problem 1's main insight to the center point as opposed to the small rectangle: that the small rectangle, say, $\frac{j}{2}$ left of the right border of one frame will take an trajectory eqjuivalent to that of a rectangle $\frac{j}{2}$ right of the left border of the adjoining right frame.
 
-So, restate the problem as $j, k = 0, x \rightarrow x - \frac{j}{2} y \rightarrow \frac{k}{2}$ and solve as in problem 1.
+So, restate the problem as $j, k = 0, x \rightarrow x - \frac{j}{2}, y \rightarrow \frac{k}{2}$ and solve as in problem 1.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.5]{problem2}
+\includegraphics[scale=.4]{problem2}
+\caption{The center of a $j \times k$ rectangle is a point bouncing in the $(l - j) \times (h - k)$ box}
 \end{figure}
+
+\subsection{Problem 3 solution}
+
+Here, we're looking at the set of solutions where $(x, y) \neq (0, 0)$.
+
+For simplicity, we'll consider only a zero-dimensional rectangle ($j = k = 0$) here; otherwise, it can be reduced as in the solution to problem 2 before coming back here.
+
+It's clear that there are many non-solutions here.  Consider, on a grid $h = l = 1$, starting at point $(\frac{1}{2}, 0)$ with a slope $m = 1$.  The point will clearly bounce around between $(1, \frac{1}{2}), (\frac{1}{2}, 1), (0, \frac{1}{2})$ and $ (\frac{1}{2}, 0)$ forever without meeting a corner (Figure 7).
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{bounceforever}
+\caption{$(x, y) = (\frac{1}{2}, 0), m = 1$ bounces forever}
+\end{figure}
+
+First, find the intercept with the next x boundary as in Figure 8.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{intercept}
+\caption{Finding the intercept $y^* = y + m(l-x)$}
+\end{figure}
+
+If we're going to end in a corner, then adding this intercept $y^*$ this to a series of $a$ `runs' of length $l$ should meet at a lattice point of $b$ `rises' of height $h$, according to slope $m$.  Note that $y^*$ may be greater than $h$ (so it could be many ``squares up''), and also note that if $y^* = 0$, then we're already found our corner.  
+
+Given all of these quantities $y^*, m, h, l$, we're looking to discover nonnegative integers $a$ and $b$ that allow us to solve this equation:
+
+\begin{align}
+y^* + a\cdot m \cdot l = b \cdot h, a, b \in \mathbb{N} \\ 
+y^* = b \cdot h -  a\cdot m \cdot l \\
+1 = b \cdot \frac{h}{y^*} -  a\cdot \frac{m \cdot l}{y^*} 
+\end{align}
+
+There are three (not entirely separate) cases here:
+
+\begin{itemize}
+\item $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are both integers. In this case, we can use Euler's algorithm to find the greatest common denominator of $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$, as well as $b$, $a$.  If that GCD equals one, the algorithm will give us $b$ and $a$.  Otherwise, there is no solution (we never hit a corner).
+\item $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are rational but there is at least one non-integer among them.  In this case, multiply out the denominators by the necessary factor $d$ to make them integers, and reduce to the first case looking for GCD $d$.  If our GCD is $d$ or divides $d$, we will hit a corner, otherwise we will bounce infinitely.  Note that Figure 7's scenario ($y^* = \frac{3}{2}, m = h = l = 1$) reduces to $1 = b \cdot \frac{2}{3} - a  \cdot \frac{2}{3} \Rightarrow 3 = 2a-2b$, which has no integer solution pair.
+\item Exactly one of $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ is irrational.  Then there is clearly no solution without $a$ or $b$ equaling zero (which we've eliminated).
+\item Both $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are irrational.  This reduces to:
+\begin{align}
+\frac{y^*}{h} = b - a\frac{m \cdot l}{h} \\
+-\frac{y^*}{h} = a\frac{m \cdot l}{h} \mod 1 
+\end{align}
+Though we look close to a solution, this rearranging hasn't gotten us much farther since we can't multiply by $\frac{h}{m \cdot l}$ while retaining modulus 1.  For example, try corner-bouncer $y^* = 1+\sqrt{2}, l = 1, h = \frac{1}{2} + \sqrt{2}, m = \sqrt{2}$, yielding $a = 1, b = 2$; equation (8) is satisfied but multiplying by $\frac{h}{m \cdot l}$ doesn't work.  The best we can hope for is that $-y^*$ and $m \cdot l$ have an obvious relationship.
+
+\end{itemize}
+
+As an aside, the likelihood that a randomly chosen set of reals $y^*, m, h, l$ will produce a corner bump is zero.   To see this, let's take a set $h, l, m$ and replace $m \rightarrow m \frac{l}{h}$ so we can consider $h, l = 1$.  
+
+Let's say our intercept happens one block to the right.  This fixes our $y^*$ to a single, determined value.  Same with two blocks, three, etc.  Assuming there is an intercept somewhere down the line, there are a countable number of $y^*$ selections which will make this system work, one for each integer greater than zero.  However there are certainly an \emph{uncountable} number of $y^*$ selections with $y^* \in (0, 1)$!
+
+
+
 
 
 
