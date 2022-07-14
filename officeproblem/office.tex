@@ -32,7 +32,7 @@ style=alphabetic,
 \title{The Office DVD Problem}
 \author{Dave Fetterman}
 \affil{Obviously Unemployed}
-\date{7/10/22}
+\date{7/13/22}
 \begin{document}
 \maketitle
 
@@ -57,7 +57,7 @@ However, though these characters reportedly watched this sleep-mode drama play o
 \end{figure}
 
 \subsection{Statement} 
-Suppose we have a screen of length $l$, height $h$, containing an axis-aligned rectangle of length $j$ and height $k$ centered at point $(x, y)$.
+Suppose we have a continuous screen of length $l$, height $h$, containing an axis-aligned rectangle of length $j$ and height $k$ centered at point $(x, y)$.
 
 Suppose this rectangle is launched at direction $\langle 1, m\rangle$ \footnote {Think of this as slope $m$} and ``bounces'' according to billiard rules \footnote{Glancing off a horizontal boundary, our trajectory goes from $\langle 1, m \rangle$ to $\langle 1, -m \rangle$, with $\langle \pm 1, m \rangle$ to $\langle \mp 1, m \rangle$ for a horizontal one}.
 
@@ -68,7 +68,7 @@ We can approach this problem from the simplest version to the most complex.
 \subsection{Problem 1} 
 
 Suppose $j = k = 0$ and $x = y = 0$. In other words, suppose we have a \emph{point} starting at the bottom left corner
- (origin).  Under what conditions (i.e. choice of $m$) does this bounce into a corner?
+ (origin). Under what conditions (i.e. choice of $m$) does this bounce into a corner?
 
 
 \subsection{Problem 2} 
@@ -78,6 +78,19 @@ Suppose $j, k > 0, x = \frac{j}{2}, y = \frac{k}{2}$. In other words, suppose we
 \subsection{Problem 3} 
 
 Suppose we have maximally open (reasonable) conditions, with $x \in [\frac{j}{2}, l - \frac{j}{2}], y \in [\frac{k}{2}, h - \frac{k}{2}]$ (that is, a $j \times k$ rectangle fitting entirely in the screen). Under what conditions does this bounce into a corner?
+
+
+\subsection{Problem 4} 
+
+Some clowns \footnote {J. H. Wang, N. H. Talbert, L. F. Waldman} have come along demanding a version of the setup respecting the discrete (pixellated) nature of digital screens.  Very well.
+
+For each of problem 1, 2, and 3, how does the answer change if the screen comprises square pixels of length $p \in \mathbb{N}$ \footnote{If $p$ is not a whole number, this can be normalized}, where $p | j, k, h, l$, and ``meeting a corner" means a corner of the small (continuous) rectangle meets a wall within length $p$ of the corner point?
+
+
+
+
+
+
 
 
 \end{document}

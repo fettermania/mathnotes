@@ -32,7 +32,7 @@ style=alphabetic,
 \title{The Office DVD Problem}
 \author{Dave Fetterman}
 \affil{Obviously Unemployed}
-\date{7/11/22}
+\date{7/13/22}
 \begin{document}
 \maketitle
 
@@ -57,7 +57,7 @@ However, though these characters reportedly watched this sleep-mode drama play o
 \end{figure}
 
 \subsection{Statement} 
-Suppose we have a screen of length $l$, height $h$, containing an axis-aligned rectangle of length $j$ and height $k$ centered at point $(x, y)$.
+Suppose we have a continuous screen of length $l$, height $h$, containing an axis-aligned rectangle of length $j$ and height $k$ centered at point $(x, y)$.
 
 Suppose this rectangle is launched at direction $\langle 1, m\rangle$ \footnote {Think of this as slope $m$} and ``bounces'' according to billiard rules \footnote{Glancing off a horizontal boundary, our trajectory goes from $\langle 1, m \rangle$ to $\langle 1, -m \rangle$, with $\langle \pm 1, m \rangle$ to $\langle \mp 1, m \rangle$ for a horizontal one}.
 
@@ -78,6 +78,13 @@ Suppose $j, k > 0, x = \frac{j}{2}, y = \frac{k}{2}$. In other words, suppose we
 \subsection{Problem 3} 
 
 Suppose we have maximally open (reasonable) conditions, with $x \in [\frac{j}{2}, l - \frac{j}{2}], y \in [\frac{k}{2}, h - \frac{k}{2}]$ (that is, a $j \times k$ rectangle fitting entirely in the screen). Under what conditions does this bounce into a corner?
+
+
+\subsection{Problem 4} 
+
+Some clowns \footnote {J. H. Wang, N. H. Talbert, L. F. Waldman} have come along demanding a version of the setup respecting the discrete (pixellated) nature of digital screens.  Very well.
+
+For each of problem 1, 2, and 3, how does the answer change if the screen comprises square pixels of length $p \in \mathbb{N}$ \footnote{If $p$ is not a whole number, this can be normalized}, where $p | j, k, h, l$, and ``meeting a corner" means a corner of the small (continuous) rectangle meets a wall within length $p$ of the corner point?
 
 
 \section{Solutions}
@@ -124,11 +131,11 @@ Therefore, composing these two, we can cast the path of the smaller rectangle as
 
 \begin{align}
 a \cdot m \cdot l = b \cdot h \\
-\frac{a}{b} = \frac{h}{m \cdot l} \\ 
-\Rightarrow \frac{h}{m \cdot l} \in \mathbb{Q} 
+\frac{b}{a} = \frac{m \cdot l}{h} \\ 
+\Rightarrow \frac{m \cdot l}{h} \in \mathbb{Q} 
 \end{align}
 
-We see that we reach a corner \textbf{if and only if $\frac{h}{m \cdot l}$ is a rational number} (quotient of integers).
+We see that we reach a corner \textbf{if and only if} $\frac{m \cdot l}{h}$ is a rational number (quotient of integers).  Note that neither $m$, $h$ or $l$ can be zero from the setup, so this won't be zero or undefined.
 
 
 
@@ -196,6 +203,80 @@ Though we look close to a solution, this rearranging hasn't gotten us much farth
 As an aside, the likelihood that a randomly chosen set of reals $y^*, m, h, l$ will produce a corner bump is zero.  To see this, let's take a set $h, l, m$ and replace $m \rightarrow m \frac{l}{h}$ so we can consider $h, l = 1$. 
 
 Let's say our intercept happens one block to the right. This fixes our $y^*$ to a single, determined value. Same with two blocks, three, etc. Assuming there is an intercept somewhere down the line, there are a countable number of $y^*$ selections which will make this system work, one for each integer greater than zero. However there are certainly an \emph{uncountable} number of $y^*$ selections with $y^* \in (0, 1)$!
+
+
+\subsection{Problem 4 solutions}
+
+First, note that any successful bounce trajectory for the continuous case implies a successful pixellated trajectory as well (meeting the corner perfectly is stricter than meeting approximately).
+
+To define the success conditions, we're looking for instances of $a \in \mathbb{N}$ where $y^* + a \cdot m \cdot l \mod h > h - \frac{h}{p} $ or $y^* + a \cdot m \cdot l \mod h  <= h/p$. \footnote {Let's arbitrarily assume we round ``left and down'' when pixel mapping on exact borders}.
+
+With the main (``up and to the right'') intuition from Solution 1 in hand, consider that as point travels right, it will meet right-hand walls (where $x = a \cdot l, l \in \mathbb{N}$) with various heights within the $[l, h]$ box.  The first such height will be at $y^*$ as defined in solution 1, the second at $y^* + 1 \cdot m \cdot l \mod h$, then at $y^* + 2 \cdot m \cdot l \mod h$, $y^* + 3 \cdot m \cdot l \mod h$, etc. on to infinity (Figure 9).
+
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{iteratedintercepts}
+\caption{Iterated right-wall intercepts modulo h}
+\end{figure}
+
+
+
+\subsubsection{Problem 4.1 Solution}
+
+From problem 1, if $\frac{m \cdot l}{h}$ is rational, we will meet a corner.  Restated, if we hit a corner, there are $a, b \in \mathbb{N}$ 
+such that  
+\begin{align}
+\frac{b}{a} = \frac{m \cdot l}{h} \\
+ \Rightarrow a \cdot ml = b \cdot h \\ 
+  \Rightarrow a \cdot ml = 0 \mod h  
+\end{align}
+
+This means that our right wall is divided into some number $a$ \footnote{Technically, some number dividing $a$} of equal-sized steps (modulo $h$) before meeting a $0\mod h$ case, as above in figure 9.  
+
+However, if $\frac{m \cdot l}{h}$ is \emph{ir}rational, we will fill up the line with a countably infinite number of evenly spaced points modulo $h$.  One of them will necessarily land within $p$ of a corner. 
+
+So in a pixellated universe, for the setup of problem 1, we will \emph{always} meet a corner.
+
+
+
+\subsubsection{Problem 4.2 Solution}
+
+As far as I can tell, nothing changes about this when reframed in the pixellated universe.  We're still operating under continuous dimensions, but only changing the conditions under which a corner is reached.
+
+\subsubsection{Problem 4.3 Solution}
+
+In our pixellated case, we necessarily suppose that $l, h \in \mathbb{N}$.  By solution 4.1, if $\frac{ml}{h}$ is irrational, we will hit a corner. Therefore, we need only consider when $m$ is rational, expressed as some $m = \frac{v}{w}$ with $ v, w \in \mathbb{N}$.
+
+Then we're looking $| y^* + aml - bh | < p \Rightarrow |y^*w+ amlw - bhw| < pw$. 
+
+Reducing this to a set of integer equations, this means that hitting a right wall within the pixel boundary means we satisfy at least one of:
+
+\begin{itemize}
+\item $\lfloor y^*w \rfloor + amlw = 0 \mod hw$
+\item $\lfloor y^*w \rfloor + amlw = 1 \mod hw$
+\item ...
+\item $\lfloor y^*w \rfloor + amlw = pw-1 \mod hw$
+\item $\lceil y^*w \rceil + amlw = 0 \mod hw$
+\item $\lceil y^*w \rceil + amlw = -1 \mod hw$
+\item ...
+\item $\lceil y^*w \rceil + aml = -pw+1 \mod hw$
+\end{itemize}
+
+
+This is, again, somewhat unsatisfying.  
+
+There are two shortcuts.
+
+Take the lowest $a$ that satisfies equation (11) above.  This lets us know how many contact intervals the right wall is divided into, their width modulo $h$ being $\frac{h}{a}$. If $\frac{h}{a} <= 2p$, one of these contact points falls within one $p$ above or below a corner, a ``hit'' by our definition.
+
+Otherwise, we have a small number of contact points, and we can simply simulate (play out) the bounces, which may be fewer that $2pw$ equations to check above.
+
+Note also that we need to check the top edge of the corner as well, or $b \cdot \frac{h}{m} = 0 \mod l$. Consider $h = 10, l = 10, m = 10, p = 1, (x, y) = (0, 5)$.  So, by the same logic, if $\frac{l}{b} <= 2p$, we also find a solution.  The above logic should be repeated with $| x^* + a\frac{h}{m} - bl | < p$ in case we're in one of these ``vertically bouncy'' scenarios.
+
+
+
 
 
 
