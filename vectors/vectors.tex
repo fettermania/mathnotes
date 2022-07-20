@@ -1,4 +1,4 @@
-\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\documentclass[11pt, oneside]{article}   	% use ``amsart'' instead of ``article'' for AMSLaTeX format
 \usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
 \usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
@@ -39,17 +39,17 @@ Consider vectors of motion against $t$ of the form $ \overrightarrow{x}(t) = \la
 $$ \langle x(t), y(t), z(t)\rangle = \langle 0, 2, -3\rangle + t\langle 1,-2,2\rangle$$ is $$\sqrt{1^2+(-2)^2 + 2^2} = 3$$
 \item Note that $\overrightarrow{v}$ need not be constant.  The speed of $$\overrightarrow{x}(t) =  \overrightarrow{p} + 3 \sin(2\pi t)\hat{u}, \| \hat{u} \| = 1$$ would then be $$\| 6\pi \cos(2 \pi t) \hat{u} \| = |6\pi \cos(2 \pi t)|$$
 \item \textbf{Acceleration} $a(t) = v'(t) = x''(t)$ is straightforward.  Acceleration of $$x(t) = \langle -1 + \cos(t), 1, \cos(t)\rangle = \langle -\cos(t), 0, -\cos(t)\rangle$$
-\item An example position vector for a planet of distance $r$ from the sun could be $\langle r \cos(t), r \sin(t) \rangle$.  The acceleration vector points in the opposite direction: $\langle - r \cos(t), - r \sin(t) \rangle$.  In addition to being the analytical second derivative, consider that the \emph{force} of gravity, (which, by $F = ma$ is proportional to acceleration) points towards the sun.  
+\item An example position vector for a planet of distance $r$ from the sun could be $\langle r \cos(t), r \sin(t) \rangle$.  The acceleration vector points in the opposite direction: $\langle - r \cos(t), - r \sin(t) \rangle$.  In addition to being the analytical second derivative, consider that the \emph{force} of gravity, (which, by $F = ma$ is proportional to acceleration) points towards the sun, \emph{with acceleration perpendicular to velocity}.
+
 \item A \textbf{helix} could be a 3D extension like $\langle r \cos(t), r \sin(t), b\cdot t \rangle$.  
 \end{itemize}
 
 \section{Chapter 2.2: Space Curves}
 \begin{itemize}
-\item TODO: Problem 5 - rotating ellipses and solving intersections with planes
 \item Note that while $\overrightarrow{x}(t) = \langle \cos(t), \sin(t), 5 \rangle$ and  $\overrightarrow{x}(t) = \langle \cos(2t), \sin(2t), 5 \rangle$ describe the same curve, the space curve also records motion in time, so the \emph{velocity} may be different.
 \item If $\overrightarrow{x}(t) = t\overrightarrow{v}$, then speed is $\frac{\| \overrightarrow{x}(t+\Delta t) - \overrightarrow{t} \|}{\Delta t} = \| \overrightarrow{v} \|$,  direction is $\frac{\overrightarrow{v}}{\| \overrightarrow{v} \|}$, and velocity $\overrightarrow{v}$ is the product of speed and direction.
 \item So $\overrightarrow{v}(t) = \lim_{\Delta t \rightarrow 0} \frac{\overrightarrow{x}(t + \Delta t) - \overrightarrow{x}(t)}{\Delta t} = \overrightarrow{x}'(t) = \frac{d\overrightarrow{x}}{dt} = \langle x'(t), y'(t), z'(t) \rangle$
-\item Neat conceptual result: any $y = f(x)$ can be made into $x(t) = \langle t, f(t), 0 \rangle$, and then $v(t) = \langle 1, f'(t), 0 \rangle$, which points along the tangent line at $\langle t, f(t), 0 \rangle$.
+\item Neat conceptual result: any $y = f(x)$ can be made into $x(t) = \langle t, f(t) \rangle$, and then $v(t) = \langle 1, f'(t) \rangle$, which points along the tangent line at $\langle t, f(t)\rangle$.
 \item Note that dot product derivatives work like regular product: $[\overrightarrow{a}(t) \cdot \overrightarrow{b}(t)]' = \overrightarrow{a}'(t) \cdot \overrightarrow{b}(t) + \overrightarrow{a}(t) \cdot \overrightarrow{b}'(t)$, 
 but the cross product does not work the same since $\frac{d}{dt}[a \times b] = a' \times b + a \times b'$, but since $a \times b' = -b' \times a$, can't switch the order to $a' \times b + b' \times a$ due to this non-commutativity.
 \item If $$\overrightarrow{x}(t) = \overrightarrow{p}+ t \overrightarrow{v},$$ calculating velocity with respect to origin  becomes
@@ -68,7 +68,7 @@ x = \int{v}  = \langle t+K, 2t+M, -\frac{1}{2}t^2 + 3t + N \rangle, x(\overright
 \overrightarrow{x}(t) = \langle t, 2t, 3t-\frac{1}{2}t^2 \rangle \\
 z(t) = 0 \rightarrow t = 6 \rightarrow \overrightarrow{x}(6) = \langle 6, 12, 0 \rangle \\
 \end{align} 
-\item Also, generalizing $ds = \sqrt{(dx)^2  + (dy)^2}$, the length of an arc from point $a$ to $b$ aporoaches $\int_a^b \| x'(t) \| dt$
+\item Also, generalizing $ds = \sqrt{(dx)^2  + (dy)^2}$, the length of an arc from point $a$ to $b$ approaches $\int_a^b ds = \int_{t_a}^{t_b} \| x'(t) \| dt$
 \item Example: a helix $\langle a \cos (\omega t), a \sin (\omega t), b \omega t \rangle$, parametrized by time $t$ can be rewritten in terms of $s$, the arc length: 
 \begin{align}
 s =  \int \|x'(t)\| dt \\
@@ -82,7 +82,7 @@ s = |\omega| t \sqrt{a^2 + b^2}
 
 \section{Chapter 2.4: Frenet Formulae}
 
-Main idea: Establish three new vectors $\hat{T}(s), \hat{N}(s), \hat{B}(s)$ that change as we move along a space curve, instead of $\overrightarrow{x}(t)$ that changes over an external "time" idea.
+Main idea: Establish three new vectors $\hat{T}(s), \hat{N}(s), \hat{B}(s)$ that change as we move along a space curve, instead of $\overrightarrow{x}(t)$ that changes over an external ``time'' idea.
 
 Remember that  $s = \int_0^t \| \overrightarrow{x}'(\tilde{t}) \| d\tilde{t}$, so $\frac{ds}{dt} = \| \overrightarrow{x}'(t)\|$ .
 
@@ -97,14 +97,20 @@ s = \int_0^t \| \overrightarrow{x}'(\tilde{t})d\tilde{t} \| \\
 \hat{T} = \frac{\overrightarrow{x}'(t)}{\|\overrightarrow{x}'(t)\|}  = \frac{d\overrightarrow{x}}{dt} \cdot \frac{dt}{ds} \\
 \hat{T} = \frac{d\overrightarrow{x}}{ds} \\
 \end{align}
+\item So this is how the space curve $\overrightarrow{x}$ changes as it moves along $s$.
+\item It's normalized, so it's the same whether parameterized by t, s, or whatever.
 \end{itemize}
 
 
-\subsection{$\hat{N}$: Vector normal to space curve and also in the direction of acceleration}
-Normal vectors include
+\subsection{$\hat{N}$: Normal to curve (perpendicular to $\hat{T}$)}
+Normal vectors are:
 \begin{itemize}
-\item $\frac{\hat{T}(t)} { \| \hat{T}(t) \|}$ since, as $\| \hat(T) \| $ is just 1:
+\item $\overrightarrow{x}''(t)$ normalized as $\frac { \frac{d\hat{T}}{ds} }   {\|  \frac{d\hat{T}}{ds}  \|}  = \hat{N}$
+\item The normal vector to the curve
+\item $\bot$ to $\hat{T}$ in direction of acceleration.  So a multiple of acceleration vector.
+\item $\frac{\hat{T}'(t)} { \| \hat{T}'(t) \|}$.  The following sequence shows any unit length vector is perpendicular to its derivative.
 \begin{align}
+\| \hat{T} \| = 1 \\
 d(\| \hat{T} \|^2) = 0 \\
 d(\| \hat{T} \|^2) = d(\hat{T} \cdot \hat{T}) = \hat{T}(t) \cdot 2\hat{T}'(t) \\
 \hat{T}(t) \cdot \hat{T}'(t)  = 0
@@ -112,13 +118,13 @@ d(\| \hat{T} \|^2) = d(\hat{T} \cdot \hat{T}) = \hat{T}(t) \cdot 2\hat{T}'(t) \\
 \item $\frac{ \frac{d\hat{T}}{ds}  }  { \| \frac{d\hat{T}}{ds}  \| }$ since it's the same as the above, but parametrized over $s$ instead of $t$.  Doesn't change the direction of the vector!
 \end{itemize}
 
-Example:if  $\overrightarrow{x}(t) = \langle R\cos(\omega t), R\sin(\omega t), 0 \rangle$, then acceleration $\overrightarrow{a}(t)$ is
+Example:if  $\overrightarrow{x}(t) = \langle R\cos(\omega t), R\sin(\omega t), 0 \rangle$, then:
 \begin{itemize}
 \item $\overrightarrow{a} = \frac{d^2\overrightarrow{x}}{dt^2}$ just by definition
 \item $\overrightarrow{a} = -\omega^2 \overrightarrow{x}$ just by calculation
 \item $\hat{T}(t) = \langle -\sin(\omega t), \cos (\omega t), 0 \rangle$
 \item $\| \hat{T}(t) \| = 1$
-\item $\hat{N} = \frac{\hat{T}(t)} { \| \hat{T}(t) \|} =  \langle -cos(\omega t), -\sin (\omega t), 0 \rangle$
+\item $\hat{N} = \frac{\hat{T}'(t)} { \| \hat{T}'(t) \|} =  \langle -\cos(\omega t), -\sin (\omega t), 0 \rangle$
 \item So $\overrightarrow{a} = R\omega^2\hat{N}$ by these formulae.
 \end{itemize}
 
@@ -130,9 +136,12 @@ The perpendicular part is then $\overrightarrow{a}$ minus that: $\overrightarrow
 
 This also equals $(\frac{ds}{dt})^2 \|\frac{d\hat{T}}{ds} \| \hat{N}$ because
 \begin{align}
-\overrightarrow{x} = \frac{dx}{dt} = T = \hat{T} \cdot \|  \frac{dx}{dt} \| \\
-s = \int_0^t \| \overrightarrow{x}'(t) \rightarrow \frac{ds}{dt} = \| \overrightarrow{x}'(t) \|  \\
-\hat{N} = \frac{d\hat{T}}{ds} normalized, so \\
+\overrightarrow{x}' = \frac{dx}{dt} = T = \hat{T} \cdot \|  \frac{dx}{dt} \| \\
+s = \int_0^t \| \overrightarrow{x}'(t) \| \rightarrow \frac{ds}{dt} = \| \overrightarrow{x}'(t) \|  
+\end{align}
+
+$\hat{N} = \frac{d\hat{T}}{ds}$ normalized, so
+\begin{align}
 \overrightarrow{a} = \frac{d^2\overrightarrow{x}}{dt^2} = \frac{d}{dt}(\| \overrightarrow{x}'(t)\hat{T}(t)\|) = \frac{d \|\overrightarrow{x}'(t) \|}{dt}\hat{T} + \| \overrightarrow{x}'(t) \| \frac{d\hat{T}}{dt} \\
 = \frac{d \|\overrightarrow{x}'(t) \|}{dt}\hat{T} + \frac{ds}{dt} \frac{d\hat{T}}{ds} \frac{ds}{dt} \\ 
 = \frac{d \|\overrightarrow{x}'(t) \|}{dt}\hat{T} + (\frac{d{s}}{dt} )^2 \| \frac{d\hat{T}}{ds} \| \hat{N}
@@ -140,52 +149,25 @@ s = \int_0^t \| \overrightarrow{x}'(t) \rightarrow \frac{ds}{dt} = \| \overright
 
 This is ``a = parallel part plus perpendicular (N) part'', so the second term is $a_{\bot}$
 
-\subsection{Binormal vector $\hat{B}$}
+\subsection{$\hat{T}$ and $\hat{N}$}
+
+\begin{itemize}
+\item Form a plane, since first, any normal vector's derivative is perpendicular to the vector
+\item $\kappa$ is curvature: how much we're curving in that $T \times N$ plane.
+\item $\kappa =   \|  \frac{d\hat{T}}{ds}  \| $ 
+\item Therefore, by above, $\frac{d\hat{T}}{ds} = \kappa \hat{N}$ \textbf{(Frenet equation 1)}
+\end{itemize}
 
 Note that curvature $\kappa(s) = \| \frac{d\hat{T}}{ds}\|$ is geometric (depends on s, not time) and changes as $\hat{T}$ changes.
 
 Example: Curvature of $\overrightarrow{x}(t) = \langle \cos(t), \sin(t), bt \rangle$ 
 \begin{align}
 x'(t) = \langle -\sin(t), \cos(t), b \rangle \\ 
-\|x'(t) \| = \sqrt(1 + b^2) \\ 
-s = \int_0^t\|x'(t)\| = \int_0^t \sqrt{(1+b^2)} = t\sqrt{(1+b^2)} \rightarrow t = \frac{s}{\sqrt{1+b^2}}
+\|x'(t) \| = \sqrt{1 + b^2} \\ 
+s = \int_0^t\|x'(\tilde{t})\| d\tilde{t} = \int_0^t \sqrt{(1+b^2)} = t\sqrt{(1+b^2)} \rightarrow t = \frac{s}{\sqrt{1+b^2}}
 \end{align}
 
-
-\subsection{$\hat{T}$ is:} 
-\begin{itemize}
-\item $\overrightarrow{x}'(t)$ normalized
-\item The tangent vector to the curve
-\item The same whether paremetrized by $\hat{T}'(t)$ or $\frac{dx}{ds}$
-\end{itemize}
-
-\subsection{$\hat{N}$ is:} 
-\begin{itemize}
-\item $\overrightarrow{x}''(t)$ normalized as $\frac { \frac{d\hat{T}}{ds} }   {\|  \frac{d\hat{T}}{ds}  \|}  = \hat{N}$
-\item The normal vector to the curve
-\item $\bot$ to $\hat{T}$ in direction of acceleration.  So a multiple of acceleration vector.
-\item The same whether paremetrized by $\hat{T}'(t)$ or $\frac{dx}{ds}$
-\end{itemize}
-
-\subsection{$\hat{T}$ and $\hat{N}$}:
-
-\begin{itemize}
-\item Form a plane, since first, any normal vector's derivative is perpendicular to the vector
-\begin{align}
-\frac{d}{ds} \|\hat{T}\|^2 = \frac{d}{ds} \hat{T} \cdot \hat{T} \\
-= 2\hat{T} \cdot \hat{T}' \\
-\frac{d}{ds} \|\hat{T}\|^2 = \frac{d}{ds} 1 = 0 \\
-\end{align}
-and 
-\begin{align}
-\hat{T} \cdot \hat{N} =   \hat{T} \cdot \frac { \frac{d\hat{T}}{ds} }   {\|  \frac{d\hat{T}}{ds}  \|} \\ 
-=  \hat{T} \cdot \frac { \hat{T}'(s)}  {\|  \frac{d\hat{T}}{ds}  \|} = 0 
-\end{align}
-\item $\kappa$ is curvature: how much we're curving in that $T \times N$ plane.
-\item $\kappa =   \|  \frac{d\hat{T}}{ds}  \| $ 
-\item Therefore, by above, $\frac{d\hat{T}}{ds} = \kappa \hat{N}$ \textbf{(Frenet equation 1)}
-
-\end{itemize}
+Do the substitution of $\frac{s}{\sqrt{1+b^2}}$ for $t$ above to get $x'(s)$, and from there, you can figure out $\frac{d\hat{T}}{ds}$ and normalize to get $\kappa = \frac{1}{1+b^2}$
 
 \subsection{$\hat{B}$ is binormal: perpendicular to both}
 \begin{itemize}
@@ -198,7 +180,7 @@ and
 \end{align}
 but this means T is orthogonal to dB, and we already know B and dB are orthogonal.
 We're working in 3d with the cross product, so dB is parallel to N.
-\item Therefore, we define "torsion" $\tau$ so that $- \frac{d\hat{B}}{ds}  = \tau \hat{N}$  \textbf{(Frenet equation 2)}.  Negative sign by convention.
+\item Therefore, we define \textbf{torsion} $\tau$ so that $- \frac{d\hat{B}}{ds}  = \tau \hat{N}$  \textbf{(Frenet equation 2)}.  Negative sign by convention.
 \item Can also cross by $N$ on both sides to get $- \frac{d\hat{B}}{ds}  \times \hat{N} = \tau $ 
 \item $\hat{B}$ measures how the plane defined by $\hat{T}, \hat{N}$ twists around.  On a circle, $\hat{B}$ wouldn't change, so the derivative would be zero.
 \item \textbf{Final Frenet equation}.  Prereq: $\hat{B} = \hat{T} \times \hat{N} \rightarrow \hat{N} = \hat{B} \times \hat{T} \rightarrow \hat{T} = \hat{N} \times \hat{B}$
@@ -233,10 +215,11 @@ Tangent vectors to $\overrightarrow{x}(u,v)$ are $\frac{\delta \overrightarrow{x
 					
 Example: Torus $\overrightarrow{x} = \langle [2 + \cos(v)]\cos(u),  [2 + \cos(v)]\sin(u), \sin(v)\rangle, u,v \in [0,2 \pi)$.  What's the tangent plane at $u = \frac{\pi}{4}, v=0$?
 \begin{align}
-dx/du = \langle -\sin(u)(2 + \cos(v)),  \cos(u)(2 + \cos(v)), 0 \rangle \\
-dx/dv = \langle -\sin(v)\cos(u), -\sin(v)\sin(u), \cos(v) \rangle \\
-u = \frac{\pi}{4}, v=0 \rightarrow dx/du  \\
-= -\frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0, dx/dv = 0, 0, 1 \\
+d\overrightarrow{x}/du = \langle -\sin(u)(2 + \cos(v)),  \cos(u)(2 + \cos(v)), 0 \rangle \\
+d\overrightarrow{x}/dv = \langle -\sin(v)\cos(u), -\sin(v)\sin(u), \cos(v) \rangle \\
+u = \frac{\pi}{4}, v=0 \rightarrow  \\
+d\overrightarrow{x}/du = \langle -\frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0, \rangle \\
+d\overrightarrow{x}/dv = \langle 0, 0, 1 \rangle \\
 dx/du \times dx/dv = \langle  \frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0\rangle \\
 \hat{n} =  \langle \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0 \rangle \\
 \hat{n}  \cdot \overrightarrow{x} = 0 \rightarrow \hat{n} \cdot (x - x_0, y-y_0, z-z_0) = 0 \\
@@ -249,7 +232,7 @@ dx/du \times dx/dv = \langle  \frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0\rangle \
 What's the normal at $(1, \frac{1}{\sqrt{2}}, \sqrt{2})$?
 
 \textbf{Method 1: parametrize with spherical u, v}
-First, transform to sphere with change of coordinates
+First, transform to sphere with change of coordinates, then flip to speherical coordinates.
 \begin{align}
 x^2 + 2y^2 + z^2 = 4 \\
 X = x/2, Y=\frac{Y}{\sqrt{2}}, Z = z/2 \\
@@ -286,7 +269,7 @@ $\nabla f = \langle 2x, 4y, 2z \rangle \rightarrow \nabla f(1, \frac{1}{\sqrt{2}
 
 Then normalize.
 
-\subsection{Mobius strip and "direction of out"}
+\subsection{Mobius strip and ``outward direction''}
 Mobius strip is 
 \begin{itemize}
 \item $x = 2\cos(u) + v\cos(\frac{u}{2})$
@@ -310,7 +293,7 @@ but at $(2\pi, 0)$ is the same point, but $\hat{n} = \langle 0, 0, 1 \rangle$!!
 
 One nugget: using \textbf{gradient vector fields}:
 Suppose $\overrightarrow{F}(x,y) = \langle 2, -4y^3 \rangle$.  
-Then if F = $\nabla f$, then F's arrows are perpendicular to a level set $f = c$.
+If $F = \nabla f$ for some $f$, then $F$'s arrows are perpendicular to a level set $f = c$.
 So look at $f  =  2x -y^4 $ and find perpendicular arrows to these.  That's actually F!
 
 \textbf{Linear approximation for $\overrightarrow{F}: D \in \mathbf{R}^n \rightarrow \mathbf{R}^m$}
@@ -348,12 +331,12 @@ Electric charge radiates out equally in all directions, and is inversely proport
 
 Formula, with $Q$ as the charge, $\epsilon_0$ is a constant: $\overrightarrow{E}(x,y,z) = \frac{Q}{4\pi\epsilon_0\|x\|^2}\hat{x}$
 
-\textbf{Field line} is a special case of a {flow line} - the space cure that follows $\overrightarrow{F}$'s arrows.  The tangent vector to the flow line is $\overrightarrow{F}(\overrightarrow{x}(t))$ (t is not time here), so $\frac{d\overrightarrow{x}}{dt} = \overrightarrow{F}(\overrightarrow{x}(t))$
+A field line is a special case of a \textbf{flow line} - the space curve that follows $\overrightarrow{F}$'s arrows.  The tangent vector to the flow line is $\overrightarrow{F}(\overrightarrow{x}(\tilde{t}))$ ($\tilde{t}$ is not time here), so $\frac{d\overrightarrow{x}}{d\tilde{t}} = \overrightarrow{F}(\overrightarrow{x}(\tilde{t}))$
 
 Example: Vector field $\overrightarrow{F}(x,y) = \langle -2y, 3x \rangle$.  What's the flow line through (2,0)?
 
 Solution: Need to solve 
-$dx/dt = -2y, dy/dt = 3x$.  Key is "separating the equations".  Remember x and y are functions of t!
+$dx/dt = -2y, dy/dt = 3x$.  Key is ``separating the equations''.  Remember x and y are functions of t!
 
 \begin{align}
 \frac{d^2x}{dt^2} = -2 \frac{dy}{dt}= -2 \times 3x = -6x.\\
@@ -363,7 +346,7 @@ x(t) = -6x''(t), y(t) = -6y''(t) \\
 \frac{dx}{dt} = -2y(t) \rightarrow   \frac{\sqrt{6}}{2}A\sin(\sqrt{6}t)- \frac{\sqrt{6}}{2}B\cos(\sqrt{6}t)  = y(t) \\
 x(t=0) = 2 \rightarrow A = 2 \\
 y(t=0) = 0 \rightarrow B = 0 \\
-\overrightarrow{F}(t) = \langle 2\cos(\sqrt{6}t), \sqrt{6}\sin(\sqrt{6}t),\rangle \\
+\overrightarrow{F}(t) = \langle 2\cos(\sqrt{6}t), \sqrt{6}\sin(\sqrt{6}t) \rangle \\
 \end{align}
 
 Note: \textbf{Field lines} follow rules:
@@ -372,7 +355,7 @@ Note: \textbf{Field lines} follow rules:
 \item Density of lines directly relates to how much charge a point has
 \item Lines don't intersect.
 \item Corollary: If count of out equals count of in, point has zero charge
-\item "Number" (to be defined) of field lines in and out of a \emph{surface} related to the charge inside.  Upcoming.
+\item ``Number'' (to be defined) of field lines in and out of a \emph{surface} related to the charge inside.  Upcoming.
 \end{itemize}
 
 \section{3.1: Surface Integrals}
@@ -381,21 +364,24 @@ Example: Fluid pressure in a tank is:
 \begin{itemize}
 \item Proportional (via some weight constant $p_{fluid}$) to depth of the point
 \item Pushes out via the normal $\hat{n}$ 
-\item So, for the x side of a cube of length l, this would be 
+\item So, for the $x=l$ side of a cube of length l, this would be 
 
 $\overrightarrow{F}_{x=l} = (\iint_{[0,l] \times [0,l]} p_{fluid} [1 - \frac{z}{l}] dy dz) \hat{i}$
 \end{itemize}
+
+
 
 \textbf{Example}: Hemisphere of size l, sitting at (0, 0, 0)
 
 Finding the out pointing unit normal of hemisphere at point $(x, y, -\sqrt{l^2-x^2-y^2})$
 
 Note: Can just eyeball this, but one way is the \textbf{gradient}.  
-Take the level set 
 
+First, the relation is $x^2 + y^2 + (z-l)^2 = l^2$.
+Make it a function $g$ and take the level set at $l^2$:
 
 \begin{align}
-g(x,y,z) = x^2  + y^2 + (z - l)^2 - l^2 = 0 \\
+g(x,y,z) = x^2  + y^2 + (z - l)^2 = l^2 \\
 \nabla g(x,y,z) = \langle 2x , 2y , 2(z-l)  \rangle \\
 \hat{n} = \pm \frac{\nabla g(x,y,z)}{ \|\nabla g(x,y,z) \|} \\ 
 \hat{n} = \pm \frac{\langle x , y , (z-l)  \rangle}{\sqrt{x^2 + y^2 + (z-l)^2}} \\
@@ -405,14 +391,122 @@ g(x,y,z) = x^2  + y^2 + (z - l)^2 - l^2 = 0 \\
 
 
 Note: Integrating over a patch dA on the surface means finding the area of micro-patches 
-$\delta A_{ij}$, which is the parallelogram defined by 
+$\Delta A_{ij}$, which is the parallelogram defined by 
 \begin{align}
 s_1 = \langle \Delta x_i, 0, \Delta x_i f_x(x_i^*,y_j^*) \rangle \\
 s_2 = \langle 0, \Delta y_j, \Delta y_j f_y(x_i^*,y_j^*) \rangle \\ 
 \Delta A_{ij} \approx \| s_1 \times s_2 \| \\ 
-= \sqrt{ (1 + [ f_x(x_i^*,y_j^*)]^2 + [f_y(x_i^*,y_j^*)]^2 }\Delta x_i \Delta y)_j \\ 
+= \sqrt{ (1 + [ f_x(x_i^*,y_j^*)]^2 + [f_y(x_i^*,y_j^*)]^2 }\Delta x_i \Delta y_j \\ 
 \end{align}
 
-So the total pressure ends up being $\overrightarrow{F}_{tot} = p_{fluid} \iint p  \hat{n}  dA$
+\textbf{So the total pressure ends up being}
+$\overrightarrow{F}_{tot} = p_{fluid} \iint (p \cdot \hat{n}) dA$
+\begin{align}
+= p_{fluid} \iint_{x^2 + y^2 \leq l^2} [ 1- \frac{f(x,y)}{l}] \hat{n}  \sqrt{ 1 +  [f_x]^2 +[f_y]^2 }dxdy  \\
+f(x,y) = l - \sqrt{l^2-x^2-y^2} \\
+\hat{n} = \langle \frac{x}{l},\frac{t}{l}, \frac{f(x,y)}{l} - 1 \rangle \\
+f_x = \frac{x}{\sqrt{l^2 - x^2 - y^2}}, f_y = \frac{y}{\sqrt{l^2 - x^2 - y^2}}
+\end{align}
+
+And for the only-nonzero component, $\hat{k}$, this simplifies after a lot of hand-math to 
+$F_{tot} = -p_{fluid} ( \iint_{x^2+y^2 \leq l^2} \sqrt{1 - (\frac{x^2 + y^2}{l^2})} dx dy) \hat{k}$
+
+Side Note during solving: $dx dy \rightarrow r dr d\theta$.  
+\begin{itemize}
+\item TODO: This looks to be something to do with the determinant of the Jacobian matrix $F_i / x_j$.
+\item Intuitively, consider that a patch $dx \cdot dy$ is a slice of a big disk which has dimensions $dr$ on the ray, $r d\theta$ on the arc.
+\end{itemize}
+
+
+\section{3.2: Flux Part I}
+Main idea: Field lines are innumerable, so counting them through a surface makes no sense.  Instead, we'll use \textbf{flux} to help us measure charge pushed through a surface per unit time.
+
+Example: If charge $q$ of mass $m$ in a field of $\overrightarrow{E} = E_0\hat{i}$ moves from origin along x towards R according to $\frac{d^2x}{dt^2} = \frac{q}{m}E_0$, then solving the diff eq. means that $x = \frac{q}{2m}E_0(\Delta t)^2 = R$.  This means we're pushing all charges within $ \frac{q}{2m}E_0(\Delta t)^2$ to the left of the disk through it.
+
+Then, if we're considering a cylinder of base area $A$, mass density $\delta$, charge density $\rho$:
+\begin{itemize}
+\item Every test charge chunk $\Delta V$ within $\frac{\rho \Delta V}{2 \delta \Delta V}E_0(\Delta t)^2$ passes through.  That's the height.
+\item Area is A, so total volume is  $\frac{\rho (\Delta t)^2}{2 \delta}E_0A$
+\item Density of charge per volume is $\rho$, so total is $\frac{\rho^2 (\Delta t)^2}{2 \delta}E_0A$
+\end{itemize}
+
+Note: Tilting this forward from the z-axis by $\theta$ multiplies the cross-section area of the cylinder (now an ellipse) by $\cos (\theta)$.  Can work out the ellipse volume, or just note that each ``Riemann bar'' orthogonal to x-axis just got squished by  $\cos (\theta)$. 
+
+So we define \textbf{flux} as amount of charge through a closed surface.  $\Phi = (\overrightarrow{E} \cdot \hat{n})A$ where $\overrightarrow{E}$ is a constant field.  (Units: joules/second/$m^2$, or watts/$m^2$)
+
+We can further note $(\overrightarrow{E} \cdot \hat{n}) = \|\overrightarrow{E}\| \cos(\theta)$ by last problem.
+
+Example: Flux through an empty cube from the origin is necessarily 0 since every face cancels the other.
+
+Another example: A square pyramind with top at $(0,0,1)$, sides at 1 on each axis:
+\begin{itemize}
+\item All the triangles will cancel in the x, y directions.
+\item A triangle $(1, 0 ,0) (0, 1, 0), (0, 0, 1)$ has two displacement vectors $P_1P_3 = P_3 - P_1 = (-1, 0, 1), P_2P_3 = (0, -1 , 1)$.
+\item $P_1P_3 \times P_2P_3 = (1, 1, 1) \rightarrow \hat{n} = \frac{(1, 1, 1) }{\sqrt{3}}$
+\item $A = \frac{1}{2} \| P_1P_3 \times P_2P_3 \| = \frac{\sqrt{3}}{2}$
+\item $\Phi = (\overrightarrow{E} \cdot \hat{n}) A = (E_0 \frac{1}{\sqrt{3}}) \frac{\sqrt{3}}{2} = \frac{E_0}{2}$
+\item So total flux through these is $4 \cdot \frac{1}{2} E_0 = 2E_0$
+\item However, the bottom has area $\sqrt{2}^2 = 2$ and flux $E_0$ , so total is 0!
+\end{itemize}
+
+\section{3.3: Flux Part II}
+
+Note: 
+\begin{itemize}
+\item Charge ($q$) is the volts of the point charge.  Total charge $Q_{tot}$ is total charge inside some surface.
+\item Electric field is sum of those point charges acting at a distance, and a is a single vector.
+\item Flux looks like the integral of the electric field flowing through a surface.
+\item Total charge $Q_{tot}$ of a surface is basically the sum of all the flux going out, except that it's that divided by some constant $\epsilon_0$. 
+\end{itemize}
+Note: $\overrightarrow{E}$ isn't usually constant, and the surface $S$ is usually curved.  So we need calculus to break up surface $S$ into small pieces $\Delta A_i$ and evaluate $\overrightarrow{E}_i$ there at that normal $\hat{n}_i$.  So
+
+$\sum_{patches} = \sum_{patches} (\overrightarrow{E}_i \cdot \hat{n}_i) \Delta A_i = \iint_S (\overrightarrow{E}_i \cdot \hat{n}_i) \Delta A_i = \Phi$
+
+Easy Example: If, say, $ (\overrightarrow{E} \cdot \hat{n}) = 1 $ everywhere, we're just looking at $\iint_S dA$, or the total surface area.
+
+Another example.  Given:
+\begin{itemize}
+\item Real electric field law: $\overrightarrow{E} = \frac{q}{4\pi \epsilon_0} \frac{\overrightarrow{x}}{\|\overrightarrow{x}\|^3}$
+\item Real observation: Total electric flux through a surface ($\Phi$) is proportional to total charge inside ($Q_{tot}$).  $\Phi = \iint_S (\overrightarrow{E} \cdot \hat{n}) \Delta A \propto Q_{tot}$
+\item Then constant must be $\frac{1}{\epsilon_0} $. Why?
+\begin{itemize}
+\item On unit sphere, $\hat{n}= \frac{\overrightarrow{x}}{\| \overrightarrow{x}\|}$
+\item So $\overrightarrow{E} \cdot \hat{n} = \frac{q}{4\pi \epsilon_0} \frac{\overrightarrow{x}}{\|\overrightarrow{x}\|^3} \cdot \hat{n}$
+\item $= \frac{q}{4\pi \epsilon_0}$
+\item Then $\Phi = \iint_S \frac{q}{4 \pi \epsilon_0} dA$
+\item  $= \frac{q}{4 \pi \epsilon_0} 4 \pi$ by surface area of unit sphere
+\item $= \frac{q}{\epsilon_0}$
+\end{itemize}
+\item Therefore, because all of the field goes through the surface (no matter the shape), \textbf{Gauss's law} says $\iint_S (\overrightarrow{E} \cdot \overrightarrow{n}) dA = \frac{Q_{tot}}{\epsilon_0}$
+\end{itemize}
+
+\textbf{Note}: Because (UNEXPLAINED!) symmetry of a contained \emph{ball} implies that, for distance $\rho$ from origin, $\overrightarrow{E} = E(\rho)\hat{\rho}$, the above works the same for a point charge or a uniform (contained) ball.
+
+Example: For a big radius $R$ ball of charge $Q$ containing a small ball of radius $\rho$ with charge $Q_{tot}$, what must the charge $E(\rho)$ at any point be?
+
+\begin{itemize}
+\item Small charge $Q_{tot}$ is proportional to volume of the big charge $Q$ by $Q_{tot} = Q \frac{V_{small}}{V_{big}} = Q\frac{\rho^3}{R^3}$
+\item $\frac{Q_{tot} }{\epsilon_0}$ = total charge = $\iint_S E(\rho)(\|\hat{\rho}\|)dA = E(\rho) \iint_S 1 dA  = E(\rho) 4 \pi \rho^2$
+\item So $\frac{Q_{tot} }{\epsilon_0} = Q\frac{\rho^3}{R^3 {\epsilon_0}}  = E(\rho) 4 \pi \rho^2$
+\item So $E(\rho) = \frac{Q}{4 \pi \epsilon_0} \frac{\rho}{R^3}$
+\end{itemize}
+
+Example: Infinite wire, x=y=0, charge per length is $\lambda$.  Use a cylinder.
+\begin{itemize}
+\item What's the total charge of the cylinder?  Top and bottom are perpendicular to the field so can be ignored.
+\item There's some function $E(r)$ which, time $\hat{r}$, is the field by symmetry.
+\item $\Phi = \iint_{cylinder} (E(r) \cdot \hat{r})dA = E(r)  \iint_{cylinder} 1 dA  = E(r) 2 \pi r h$.
+\item $\frac{Q_{tot}}{\epsilon_0} =  E(r) 2 \pi r h \Rightarrow E(r) = \frac{\lambda}{2\pi\epsilon_0 r}$
+\end{itemize}
+
+
+Example: Infinite plane, x=y=0, charge per area is $\sigma$.  Use a cylinder again
+\begin{itemize}
+\item What's the total charge of the cylinder?  Side is perpendicular to the field so can be ignored.  Looking at top and bottom, $\phi = 2EA + 2EA.$, where E is charge through the top.
+\item $2EA = \frac{\sigma A}{\epsilon_0} \rightarrow E = \frac{\sigma}{2 \epsilon_0}$
+\end{itemize}
+
+
+
 \end{document}
 
