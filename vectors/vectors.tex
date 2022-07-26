@@ -506,7 +506,105 @@ Example: Infinite plane, x=y=0, charge per area is $\sigma$.  Use a cylinder aga
 \item $2EA = \frac{\sigma A}{\epsilon_0} \rightarrow E = \frac{\sigma}{2 \epsilon_0}$
 \end{itemize}
 
+\section{3.3: Surface Integrals}
+\begin{itemize}
+\item Flux is a specific form of the general $\iint_S F da$.
+\item dA is a patch of a parallelogram on the surface.  This is defined by corners $\overrightarrow{x}(u_0, v_0), \overrightarrow{x}(u_0, v_0) + \delta_u \overrightarrow{x}(u_0, v_0)$, and $\overrightarrow{x}(u_0, v_0) + \delta_v \overrightarrow{x}(u_0, v_0)$
+\item Therefore, using the parallelogram area formula,$dA = \Delta_u \Delta_v \| \overrightarrow{x}_u \times \overrightarrow{x}_v \|$
+\item Taking to the limit, this means the area is $\iint_D F(\overrightarrow{x}(u,v)) \|\overrightarrow{x}_u \times \overrightarrow{x}_v \| du dv$
+\end{itemize}
+
+Example: Sphere $x^2 + y^2 + z^2 = R^2$ surface area.  Take $\theta$ as angle around $\phi$ as angle from top of z axis.
+\begin{itemize}
+\item Parametrization $x = R \sin \phi \cos \theta,  y = R \sin \phi \sin \theta,  z = R \cos \phi$
+\item $dx/d_{\theta} =  -R \sin \phi \sin \theta, dy/d_{\theta} =  R \sin \phi \cos \theta, dz/d_{\theta} =  0$
+\item $dx/d_{\phi} =  R \cos \phi \cos \theta, dy/d_{\phi} =  R \cos \phi \cos \theta, dz/d_{\phi} =  -R \sin \phi$
+\item After working it out, $dx/d_{\theta} \times dx/d_{\phi} = R^2 \sin \phi \langle -\sin \phi \cos \theta,  -\sin \phi \sin \theta, -\cos \phi \rangle$ 
+\item Doing the math, $ \|dx/d_{\theta} \times dx/d_{\phi} \| = R^2 \sin \phi $
+\item So $\int_{\theta = 0}^{2\pi} \int_{\phi = 0}^{\pi} 1 \cdot  R^2 \sin \phi = 2 \pi \int_{\phi = 0}{\pi} R^2 \sin \phi  = 2\pi R^2 [ -\cos \phi]_0^{\pi} = 4 \pi R^2$
+\end{itemize}
+
+Example: Parabaloid $z = 1 - x^2 - y^2, x^2 + y^2 \leq 1$
+\begin{itemize}
+\item Parametrization $x = R \sin \phi \cos \theta,  y = R \sin \phi \sin \theta,  z = R \cos \phi$
+\item $dz/dx = \langle 1, 0, -2x \rangle, dz/dy = \langle 0, -1, -2y \rangle$
+\item $\| dz/dx \times dz/dy \| = 1 + 4x^2 + 4y^2$
+\item Area = $\iint_D 1 \cdot dA = \iint_D \sqrt{ 1 + 4x^2 + 4y^2} dx dy$
+\item Change to polar, remembering this square depends on r: $\int_{\theta = 0}^{2\pi} \int_{r = 0}^{1} \sqrt{ 1 + 4r^2 \cos^2\pi  4r^2 \sin^2\pi} r dr d\theta = 2\pi\int_0^1 \sqrt{1 + 4r^2}rdr$
+\item After working it out, this ends up being $[\frac{2}{3} \cdot \frac{1}{8}(4r^2 +1)^{\frac{3}{2}}]_0^1 = \frac{\pi}{6} (5\sqrt{5} - 1)$
+\end{itemize}
 
 
+Example: Torus $x(u,v) = [R+r\cos(u)]\sin(v)], y(u,v) = [R+r\cos(u)]\cos(v)], z = r \sin(u), u, v \in [0, 2\pi)$
+\begin{itemize}
+\item Already parametrized in polar, basically,
+\item $d\overrightarrow{x}/du = \langle -r \sin (u) \sin (v),  -r \sin (u) \cos (v), r \cos (u)\rangle$
+\item $d\overrightarrow{x}/dv = \langle Rcos(v) + r\cos(u)\cos(v), -R\sin(v) -r\cos(v)\sin(v), 0\rangle$
+\item After lots of math, $\| d\overrightarrow{x}/du \times \overrightarrow{x}/dv \| = r(R+ r\cos(u))$
+\item $\int_{u = 0}^{2\pi} \int_{v = 0}^{2 \pi}  r(R+ r\cos(u)du = 2 \pi r \int_{u = 0}^{2\pi}r(R+ r\cos(u))du$
+\item $= 2\pi r [2 \pi R] = 4 \pi^2 R r$
+\end{itemize}
+
+
+Example: Center of mass of unit (hollow?) hemisphere sitting on origin.
+\begin{itemize}
+\item Center of mass for density $\rho$ is $\frac{\iint_S \overrightarrow{x} \rho dA}{\iint_S \rho dA}$
+\item Obvious that $x, y$ center at zero.
+\item For denominator, $\iint_S dA$ is just surface area, or half of $4 \pi 1^2 = 2 \pi$.
+\item For numerator:
+\begin{itemize}
+\item Do typical $\theta, \phi$ parametrization.
+\item $\overrightarrow{x}_{\theta} \times \overrightarrow{x}_{\phi} = \langle \sin^2(\phi) \cos(\theta), \sin^2(\phi)\sin(\theta), \sin(\phi)\cos(\phi) \rangle$
+\item Pull out the $\sin(\phi)$ and the remaining norm is one, so $\| \overrightarrow{x}_{\theta} \times \overrightarrow{x}_{\phi}\| = \sin(\phi)$ 
+\item $\int_{\theta = 0}^{2\pi} \int_{\phi = 0}^{\pi / 2} z \cdot dA = \int_{\theta = 0}^{2\pi} \int_{\phi = 0}^{\pi / 2} \cos(\phi)\sin(\phi) = \frac{1}{2}$
+\end{itemize}
+
+\end{itemize}
+
+Example: Moment of inertia
+\begin{itemize}
+\item Formula: $I_z = M \iint_S(x^2 + y^2)dA$.
+\item Object to spin: helicoid $\overrightarrow{x}(u,v) = \langle u \cos (v), u \sin (v), v\rangle u \in [0,R], v \in [0, 2\pi]$
+\item Assumption for the problem: $\int_{u=0}^{u=R} u^2 \sqrt(1 +u^2)du = 2$
+\item Center of mass for density $\rho$ is $\frac{\iint_S \overrightarrow{x} \rho dA}{\iint_S \rho dA}$
+\item Use polar coordinates $r, \theta$.
+\item After computation, $\| \overrightarrow{x}_r  \times \overrightarrow{x}_{\theta} \| = \sqrt{1+r^2}$
+\item $M \int_{r=0}^{r=R} \int_{\theta = 0}^{\theta=2\pi}  \sqrt{1+r^2} (r^2 \cos^2(\theta) + r^2 \cos^2(\theta)) dA = M \iint  \sqrt{1+r^2} r^2 = 2\pi M \iint  \sqrt{1+r^2} r^2  = 4 \pi$ by hint
+\end{itemize}
+
+
+Example: Flux through unit hemisphere
+\begin{itemize}
+\item Formula: $\Phi = \iint_S (\overrightarrow{E} \cdot \overrightarrow{n}) dA = \iint_S FdA$
+\item Field: $\overrightarrow{E} = \langle yz, xz, xy \rangle$
+\item Use polar coordinates
+\item \textbf{Base}: $\hat{n} = -\hat{k}$ so $\langle yz, xz, xy \rangle \cdot \langle 0, 0, -1 \rangle = -xy$ It's clear by symmetry that $\iint_{u^2 + v^2 \leq 1} - xy dx dy = 0$
+\item \textbf{Top}: Set $u = \theta \in [0, 2 \pi), v = \phi \in [0, \frac{\pi}{2}]$.  
+\item As usual, $dA = \| \overrightarrow{x}_u \times \overrightarrow{x}_v \| = \sin(v)$.
+\item Norm just points out from the center: $\hat{n} = \langle  \cos(u)\sin(v), \sin(u)\sin(v), \cos(v) \rangle $ 
+\item $\overrightarrow{E} = \langle \sin(u)\sin(v)\cos(v), \cos(u)\sin(v)\cos(v), \cos(u)\sin^2(v)\sin(u)\rangle$ 
+\item So $\overrightarrow{E} \cdot \hat{n} = 3\cos(u)\sin(u)\cos(v)\sin^2(v)$
+\item Looking at this, this is really $\int_{u = 0}^{u = 2\pi} k(v) \sin^2(u)$  for some $k(v)$, so this will be 0.
+\item Therefore, total flux is zero, and by Gauss's law, total field contained inside has to be 0 too.
+\end{itemize}
+
+Example: Field $\overrightarrow{E} = \ln(x^2 + y^2)\langle x, y, 0\rangle$ through $R$-wide cylinder, height $h$
+\begin{itemize}
+\item Parameterize: $x = r \cos \theta, y = r \sin \theta, z = z$
+\item \textbf{Top/Bottom}: $\hat{n} = \langle 0, 0, 1 \rangle, \overrightarrow{E} = f(x,y) \langle x, y, 0\rangle \rightarrow \hat{n} \cdot \overrightarrow{E} = 0$
+\item \textbf{Side}: $\hat{n} = \frac{1}{R} \langle R \cos (\theta), R \sin (\theta), 0 \rangle$
+\item $\Phi = \iint_{cylinder} \frac{1}{R} \langle R \cos (\theta), R \sin (\theta), 0 \rangle \cdot  \langle R \cos (\theta), R \sin (\theta), 0 \rangle \ln(R^2 \cos^2(\theta) + R^2 \sin^2(\theta))$
+\item $= R \iint_{cylinder} \ln(R^2) + \ln(\cos^2(\theta)+\sin^2(\theta)) = R \cdot 2 \ln (R) \cdot h \cdot 2 \pi R = 4 \pi R^2 \ln(R)h$
+\end{itemize}
+
+Example: Field $\overrightarrow{E} = e^{-x^2-y^2-z^2}\overrightarrow{x}$ with sphere S at radius R, setting $\epsilon_0 = 1$
+\begin{itemize}
+\item Parameterize: $x = R \cos (\theta)\sin(\phi), y = R\sin (\theta)\sin(\phi), z =R \cos(phi)$
+\item $\hat{n} = \langle \cos (\theta)\sin(\phi), y =  \sin (\theta)\sin(\phi), z = \cos(phi) \rangle$
+\item $\overrightarrow{x} = R \hat{n}$, so $\overrightarrow{E} \cdot {n} = R e^{-R^2}$
+\item $R \iint_{sphere} e^{-R^2} = 4 \pi R^3 e^{-R^2}$
+\end{itemize}
+
+\textbf{Note}: In the future we write $\hat{n}dA = \overrightarrow{dA}$
 \end{document}
 
