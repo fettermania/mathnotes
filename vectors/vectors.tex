@@ -30,14 +30,14 @@
 Note: Latex reference: http://tug.ctan.org/info/undergradmath/undergradmath.pdf
 \section{Chapter 2.1: Calculus of Motion}
 
-Consider vectors of motion against $t$ of the form $ \overrightarrow{x}(t) = \langle x(t), y(t), \ldots \rangle$.
+Consider vectors of motion against $t$ of the form $ \vec{x}(t) = \langle x(t), y(t), \ldots \rangle$.
 \begin{itemize}
-\item A \textbf{line} through $p = (a, b, c)$ parallel to $\overrightarrow{v} = \langle v_x, v_y, v_z\rangle$ is $\overrightarrow{x}(t) = \overrightarrow{p} + t \overrightarrow{v}$ 
-\item \textbf{velocity} is characterized completely by $\overrightarrow{v}(t) = \overrightarrow{x}'(t) = \langle x'(t), y'(t), z'(t)\rangle$.
+\item A \textbf{line} through $p = (a, b, c)$ parallel to $\vec{v} = \langle v_x, v_y, v_z\rangle$ is $\vec{x}(t) = \vec{p} + t \vec{v}$ 
+\item \textbf{velocity} is characterized completely by $\vec{v}(t) = \vec{x}'(t) = \langle x'(t), y'(t), z'(t)\rangle$.
 \item The \textbf{speed} of an object along that line versus $t$ is the length of $v$ ($\|v\|$)  
 \item Therefore, the speed of an object along line 
 $$ \langle x(t), y(t), z(t)\rangle = \langle 0, 2, -3\rangle + t\langle 1,-2,2\rangle$$ is $$\sqrt{1^2+(-2)^2 + 2^2} = 3$$
-\item Note that $\overrightarrow{v}$ need not be constant.  The speed of $$\overrightarrow{x}(t) =  \overrightarrow{p} + 3 \sin(2\pi t)\hat{u}, \| \hat{u} \| = 1$$ would then be $$\| 6\pi \cos(2 \pi t) \hat{u} \| = |6\pi \cos(2 \pi t)|$$
+\item Note that $\vec{v}$ need not be constant.  The speed of $$\vec{x}(t) =  \vec{p} + 3 \sin(2\pi t)\hat{u}, \| \hat{u} \| = 1$$ would then be $$\| 6\pi \cos(2 \pi t) \hat{u} \| = |6\pi \cos(2 \pi t)|$$
 \item \textbf{Acceleration} $a(t) = v'(t) = x''(t)$ is straightforward.  Acceleration of $$x(t) = \langle -1 + \cos(t), 1, \cos(t)\rangle = \langle -\cos(t), 0, -\cos(t)\rangle$$
 \item An example position vector for a planet of distance $r$ from the sun could be $\langle r \cos(t), r \sin(t) \rangle$.  The acceleration vector points in the opposite direction: $\langle - r \cos(t), - r \sin(t) \rangle$.  In addition to being the analytical second derivative, consider that the \emph{force} of gravity, (which, by $F = ma$ is proportional to acceleration) points towards the sun, \emph{with acceleration perpendicular to velocity}.
 
@@ -46,27 +46,27 @@ $$ \langle x(t), y(t), z(t)\rangle = \langle 0, 2, -3\rangle + t\langle 1,-2,2\r
 
 \section{Chapter 2.2: Space Curves}
 \begin{itemize}
-\item Note that while $\overrightarrow{x}(t) = \langle \cos(t), \sin(t), 5 \rangle$ and  $\overrightarrow{x}(t) = \langle \cos(2t), \sin(2t), 5 \rangle$ describe the same curve, the space curve also records motion in time, so the \emph{velocity} may be different.
-\item If $\overrightarrow{x}(t) = t\overrightarrow{v}$, then speed is $\frac{\| \overrightarrow{x}(t+\Delta t) - \overrightarrow{t} \|}{\Delta t} = \| \overrightarrow{v} \|$,  direction is $\frac{\overrightarrow{v}}{\| \overrightarrow{v} \|}$, and velocity $\overrightarrow{v}$ is the product of speed and direction.
-\item So $\overrightarrow{v}(t) = \lim_{\Delta t \rightarrow 0} \frac{\overrightarrow{x}(t + \Delta t) - \overrightarrow{x}(t)}{\Delta t} = \overrightarrow{x}'(t) = \frac{d\overrightarrow{x}}{dt} = \langle x'(t), y'(t), z'(t) \rangle$
+\item Note that while $\vec{x}(t) = \langle \cos(t), \sin(t), 5 \rangle$ and  $\vec{x}(t) = \langle \cos(2t), \sin(2t), 5 \rangle$ describe the same curve, the space curve also records motion in time, so the \emph{velocity} may be different.
+\item If $\vec{x}(t) = t\vec{v}$, then speed is $\frac{\| \vec{x}(t+\Delta t) - \vec{t} \|}{\Delta t} = \| \vec{v} \|$,  direction is $\frac{\vec{v}}{\| \vec{v} \|}$, and velocity $\vec{v}$ is the product of speed and direction.
+\item So $\vec{v}(t) = \lim_{\Delta t \rightarrow 0} \frac{\vec{x}(t + \Delta t) - \vec{x}(t)}{\Delta t} = \vec{x}'(t) = \frac{d\vec{x}}{dt} = \langle x'(t), y'(t), z'(t) \rangle$
 \item Neat conceptual result: any $y = f(x)$ can be made into $x(t) = \langle t, f(t) \rangle$, and then $v(t) = \langle 1, f'(t) \rangle$, which points along the tangent line at $\langle t, f(t)\rangle$.
-\item Note that dot product derivatives work like regular product: $[\overrightarrow{a}(t) \cdot \overrightarrow{b}(t)]' = \overrightarrow{a}'(t) \cdot \overrightarrow{b}(t) + \overrightarrow{a}(t) \cdot \overrightarrow{b}'(t)$, 
+\item Note that dot product derivatives work like regular product: $[\vec{a}(t) \cdot \vec{b}(t)]' = \vec{a}'(t) \cdot \vec{b}(t) + \vec{a}(t) \cdot \vec{b}'(t)$, 
 but the cross product does not work the same since $\frac{d}{dt}[a \times b] = a' \times b + a \times b'$, but since $a \times b' = -b' \times a$, can't switch the order to $a' \times b + b' \times a$ due to this non-commutativity.
-\item If $$\overrightarrow{x}(t) = \overrightarrow{p}+ t \overrightarrow{v},$$ calculating velocity with respect to origin  becomes
-$$ \frac{d}{dt} \| \overrightarrow{x}(t) \| = \frac{\overrightarrow{x}(t) \cdot \overrightarrow{x}'(t)}{\| \overrightarrow{x}(t) \|} = \frac{\overrightarrow{x}}{\| \overrightarrow{x} \|} \cdot \overrightarrow{v},$$ after rewriting the distance formula and chugging through the chain rule.
-\item However, it becomes more clear when considering that $(\overrightarrow{v} \cdot \hat{x}) \hat{x}$ is the projection of the velocity vector onto the position vector.  So, the length of this is the rate of change of distance from origin!
+\item If $$\vec{x}(t) = \vec{p}+ t \vec{v},$$ calculating velocity with respect to origin  becomes
+$$ \frac{d}{dt} \| \vec{x}(t) \| = \frac{\vec{x}(t) \cdot \vec{x}'(t)}{\| \vec{x}(t) \|} = \frac{\vec{x}}{\| \vec{x} \|} \cdot \vec{v},$$ after rewriting the distance formula and chugging through the chain rule.
+\item However, it becomes more clear when considering that $(\vec{v} \cdot \hat{x}) \hat{x}$ is the projection of the velocity vector onto the position vector.  So, the length of this is the rate of change of distance from origin!
 \end{itemize}
 
 \section{Chapter 2.3: Integrals and Arc Length}
 \begin{itemize}
-\item Integral of a vector function can be defined componentwise in a straightforward way: $\int_a^b {\overrightarrow{x}(t)} = \langle \int_a^b {x(t)},  \int_a^b {y(t)},  \int_a^b {z(t)} \rangle $ 
+\item Integral of a vector function can be defined componentwise in a straightforward way: $\int_a^b {\vec{x}(t)} = \langle \int_a^b {x(t)},  \int_a^b {y(t)},  \int_a^b {z(t)} \rangle $ 
 \item Example: if ball launched from origin with velocity $\langle 1, 2, 3 \rangle$ and acceleration $\langle 0, 0, -1 \rangle$, it lands at
 \begin{align} 
 \frac{dv}{dt}dt = \langle 0, 0, -1 \rangle \\ 
 \int{\frac{dv}{dt}dt} = v =  \langle C , D , -t +F \rangle  = \langle 1, 2, 3 \rangle =  \langle 1, 2, -t + 3\rangle, t = 0 \\
-x = \int{v}  = \langle t+K, 2t+M, -\frac{1}{2}t^2 + 3t + N \rangle, x(\overrightarrow{0}) = \langle 0 ,0, 0\rangle \\ 
-\overrightarrow{x}(t) = \langle t, 2t, 3t-\frac{1}{2}t^2 \rangle \\
-z(t) = 0 \rightarrow t = 6 \rightarrow \overrightarrow{x}(6) = \langle 6, 12, 0 \rangle \\
+x = \int{v}  = \langle t+K, 2t+M, -\frac{1}{2}t^2 + 3t + N \rangle, x(\vec{0}) = \langle 0 ,0, 0\rangle \\ 
+\vec{x}(t) = \langle t, 2t, 3t-\frac{1}{2}t^2 \rangle \\
+z(t) = 0 \rightarrow t = 6 \rightarrow \vec{x}(6) = \langle 6, 12, 0 \rangle \\
 \end{align} 
 \item Also, generalizing $ds = \sqrt{(dx)^2  + (dy)^2}$, the length of an arc from point $a$ to $b$ approaches $\int_a^b ds = \int_{t_a}^{t_b} \| x'(t) \| dt$
 \item Example: a helix $\langle a \cos (\omega t), a \sin (\omega t), b \omega t \rangle$, parametrized by time $t$ can be rewritten in terms of $s$, the arc length: 
@@ -82,22 +82,22 @@ s = |\omega| t \sqrt{a^2 + b^2}
 
 \section{Chapter 2.4: Frenet Formulae}
 
-Main idea: Establish three new vectors $\hat{T}(s), \hat{N}(s), \hat{B}(s)$ that change as we move along a space curve, instead of $\overrightarrow{x}(t)$ that changes over an external ``time'' idea.
+Main idea: Establish three new vectors $\hat{T}(s), \hat{N}(s), \hat{B}(s)$ that change as we move along a space curve, instead of $\vec{x}(t)$ that changes over an external ``time'' idea.
 
-Remember that  $s = \int_0^t \| \overrightarrow{x}'(\tilde{t}) \| d\tilde{t}$, so $\frac{ds}{dt} = \| \overrightarrow{x}'(t)\|$ .
+Remember that  $s = \int_0^t \| \vec{x}'(\tilde{t}) \| d\tilde{t}$, so $\frac{ds}{dt} = \| \vec{x}'(t)\|$ .
 
 \subsection{$\hat{T}$: Vector tangent to space curve}
 \begin{itemize}
-\item Remember arc length is $s = \int_0^t \| \overrightarrow{x}'(\tilde{t})d\tilde{t} \|$
-\item $\hat{T}$ is just normalized grad: $\frac{\overrightarrow{x}'(t)}{\|\overrightarrow{x}'(t)\|}$
-\item This implies $\frac{d\overrightarrow{x}}{ds} = \hat{T}$ since 
+\item Remember arc length is $s = \int_0^t \| \vec{x}'(\tilde{t})d\tilde{t} \|$
+\item $\hat{T}$ is just normalized grad: $\frac{\vec{x}'(t)}{\|\vec{x}'(t)\|}$
+\item This implies $\frac{d\vec{x}}{ds} = \hat{T}$ since 
 \begin{align}
-s = \int_0^t \| \overrightarrow{x}'(\tilde{t})d\tilde{t} \| \\
-\frac{ds}{dt} = \| \overrightarrow{x}(t) \| \\
-\hat{T} = \frac{\overrightarrow{x}'(t)}{\|\overrightarrow{x}'(t)\|}  = \frac{d\overrightarrow{x}}{dt} \cdot \frac{dt}{ds} \\
-\hat{T} = \frac{d\overrightarrow{x}}{ds} \\
+s = \int_0^t \| \vec{x}'(\tilde{t})d\tilde{t} \| \\
+\frac{ds}{dt} = \| \vec{x}(t) \| \\
+\hat{T} = \frac{\vec{x}'(t)}{\|\vec{x}'(t)\|}  = \frac{d\vec{x}}{dt} \cdot \frac{dt}{ds} \\
+\hat{T} = \frac{d\vec{x}}{ds} \\
 \end{align}
-\item So this is how the space curve $\overrightarrow{x}$ changes as it moves along $s$.
+\item So this is how the space curve $\vec{x}$ changes as it moves along $s$.
 \item It's normalized, so it's the same whether parameterized by t, s, or whatever.
 \end{itemize}
 
@@ -105,7 +105,7 @@ s = \int_0^t \| \overrightarrow{x}'(\tilde{t})d\tilde{t} \| \\
 \subsection{$\hat{N}$: Normal to curve (perpendicular to $\hat{T}$)}
 Normal vectors are:
 \begin{itemize}
-\item $\overrightarrow{x}''(t)$ normalized as $\frac { \frac{d\hat{T}}{ds} }   {\|  \frac{d\hat{T}}{ds}  \|}  = \hat{N}$
+\item $\vec{x}''(t)$ normalized as $\frac { \frac{d\hat{T}}{ds} }   {\|  \frac{d\hat{T}}{ds}  \|}  = \hat{N}$
 \item The normal vector to the curve
 \item $\bot$ to $\hat{T}$ in direction of acceleration.  So a multiple of acceleration vector.
 \item $\frac{\hat{T}'(t)} { \| \hat{T}'(t) \|}$.  The following sequence shows any unit length vector is perpendicular to its derivative.
@@ -118,33 +118,33 @@ d(\| \hat{T} \|^2) = d(\hat{T} \cdot \hat{T}) = \hat{T}(t) \cdot 2\hat{T}'(t) \\
 \item $\frac{ \frac{d\hat{T}}{ds}  }  { \| \frac{d\hat{T}}{ds}  \| }$ since it's the same as the above, but parametrized over $s$ instead of $t$.  Doesn't change the direction of the vector!
 \end{itemize}
 
-Example:if  $\overrightarrow{x}(t) = \langle R\cos(\omega t), R\sin(\omega t), 0 \rangle$, then:
+Example:if  $\vec{x}(t) = \langle R\cos(\omega t), R\sin(\omega t), 0 \rangle$, then:
 \begin{itemize}
-\item $\overrightarrow{a} = \frac{d^2\overrightarrow{x}}{dt^2}$ just by definition
-\item $\overrightarrow{a} = -\omega^2 \overrightarrow{x}$ just by calculation
+\item $\vec{a} = \frac{d^2\vec{x}}{dt^2}$ just by definition
+\item $\vec{a} = -\omega^2 \vec{x}$ just by calculation
 \item $\hat{T}(t) = \langle -\sin(\omega t), \cos (\omega t), 0 \rangle$
 \item $\| \hat{T}(t) \| = 1$
 \item $\hat{N} = \frac{\hat{T}'(t)} { \| \hat{T}'(t) \|} =  \langle -\cos(\omega t), -\sin (\omega t), 0 \rangle$
-\item So $\overrightarrow{a} = R\omega^2\hat{N}$ by these formulae.
+\item So $\vec{a} = R\omega^2\hat{N}$ by these formulae.
 \end{itemize}
 
 This leads us to believe acceleration and $\hat{N}$, the normed derivative of $\hat{T}$ are related.
 
-The part of acceleration $\overrightarrow{a}$ parallel to $\hat{T}$ is the projection $(\overrightarrow{a} \cdot \hat{T}) \hat{T}$
+The part of acceleration $\vec{a}$ parallel to $\hat{T}$ is the projection $(\vec{a} \cdot \hat{T}) \hat{T}$
 
-The perpendicular part is then $\overrightarrow{a}$ minus that: $\overrightarrow{a} - (\overrightarrow{a} \cdot \hat{T}) \hat{T}$
+The perpendicular part is then $\vec{a}$ minus that: $\vec{a} - (\vec{a} \cdot \hat{T}) \hat{T}$
 
 This also equals $(\frac{ds}{dt})^2 \|\frac{d\hat{T}}{ds} \| \hat{N}$ because
 \begin{align}
-\overrightarrow{x}' = \frac{dx}{dt} = T = \hat{T} \cdot \|  \frac{dx}{dt} \| \\
-s = \int_0^t \| \overrightarrow{x}'(t) \| \rightarrow \frac{ds}{dt} = \| \overrightarrow{x}'(t) \|  
+\vec{x}' = \frac{dx}{dt} = T = \hat{T} \cdot \|  \frac{dx}{dt} \| \\
+s = \int_0^t \| \vec{x}'(t) \| \rightarrow \frac{ds}{dt} = \| \vec{x}'(t) \|  
 \end{align}
 
 $\hat{N} = \frac{d\hat{T}}{ds}$ normalized, so
 \begin{align}
-\overrightarrow{a} = \frac{d^2\overrightarrow{x}}{dt^2} = \frac{d}{dt}(\| \overrightarrow{x}'(t)\hat{T}(t)\|) = \frac{d \|\overrightarrow{x}'(t) \|}{dt}\hat{T} + \| \overrightarrow{x}'(t) \| \frac{d\hat{T}}{dt} \\
-= \frac{d \|\overrightarrow{x}'(t) \|}{dt}\hat{T} + \frac{ds}{dt} \frac{d\hat{T}}{ds} \frac{ds}{dt} \\ 
-= \frac{d \|\overrightarrow{x}'(t) \|}{dt}\hat{T} + (\frac{d{s}}{dt} )^2 \| \frac{d\hat{T}}{ds} \| \hat{N}
+\vec{a} = \frac{d^2\vec{x}}{dt^2} = \frac{d}{dt}(\| \vec{x}'(t)\hat{T}(t)\|) = \frac{d \|\vec{x}'(t) \|}{dt}\hat{T} + \| \vec{x}'(t) \| \frac{d\hat{T}}{dt} \\
+= \frac{d \|\vec{x}'(t) \|}{dt}\hat{T} + \frac{ds}{dt} \frac{d\hat{T}}{ds} \frac{ds}{dt} \\ 
+= \frac{d \|\vec{x}'(t) \|}{dt}\hat{T} + (\frac{d{s}}{dt} )^2 \| \frac{d\hat{T}}{ds} \| \hat{N}
 \end{align}
 
 This is ``a = parallel part plus perpendicular (N) part'', so the second term is $a_{\bot}$
@@ -160,7 +160,7 @@ This is ``a = parallel part plus perpendicular (N) part'', so the second term is
 
 Note that curvature $\kappa(s) = \| \frac{d\hat{T}}{ds}\|$ is geometric (depends on s, not time) and changes as $\hat{T}$ changes.
 
-Example: Curvature of $\overrightarrow{x}(t) = \langle \cos(t), \sin(t), bt \rangle$ 
+Example: Curvature of $\vec{x}(t) = \langle \cos(t), \sin(t), bt \rangle$ 
 \begin{align}
 x'(t) = \langle -\sin(t), \cos(t), b \rangle \\ 
 \|x'(t) \| = \sqrt{1 + b^2} \\ 
@@ -196,7 +196,7 @@ We're working in 3d with the cross product, so dB is parallel to N.
 
 Main ideas:
 \begin{itemize}
-\item Can parameterize by $\overrightarrow{x}(u,v) = x(u,v), y(u,v), z(u,v)$
+\item Can parameterize by $\vec{x}(u,v) = x(u,v), y(u,v), z(u,v)$
 \item Can perhaps parameterize $f(x,y,z) = c$ by $z = g(x,y)$
 \item Can also use ideas like $\nabla f = 0$ to find a normal.
 \end{itemize}
@@ -204,25 +204,25 @@ Main ideas:
 There are many out-of-the-box paremetrizations including:
 
 \begin{itemize}
-\item Sphere at 0,0,0: $\overrightarrow{x}(u,v) = \langle R\cos(u)\sin(v), Rsin(u)\sin(v), R\cos(v)\rangle$, where $u \in [0, 2\pi), v \in [0, \pi]$
-\item Rotate function $y = f(x)$ around the x-axis: $\overrightarrow{x}(u,v) = \langle u, f(u)\cos(v), f(u)\sin(v) \rangle$, where $u \in D, v \in [0, 2\pi]$
+\item Sphere at 0,0,0: $\vec{x}(u,v) = \langle R\cos(u)\sin(v), Rsin(u)\sin(v), R\cos(v)\rangle$, where $u \in [0, 2\pi), v \in [0, \pi]$
+\item Rotate function $y = f(x)$ around the x-axis: $\vec{x}(u,v) = \langle u, f(u)\cos(v), f(u)\sin(v) \rangle$, where $u \in D, v \in [0, 2\pi]$
 \end{itemize}
 
-Tangent vectors to $\overrightarrow{x}(u,v)$ are $\frac{\delta \overrightarrow{x}} {du}, \frac{\delta \overrightarrow{x}} {dv}$, so unit normal is 	$\pm \frac 
-					{\frac{d \overrightarrow{x}} {du} \times \frac{\delta \overrightarrow{x}}{dv}}
-					{\| \frac{d \overrightarrow{x}} {du} \times \frac{\delta \overrightarrow{x}}{dv} \|}
+Tangent vectors to $\vec{x}(u,v)$ are $\frac{\delta \vec{x}} {du}, \frac{\delta \vec{x}} {dv}$, so unit normal is 	$\pm \frac 
+					{\frac{d \vec{x}} {du} \times \frac{\delta \vec{x}}{dv}}
+					{\| \frac{d \vec{x}} {du} \times \frac{\delta \vec{x}}{dv} \|}
 					$
 					
-Example: Torus $\overrightarrow{x} = \langle [2 + \cos(v)]\cos(u),  [2 + \cos(v)]\sin(u), \sin(v)\rangle, u,v \in [0,2 \pi)$.  What's the tangent plane at $u = \frac{\pi}{4}, v=0$?
+Example: Torus $\vec{x} = \langle [2 + \cos(v)]\cos(u),  [2 + \cos(v)]\sin(u), \sin(v)\rangle, u,v \in [0,2 \pi)$.  What's the tangent plane at $u = \frac{\pi}{4}, v=0$?
 \begin{align}
-d\overrightarrow{x}/du = \langle -\sin(u)(2 + \cos(v)),  \cos(u)(2 + \cos(v)), 0 \rangle \\
-d\overrightarrow{x}/dv = \langle -\sin(v)\cos(u), -\sin(v)\sin(u), \cos(v) \rangle \\
+d\vec{x}/du = \langle -\sin(u)(2 + \cos(v)),  \cos(u)(2 + \cos(v)), 0 \rangle \\
+d\vec{x}/dv = \langle -\sin(v)\cos(u), -\sin(v)\sin(u), \cos(v) \rangle \\
 u = \frac{\pi}{4}, v=0 \rightarrow  \\
-d\overrightarrow{x}/du = \langle -\frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0, \rangle \\
-d\overrightarrow{x}/dv = \langle 0, 0, 1 \rangle \\
+d\vec{x}/du = \langle -\frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0, \rangle \\
+d\vec{x}/dv = \langle 0, 0, 1 \rangle \\
 dx/du \times dx/dv = \langle  \frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0\rangle \\
 \hat{n} =  \langle \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0 \rangle \\
-\hat{n}  \cdot \overrightarrow{x} = 0 \rightarrow \hat{n} \cdot (x - x_0, y-y_0, z-z_0) = 0 \\
+\hat{n}  \cdot \vec{x} = 0 \rightarrow \hat{n} \cdot (x - x_0, y-y_0, z-z_0) = 0 \\
 \rightarrow ... \rightarrow x + y = 3\sqrt{2}  \\
 \end{align}
 
@@ -279,8 +279,8 @@ Mobius strip is
 \end{itemize}
 
 $\hat{n} = \frac
-	{\overrightarrow{x}_u \times  \overrightarrow{x}_v}
-	{\|\overrightarrow{x}_u \times  \overrightarrow{x}_v\|}
+	{\vec{x}_u \times  \vec{x}_v}
+	{\|\vec{x}_u \times  \vec{x}_v\|}
 	$ at (0,0) is $\langle 0, 0, -1 \rangle$, 
 	
 but at $(2\pi, 0)$ is the same point, but $\hat{n} = \langle 0, 0, 1 \rangle$!!
@@ -292,19 +292,19 @@ but at $(2\pi, 0)$ is the same point, but $\hat{n} = \langle 0, 0, 1 \rangle$!!
 (Lots of intuition questions here...)
 
 One nugget: using \textbf{gradient vector fields}:
-Suppose $\overrightarrow{F}(x,y) = \langle 2, -4y^3 \rangle$.  
+Suppose $\vec{F}(x,y) = \langle 2, -4y^3 \rangle$.  
 If $F = \nabla f$ for some $f$, then $F$'s arrows are perpendicular to a level set $f = c$.
 So look at $f  =  2x -y^4 $ and find perpendicular arrows to these.  That's actually F!
 
-\textbf{Linear approximation for $\overrightarrow{F}: D \in \mathbf{R}^n \rightarrow \mathbf{R}^m$}
+\textbf{Linear approximation for $\vec{F}: D \in \mathbf{R}^n \rightarrow \mathbf{R}^m$}
 
 Main idea: 
-$\overrightarrow{F}(\overrightarrow{x}) = \overrightarrow{F}(\overrightarrow{a}) + A(\overrightarrow{a})(\overrightarrow{x} - \overrightarrow{a})$
+$\vec{F}(\vec{x}) = \vec{F}(\vec{a}) + A(\vec{a})(\vec{x} - \vec{a})$
 
 Note that $A$ takes in vectors of size $n$ (so it has that many columns), and has $m$ functions (rows) that operate on it.
-So the Jacobian, $A$, has as row $i$, column $j$, the quantity $\frac{dF_i}{dx_j}(\overrightarrow{a})$.
+So the Jacobian, $A$, has as row $i$, column $j$, the quantity $\frac{dF_i}{dx_j}(\vec{a})$.
 
-$dF_i/d\overrightarrow{x}$ extends across row $i$.
+$dF_i/d\vec{x}$ extends across row $i$.
 
 \section{Chapter 2.7: Jack and the Beanstalk (Newton's method)}
 
@@ -322,18 +322,18 @@ or $x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}$.
 
 Note that, under Newton's something like $|x|$ will converge immediately, $x^3$ will converge moderately, and a S-curve might barely converge if at all.
 
-The extension of this with the Jacobian matrix $A = DF'(x_0)$ is $\overrightarrow{x}_1 = \overrightarrow{x}_0 - (D\overrightarrow{F}(\overrightarrow{x}_0))^{-1}\overrightarrow{F}(x_0)$ 
+The extension of this with the Jacobian matrix $A = DF'(x_0)$ is $\vec{x}_1 = \vec{x}_0 - (D\vec{F}(\vec{x}_0))^{-1}\vec{F}(x_0)$ 
 
 
 \section{Chapter 2.8: Electrostatic bootcamp}
 
 Electric charge radiates out equally in all directions, and is inversely proportional to distance.  
 
-Formula, with $Q$ as the charge, $\epsilon_0$ is a constant: $\overrightarrow{E}(x,y,z) = \frac{Q}{4\pi\epsilon_0\|x\|^2}\hat{x}$
+Formula, with $Q$ as the charge, $\epsilon_0$ is a constant: $\vec{E}(x,y,z) = \frac{Q}{4\pi\epsilon_0\|x\|^2}\hat{x}$
 
-A field line is a special case of a \textbf{flow line} - the space curve that follows $\overrightarrow{F}$'s arrows.  The tangent vector to the flow line is $\overrightarrow{F}(\overrightarrow{x}(\tilde{t}))$ ($\tilde{t}$ is not time here), so $\frac{d\overrightarrow{x}}{d\tilde{t}} = \overrightarrow{F}(\overrightarrow{x}(\tilde{t}))$
+A field line is a special case of a \textbf{flow line} - the space curve that follows $\vec{F}$'s arrows.  The tangent vector to the flow line is $\vec{F}(\vec{x}(\tilde{t}))$ ($\tilde{t}$ is not time here), so $\frac{d\vec{x}}{d\tilde{t}} = \vec{F}(\vec{x}(\tilde{t}))$
 
-Example: Vector field $\overrightarrow{F}(x,y) = \langle -2y, 3x \rangle$.  What's the flow line through (2,0)?
+Example: Vector field $\vec{F}(x,y) = \langle -2y, 3x \rangle$.  What's the flow line through (2,0)?
 
 Solution: Need to solve 
 $dx/dt = -2y, dy/dt = 3x$.  Key is ``separating the equations''.  Remember x and y are functions of t!
@@ -346,7 +346,7 @@ x(t) = -6x''(t), y(t) = -6y''(t) \\
 \frac{dx}{dt} = -2y(t) \rightarrow   \frac{\sqrt{6}}{2}A\sin(\sqrt{6}t)- \frac{\sqrt{6}}{2}B\cos(\sqrt{6}t)  = y(t) \\
 x(t=0) = 2 \rightarrow A = 2 \\
 y(t=0) = 0 \rightarrow B = 0 \\
-\overrightarrow{F}(t) = \langle 2\cos(\sqrt{6}t), \sqrt{6}\sin(\sqrt{6}t) \rangle \\
+\vec{F}(t) = \langle 2\cos(\sqrt{6}t), \sqrt{6}\sin(\sqrt{6}t) \rangle \\
 \end{align}
 
 Note: \textbf{Field lines} follow rules:
@@ -366,7 +366,7 @@ Example: Fluid pressure in a tank is:
 \item Pushes out via the normal $\hat{n}$ 
 \item So, for the $x=l$ side of a cube of length l, this would be 
 
-$\overrightarrow{F}_{x=l} = (\iint_{[0,l] \times [0,l]} p_{fluid} [1 - \frac{z}{l}] dy dz) \hat{i}$
+$\vec{F}_{x=l} = (\iint_{[0,l] \times [0,l]} p_{fluid} [1 - \frac{z}{l}] dy dz) \hat{i}$
 \end{itemize}
 
 
@@ -400,7 +400,7 @@ s_2 = \langle 0, \Delta y_j, \Delta y_j f_y(x_i^*,y_j^*) \rangle \\
 \end{align}
 
 \textbf{So the total pressure ends up being}
-$\overrightarrow{F}_{tot} = p_{fluid} \iint (p \cdot \hat{n}) dA$
+$\vec{F}_{tot} = p_{fluid} \iint (p \cdot \hat{n}) dA$
 \begin{align}
 = p_{fluid} \iint_{x^2 + y^2 \leq l^2} [ 1- \frac{f(x,y)}{l}] \hat{n}  \sqrt{ 1 +  [f_x]^2 +[f_y]^2 }dxdy  \\
 f(x,y) = l - \sqrt{l^2-x^2-y^2} \\
@@ -421,7 +421,7 @@ Side Note during solving: $dx dy \rightarrow r dr d\theta$.
 \section{3.2: Flux Part I}
 Main idea: Field lines are innumerable, so counting them through a surface makes no sense.  Instead, we'll use \textbf{flux} to help us measure charge pushed through a surface per unit time.
 
-Example: If charge $q$ of mass $m$ in a field of $\overrightarrow{E} = E_0\hat{i}$ moves from origin along x towards R according to $\frac{d^2x}{dt^2} = \frac{q}{m}E_0$, then solving the diff eq. means that $x = \frac{q}{2m}E_0(\Delta t)^2 = R$.  This means we're pushing all charges within $ \frac{q}{2m}E_0(\Delta t)^2$ to the left of the disk through it.
+Example: If charge $q$ of mass $m$ in a field of $\vec{E} = E_0\hat{i}$ moves from origin along x towards R according to $\frac{d^2x}{dt^2} = \frac{q}{m}E_0$, then solving the diff eq. means that $x = \frac{q}{2m}E_0(\Delta t)^2 = R$.  This means we're pushing all charges within $ \frac{q}{2m}E_0(\Delta t)^2$ to the left of the disk through it.
 
 Then, if we're considering a cylinder of base area $A$, mass density $\delta$, charge density $\rho$:
 \begin{itemize}
@@ -432,9 +432,9 @@ Then, if we're considering a cylinder of base area $A$, mass density $\delta$, c
 
 Note: Tilting this forward from the z-axis by $\theta$ multiplies the cross-section area of the cylinder (now an ellipse) by $\cos (\theta)$.  Can work out the ellipse volume, or just note that each ``Riemann bar'' orthogonal to x-axis just got squished by  $\cos (\theta)$. 
 
-So we define \textbf{flux} as amount of charge through a closed surface.  $\Phi = (\overrightarrow{E} \cdot \hat{n})A$ where $\overrightarrow{E}$ is a constant field.  (Units: joules/second/$m^2$, or watts/$m^2$)
+So we define \textbf{flux} as amount of charge through a closed surface.  $\Phi = (\vec{E} \cdot \hat{n})A$ where $\vec{E}$ is a constant field.  (Units: joules/second/$m^2$, or watts/$m^2$)
 
-We can further note $(\overrightarrow{E} \cdot \hat{n}) = \|\overrightarrow{E}\| \cos(\theta)$ by last problem.
+We can further note $(\vec{E} \cdot \hat{n}) = \|\vec{E}\| \cos(\theta)$ by last problem.
 
 Example: Flux through an empty cube from the origin is necessarily 0 since every face cancels the other.
 
@@ -444,7 +444,7 @@ Another example: A square pyramind with top at $(0,0,1)$, sides at 1 on each axi
 \item A triangle $(1, 0 ,0) (0, 1, 0), (0, 0, 1)$ has two displacement vectors $P_1P_3 = P_3 - P_1 = (-1, 0, 1), P_2P_3 = (0, -1 , 1)$.
 \item $P_1P_3 \times P_2P_3 = (1, 1, 1) \rightarrow \hat{n} = \frac{(1, 1, 1) }{\sqrt{3}}$
 \item $A = \frac{1}{2} \| P_1P_3 \times P_2P_3 \| = \frac{\sqrt{3}}{2}$
-\item $\Phi = (\overrightarrow{E} \cdot \hat{n}) A = (E_0 \frac{1}{\sqrt{3}}) \frac{\sqrt{3}}{2} = \frac{E_0}{2}$
+\item $\Phi = (\vec{E} \cdot \hat{n}) A = (E_0 \frac{1}{\sqrt{3}}) \frac{\sqrt{3}}{2} = \frac{E_0}{2}$
 \item So total flux through these is $4 \cdot \frac{1}{2} E_0 = 2E_0$
 \item However, the bottom has area $\sqrt{2}^2 = 2$ and flux $E_0$ , so total is 0!
 \end{itemize}
@@ -458,29 +458,29 @@ Note:
 \item Flux looks like the integral of the electric field flowing through a surface.
 \item Total charge $Q_{tot}$ of a surface is basically the sum of all the flux going out, except that it's that divided by some constant $\epsilon_0$. 
 \end{itemize}
-Note: $\overrightarrow{E}$ isn't usually constant, and the surface $S$ is usually curved.  So we need calculus to break up surface $S$ into small pieces $\Delta A_i$ and evaluate $\overrightarrow{E}_i$ there at that normal $\hat{n}_i$.  So
+Note: $\vec{E}$ isn't usually constant, and the surface $S$ is usually curved.  So we need calculus to break up surface $S$ into small pieces $\Delta A_i$ and evaluate $\vec{E}_i$ there at that normal $\hat{n}_i$.  So
 
-$\sum_{patches} = \sum_{patches} (\overrightarrow{E}_i \cdot \hat{n}_i) \Delta A_i = \iint_S (\overrightarrow{E}_i \cdot \hat{n}_i) \Delta A_i = \Phi$
+$\sum_{patches} = \sum_{patches} (\vec{E}_i \cdot \hat{n}_i) \Delta A_i = \iint_S (\vec{E}_i \cdot \hat{n}_i) \Delta A_i = \Phi$
 
-Easy Example: If, say, $ (\overrightarrow{E} \cdot \hat{n}) = 1 $ everywhere, we're just looking at $\iint_S dA$, or the total surface area.
+Easy Example: If, say, $ (\vec{E} \cdot \hat{n}) = 1 $ everywhere, we're just looking at $\iint_S dA$, or the total surface area.
 
 Another example.  Given:
 \begin{itemize}
-\item Real electric field law: $\overrightarrow{E} = \frac{q}{4\pi \epsilon_0} \frac{\overrightarrow{x}}{\|\overrightarrow{x}\|^3}$
-\item Real observation: Total electric flux through a surface ($\Phi$) is proportional to total charge inside ($Q_{tot}$).  $\Phi = \iint_S (\overrightarrow{E} \cdot \hat{n}) \Delta A \propto Q_{tot}$
+\item Real electric field law: $\vec{E} = \frac{q}{4\pi \epsilon_0} \frac{\vec{x}}{\|\vec{x}\|^3}$
+\item Real observation: Total electric flux through a surface ($\Phi$) is proportional to total charge inside ($Q_{tot}$).  $\Phi = \iint_S (\vec{E} \cdot \hat{n}) \Delta A \propto Q_{tot}$
 \item Then constant must be $\frac{1}{\epsilon_0} $. Why?
 \begin{itemize}
-\item On unit sphere, $\hat{n}= \frac{\overrightarrow{x}}{\| \overrightarrow{x}\|}$
-\item So $\overrightarrow{E} \cdot \hat{n} = \frac{q}{4\pi \epsilon_0} \frac{\overrightarrow{x}}{\|\overrightarrow{x}\|^3} \cdot \hat{n}$
+\item On unit sphere, $\hat{n}= \frac{\vec{x}}{\| \vec{x}\|}$
+\item So $\vec{E} \cdot \hat{n} = \frac{q}{4\pi \epsilon_0} \frac{\vec{x}}{\|\vec{x}\|^3} \cdot \hat{n}$
 \item $= \frac{q}{4\pi \epsilon_0}$
 \item Then $\Phi = \iint_S \frac{q}{4 \pi \epsilon_0} dA$
 \item  $= \frac{q}{4 \pi \epsilon_0} 4 \pi$ by surface area of unit sphere
 \item $= \frac{q}{\epsilon_0}$
 \end{itemize}
-\item Therefore, because all of the field goes through the surface (no matter the shape), \textbf{Gauss's law} says $\iint_S (\overrightarrow{E} \cdot \overrightarrow{n}) dA = \frac{Q_{tot}}{\epsilon_0}$
+\item Therefore, because all of the field goes through the surface (no matter the shape), \textbf{Gauss's law} says $\iint_S (\vec{E} \cdot \vec{n}) dA = \frac{Q_{tot}}{\epsilon_0}$
 \end{itemize}
 
-\textbf{Note}: Because (UNEXPLAINED!) symmetry of a contained \emph{ball} implies that, for distance $\rho$ from origin, $\overrightarrow{E} = E(\rho)\hat{\rho}$, the above works the same for a point charge or a uniform (contained) ball.
+\textbf{Note}: Because (UNEXPLAINED!) symmetry of a contained \emph{ball} implies that, for distance $\rho$ from origin, $\vec{E} = E(\rho)\hat{\rho}$, the above works the same for a point charge or a uniform (contained) ball.
 
 Example: For a big radius $R$ ball of charge $Q$ containing a small ball of radius $\rho$ with charge $Q_{tot}$, what must the charge $E(\rho)$ at any point be?
 
@@ -509,9 +509,9 @@ Example: Infinite plane, x=y=0, charge per area is $\sigma$.  Use a cylinder aga
 \section{3.3: Surface Integrals}
 \begin{itemize}
 \item Flux is a specific form of the general $\iint_S F da$.
-\item dA is a patch of a parallelogram on the surface.  This is defined by corners $\overrightarrow{x}(u_0, v_0), \overrightarrow{x}(u_0, v_0) + \delta_u \overrightarrow{x}(u_0, v_0)$, and $\overrightarrow{x}(u_0, v_0) + \delta_v \overrightarrow{x}(u_0, v_0)$
-\item Therefore, using the parallelogram area formula,$dA = \Delta_u \Delta_v \| \overrightarrow{x}_u \times \overrightarrow{x}_v \|$
-\item Taking to the limit, this means the area is $\iint_D F(\overrightarrow{x}(u,v)) \|\overrightarrow{x}_u \times \overrightarrow{x}_v \| du dv$
+\item dA is a patch of a parallelogram on the surface.  This is defined by corners $\vec{x}(u_0, v_0), \vec{x}(u_0, v_0) + \delta_u \vec{x}(u_0, v_0)$, and $\vec{x}(u_0, v_0) + \delta_v \vec{x}(u_0, v_0)$
+\item Therefore, using the parallelogram area formula,$dA = \Delta_u \Delta_v \| \vec{x}_u \times \vec{x}_v \|$
+\item Taking to the limit, this means the area is $\iint_D F(\vec{x}(u,v)) \|\vec{x}_u \times \vec{x}_v \| du dv$
 \end{itemize}
 
 Example: Sphere $x^2 + y^2 + z^2 = R^2$ surface area.  Take $\theta$ as angle around $\phi$ as angle from top of z axis.
@@ -538,9 +538,9 @@ Example: Parabaloid $z = 1 - x^2 - y^2, x^2 + y^2 \leq 1$
 Example: Torus $x(u,v) = [R+r\cos(u)]\sin(v)], y(u,v) = [R+r\cos(u)]\cos(v)], z = r \sin(u), u, v \in [0, 2\pi)$
 \begin{itemize}
 \item Already parametrized in polar, basically,
-\item $d\overrightarrow{x}/du = \langle -r \sin (u) \sin (v),  -r \sin (u) \cos (v), r \cos (u)\rangle$
-\item $d\overrightarrow{x}/dv = \langle Rcos(v) + r\cos(u)\cos(v), -R\sin(v) -r\cos(v)\sin(v), 0\rangle$
-\item After lots of math, $\| d\overrightarrow{x}/du \times \overrightarrow{x}/dv \| = r(R+ r\cos(u))$
+\item $d\vec{x}/du = \langle -r \sin (u) \sin (v),  -r \sin (u) \cos (v), r \cos (u)\rangle$
+\item $d\vec{x}/dv = \langle Rcos(v) + r\cos(u)\cos(v), -R\sin(v) -r\cos(v)\sin(v), 0\rangle$
+\item After lots of math, $\| d\vec{x}/du \times \vec{x}/dv \| = r(R+ r\cos(u))$
 \item $\int_{u = 0}^{2\pi} \int_{v = 0}^{2 \pi}  r(R+ r\cos(u)du = 2 \pi r \int_{u = 0}^{2\pi}r(R+ r\cos(u))du$
 \item $= 2\pi r [2 \pi R] = 4 \pi^2 R r$
 \end{itemize}
@@ -548,14 +548,14 @@ Example: Torus $x(u,v) = [R+r\cos(u)]\sin(v)], y(u,v) = [R+r\cos(u)]\cos(v)], z 
 
 Example: Center of mass of unit (hollow?) hemisphere sitting on origin.
 \begin{itemize}
-\item Center of mass for density $\rho$ is $\frac{\iint_S \overrightarrow{x} \rho dA}{\iint_S \rho dA}$
+\item Center of mass for density $\rho$ is $\frac{\iint_S \vec{x} \rho dA}{\iint_S \rho dA}$
 \item Obvious that $x, y$ center at zero.
 \item For denominator, $\iint_S dA$ is just surface area, or half of $4 \pi 1^2 = 2 \pi$.
 \item For numerator:
 \begin{itemize}
 \item Do typical $\theta, \phi$ parametrization.
-\item $\overrightarrow{x}_{\theta} \times \overrightarrow{x}_{\phi} = \langle \sin^2(\phi) \cos(\theta), \sin^2(\phi)\sin(\theta), \sin(\phi)\cos(\phi) \rangle$
-\item Pull out the $\sin(\phi)$ and the remaining norm is one, so $\| \overrightarrow{x}_{\theta} \times \overrightarrow{x}_{\phi}\| = \sin(\phi)$ 
+\item $\vec{x}_{\theta} \times \vec{x}_{\phi} = \langle \sin^2(\phi) \cos(\theta), \sin^2(\phi)\sin(\theta), \sin(\phi)\cos(\phi) \rangle$
+\item Pull out the $\sin(\phi)$ and the remaining norm is one, so $\| \vec{x}_{\theta} \times \vec{x}_{\phi}\| = \sin(\phi)$ 
 \item $\int_{\theta = 0}^{2\pi} \int_{\phi = 0}^{\pi / 2} z \cdot dA = \int_{\theta = 0}^{2\pi} \int_{\phi = 0}^{\pi / 2} \cos(\phi)\sin(\phi) = \frac{1}{2}$
 \end{itemize}
 
@@ -564,47 +564,81 @@ Example: Center of mass of unit (hollow?) hemisphere sitting on origin.
 Example: Moment of inertia
 \begin{itemize}
 \item Formula: $I_z = M \iint_S(x^2 + y^2)dA$.
-\item Object to spin: helicoid $\overrightarrow{x}(u,v) = \langle u \cos (v), u \sin (v), v\rangle u \in [0,R], v \in [0, 2\pi]$
+\item Object to spin: helicoid $\vec{x}(u,v) = \langle u \cos (v), u \sin (v), v\rangle u \in [0,R], v \in [0, 2\pi]$
 \item Assumption for the problem: $\int_{u=0}^{u=R} u^2 \sqrt(1 +u^2)du = 2$
-\item Center of mass for density $\rho$ is $\frac{\iint_S \overrightarrow{x} \rho dA}{\iint_S \rho dA}$
+\item Center of mass for density $\rho$ is $\frac{\iint_S \vec{x} \rho dA}{\iint_S \rho dA}$
 \item Use polar coordinates $r, \theta$.
-\item After computation, $\| \overrightarrow{x}_r  \times \overrightarrow{x}_{\theta} \| = \sqrt{1+r^2}$
+\item After computation, $\| \vec{x}_r  \times \vec{x}_{\theta} \| = \sqrt{1+r^2}$
 \item $M \int_{r=0}^{r=R} \int_{\theta = 0}^{\theta=2\pi}  \sqrt{1+r^2} (r^2 \cos^2(\theta) + r^2 \cos^2(\theta)) dA = M \iint  \sqrt{1+r^2} r^2 = 2\pi M \iint  \sqrt{1+r^2} r^2  = 4 \pi$ by hint
 \end{itemize}
 
 
 Example: Flux through unit hemisphere
 \begin{itemize}
-\item Formula: $\Phi = \iint_S (\overrightarrow{E} \cdot \overrightarrow{n}) dA = \iint_S FdA$
-\item Field: $\overrightarrow{E} = \langle yz, xz, xy \rangle$
+\item Formula: $\Phi = \iint_S (\vec{E} \cdot \vec{n}) dA = \iint_S FdA$
+\item Field: $\vec{E} = \langle yz, xz, xy \rangle$
 \item Use polar coordinates
 \item \textbf{Base}: $\hat{n} = -\hat{k}$ so $\langle yz, xz, xy \rangle \cdot \langle 0, 0, -1 \rangle = -xy$ It's clear by symmetry that $\iint_{u^2 + v^2 \leq 1} - xy dx dy = 0$
 \item \textbf{Top}: Set $u = \theta \in [0, 2 \pi), v = \phi \in [0, \frac{\pi}{2}]$.  
-\item As usual, $dA = \| \overrightarrow{x}_u \times \overrightarrow{x}_v \| = \sin(v)$.
+\item As usual, $dA = \| \vec{x}_u \times \vec{x}_v \| = \sin(v)$.
 \item Norm just points out from the center: $\hat{n} = \langle  \cos(u)\sin(v), \sin(u)\sin(v), \cos(v) \rangle $ 
-\item $\overrightarrow{E} = \langle \sin(u)\sin(v)\cos(v), \cos(u)\sin(v)\cos(v), \cos(u)\sin^2(v)\sin(u)\rangle$ 
-\item So $\overrightarrow{E} \cdot \hat{n} = 3\cos(u)\sin(u)\cos(v)\sin^2(v)$
+\item $\vec{E} = \langle \sin(u)\sin(v)\cos(v), \cos(u)\sin(v)\cos(v), \cos(u)\sin^2(v)\sin(u)\rangle$ 
+\item So $\vec{E} \cdot \hat{n} = 3\cos(u)\sin(u)\cos(v)\sin^2(v)$
 \item Looking at this, this is really $\int_{u = 0}^{u = 2\pi} k(v) \sin^2(u)$  for some $k(v)$, so this will be 0.
 \item Therefore, total flux is zero, and by Gauss's law, total field contained inside has to be 0 too.
 \end{itemize}
 
-Example: Field $\overrightarrow{E} = \ln(x^2 + y^2)\langle x, y, 0\rangle$ through $R$-wide cylinder, height $h$
+Example: Field $\vec{E} = \ln(x^2 + y^2)\langle x, y, 0\rangle$ through $R$-wide cylinder, height $h$
 \begin{itemize}
 \item Parameterize: $x = r \cos \theta, y = r \sin \theta, z = z$
-\item \textbf{Top/Bottom}: $\hat{n} = \langle 0, 0, 1 \rangle, \overrightarrow{E} = f(x,y) \langle x, y, 0\rangle \rightarrow \hat{n} \cdot \overrightarrow{E} = 0$
+\item \textbf{Top/Bottom}: $\hat{n} = \langle 0, 0, 1 \rangle, \vec{E} = f(x,y) \langle x, y, 0\rangle \rightarrow \hat{n} \cdot \vec{E} = 0$
 \item \textbf{Side}: $\hat{n} = \frac{1}{R} \langle R \cos (\theta), R \sin (\theta), 0 \rangle$
 \item $\Phi = \iint_{cylinder} \frac{1}{R} \langle R \cos (\theta), R \sin (\theta), 0 \rangle \cdot  \langle R \cos (\theta), R \sin (\theta), 0 \rangle \ln(R^2 \cos^2(\theta) + R^2 \sin^2(\theta))$
 \item $= R \iint_{cylinder} \ln(R^2) + \ln(\cos^2(\theta)+\sin^2(\theta)) = R \cdot 2 \ln (R) \cdot h \cdot 2 \pi R = 4 \pi R^2 \ln(R)h$
 \end{itemize}
 
-Example: Field $\overrightarrow{E} = e^{-x^2-y^2-z^2}\overrightarrow{x}$ with sphere S at radius R, setting $\epsilon_0 = 1$
+Example: Field $\vec{E} = e^{-x^2-y^2-z^2}\vec{x}$ with sphere S at radius R, setting $\epsilon_0 = 1$
 \begin{itemize}
 \item Parameterize: $x = R \cos (\theta)\sin(\phi), y = R\sin (\theta)\sin(\phi), z =R \cos(phi)$
 \item $\hat{n} = \langle \cos (\theta)\sin(\phi), y =  \sin (\theta)\sin(\phi), z = \cos(phi) \rangle$
-\item $\overrightarrow{x} = R \hat{n}$, so $\overrightarrow{E} \cdot {n} = R e^{-R^2}$
+\item $\vec{x} = R \hat{n}$, so $\vec{E} \cdot {n} = R e^{-R^2}$
 \item $R \iint_{sphere} e^{-R^2} = 4 \pi R^3 e^{-R^2}$
 \end{itemize}
 
-\textbf{Note}: In the future we write $\hat{n}dA = \overrightarrow{dA}$
+\textbf{Note}: In the future we write $\hat{n}dA = \vec{dA}$
+
+\subsection{3.4: Divergence}
+
+\textbf{Main idea}: Last chapter was all about having field $\vec{E}$ and wanting to figure out $Q_{tot}$ (or $\phi\epsilon_0$). Usually, we have the charge distribution Q and want to figure out $\vec{E}$.  Most of the field derivation from 3.3 was through tricks for highly symmetric spaces (infinite line, infinite plane, uniform ball, etc.
+
+\textbf{Point}: The flux through a sphere in a uniform field is zero.  Why?  Move the point to the origin, rotate so field is $\hat{k}$, and consider that goes out at $\langle x, y, z \rangle$ comes in at $\langle x, y, -z \rangle$.  This same argument applies for $\iint_{S = sphere} \hat{n}_i \hat{n}_j dA$, where $i, j$ are components in $\{x, y, z\}$.
+
+
+ However, if $i = j$, then $\iint_S \hat{n}_i \hat{n}_j dA = \iint_S \hat{n}^2_i = \frac{4}{3}\pi R^2$, since $\iint_S (\hat{n}_x^2 + \hat{n}_y^2 + \hat{n}_z^2) dA = \iint_S 1 dA = 4 \pi R^2$, so each of the components must be a third of that.
+
+\subsubsection{Defining Divergence}
+Remember that in Gauss's law, $\frac{Q}{\epsilon_0} = \iint_S \vec{E} \cdot \vec{dA}$, we're using information about $\vec{E}$ spread out over surface $S$. We can also shrink this to a smaller surface.
+
+Shrinking to a point $\vec{P}$, $\lim_{R \rightarrow 0} \frac{1}{4 \pi R^3}  \iint_S \vec{E} \cdot \vec{dA} = \frac{Q_{tot}}{\epsilon_0 4 \pi R^3} = \frac{\rho(\vec{P})}{\epsilon_0}$. \emph(This works by dividing both sides by volume of a sphere)
+
+\textbf{Deriving Divergence}: Computing $\lim_{R \rightarrow 0} \frac{1}{4 \pi R^3}  \iint_S \vec{E} \cdot \vec{dA}$
+\begin{itemize}
+\item $\iint_S \hat{n}_i \hat{n}_j dA  = 0$ if $i \ne j$
+\item $\iint_S \hat{n}_i \hat{n}_j dA  = \frac{4}{3} \pi R^3 $  if $i = j$
+ \item Use linear approximation with Jacobian $D = \frac{\delta E_i}{\delta x_j}$, $\vec{E}(\vec{x}) = \vec{E}(\vec{P}) + D\vec{E}(\vec{P})(\vec{x} - \vec{P})$
+ \item $\iint_S \vec{E}(\vec{P}) = 0$ for any constant.  (think of the flux of a sphere in a constant field as above)
+\item This leaves $D\vec{E}(\vec{P})(\vec{x} - \vec{P}) \cdot \hat{n} = \sum_{i,j} \hat{n}_i [\vec{x}-\vec{P}]_j D\vec{E}(\vec{P})_{ij}$
+\item Since it's a sphere, the normal $\hat{n} = \frac{\vec{x} - \vec{P}}{R}$
+\item Therefore $D\vec{E}(\vec{P})(\vec{x} - \vec{P}) \cdot \hat{n} = R \sum \hat{n}_i \hat{n}_j  D\vec{E}(\vec{P})_{ij}$ (swap $R \hat{n}_j$ for $[\vec{x} - \vec{P}]_j$)
+\item These terms are all 0 except where $i = j$, so $D\vec{E}(\vec{P})(\vec{x} - \vec{P}) \cdot \hat{n} = \frac{4}{3} \pi R^2 \times R \times
+   [\frac{\delta E_x}{\delta x} +  \frac{\delta E_y}{\delta y} +  \frac{\delta E_z}{\delta z}]$
+\item This equals $\lim_{R \rightarrow 0} \frac{1}{4 \pi R^3}  \iint_S \vec{E} \cdot \vec{dA}$ so eliminating the sphere volume gives us
+   $\frac{\rho(\vec{P})}{\epsilon_0} = [\frac{\delta E_x}{\delta x} +  \frac{\delta E_y}{\delta y} +  \frac{\delta E_z}{\delta z}] = \nabla \cdot \vec{E}$
+\end{itemize}
+
+We can think of the divergence of $\vec{F}$, $\nabla \cdot \vec{F}$ also like an operator: 
+$\nabla \cdot (F_x\hat{i} + F_x\hat{j} + F_x\hat{k}) = 
+(\frac{\delta}{\delta x} \hat{i} + \frac{\delta}{\delta y} \hat{j} + \frac{\delta}{\delta z} \hat{k}) \cdot (F_x\hat{i} + F_x\hat{j} + F_x\hat{k})$
+
 \end{document}
 
