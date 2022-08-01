@@ -68,7 +68,7 @@ x = \int{v}  = \langle t+K, 2t+M, -\frac{1}{2}t^2 + 3t + N \rangle, x(\vec{0}) =
 \vec{x}(t) = \langle t, 2t, 3t-\frac{1}{2}t^2 \rangle \\
 z(t) = 0 \rightarrow t = 6 \rightarrow \vec{x}(6) = \langle 6, 12, 0 \rangle \\
 \end{align} 
-\item Also, generalizing $ds = \sqrt{(dx)^2  + (dy)^2}$, the length of an arc from point $a$ to $b$ approaches $\int_a^b ds = \int_{t_a}^{t_b} \| x'(t) \| dt$
+\item Also, generalizing $ds = \sqrt{(dx)^2  + (dy)^2}$, the length of an arc from point $a$ to $b$ approaches \fbox{$\int_a^b ds = \int_{t_a}^{t_b} \| x'(t) \| dt$}
 \item Example: a helix $\langle a \cos (\omega t), a \sin (\omega t), b \omega t \rangle$, parametrized by time $t$ can be rewritten in terms of $s$, the arc length: 
 \begin{align}
 s =  \int \|x'(t)\| dt \\
@@ -90,14 +90,14 @@ Remember that  $s = \int_0^t \| \vec{x}'(\tilde{t}) \| d\tilde{t}$, so $\frac{ds
 \begin{itemize}
 \item Remember arc length is $s = \int_0^t \| \vec{x}'(\tilde{t})d\tilde{t} \|$
 \item $\hat{T}$ is just normalized grad: $\frac{\vec{x}'(t)}{\|\vec{x}'(t)\|}$
-\item This implies $\frac{d\vec{x}}{ds} = \hat{T}$ since 
+\item This implies \fbox{$\frac{d\vec{x}}{ds} = \hat{T}$} since 
 \begin{align}
 s = \int_0^t \| \vec{x}'(\tilde{t})d\tilde{t} \| \\
 \frac{ds}{dt} = \| \vec{x}(t) \| \\
 \hat{T} = \frac{\vec{x}'(t)}{\|\vec{x}'(t)\|}  = \frac{d\vec{x}}{dt} \cdot \frac{dt}{ds} \\
 \hat{T} = \frac{d\vec{x}}{ds} \\
 \end{align}
-\item So this is how the space curve $\vec{x}$ changes as it moves along $s$.
+\item So this is how the space curve $\vec{x}$ changes as it moves along the curve at length $s$.
 \item It's normalized, so it's the same whether parameterized by t, s, or whatever.
 \end{itemize}
 
@@ -105,7 +105,7 @@ s = \int_0^t \| \vec{x}'(\tilde{t})d\tilde{t} \| \\
 \subsection{$\hat{N}$: Normal to curve (perpendicular to $\hat{T}$)}
 Normal vectors are:
 \begin{itemize}
-\item $\vec{x}''(t)$ normalized as $\frac { \frac{d\hat{T}}{ds} }   {\|  \frac{d\hat{T}}{ds}  \|}  = \hat{N}$
+\item $\vec{x}''(t)$ normalized as \fbox{$\frac { \frac{d\hat{T}}{ds} }   {\|  \frac{d\hat{T}}{ds}  \|}  = \hat{N}$}
 \item The normal vector to the curve
 \item $\bot$ to $\hat{T}$ in direction of acceleration.  So a multiple of acceleration vector.
 \item $\frac{\hat{T}'(t)} { \| \hat{T}'(t) \|}$.  The following sequence shows any unit length vector is perpendicular to its derivative.
@@ -142,20 +142,20 @@ s = \int_0^t \| \vec{x}'(t) \| \rightarrow \frac{ds}{dt} = \| \vec{x}'(t) \|
 
 $\hat{N} = \frac{d\hat{T}}{ds}$ normalized, so
 \begin{align}
-\vec{a} = \frac{d^2\vec{x}}{dt^2} = \frac{d}{dt}(\| \vec{x}'(t)\hat{T}(t)\|) = \frac{d \|\vec{x}'(t) \|}{dt}\hat{T} + \| \vec{x}'(t) \| \frac{d\hat{T}}{dt} \\
+\vec{a} = \frac{d^2\vec{x}}{dt^2} = \frac{d}{dt}(\|\frac{dx}{dt}\|  \frac{\frac{dx}{dt}} {\|\frac{dx}{dt}\|} ) = \frac{d}{dt}(\| \vec{x}'(t)\|\hat{T}(t)) = \frac{d \|\vec{x}'(t) \|}{dt}\hat{T} + \| \vec{x}'(t) \| \frac{d\hat{T}}{dt} \\
 = \frac{d \|\vec{x}'(t) \|}{dt}\hat{T} + \frac{ds}{dt} \frac{d\hat{T}}{ds} \frac{ds}{dt} \\ 
 = \frac{d \|\vec{x}'(t) \|}{dt}\hat{T} + (\frac{d{s}}{dt} )^2 \| \frac{d\hat{T}}{ds} \| \hat{N}
 \end{align}
 
-This is ``a = parallel part plus perpendicular (N) part'', so the second term is $a_{\bot}$
+This is ``a = $\hat{T}$'s parallel part plus $\hat{T}$'s perpendicular (N) part'', so the second term is $a_{\bot}$
 
 \subsection{$\hat{T}$ and $\hat{N}$}
 
 \begin{itemize}
 \item Form a plane, since first, any normal vector's derivative is perpendicular to the vector
 \item $\kappa$ is curvature: how much we're curving in that $T \times N$ plane.
-\item $\kappa =   \|  \frac{d\hat{T}}{ds}  \| $ 
-\item Therefore, by above, $\frac{d\hat{T}}{ds} = \kappa \hat{N}$ \textbf{(Frenet equation 1)}
+\item \fbox{$\kappa =   \|  \frac{d\hat{T}}{ds}  \| $ }
+\item Therefore, by the definition of $\hat{N} = \frac{d\hat{T}/ds}{\|d\hat{T}/ds\|}$, \fbox{$\frac{d\hat{T}}{ds} = \kappa \hat{N}$ }\textbf{(Frenet equation 1)}
 \end{itemize}
 
 Note that curvature $\kappa(s) = \| \frac{d\hat{T}}{ds}\|$ is geometric (depends on s, not time) and changes as $\hat{T}$ changes.
@@ -171,18 +171,18 @@ Do the substitution of $\frac{s}{\sqrt{1+b^2}}$ for $t$ above to get $x'(s)$, an
 
 \subsection{$\hat{B}$ is binormal: perpendicular to both}
 \begin{itemize}
-\item defined as $\hat{B} = \hat{T} \times \hat{N}$
+\item defined as \fbox{$\hat{B} = \hat{T} \times \hat{N}$}
 \item Therefore, by derivative 
 \begin{align}
 \frac{d\hat{B}}{ds} = \frac{d\hat{T}}{ds} \times \hat{N} +  \hat{T} \times \frac{d\hat{N}}{ds}\\ 
 \frac{d\hat{B}}{ds} = \kappa \hat{N} \times \hat{N}  +  \hat{T} \times \frac{d\hat{N}}{ds}\\ 
-\frac{d\hat{B}}{ds} =  \hat{T} \times \frac{d\hat{N}}{ds}\\ 
+\frac{d\hat{B}}{ds} =  \hat{T} \times \frac{d\hat{N}}{ds}
 \end{align}
-but this means T is orthogonal to dB, and we already know B and dB are orthogonal.
-We're working in 3d with the cross product, so dB is parallel to N.
-\item Therefore, we define \textbf{torsion} $\tau$ so that $- \frac{d\hat{B}}{ds}  = \tau \hat{N}$  \textbf{(Frenet equation 2)}.  Negative sign by convention.
+This means T is orthogonal to dB, and we already know B and dB are orthogonal.
+We're working in 3D with the cross product, so dB is parallel to N.
+\item Therefore, we define \textbf{torsion} $\tau$ so that \fbox{$- \frac{d\hat{B}}{ds}  = \tau \hat{N}$  }\textbf{(Frenet equation 2)}.  Negative sign by convention.
 \item Can also cross by $N$ on both sides to get $- \frac{d\hat{B}}{ds}  \times \hat{N} = \tau $ 
-\item $\hat{B}$ measures how the plane defined by $\hat{T}, \hat{N}$ twists around.  On a circle, $\hat{B}$ wouldn't change, so the derivative would be zero.
+\item $\tau$ measures how the plane defined by $\hat{T}, \hat{N}$ twists around.  On a circle, $\hat{B}$ wouldn't change, so the derivative would be zero.
 \item \textbf{Final Frenet equation}.  Prereq: $\hat{B} = \hat{T} \times \hat{N} \rightarrow \hat{N} = \hat{B} \times \hat{T} \rightarrow \hat{T} = \hat{N} \times \hat{B}$
 \begin{align}
 \frac{d\hat{N}}{ds} = \frac{d\hat{B}}{ds} \times \hat{T} +   \hat{B} \times  \frac{d\hat{T}}{ds} \\
@@ -194,7 +194,7 @@ We're working in 3d with the cross product, so dB is parallel to N.
 
 \section{Chapter 2.5: Parametrized Surfaces}
 
-Main ideas:
+Main approaches to describing a surface:
 \begin{itemize}
 \item Can parameterize by $\vec{x}(u,v) = x(u,v), y(u,v), z(u,v)$
 \item Can perhaps parameterize $f(x,y,z) = c$ by $z = g(x,y)$
@@ -204,20 +204,20 @@ Main ideas:
 There are many out-of-the-box paremetrizations including:
 
 \begin{itemize}
-\item Sphere at 0,0,0: $\vec{x}(u,v) = \langle R\cos(u)\sin(v), Rsin(u)\sin(v), R\cos(v)\rangle$, where $u \in [0, 2\pi), v \in [0, \pi]$
+\item Sphere at (0,0,0): $\vec{x}(u,v) = \langle R\cos(u)\sin(v), Rsin(u)\sin(v), R\cos(v)\rangle$, where $u \in [0, 2\pi), v \in [0, \pi]$
 \item Rotate function $y = f(x)$ around the x-axis: $\vec{x}(u,v) = \langle u, f(u)\cos(v), f(u)\sin(v) \rangle$, where $u \in D, v \in [0, 2\pi]$
 \end{itemize}
 
-Tangent vectors to $\vec{x}(u,v)$ are $\frac{\delta \vec{x}} {du}, \frac{\delta \vec{x}} {dv}$, so unit normal is 	$\pm \frac 
+Tangent vectors to $\vec{x}(u,v)$ are $\frac{\delta \vec{x}} {du}, \frac{\delta \vec{x}} {dv}$, so unit normal \fbox{	$\hat{n} = \pm \frac 
 					{\frac{d \vec{x}} {du} \times \frac{\delta \vec{x}}{dv}}
 					{\| \frac{d \vec{x}} {du} \times \frac{\delta \vec{x}}{dv} \|}
-					$
+					$}
 					
-Example: Torus $\vec{x} = \langle [2 + \cos(v)]\cos(u),  [2 + \cos(v)]\sin(u), \sin(v)\rangle, u,v \in [0,2 \pi)$.  What's the tangent plane at $u = \frac{\pi}{4}, v=0$?
+\textbf{Example}: Torus $\vec{x} = \langle [2 + \cos(v)]\cos(u),  [2 + \cos(v)]\sin(u), \sin(v)\rangle, u,v \in [0,2 \pi)$.  What's the tangent plane at $u = \frac{\pi}{4}, v=0$?
 \begin{align}
 d\vec{x}/du = \langle -\sin(u)(2 + \cos(v)),  \cos(u)(2 + \cos(v)), 0 \rangle \\
 d\vec{x}/dv = \langle -\sin(v)\cos(u), -\sin(v)\sin(u), \cos(v) \rangle \\
-u = \frac{\pi}{4}, v=0 \rightarrow  \\
+u = \frac{\pi}{4}, v=0 :  \\
 d\vec{x}/du = \langle -\frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0, \rangle \\
 d\vec{x}/dv = \langle 0, 0, 1 \rangle \\
 dx/du \times dx/dv = \langle  \frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0\rangle \\
@@ -228,8 +228,7 @@ dx/du \times dx/dv = \langle  \frac{3}{\sqrt{2}}, \frac{3}{\sqrt{2}}, 0\rangle \
 
 
 
-\subsection{Example: Ellipsoid $x^2 + 2y^2 + z^2 = 4$}
-What's the normal at $(1, \frac{1}{\sqrt{2}}, \sqrt{2})$?
+\subsection{Example: Ellipsoid $x^2 + 2y^2 + z^2 = 4$ What's the normal at $(1, \frac{1}{\sqrt{2}}, \sqrt{2})$?}
 
 \textbf{Method 1: parametrize with spherical u, v}
 First, transform to sphere with change of coordinates, then flip to speherical coordinates.
@@ -283,7 +282,7 @@ $\hat{n} = \frac
 	{\|\vec{x}_u \times  \vec{x}_v\|}
 	$ at (0,0) is $\langle 0, 0, -1 \rangle$, 
 	
-but at $(2\pi, 0)$ is the same point, but $\hat{n} = \langle 0, 0, 1 \rangle$!!
+but at the same point $(2\pi, 0)$ $\hat{n} = \langle 0, 0, 1 \rangle$!!
 	
 
 
@@ -293,7 +292,7 @@ but at $(2\pi, 0)$ is the same point, but $\hat{n} = \langle 0, 0, 1 \rangle$!!
 
 One nugget: using \textbf{gradient vector fields}:
 Suppose $\vec{F}(x,y) = \langle 2, -4y^3 \rangle$.  
-If $F = \nabla f$ for some $f$, then $F$'s arrows are perpendicular to a level set $f = c$.
+If $\vec{F} = \nabla f$ for some (single value function) $f$, then $F$'s arrows are perpendicular to a level set $f = c$.
 So look at $f  =  2x -y^4 $ and find perpendicular arrows to these.  That's actually F!
 
 \textbf{Linear approximation for $\vec{F}: D \in \mathbf{R}^n \rightarrow \mathbf{R}^m$}
@@ -301,7 +300,7 @@ So look at $f  =  2x -y^4 $ and find perpendicular arrows to these.  That's actu
 Main idea: 
 $\vec{F}(\vec{x}) = \vec{F}(\vec{a}) + A(\vec{a})(\vec{x} - \vec{a})$
 
-Note that $A$ takes in vectors of size $n$ (so it has that many columns), and has $m$ functions (rows) that operate on it.
+Note that $A$ takes in vectors of size $n$ (so it has as many columns as the input space), and has $m$ functions (rows) that operate on it.
 So the Jacobian, $A$, has as row $i$, column $j$, the quantity $\frac{dF_i}{dx_j}(\vec{a})$.
 
 $dF_i/d\vec{x}$ extends across row $i$.
@@ -318,7 +317,7 @@ If we're estimating $x_1$ by following the derivative at $x_0$, this means we're
  
 or $x_0 = f(x_0)\frac{1}{f'(x_0)} + x_1$, 
 
-or $x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}$.
+or \fbox{$x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}$}
 
 Note that, under Newton's something like $|x|$ will converge immediately, $x^3$ will converge moderately, and a S-curve might barely converge if at all.
 
@@ -373,7 +372,7 @@ $\vec{F}_{x=l} = (\iint_{[0,l] \times [0,l]} p_{fluid} [1 - \frac{z}{l}] dy dz) 
 
 \textbf{Example}: Hemisphere of size l, sitting at (0, 0, 0)
 
-Finding the out pointing unit normal of hemisphere at point $(x, y, -\sqrt{l^2-x^2-y^2})$
+Finding the out pointing unit normal of hemisphere at point $(x, y, \sqrt{l^2-x^2-y^2})$
 
 Note: Can just eyeball this, but one way is the \textbf{gradient}.  
 
@@ -398,6 +397,9 @@ s_2 = \langle 0, \Delta y_j, \Delta y_j f_y(x_i^*,y_j^*) \rangle \\
 \Delta A_{ij} \approx \| s_1 \times s_2 \| \\ 
 = \sqrt{ (1 + [ f_x(x_i^*,y_j^*)]^2 + [f_y(x_i^*,y_j^*)]^2 }\Delta x_i \Delta y_j \\ 
 \end{align}
+
+So if \fbox{$z = f(x,y), dA = \sqrt{1 + f_x^2 + f_y^2}$}.
+
 
 \textbf{So the total pressure ends up being}
 $\vec{F}_{tot} = p_{fluid} \iint (p \cdot \hat{n}) dA$
@@ -432,7 +434,7 @@ Then, if we're considering a cylinder of base area $A$, mass density $\delta$, c
 
 Note: Tilting this forward from the z-axis by $\theta$ multiplies the cross-section area of the cylinder (now an ellipse) by $\cos (\theta)$.  Can work out the ellipse volume, or just note that each ``Riemann bar'' orthogonal to x-axis just got squished by  $\cos (\theta)$. 
 
-So we define \textbf{flux} as amount of charge through a closed surface.  $\Phi = (\vec{E} \cdot \hat{n})A$ where $\vec{E}$ is a constant field.  (Units: joules/second/$m^2$, or watts/$m^2$)
+So we define \textbf{flux} as amount of charge through a closed surface.  \fbox{$\Phi = (\vec{E} \cdot \hat{n})A$  } if $\vec{E}$ is a constant field.  (Units: joules/second/$m^2$, or watts/$m^2$), and \fbox{$\Phi = \iint_S (\vec{E} \cdot \hat{n})dA$} generally.
 
 We can further note $(\vec{E} \cdot \hat{n}) = \|\vec{E}\| \cos(\theta)$ by last problem.
 
@@ -455,12 +457,12 @@ Note:
 \begin{itemize}
 \item Charge ($q$) is the volts of the point charge.  Total charge $Q_{tot}$ is total charge inside some surface.
 \item Electric field is sum of those point charges acting at a distance, and a is a single vector.
-\item Flux looks like the integral of the electric field flowing through a surface.
-\item Total charge $Q_{tot}$ of a surface is basically the sum of all the flux going out, except that it's that divided by some constant $\epsilon_0$. 
+\item Flux is the sum of the electric field flowing through a surface.
+\item Total charge $Q_{tot}$ of a surface is basically the sum of all the flux going in/out, except that it's that divided by some constant $\epsilon_0$. 
 \end{itemize}
 Note: $\vec{E}$ isn't usually constant, and the surface $S$ is usually curved.  So we need calculus to break up surface $S$ into small pieces $\Delta A_i$ and evaluate $\vec{E}_i$ there at that normal $\hat{n}_i$.  So
 
-$\sum_{patches} = \sum_{patches} (\vec{E}_i \cdot \hat{n}_i) \Delta A_i = \iint_S (\vec{E}_i \cdot \hat{n}_i) \Delta A_i = \Phi$
+$\sum_{patches} (\vec{E}_i \cdot \hat{n}_i) \Delta A_i = \iint_S (\vec{E} \cdot \hat{n})) dA = \Phi$
 
 Easy Example: If, say, $ (\vec{E} \cdot \hat{n}) = 1 $ everywhere, we're just looking at $\iint_S dA$, or the total surface area.
 
@@ -472,12 +474,12 @@ Another example.  Given:
 \begin{itemize}
 \item On unit sphere, $\hat{n}= \frac{\vec{x}}{\| \vec{x}\|}$
 \item So $\vec{E} \cdot \hat{n} = \frac{q}{4\pi \epsilon_0} \frac{\vec{x}}{\|\vec{x}\|^3} \cdot \hat{n}$
-\item $= \frac{q}{4\pi \epsilon_0}$
+\item $= \frac{q}{4\pi \epsilon_0}$ since $\| \vec{x}  \|=1$ on unit sphere
 \item Then $\Phi = \iint_S \frac{q}{4 \pi \epsilon_0} dA$
 \item  $= \frac{q}{4 \pi \epsilon_0} 4 \pi$ by surface area of unit sphere
 \item $= \frac{q}{\epsilon_0}$
 \end{itemize}
-\item Therefore, because all of the field goes through the surface (no matter the shape), \textbf{Gauss's law} says $\iint_S (\vec{E} \cdot \vec{n}) dA = \frac{Q_{tot}}{\epsilon_0}$
+\item Therefore, because all of the field goes through the surface (no matter the shape), \fbox{\textbf{Gauss's law} says $\iint_S (\vec{E} \cdot \vec{n}) dA = \frac{Q_{tot}}{\epsilon_0}$}
 \end{itemize}
 
 \textbf{Note}: Because (UNEXPLAINED!) symmetry of a contained \emph{ball} implies that, for distance $\rho$ from origin, $\vec{E} = E(\rho)\hat{\rho}$, the above works the same for a point charge or a uniform (contained) ball.
@@ -491,8 +493,9 @@ Example: For a big radius $R$ ball of charge $Q$ containing a small ball of radi
 \item So $E(\rho) = \frac{Q}{4 \pi \epsilon_0} \frac{\rho}{R^3}$
 \end{itemize}
 
-Example: Infinite wire, x=y=0, charge per length is $\lambda$.  Use a cylinder.
+Example: Infinite wire, x=y=0, charge per length is $\lambda$.  What's the magnitude of the field r units away?
 \begin{itemize}
+\item Use a cylinder.
 \item What's the total charge of the cylinder?  Top and bottom are perpendicular to the field so can be ignored.
 \item There's some function $E(r)$ which, time $\hat{r}$, is the field by symmetry.
 \item $\Phi = \iint_{cylinder} (E(r) \cdot \hat{r})dA = E(r)  \iint_{cylinder} 1 dA  = E(r) 2 \pi r h$.
@@ -500,13 +503,15 @@ Example: Infinite wire, x=y=0, charge per length is $\lambda$.  Use a cylinder.
 \end{itemize}
 
 
-Example: Infinite plane, x=y=0, charge per area is $\sigma$.  Use a cylinder again
+Example: Infinite plane, x=y=0, charge per area is $\sigma$.  What's the mangitude of the field at height $h$?
 \begin{itemize}
+\item  Use a cylinder again
 \item What's the total charge of the cylinder?  Side is perpendicular to the field so can be ignored.  Looking at top and bottom, $\phi = 2EA + 2EA.$, where E is charge through the top.
 \item $2EA = \frac{\sigma A}{\epsilon_0} \rightarrow E = \frac{\sigma}{2 \epsilon_0}$
+\item Note: It appears it's height-invariant!
 \end{itemize}
 
-\section{3.3: Surface Integrals}
+\section{3.4: Surface Integrals}
 \begin{itemize}
 \item Flux is a specific form of the general $\iint_S F da$.
 \item dA is a patch of a parallelogram on the surface.  This is defined by corners $\vec{x}(u_0, v_0), \vec{x}(u_0, v_0) + \delta_u \vec{x}(u_0, v_0)$, and $\vec{x}(u_0, v_0) + \delta_v \vec{x}(u_0, v_0)$
@@ -564,8 +569,8 @@ Example: Center of mass of unit (hollow?) hemisphere sitting on origin.
 Example: Moment of inertia
 \begin{itemize}
 \item Formula: $I_z = M \iint_S(x^2 + y^2)dA$.
-\item Object to spin: helicoid $\vec{x}(u,v) = \langle u \cos (v), u \sin (v), v\rangle u \in [0,R], v \in [0, 2\pi]$
-\item Assumption for the problem: $\int_{u=0}^{u=R} u^2 \sqrt(1 +u^2)du = 2$
+\item Object to spin: helicoid $\vec{x}(\theta,v) = \langle \theta \cos (v), \theta \sin (v), v\rangle \theta \in [0,R], v \in [0, 2\pi]$
+\item Assumption for the problem: $\int_{\theta=0}^{\theta=R} \theta^2 \sqrt{1 +\theta^2}d\theta = 2$
 \item Center of mass for density $\rho$ is $\frac{\iint_S \vec{x} \rho dA}{\iint_S \rho dA}$
 \item Use polar coordinates $r, \theta$.
 \item After computation, $\| \vec{x}_r  \times \vec{x}_{\theta} \| = \sqrt{1+r^2}$
@@ -605,19 +610,19 @@ Example: Field $\vec{E} = e^{-x^2-y^2-z^2}\vec{x}$ with sphere S at radius R, se
 \item $R \iint_{sphere} e^{-R^2} = 4 \pi R^3 e^{-R^2}$
 \end{itemize}
 
-\textbf{Note}: In the future we write $\hat{n}dA = \vec{dA}$
+\textbf{Note}: In the future we write \fbox{$\hat{n}dA = \vec{dA}$}
 
-\subsection{3.4: Divergence}
+\subsection{3.5: Divergence part I}
 
-\textbf{Main idea}: Last chapter was all about having field $\vec{E}$ and wanting to figure out $Q_{tot}$ (or $\phi\epsilon_0$). Usually, we have the charge distribution Q and want to figure out $\vec{E}$.  Most of the field derivation from 3.3 was through tricks for highly symmetric spaces (infinite line, infinite plane, uniform ball, etc.
+\textbf{Main idea}: Last chapter was all about having field $\vec{E}$ and wanting to figure out $Q_{tot}$ (or $\frac{\phi}{\epsilon_0}$). Usually, we have the charge distribution Q and want to figure out $\vec{E}$.  Most of the field derivation from 3.3 was through tricks for highly symmetric spaces (infinite line, infinite plane, uniform ball, etc.)
 
-\textbf{Point}: The flux through a sphere in a uniform field is zero.  Why?  Move the point to the origin, rotate so field is $\hat{k}$, and consider that goes out at $\langle x, y, z \rangle$ comes in at $\langle x, y, -z \rangle$.  This same argument applies for $\iint_{S = sphere} \hat{n}_i \hat{n}_j dA$, where $i, j$ are components in $\{x, y, z\}$.
+\textbf{Point}: The flux through a sphere in a uniform field is zero.  Why?  Move the center point to the origin, rotate so field is $\hat{k}$ (both don't change the flux), and consider that what goes out at $\langle x, y, z \rangle$ comes in at $\langle x, y, -z \rangle$.  This same argument applies for $\iint_{S = sphere} \hat{n}_i \hat{n}_j dA$, where $i, j$ are components in $\{x, y, z\}$.
 
 
  However, if $i = j$, then $\iint_S \hat{n}_i \hat{n}_j dA = \iint_S \hat{n}^2_i = \frac{4}{3}\pi R^2$, since $\iint_S (\hat{n}_x^2 + \hat{n}_y^2 + \hat{n}_z^2) dA = \iint_S 1 dA = 4 \pi R^2$, so each of the components must be a third of that.
 
 \subsubsection{Defining Divergence}
-Remember that in Gauss's law, $\frac{Q}{\epsilon_0} = \iint_S \vec{E} \cdot \vec{dA}$, we're using information about $\vec{E}$ spread out over surface $S$. We can also shrink this to a smaller surface.
+Remember that, in Gauss's law $\frac{Q}{\epsilon_0} = \iint_S \vec{E} \cdot \vec{dA}$, we're using information about $\vec{E}$ spread out over surface $S$. We can also shrink this to a smaller surface.
 
 Shrinking to a point $\vec{P}$, $\lim_{R \rightarrow 0} \frac{1}{4 \pi R^3}  \iint_S \vec{E} \cdot \vec{dA} = \frac{Q_{tot}}{\epsilon_0 4 \pi R^3} = \frac{\rho(\vec{P})}{\epsilon_0}$. \emph(This works by dividing both sides by volume of a sphere)
 
@@ -633,12 +638,152 @@ Shrinking to a point $\vec{P}$, $\lim_{R \rightarrow 0} \frac{1}{4 \pi R^3}  \ii
 \item These terms are all 0 except where $i = j$, so $D\vec{E}(\vec{P})(\vec{x} - \vec{P}) \cdot \hat{n} = \frac{4}{3} \pi R^2 \times R \times
    [\frac{\delta E_x}{\delta x} +  \frac{\delta E_y}{\delta y} +  \frac{\delta E_z}{\delta z}]$
 \item This equals $\lim_{R \rightarrow 0} \frac{1}{4 \pi R^3}  \iint_S \vec{E} \cdot \vec{dA}$ so eliminating the sphere volume gives us
-   $\frac{\rho(\vec{P})}{\epsilon_0} = [\frac{\delta E_x}{\delta x} +  \frac{\delta E_y}{\delta y} +  \frac{\delta E_z}{\delta z}] = \nabla \cdot \vec{E}$
+\\
+   \fbox{$\frac{\rho(\vec{P})}{\epsilon_0} = [\frac{\delta E_x}{\delta x} +  \frac{\delta E_y}{\delta y} +  \frac{\delta E_z}{\delta z}] = \nabla \cdot \vec{E}$}
 \end{itemize}
 
-We can think of the divergence of $\vec{F}$, $\nabla \cdot \vec{F}$ also like an operator: 
-$\nabla \cdot (F_x\hat{i} + F_x\hat{j} + F_x\hat{k}) = 
-(\frac{\delta}{\delta x} \hat{i} + \frac{\delta}{\delta y} \hat{j} + \frac{\delta}{\delta z} \hat{k}) \cdot (F_x\hat{i} + F_x\hat{j} + F_x\hat{k})$
+We can think of the divergence  $\nabla$, also like an operator: 
+\\
+\fbox{$\nabla \cdot \vec{F} = \nabla \cdot (F_x\hat{i} + F_x\hat{j} + F_x\hat{k}) = 
+(\frac{\delta}{\delta x} \hat{i} + \frac{\delta}{\delta y} \hat{j} + \frac{\delta}{\delta z} \hat{k}) \cdot (F_x\hat{i} + F_x\hat{j} + F_x\hat{k})$}
+
+\textbf{Shifting to Cylindrical Coordinates}: If instead we want to describe $\vec{F} = \vec{F}_r \hat{r} + \vec{F}_{\theta} \hat{\theta} + \vec{F}_z \hat{z}$, we have 
+\fbox{$\nabla \cdot \vec{F} = \frac{1}{r} \frac{\delta r F_R}{\delta r} + \frac{1}{r}\frac{\delta F_{\theta}}{\delta \theta} + F_z \frac{\delta F_z}{\delta z}$}.  How to derive?
+\begin{itemize}
+\item Note identities $\hat{r} = \cos(\theta) \hat{i} + \sin(\theta) \hat{j}, \hat{\theta} = -\sin(\theta) \hat{i} + \cos(\theta) \hat{j}$.  If $\theta = 0$, these point right and up, corresponding to $\hat{i}, \hat{j}$.  If $\theta$ rotates, these do too.
+\item $F_x \hat{i} + F_y \hat{j} + F_z \hat{k} = \vec{F}  = (F_r( \cos(\theta) \hat{i} + \sin(\theta) \hat{j}) + F_{\theta}(-\sin(\theta) \hat{i} + \cos(\theta) \hat{j}) + F_z \hat{k}$
+\item Rearrange so that $\vec{F} =  F_x\hat{i} + F_x\hat{j} + F_x\hat{k} = (F_r\cos(\theta)   + F_{\theta}(-\sin(\theta)) \hat{i} +( F_r \sin(\theta) + F_{\theta}\cos(\theta))\hat{j} + F_z\hat{k}$.
+\item Compute $\frac{\delta}{\delta x} = \frac{\delta}{\delta r} \frac{\delta r}{\delta x}  + \frac{\delta}{\delta \theta} \frac{\delta \theta}{\delta x} =
+\frac{\delta}{\delta x} = \cos(\theta)  \frac{\delta}{\delta r}  - \frac{\sin(\theta)}{r} \frac{\delta}{\delta \theta} $.  
+\begin{itemize}
+\item The second term: $\frac{d\theta}{dx} = \tan^{-1} (y/x)) = \frac{y}{1+y^2/x^2} * \frac{-1}{ x^2} = -\frac{r\sin(\theta)}{r^2(\sin^2 + \cos^2)} = -\frac{\sin (\theta)}{ r}$
+\end{itemize}
+\item Do something similar for similar for $\frac{d}{dy}$ in the second term.
+\item Combine and shake it out.
+\end{itemize}
+
+
+
+\textbf{Shifting to Spherical Coordinates}: Using a similar process, we get 
+\\
+\fbox{
+$\nabla \cdot \vec{F} = \frac{1}{\rho^2} \frac{\delta (\rho^2 F_{\rho})}{\delta\rho} + \frac{1}{\rho \sin(\phi)} \frac{\delta}{\delta \phi} (\sin(\phi)F_{\phi}) + \frac{1}{\rho \sin(\phi)} \frac{\delta F_{\theta}}{\delta \theta}$}
+
+
+
+
+\subsection{3.6:  Divergence Part 2}
+
+Example: Compute divergence of electric field $E = \frac{Q}{4 \pi \epsilon_0}\frac{\vec{x}}{\| \vec{x} \|^3}$ outside radius R.
+\begin{itemize}
+\item $\frac{\delta E_x}{\delta x} (\frac{Q}{4 \pi \epsilon_0}\frac{x}{(x^2 + y^2 + z^2)^\frac{3}{2}}) = v\frac{-2x^2 + y^2 + z^2}{(x^2 + y^2 + z^2)^\frac{5}{2}}$.
+\item Symmetrical for $\frac{\delta E_y}{\delta y}, \frac{\delta E_z}{\delta z}$
+\item Sums to 0.
+\end{itemize}
+
+Example: Compute divergence of electric field $E = \frac{Q}{4 \pi \epsilon_0}\frac{\vec{x}}{R^3}$ inside radius R.
+\begin{itemize}
+\item $\frac{\delta E_x}{\delta x} (\frac{Q}{4 \pi \epsilon_0}\frac{x}{R^3}) =  \frac{Q}{4 \pi \epsilon_0}\frac{1}{R^3}$
+\item Symmetrical for $\frac{\delta E_y}{\delta y}, \frac{\delta E_z}{\delta z}$
+\item Sums to $\frac{Q}{4 \pi \epsilon_0}\frac{3}{R^3}$
+\end{itemize}
+
+So, the divergence of an electric field is proportional to $\frac{Q}{R^3}$ inside the sphere, and 0 outside the sphere.  
+
+So, divergence at a point intuitively measures \textbf{how much the field spreads out} or sinks into the point.  For electric charge, 
+\fbox{$\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$} means that at that point, the spready-ness is proportional to the charge.
+
+Example: if $\epsilon_0 = 1$ and the field is $\vec{E} = x \hat{i} + 2y \hat{j} + z \hat {k}$, how much charge is in the $[0,1] \times [0,1] \times [0,1]$ box?
+\begin{itemize}
+\item	Answer: $\rho = \nabla \cdot \vec{E} = 1 + 2 + 1 = 4$.  So 4 units.
+\end{itemize}
+
+
+Another Example: if $\vec{E} = \sin(yz) \hat{i} + \sin(xz) \hat{j} + \sin(xy) \hat {k}$ in some complicated surface, then what?
+\begin{itemize}
+\item	Noticing that $\nabla \cdot \vec{E} = 0$ shows you this is 0 no matter the shape of the region.  This means \emph{the vectors pointing into the region (in fact, any part of the space) are balanced out by those pointing out from the region.}
+\end{itemize}
+
+
+\subsection{3.7:  The Divergence Theorem}
+
+\textbf{The Divergence Theorem} falls out of equating finding charge $Q$ with a double integral over a bounded surface with the triple integral of the contained volume:
+\begin{itemize}
+\item $\frac{Q}{\epsilon_0} = \iint_S \vec{E} \cdot \vec{dA}$ (Gauss's law)
+\item $\Rightarrow \nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$ within R (Proved Divergence equivalent from last section)
+\item $Q = \iiint_R \rho dx dy dz$ (Just integrating charge over volume)
+\item $\Rightarrow Q = \iiint_R \rho dx dy dz = \epsilon_0  \iiint_R \nabla \cdot \vec{E} dx dy dz = \epsilon_0 \iint_S \vec{E} \cdot \vec{dA}$ 
+\item \fbox{$\Rightarrow   \iint_S \vec{E} \cdot \vec{dA} = \iiint_R \nabla \cdot \vec{E} dx dy dz$} (Divergence Theorem)
+\end{itemize}
+
+
+\textbf{Smooshy thought}: This looks like another version of Fundamental Theorem of Calculus.  The integral of the function evaluated at the boundaries is the same as the function summed inside the boundary.
+
+
+\textbf{Proving Divergence Generally}: We're gluing micro-cubes together and not changing the total flux.  This means any surface is the flux going in and out of its "skin".
+
+\begin{itemize}
+\item Note that since the flux outward through a cube face is the negative of it inward, gluing two cubes together on this face means we're summing the total fluxes.
+\item Do this for tiny cubes approximating the surface we care about.
+\item In a cube centered on point $P, F \approx \vec{F}(P) + D\vec{F}(P)(\vec{x} - \vec{P})$.
+\item $\iint_S \vec{F}(P)\vec{dA} = 0$ since it's constant, since every face $i$ has normal $\hat{n}_i$, and a partner of equal size with normal $-\hat{n}_i$.
+\item However,  for a cube of side $\epsilon$ the flux through, say, Face I ($x = \epsilon + P$) is  $\iint_S  D\vec{F}(P)(\vec{x} - \vec{P})$ ends up being $\frac{\delta F_x}{\delta x} 4 \epsilon^3$, since:
+\begin{itemize}
+\item Consider side $x = p_x + \epsilon$
+\item $D\vec{F}(P)(\vec{x} - \vec{P}) \cdot \hat{n} =  [D\vec{F}(P)]_{xx} (x - p_x) + [D\vec{F}(P)]_{xy} (x - p_y) + [D\vec{F}(P)]_{xz} (z - p_z)$.
+\item So, the functons that consider the inputs of y, z don't matter.
+\item So $\iint_{Face I} (y - p_y)dA = 0$  around $p_y$ by symmetry.  Same for z on that face.
+\item But for $x$, $\iint_{Face I} (x - p_x)dA = \int_{p_y - \epsilon}^{p_y + \epsilon} \int_{p_z - \epsilon}^{p_z + \epsilon}  \epsilon dy dz = 4 \epsilon^3$ 
+\item $D_{ij}\vec{F}(P)$ is constant for all $i, j \in \{x, y, z\}$, so this face is then $\frac{\delta F_x}{\delta x} 4 \epsilon^3$.
+\item Summing the opposite face (with the same flux), yields $\frac{\delta F_x}{\delta x} 8 \epsilon^3$ = $\frac{\delta F_x}{\delta x} V$.
+\item Summing across the other faces yields $\frac{\delta F_x}{\delta x} V + \frac{\delta F_y}{\delta y} V + \frac{\delta F_z}{\delta z} V$.
+\end{itemize}
+
+Finally, this shows the \textbf{flux on one of these microcubes is} \fbox{ $\nabla \cdot \vec{F}(P) V$.}
+
+In total, the \textbf{divergence theorem}: \fbox{ $\iint_{\delta C} \vec{F} \cdot \vec{dA} \approx \nabla \cdot \vec{F}(P) V \approx \iiint_C \nabla \cdot \vec{F} dx dy dz$}
+
+\end{itemize}
+
+
+\textbf{Example of using divergence to calculate flux}: Unit hemisphere with $\vec{E} = \langle yz, xz, xy \rangle$:
+\\
+\emph{Answer}: $\nabla \cdot \vec{E} = \frac{\delta}{\delta x} yz +  \frac{\delta}{\delta y} xz +  \frac{\delta}{\delta z} xy  = 0$
+
+\textbf{Example of using divergence to calculate flux}: Cylinder of radius $R$, height $h$, sitting on $z = 0$ with $\vec{E} = \ln(x^2 + y^2) \langle x, y, 0 \rangle$:
+\\
+Answer:
+\begin{itemize}
+\item $\frac{\delta}{\delta x} E_x =  \ln(x^2 + y^2) + \frac{2x^2}{x^2 + y^2}$.  Similar for $E_y$.
+\item Transform to polar: $E_x + E_y = \ln(r^2) + \frac{2 r^2 \cos(\theta)^2 + r^2 \sin(\theta)^2}{r^2} = 2\ln(r) + 2$
+\item Set up the integral, remembering the Jacobian: $\Phi = 2 \pi \int_{z = 0}^h \int_{r = 0}^{r=R} [ 2\ln(r) + 2 ] r dr d\theta$
+\item Working it out, with identity $\int x \ln(x) = -\frac{x^2}{4} + \frac{x^2}{2}ln(x)$, you get $\Phi = 4 \phi R^2 ]\ln(R) h$
+\end{itemize}
+
+\textbf{Example of using divergence to calculate flux}: Unit sphere at origin with $\vec{E} = (x^3 + y^3)\hat{i} +  (z^3 + y^3)\hat{j} +  (x^3 + z^3)\hat{k}$ 
+\\
+Answer:
+\begin{itemize}
+\item $ E_x + E_y + E_z =  3x^2 + 3y^2 + 3z^2  = 3 \iiint \rho^2 dx dy dz$
+\item Each $d \rho$ is a sphere of volume $4 \pi f(\rho)^2 = 4 \pi \rho^4$
+\item So the integral is $12 \pi \int_{\rho = 0}^{\rho = 1} \rho^4 = \frac{12\pi}{5}$ 
+\end{itemize}
+
+
+\textbf{Example of using divergence to calculate flux}: $\vec{F} =  (\cos(z)+x^2)\hat{i}, + (xe^{-z})\hat{j} + (\sin(y) +x^2z)\hat{k}$  on parabaloid $z = x^2+y^2, z \leq 4$ with top $x^2+y^2 \leq 4, z=4$
+\begin{itemize}
+\item $\iiint_R \nabla \cdot \vec{E} = \int_{z = r^2}^4 \int_{x^2 + y^2 = 0}^2 (y^2 + x^2) dx dy dz$
+\item $\iiint_R \nabla \cdot \vec{E} = \int_{\theta = 0}^{2 \pi} \int_{r=0}^2 \int_{z=r^2}^4 (r^2\cos^2(\theta) + r^2\sin^2(\theta)) r d\theta dr dz = r^3 d\theta dr dz$
+\item $= 2 \pi  \int_{r=0}^2 4r^3 - r^5 = 2\pi[r^4 - \frac{r^6}{6} ]_0^2 = \frac{32}{3}\pi$.
+\end{itemize}
+
+\textbf{What's crazy}: Evaluating divergence of a point charge $\vec{E} = \frac{Q}{4 \pi \epsilon_0}\frac{\vec{x}}{\|\vec{x}\|^3}$
+\begin{itemize}
+\item $\frac{\delta}{\delta x} E_x = \frac{Q}{4 \pi \epsilon_0} \frac{\delta}{\delta x} x (x^2+y^2+z^2) = \frac{-2x^2 + y^2 + z^2}{(x^2 + y^2 + z^2)^\frac{5}{2}}$
+\item $E_y, E_z$ follow symmetrically.
+\item The sum is infinite at the origin and zero everywhere else
+\item Therefore, they had to invent a $\delta$ function that is infinite at origin, 0 elsewhere, and $\iiint_{\mathbb{R}^3} \delta({\vec{x}}) = 1$
+\end{itemize}
 
 \end{document}
 
