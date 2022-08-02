@@ -785,5 +785,38 @@ Answer:
 \item Therefore, they had to invent a $\delta$ function that is infinite at origin, 0 elsewhere, and $\iiint_{\mathbb{R}^3} \delta({\vec{x}}) = 1$
 \end{itemize}
 
+\subsection{3.8: Divergence and Fluids}
+
+Looking back to section 3.1, this hydrostatic force function should follow similar patterns to flux: \fbox{$\vec{F}_{tot} = \iint_S p \hat{n} dA$}.
+
+Extended Example: A round ball of radius $R$, center at depth $h$ , with force $\vec{F}_{tot} = p_0 \iint_S [1 - \frac{z}{h}] \hat{n} dA$.
+\begin{itemize}
+\item $\hat{n} = \frac{\langle x, y, z \rangle}{R}$
+\item For the integral, note that x, y are completely symmetric around z axis, so they contribute 0.
+\item For the integral, we're then looking at  $\frac{p_0}{R} \iint_S [1 - \frac{z}{h}]zdA$
+\item Use spherical coordinates: $\frac{p_0}{R} \iint_S [1 - \frac{R\cos(\phi)}{h}] R\cos(\phi)dA$
+\item Working through $dA = \sqrt{1 + f_x^2 + f_y^2}dx dy$ with $f = R - \sqrt{R^2 + x^2 + y^2}$, we get $dA = \frac{dxdy}{\sqrt(1 - \frac{x^2 + y^2}{R^2})}$
+\item This $dA$ term, in spherical coordinates, becomes $R^2 \sin(\phi)d\phi d\theta$
+\item Combining and substituting $u = \cos(\phi)$, this integral is $-\frac{4\pi R^3}{3}\frac{p_0}{h}\hat{k}$
+\end{itemize}
+
+The neat idea: $F_{tot} = \frac{4\pi R^3}{3} \times -\frac{p_0}{h}\hat{k}$ is really ``ball's volume'' times a constant.
+\begin{itemize}
+\item $\frac{4\pi R^3}{3} \times  -\frac{p_0}{h}\hat{k}$
+\item $= \iiint_B 1 dx dy dz  \times  -\frac{p_0}{h}\hat{k}$
+
+\item $= \iiint_B( -\frac{p_0}{h})\hat{k} dx dy dz$, with $p = p_0[1-\frac{z}{h}]$
+\item $=  \iiint_B(\frac{\delta p}{\delta z}) \hat{k} dx dy dz$
+\item $=  \iiint_B \nabla \cdot p dx dy dz$
+\item So the upshot is the divergence theorem again:\fbox{ $\iint_{S} p \hat{n}dA = \iiint_B \nabla \cdot p dx dy dz = \iiint_B \nabla \cdot p d\vec{x}$}
+\end{itemize}
+
+Final example three ways: ``oxygen flow'' (really, flux) through ball of radius R at origin, under field $J = j_0\hat{i}$.
+\begin{itemize}
+\item Intuitive: what comes in at (-x, y, z)  goes out at (x, y, z), so total is zero.
+\item Flux integra under spherical: $\iint \vec{F} \hat{n} dA = \iint_S j_0\hat{i} \cdot \frac{\langle x,y,z \rangle }{R} dA = \int_{\theta = 0}^{2\pi}\int_{\phi = 0}^{\pi} j_0 \cos(\theta)\sin(\phi) R^2 \sin(\theta) d\theta d\phi = 0 = \frac{\pi j_0 R^2}{2} \int_{\theta = 0}^{2\pi} \cos(\theta) d\theta = 0$
+\item Divergence: $\nabla \cdot \vec{J} = \frac{\delta}{\delta x} j_0 + 0 + 0 = 0, so \iiint_B 0 = 0$.
+\end{itemize}
+
 \end{document}
 
