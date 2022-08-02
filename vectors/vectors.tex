@@ -818,5 +818,28 @@ Final example three ways: ``oxygen flow'' (really, flux) through ball of radius 
 \item Divergence: $\nabla \cdot \vec{J} = \frac{\delta}{\delta x} j_0 + 0 + 0 = 0, so \iiint_B 0 = 0$.
 \end{itemize}
 
+\subsection{3.9: Flows and Divergence}
+
+Main idea: Divergence ($\nabla \cdot \vec{V}$) measures how much the flow changes volumes at that point.
+
+Example: What is the function described by field of velocity vectors $\vec{V}(\vec{x}) = \langle -y, x \rangle$?
+\begin{itemize}
+\item $x'(t) = -y, y'(t) = x$
+\item $\Rightarrow x''(t) = -y' = -x, y''(t) = x' = -y$
+\item $\Rightarrow x = A\cos(t) + B\sin(t), y = C\cos(t) + D\sin(t)$, work it out to $x = \cos(t), y = \sin(t)$
+\end{itemize}
+
+Idea: dump a $dA=s_1$ by $s_2 =  \Delta x\hat{i} \times \Delta y\hat{j} $rectangle into the flow and see how it deforms over time.  Over a long time, it'll distort a lot, but consider for $\Delta t$:
+\begin{itemize}
+\item dA has sides of length $\Delta x, \Delta y$ but area of dA: $\| s_1 \times s_2\|$ (cross product norm is parallelogram area)
+\item What is side $s_1$ after $\Delta t$? The starting point plus (how the endpoint moves minus how the start point moves): $\vec{s_1} + \Delta t[\vec{V}(x_0 + \Delta x, y_0) - \vec{V}(x_0, y_0)]$
+\item Expanding the iterated $s_1$, which we call $s_1'$ out: $\vec{s_1}' = \Delta x[(1 + \Delta t\frac{\delta V_x}{\delta x})\hat{i} + \Delta t \frac{\delta V_y}{\delta x} \hat{j}]$.  Do the same for $s_2'$ and work out in 3D: $s_1' \times s_2' \approx \Delta x \Delta y [\hat{k} + \Delta t[(V_x)_x + (V_y)_y]\hat{k}$
+\item We end up with $s_1' \times s_2' \approx \Delta x \Delta y [1 + \Delta t \nabla \cdot \vec{V}]\hat{k}$, so vs. original area $\Delta x \Delta y$, the ratio is $1 + \Delta t \nabla \cdot \vec{V}$
+\item This means \textbf{divergence $\nabla \cdot \vec{V}$ is proportional to the change in area due to the flow}!
+\end{itemize}
+
+An \textbf{incompressible} field preserves volume under flow (so $\nabla \cdot \vec{V} = 0)$, like $\langle y, z, x\rangle, \langle 0, 2\sqrt{x}, 0 \rangle,  \langle x, y, -2z \rangle$.
+
+A cool interactive on the page shows how a sphere migrating its points via $\langle x, y, z \rangle$ grows and changes volume, while one under $0.3 \langle  y, z , x \rangle$  distorts but doesn't.
 \end{document}
 
