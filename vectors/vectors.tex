@@ -28,7 +28,9 @@
 \begin{document}
 \maketitle
 Note: Latex reference: http://tug.ctan.org/info/undergradmath/undergradmath.pdf
-\section{Chapter 2.1: Calculus of Motion}
+
+\section{Chapter 2: Basics, Vector fields}
+\subsection{Chapter 2.1: Calculus of Motion}
 
 Consider vectors of motion against $t$ of the form $ \vec{x}(t) = \langle x(t), y(t), \ldots \rangle$.
 \begin{itemize}
@@ -357,7 +359,9 @@ Note: \textbf{Field lines} follow rules:
 \item ``Number'' (to be defined) of field lines in and out of a \emph{surface} related to the charge inside.  Upcoming.
 \end{itemize}
 
-\section{3.1: Surface Integrals}
+\section{Chapter 3: Surface integrals, Flux, Divergence}
+
+\subsection{3.1: Surface Integrals}
 
 Example: Fluid pressure in a tank is:
 \begin{itemize}
@@ -841,5 +845,30 @@ Idea: dump a $dA=s_1$ by $s_2 =  \Delta x\hat{i} \times \Delta y\hat{j} $rectang
 An \textbf{incompressible} field preserves volume under flow (so $\nabla \cdot \vec{V} = 0)$, like $\langle y, z, x\rangle, \langle 0, 2\sqrt{x}, 0 \rangle,  \langle x, y, -2z \rangle$.
 
 A cool interactive on the page shows how a sphere migrating its points via $\langle x, y, z \rangle$ grows and changes volume, while one under $0.3 \langle  y, z , x \rangle$  distorts but doesn't.
+
+\section{Chapter 4: Work, Line Integrals, Stokes's Theorem}
+\subsection{4.1: Work Part I}
+
+\textbf{Energy U} for charge $q$ in field $\vec{E}$ is \fbox{$-q\vec{E} = \nabla U$}.
+\\
+\emph{Example}: Right-pointing constant field $\vec{E} = E_0\hat{i}$ means $(\frac{\delta}{\delta x}\hat{i} + \frac{\delta}{\delta y}\hat{j} + \frac{\delta}{\delta z}\hat{k})U = -qE_0\hat{i} \Rightarrow U = -qE_0x$
+
+\textbf{Work} is change in energy, e.g. $W_{field} = -[U(\vec{x_f} )- U(\vec{x_0})]$.  If the charge flows with the field, then the field is doing positive work.  If the charge flows against the field, the field is doing negative work.  So in the above case, $W_{field} = -[U(x_f,0,0) )- U(x_0, 0, 0)]  \Rightarrow -[-qE_0x_f - -qE_0x_0 = qE_0(x_f - x_0)$.
+
+Continuing the example, moving from $(x_0,0, z_0) $ to $(x_f,0, z_f)$ in $\vec{E} = E_0\hat{i}$: only the x-coordinate affects the energy, so $U(x) = -qE_0x$ and $W_{field} = qE_0(x_f - x_0)$.  If $s$ is the distance between the two, then $\cos(\theta) = \frac{|x_f - x_0|}{s} \Rightarrow W_{field} = qE_0 s \cos(\theta)$.
+
+Expanding the example, consider $\vec{E}(\vec{x}) = \vec{E_0}$, a constant that may not be aligned just with x-axis.  Then $-q\vec{E} = \nabla U \Rightarrow \nabla (-q\vec{E_0} \vec{x} + C) = -q\vec{E} \Rightarrow U = -q \vec{E_0}\vec{x} +C.$ Can also solve the diff eq, more generally.  This also means that, still, $W_{field} = q\vec{E_0}(\vec{x_f} - \vec{x_0})$.
+
+Big idea: Though most fields aren't constant, they are near-constant between a small displacement $\Delta x$.  
+\begin{align}
+W_{field} = q\vec{E} \cdot \Delta \vec{x} \\
+= \sum q\vec{E}(\vec{x}(t_i)) \cdot [\vec{x}(t_{i+1}) - \vec{x}(t_i)] \\
+= \sum q\vec{E}(\vec{x}(t_i)) \frac{\Delta x(t_{i+1})} {\Delta t}\Delta t 
+= \int_a^b q \vec{E}(\vec{x}(t)) \cdot \frac{d\vec{x}}{dt}dt
+\end{align}
+
+So we can take a \textbf{line integral} to measure work over a path in a field.
+
+
 \end{document}
 
