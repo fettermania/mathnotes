@@ -912,5 +912,48 @@ Answer: $\int_{t=0}^{\pi / 2} \vec{F}(\vec{x}(t)) \frac{d \vec{x}}{dt}dt  = - \i
 So sometimes path does not matter (electricity and spring) but sometimes it seems to matter (friction). Something about the ``swirl'' of the field (curl)?  Addressed upcoming.
 
 
+\subsection{4.3: Line Integrals}
+
+A line integral is 
+\begin{itemize} 
+\item Most generally: $\int_{s=0}^{s=l} f(\vec{x}(s))ds$ or $\int_C f ds$.
+\item Built out of function heights $h_i$ over curve snippet lengths $\Delta s_i$ : $\sum_i h_i \Delta s_i$.
+\item More practically written as $\sum f(x_i, y_i)\sqrt{[\Delta x]^2 + [\Delta y]^2}$
+\item Riemanned up: $\int_{s=0}^{s=l} f(\vec{x}(s))ds$
+\item Practical integral based off of some $t: \int_C f(\vec{x}(t))\|\vec{x}'(t)\|dt$
+\end{itemize}
+
+Example: Area of curtain, height = $f(x,y) = y^2$, base is origin circle of radius 2 on xy-plane.
+\begin{itemize}
+\item $A = \int_{t=0}^{t=2\pi} f(x,y) \|  \frac{d<2 \cos (t), 2 \sin (t), 0>}{dt} \|dt$
+\item $A = \int_{t=0}^{t=2\pi} 4\sin^2(t)  * 2 = 4 \int_{t=0}^{t=2\pi} (1 - \cos(2t)) = 4[t - \frac{\sin(2t)}{2}]_0^{2\pi} = 8 \pi$
+\end{itemize}
+
+Example: Geometric area of $f(x,y)=4y^3$ over the curve $x = \frac{y^3}{3}, (\frac{-1}{3}, 1) \rightarrow  (\frac{1}{3}, 1)$
+
+\begin{itemize}
+\item $\vec{x}(t) = \langle t^3 / 3, t \rangle \Rightarrow \vec{x}'(t)  = \langle t^2, 1 \rangle \Rightarrow \| \vec{x}'(t)  \| = \| \sqrt{1 + t^4} \|$
+\item Note that this is an odd function: the part where $y \in [-1, 0]$ is a negative of [0,1].  So we'll double the right half.
+\item $A = 2 \int_{t=0}^{t=1} 4t^3 \sqrt{1+t^4}dt =[\frac{4}{3}(1+t^4)^\frac{3}{2}]_0^1 = \frac{4}{3}[2\sqrt{2}- 1]$
+\end{itemize}
+
+Example: Moment of interatia around z-axis: $\int[x^2+y^2]\rho ds$ for $\vec{x}(t)=\langle 2\sin(t), 2\cos(t), 3t\rangle t \in [0,2\pi]$ if $\rho = \frac{1}{2\pi\sqrt{13}}$:
+\begin{itemize}
+\item $\vec{x}'(t) = \langle 2\cos(t), 2\sin(t), 3 \Rightarrow \| \vec{x}'(t)  \| = \sqrt{4 + 9}$
+\item $x^2 + y^2 = (2\sin(t))^2 + (2\cos(t))^2 = 4$
+\item $A = \rho * \int_{t=0}^{t=2\pi} 4 \sqrt{13} =  \frac{1}{2\pi\sqrt{13}} * 2\pi * 4\sqrt{13} = 4$
+\end{itemize}
+
+Example: Infinite wire of current going up on the x-axis.  Field equation, for (generated?) field $\vec{B}$, penetrated region bounded by curve $C$, unit tangent (to the curve) $\hat{T}$ , constant $\mu_0$ and current amount $I$: \fbox{$\int_C [\vec{B} \cdot \hat{T}]ds = \mu_0I$}.  What is $\| \vec{B} \|$ at some distance from the z-axis $r$?
+\begin{itemize} 
+\item C should be a circle of radius $r$.  Then, $ds = \frac{d\vec{x}}{dt}dt = r \| \cos(t), \sin(t) \| = r$
+\item $\vec{B} = \|B\| \hat{T}$ by definition I suppose.
+\item $\int_{t = 0}^{t=2\pi} [ \|B\| \hat{T} \cdot \hat{T}] r dt$
+\item $\|B\| * 2\pi r = \mu_0 I$
+\item $\Rightarrow \|\vec{B}\| = \frac{\mu_0 I}{ 2\pi r }$
+
+\end{itemize} 
+
+
 \end{document}
 
