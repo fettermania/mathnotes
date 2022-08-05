@@ -954,6 +954,69 @@ Example: Infinite wire of current going up on the x-axis.  Field equation, for (
 
 \end{itemize} 
 
+\subsection{4.4: Path independence}
+
+When do we care only about the endpoints and not the path?  Examples include the spring and the electric charge, and counterexamples include motion under friction.
+
+Note that integrals of the form $\int_C \frac{df}{ds}ds = \int_{s=0}^{s=l} f'(s)ds = f(x(s=l)) - f(x(s=0))$ are path independent (fundamental theorem of calculus).  \textbf{So if you can find a legit antiderivative of our function, it is path independent.}  Or, if $\vec{F}$ is a \textbf{gradient vector field} ($\vec{F} = \nabla f$), then the line integral depends only on the endpoints of C.
+
+Note: If $f(s) = f(\vec{x}(s))$, then $\int_C f'(s) = \int_C f'(\vec{x}(s)) = \int_{s=0}^{s=l} \frac{\delta f}{\delta x} (x(s))x_x'(s) + \frac{\delta f}{\delta y} (x(s))x_y'(s) + \frac{\delta f}{\delta z} (x(s))x_z'(s)$ or \fbox{$\int_{s=0}^{s=l} \nabla f (x(s)) \cdot x'(s)ds = \int_C f'(s)$}.  \emph{This looks less like a magical theorem and more of a description of a componentwise derivative, line-integrated over ds like usual.}
+
+Example: if $\vec{E} = \frac{\lambda}{2\pi\epsilon_0}\frac{x\hat{i} + y \hat{j}}{x^2 + y^2}$, find $f$ such that $\nabla f = \vec{E}$.
+\begin{itemize}
+\item Note: This is just the anti- and derivative cycle technique.
+\item What's on the $\hat{i}$?  That's $\frac{\delta f}{\delta x} = \frac{\lambda}{2\pi\epsilon_0}\frac{x}{x^2 + y^2}$
+\item What's on the $\hat{j}$? That's $\frac{\delta f}{\delta y} = \frac{\lambda}{2\pi\epsilon_0}\frac{y}{x^2 + y^2}$
+\item Anti-derivative on the x: $f = \frac{\lambda}{4\pi\epsilon_0}\ln(x^2+y^2) + h(y)$
+\item Re-differentiate for y: $\frac{\delta f}{\delta y}  = \frac{\lambda}{2\pi\epsilon_0}\frac{y}{x^2 + y^2} + h'(y)$
+\item So $h(y)$ is constant, and $f = \frac{\lambda}{4\pi\epsilon_0}\ln(x^2+y^2) + C$
+\end{itemize}
+
+Example: Another cycle:  if $\vec{F} = (2x - 3y)\hat{i} + (6y - ax)\hat{j}$, what's an $a$ to allow for $\nabla f = \vec{F}$?
+\begin{itemize}
+\item Note: This is just the anti- and derivative cycle technique again
+\item What's on the $\hat{i}$?  That's $\frac{\delta f}{\delta x} = 2x-3y$
+\item What's on the $\hat{j}$? That's $\frac{\delta f}{\delta y} = 6y-ax$
+\item Anti-derivative on the x: $f = x^2 - exy + h(y)$
+\item Re-differentiate for y: $\frac{\delta f}{\delta y} = -3x + h'(y) = -3x + 6y$.  $a = -3$.
+\end{itemize}
+
+Example: Spring:  if $\vec{F} = -(\|\vec{x}\| - l_0)\frac{\vec{x}}{\| \vec{x} \|}$, find $f$ such that $\nabla f = \vec{F}$.
+\begin{itemize}
+\item Hint given: $\nabla(\frac{1}{2} \|\vec{x}\|^2) = \vec{x} \Rightarrow \nabla (\| \vec{x} \|) = \frac{\vec{x}}{\|\vec{x}\|}$
+\item Rewrite as $-\vec{x} + l_0 \frac{\vec{x}}{\|\vec{x}\|}$
+\item KEEP the nablas!
+\item Use hints on each term: $\vec{F} = -\nabla(\frac{1}{2} \|\vec{x}\|^2) + l_0\nabla(\|x\|)$
+\item $\vec{F} = \nabla(-\frac{1}{2} \|\vec{x}\|^2 + l_0\|x\|)$
+\item Note: Second term worked out through chain rule, or you can just do the hand-math on $\sqrt{x^2 + y^2...}$
+\item \textbf{The magic}: Now we can use $f$ to find the work from earlier problems: $f(0, 0, 2) - f(0, 1, 0)  = -\frac{1}{2}$!
+\end{itemize}
+
+\textbf{Curve orientation}: pick two opposite parametrizations of the curve $C_+$ and $C_-$ (say, ``going right'' and ``going left'').  We can use right-hand rule, where, if curve in some xy plane, right thumb points along $\hat{k}$ and $C_+$ curls with fingers.
+
+We know that $\int_{C_+}\vec{F}\cdot d\vec{x} = -\int_{C_-}\vec{F}\cdot d\vec{x}$ and therefore, $\int_{C_+ + C_-}\vec{F}= 0$
+
+We can say \fbox{If $\int_C \vec{F}\cdot d\vec{x}$ depends only on endpoints of $C$ then $\vec{F}$ is a gradient field.}
+\begin{itemize}
+\item Basic idea: Similar to the fundamental theorem $g(x) = \frac{d}{dx} \int_{t=a}^{t=x}g(t)dt$, we can prove $\vec{F}(\vec{u}) = \nabla [\int_{\vec{a}}^{\vec{u}} \vec{F} \cdot d\vec{x} ]$.
+\item Plan: prove directional derivative of $\int \vec{F} \cdot d\vec{x}$ along $\vec{v}$ is $\vec{v} \cdot \vec{F}(\vec{u})$ for any $\vec{v}$, which proves the answer is $\vec{F}(\vec{u})$
+\item Neat idea: We're looking for  $\int_{\vec{a}}^{\vec{u}+h\vec{v}} \vec{F} \cdot d\vec{x} - \int_{\vec{a}}^{\vec{u}} \vec{F} \cdot d\vec{x}
+=\int_{\vec{a}}^{\vec{u}+h\vec{v}} \vec{F} \cdot d\vec{x} + \int_{\vec{u}}^{\vec{a}} \vec{F} \cdot d\vec{x}
+= \int_{\vec{u}}^{\vec{u}+h\vec{v}} \vec{F} \cdot d\vec{x} $!
+\item Because of path independence, we can parametrize this as $\int_{t=0}^{t=h} \vec{F}(\vec{u} + t\vec{v}) \cdot \frac{d}{dt}[\vec{u} + t\vec{v}]dt$\
+\item $= \vec{v} \cdot \int_{t=0}^{t=h} \vec{F}(\vec{u} + t\vec{v})dt$, which under $\lim \frac{1}{h}$ and L'Hopital's, becomes $\vec{v}\cdot \vec{F}(\vec{u})$.
+\end{itemize}
+
+Also: 
+
+\fbox{$\int_C \vec{F} \cdot d\vec{x}$ depends only on the endpoints of $C$ if and only if $\int_L \vec{F} \cdot d\vec{x} = 0$ for any closed loop $L$}
+
+\begin{itemize}
+\item If F depends only on the endpoints, then any closed loop L is basically a $C_+$ and a $C_-$, so the circuit integrates to 0.
+\item If every loop is 0, then any two curves with the same endpoints form a loop (after reversing one), so paths are independent. 
+\end{itemize}
+
+
 
 \end{document}
 
