@@ -1016,7 +1016,85 @@ Also:
 \item If every loop is 0, then any two curves with the same endpoints form a loop (after reversing one), so paths are independent. 
 \end{itemize}
 
+Note that the two theorems together imply \fbox{$\vec{F}  = \nabla f \Leftrightarrow \int_L \vec{F} \cdot d\vec{x} = 0$ for a connected domain $D$.}  Such an F is called \textbf{conservative}.
 
+\subsection{3.5: Curl}
+
+\textbf{Conservative} fields, where any loop line-integrates to zero, get their name because no work is performed over such a loop. 
+
+\textbf{Main idea}: It's hard to show every loop is zero.  Instead, lets look at very small loops and go from there.  Proof idea:
+\begin{itemize}
+\item Pick a point $\vec{p}$ in a connected (no holes) domain D.
+\item Use the right-hand rule (for example) and build a small circular loop $L$ in a plane around D.
+\item Consider the linear approximation: The approximate field around $p$ is the exact field at $p$ plus the derivative at p multiplied by the delta from $p$. 
+\item So, this means $\vec{F}(\vec{x}(t)) \approx \vec{F}(\vec{p}) + D\vec{F}(\vec{p})(\vec{x}(t)-\vec{p})$
+\item Substitute into line integral: $\int_L [\vec{F}(\vec{p}) + D\vec{F}(\vec{p})(\vec{x}(t)-\vec{p})]dx = 0$
+\item The first term is zero because it's a conservative field: $\vec{F}(\vec{p}) = \nabla (\vec{F}(\vec{p})\vec{x})$
+\item The integral of the second term relates to $\frac{\delta F_y}{\delta x} -\frac{\delta F_x}{\delta y}$:
+\begin{itemize}
+\item \textbf{Goal}: Calculate $\frac{1}{\pi\epsilon^2} \int_L D\vec{F}(p)(\vec{x} - \vec{p})\cdot d\vec{x}$
+\item Consider a loop in the xy plane only (meaning $\hat{n} = \hat{i}$). Then $\vec{x}(t) = \langle \epsilon \cos(t), \epsilon \sin(t), 0 \rangle$
+\item $\vec{x}'(t) =  \langle -\epsilon \sin(t), \epsilon \cos(t), 0 \rangle$
+\item $D\vec{F}(\vec{p})(\vec{x}(t)-\vec{p}) \cdot d\vec{x} 
+=  \frac{\delta F_x}{\delta x}(\vec{p})(\vec{x}_x-\vec{p}_x)\frac{dx}{dt} + \frac{\delta F_y}{\delta x}(\vec{p})(\vec{x}_x-\vec{p}_x)\frac{dx}{dt}
++ \frac{\delta F_x}{\delta y}(\vec{p})(\vec{x}_y-\vec{p}_y)\frac{dy}{dt} + \frac{\delta F_y}{\delta y}(\vec{p})(\vec{x}_y-\vec{p}_x)\frac{dy}{dt}$
+\item (Note that the $-p_x, -p_y$ terms will integrate to zero, and that $F_z = 0$).
+\item \textbf{A-ha}: Also note that same-variable terms disappear too: $\int_L \frac{\delta F_x}{\delta x}(\vec{p})(\vec{x}_x*\frac{dx_x}{dt})  = \int_{t=0}^{t=2 \pi}\epsilon \cos(t) * -\epsilon \sin(t) = -\epsilon^2 \int_{t=0}^{t=2 \pi} \sin(t) = 0$
+\item So we're left with $\int_{t=0}^{t=2\pi} \frac{\delta F_x}{\delta y} \epsilon \sin(t) (-\epsilon(\cos(t))) +  \frac{\delta F_y}{\delta x} \epsilon \cos(t) \epsilon(\cos(t))$ 
+\item Using $\int_{t=0}^{t=2\pi} \cos^2(t) = \int_{t=0}^{t=2\pi} \frac{1}{2} - \frac{\cos(2t)}{2} = \pi$ (and given the curve shape, same integral result for $\sin$)...
+\item $\epsilon^2(\frac{\delta F_y}{\delta x}(p) \int_{t=0}^{t=2\pi} \cos^2(t)dt - \frac{\delta F_x}{\delta y}(p)\int_{t=0}^{t=2\pi} \sin^2(t)dt )$
+\item $=\pi\epsilon^2[\frac{\delta F_y}{\delta x}(p) - \frac{\delta F_x}{\delta y}(p)]$
+\end{itemize}
+\item Do this again for xz and yz planes ( $\hat{n} = \hat{j}, \hat{n} = \hat{k}$), and we end up with $\frac{1}{\pi\epsilon^2}\int_L D\vec{F}(p)(\vec{x} - \vec{p})$ = (many equivalent forms)
+\begin{itemize}
+\item $\{-\frac{\delta F_y}{\delta z} + \frac{\delta F_z}{\delta y}, \hat{n} = \hat{i}; -\frac{\delta F_z}{\delta x} + \frac{\delta F_x}{\delta z}, \hat{n} = \hat{j}; -\frac{\delta F_x}{\delta y} + \frac{\delta F_y}{\delta x}, \hat{n} = \hat{k}\}$
+\item $\det\begin{pmatrix}
+\hat{i} &\hat{j} &\hat{k}  \\
+\frac{\delta}{\delta x} &\frac{\delta}{\delta y} &\frac{\delta}{\delta z}  \\
+F_x & F_y & F_z \\
+\end{pmatrix} \cdot \hat{n}$
+\item $(\nabla \times \vec{F}) \cdot \hat{n}$
+\end{itemize}
+\item So the \textbf{curl} is defined as  $(\nabla \times \vec{F}) \cdot \hat{n}$, sort of like the \textbf{divergence} is $\nabla \cdot \vec{F}$
+\item \emph{TODO What's the deal with the $\hat {n}$ part?}
+\end{itemize}
+
+A \textbf{potential} is a function $f$ that has a corresponding conservative vector field $\vec{F} = \nabla f$.   (Note: Wouldn't any $f$ fit the bill here?).
+
+The big theorem for conservative fields $\vec{F}$: \fbox{$\nabla \times \vec{F} = \vec{0} \Leftrightarrow \int_L \vec{F}d\vec{x} = 0 \Leftrightarrow \vec{F} = \nabla f$   }
+
+Example: A disk rotating around $z$ axis with rotational velocity $\omega$.  What's the curl?
+\begin{itemize}
+\item $\vec{r} = $ some $<x, y, z>$.
+\item Velocity vector on disk $\vec{v}$ is perpendicular to disk position $r$ (perp to both $xy$ position and $z$), and is $[\omega \hat{k}] \times \vec{r}$.
+\item This cross product $\vec{v} = \omega x \hat{j} - \omega y \hat{i}$.
+\item So curl is $\det\begin{pmatrix}
+\hat{i} &\hat{j} &\hat{k}  \\
+\frac{\delta}{\delta x} &\frac{\delta}{\delta y} &\frac{\delta}{\delta z}  \\
+\omega y & \omega x& 0 \\
+\end{pmatrix} = 2\omega \hat{k}$
+\item \textbf{Curl Intuition}: So the curl ``curls'' around the axis of rotation, gets bigger with a faster rotation, and would reverse if the direction reversed. 
+\end{itemize}
+
+Example: A river flowing with field $\vec{F} = e^{-x^2} \hat{i}$  What's the curl?
+\begin{itemize}
+\item  $\det\begin{pmatrix}
+\hat{i} &\hat{j} &\hat{k}  \\
+\frac{\delta}{\delta x} &\frac{\delta}{\delta y} &\frac{\delta}{\delta z}  \\
+e^{-x^2} & 0 & 0 \\
+\end{pmatrix} = 0$
+\item  \textbf{Intuition}: If you put a cross-shaped boat in the water, axis aligned, it wouldn't twist.
+\end{itemize}
+
+Example: A river flowing with field $\vec{F} = e^{-x^2} \hat{j}$  What's the curl?
+\begin{itemize}
+\item  $\det\begin{pmatrix}
+\hat{i} &\hat{j} &\hat{k}  \\
+\frac{\delta}{\delta x} &\frac{\delta}{\delta y} &\frac{\delta}{\delta z}  \\
+0 & e^{-x^2} & 0 \\
+\end{pmatrix} = -2xe^{-x^2}\hat{k}$
+\item  \textbf{Intuition}: If you put a cross-shaped boat in the water, axis aligned, it WOULD twist, since the upward flows have different strengths on different sides of the boat.
+\end{itemize}
 
 \end{document}
 
