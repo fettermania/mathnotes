@@ -1176,5 +1176,54 @@ Another implication: a closed surface (say sphere $S$) has $ \iint_S \nabla \tim
 \item If we can't shrink our circle to a point, the loop doesn't have to integrate to zero.  (TODO: Like in complex analysis?)
 \end{itemize}
 
+\subsection{4.7: Swirls and Curls}
+
+To review:
+\begin{itemize}
+\item Divergence: How many lines enter or leave the neighborhood of the point, indicates how much volume changes over the flow.
+\item Divergence theorem relates Flux through a closed bounding surface and the divergence over the internal volume. Main idea: stuff inside cancels out, and what's going in or out of the skin ends up being the sum of the volume's field inside.
+\item Divergence theorem relates any $n-1$ and $n$ dimension hyperspaces: \fbox{ $\iint_S \vec{F} \cdot \hat{n} dA = \iiint_R \nabla \cdot \vec{F} dV$}
+\item Curl: How much is the flow swirling around the point (not entering or leaving).  Rotational torque ends up motivating this in this chapter.
+\item Curl relates a line integral and the 2D-surface (possibly in higher space) it skirts.
+\item Stokes's Theorem: \fbox{$\int_{\delta S} \vec{F} \cdot d\vec{x} = \iint_S \nabla \times \vec{F} \cdot \vec{dA}$}\item \fbox{$$}
+\item \textbf{NOTE: These cross over} in the case where field is the curl of some other field: $\vec{G} = \nabla \times \vec{F}$:
+\item $ \iint_S \nabla \times \vec{F} \cdot \vec{dA} = \iint_S \vec{G} \cdot \hat{n} dA = \iiint_R \nabla \cdot (\nabla \times \vec{F}) dV = 0$
+\item This is because the divergence of a curl is always zero.  Can work out in a straightforward way.  Not sure of intuition yet.
+\end{itemize}
+
+Example: Torque $\vec{\tau}$ on a mass at position $\vec{r}$ under angular velocity around origin $\vec{\omega}$ and and force $\vec{F}= \langle F_x, F_y, 0\rangle$.
+\begin{itemize}
+\item Torque formula: $\vec{\tau} = \vec{r} \times \vec{F}$, where $\vec{F}$ is proportional to $\frac{\delta \vec{\omega}}{dt}$
+\item Rod connecting mass to origin is vector $\langle l\cos(\theta_0),  l\sin(\theta_0), 0\rangle$
+\item Just compute the cross product: $\det\begin{pmatrix}
+\hat{i} &\hat{j} &\hat{k}  \\
+l\cos(\theta_0) &  l\sin(\theta_0) &  0 \\
+F_x & F_y &  0 \\
+\end{pmatrix}  = l[F_y\cos(\theta_0) -F_x\sin(\theta_0)]\hat{k}  $
+\item This indicates the torque is perpendicular to $\mathbb{R}^2$ always, confining the rotation and position there.
+\end{itemize}
+
+Example: Cross-shaped paddle wheel ($\vec{r_0}$ with spokes $\vec{r_1} ... \vec{r_4}$) in a water flow $\vec{V}$
+\begin{itemize}
+\item Torque on paddle $\vec{\tau_i} = k[\vec{r_i} - \vec{r_0}] \times [\vec{V}(\vec{r_i}) - \vec{V}(\vec{r_0})^\perp] =  k[\vec{r_i} - \vec{r_0}] \times [\vec{V}(\vec{r_i}) - \vec{V}(\vec{r_0})]$ since the parallel part zeroes out.
+\item Torque on paddle $\vec{\tau_1} = k\langle l\cos(\theta), l\sin(\theta), 0\rangle \times
+\langle [\frac{\delta V_x}{\delta x} l \cos(\theta) + \frac{\delta V_x}{\delta y} l \sin(\theta)],
+[\frac{\delta V_y}{\delta x} l \cos(\theta) + \frac{\delta V_y}{\delta y} l \sin(\theta)], 0\rangle$
+\item $= kl^2[\frac{\delta V_y}{\delta x}\cos^2(\theta) + [\frac{\delta V_y}{\delta y} - \frac{\delta V_x}{\delta x}]\sin(\theta)\cos(\theta) - \frac{\delta V_x}{\delta y} \sin^2(\theta)]\hat{k}$
+\item Recognizing that $r_2, r_3, r_4$ are the same as $r_1$ except with $\theta$ augmented by $\frac{pi}{2}, \pi, \frac{3\pi}{2}$, we eventually can sub and get 
+$\vec{\tau} = \vec{\tau_1} + \vec{\tau_2} + \vec{\tau_3} +\vec{\tau_4} = 2kl^2[\frac{\delta V_y}{\delta x} - \frac{\delta V_x}{\delta y}]\hat{k}$
+\item So, $\vec{\tau}$ is proportional to $[\frac{\delta V_y}{\delta x} - \frac{\delta V_x}{\delta y}]\hat{k}$
+\item Fact, we define \textbf{curl in 2D} as \fbox{$curl(\vec{V}(x,y) = [\frac{\delta V_y}{\delta x} - \frac{\delta V_x}{\delta y}]\hat{k}$}
+\item This can just as easily be in the yz-plane as $curl(\vec{V}(y,z) = [\frac{\delta V_z}{\delta y} - \frac{\delta V_y}{\delta z}]\hat{i}$
+\item Note: we also define a \textbf{right-handed} system as one where vectors $\vec{v_1} \times \vec{v_2} = \vec{v_3}$, so the $j$ one ends up being negative since $\hat{i} \times \hat{k} = -\hat{j}$
+\end{itemize}
+
+An \textbf{irrotational} field is one where the cross-shaped paddles don't spin, or where curl = $\vec{0}$
+
+\begin{itemize}
+\item TODO
+\end{itemize}
+
+
 \end{document}
 
