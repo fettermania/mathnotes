@@ -1218,11 +1218,168 @@ $\vec{\tau} = \vec{\tau_1} + \vec{\tau_2} + \vec{\tau_3} +\vec{\tau_4} = 2kl^2[\
 \item Note: we also define a \textbf{right-handed} system as one where vectors $\vec{v_1} \times \vec{v_2} = \vec{v_3}$, so the $j$ one ends up being negative since $\hat{i} \times \hat{k} = -\hat{j}$
 \end{itemize}
 
-An \textbf{irrotational} field is one where the cross-shaped paddles don't spin, or where curl = $\vec{0}$
+An \textbf{irrotational} field is one where the cross-shaped paddles don't spin, or where curl = $\vec{0}$.
+
+\subsection{4.8: Differential Forms}
+
+\textbf{General Form of Stokes' Theorem} is \fbox{$\int_M d\omega = \int_{\delta M}\omega$}.  This chapter explains it.
+
+A \textbf{1-form} takes a \emph{vector}, outputs a \emph{number} and is \emph{linear}.  So \fbox{$\omega: \mathbb{R}^n\rightarrow \mathbb{R}, \omega[a\vec{x} + b\vec{y}] = a\omega[\vec{x}]  + b \omega [\vec{y}].$}
+\begin{itemize}
+\item 1-form: $\vec{v} \cdot \vec{x}$, since $\vec{v} \cdot (a\vec{x} + b\vec{y}) = a\vec{v} \cdot \vec{x} + b\vec{v} \cdot \vec{y}$
+\item Not a 1-form: $\|x\|^2$, since $\sqrt{((ax_1)^2 + (by_1))^2) + (ax_2)^2 + (by_2))^2) + ... }^2
+ = a^2(x_1^2 + x_2^2) + b^2(y_1^2 + y_2^2) + 2ax_1by_1 + 2ax_2by_2 \neq a^2(x_1^2 + x_2^2) + b^2(y_1^2 + y_2^2) 
+ = \sqrt{ax_1^2 + ax_2^2}^2 + \sqrt{by_1^2 + by_2^2}^2$. Extra crossover term.
+\item Remember $proj_v(\vec{x}) = \frac{\vec{x} \cdot \vec{v}}{\vec{v} \cdot \vec{v}}\vec{v}$
+\item So 1-form: $proj_v(x) \cdot \vec{u}$, because it's just $\vec{x} \cdot$ a bunch of stuff.
+\item However, GOTCHA, not a 1-form: $proj_v(x)$, since it outputs a vector, not a number!
+\item Obviously $proj_x(\vec{v}) = \frac{\vec{v} \cdot \vec{x}}{\vec{x} \cdot \vec{x}}\vec{x}$ is not, as both numerator and denominator are quadratic.
+\item An index into a vector is a one form: $[0, 1, 0] \cdot [x,y z ] =y$
+\item A mean is a one form: $[\frac{1}{n}, \frac{1}{n}, \frac{1}{n}] \cdot  [x,y,z ]$
+\item Note: A zero-form is a function on $\vec{x}$, since it just returns a scalar at that point.
+\end{itemize}
+
+Define $dx_j[\hat{e}_i] = 1$ if $i=j$ else $0$.  These are the \textbf{basis 1-forms} because 
+\\
+\fbox{any 1-form can be written as $\omega = a_1dx_1 + ... + a_ndx_n$.}.  
+So $\omega[\vec{x}] = \vec{v} \cdot \vec {x}$ is just $\sum_{j=1}^n (v_jdx_j)[\vec{x}].$
+
+\textbf{NOTE}: This 1-form $dx_2$, say, looks an awful lot like $dy$, since $\vec{v} = <x, y, z> = <0, y, 0> \rightarrow dy[\vec{v}] = 1$
+
+A \textbf{tensor} is a linear function to a number taking not just one but multiple vectors as inputs.  
+\\ 
+The \textbf{tensor product} is built from linear combinations of $(dx_i \otimes dx_j)(\vec{v},\vec{w}) = dx_i(\vec{v}) \cdot dx_j(\vec{w}) = v_iw_j$, so $T(\vec{v}, \vec{w}) = (\sum_{i,j} t_{ij}dx_i \otimes dx_j)(\vec{v}, \vec{w}) = \sum_{i.j}t_{ij}v_iw_j$.  Just combos of each pair.  Examples and non-examples of 2-tensors:
 
 \begin{itemize}
-\item TODO
+\item Tensor: $\vec{x} \cdot \vec{y}$.  Linear, outputs a number.
+\item Non-Tensor: $\vec{x} + \vec{y}$.  Linear, but outputs a vector.
+\item Non-Tensor: $\vec{x} \times \vec{y}$.  Linear, but outputs a vector.
+\item Non-Tensor: $\|\vec{x}\| + \| \vec{y}\|$. Non-linear
 \end{itemize}
+
+As for 3-tensors:
+\begin{itemize}
+\item $\det(\vec{u}, \vec{v}, \vec{w})$ defined as $\det\begin{pmatrix}
+u_1 & v_1 & w_1 \\
+u_1 & v_2 & w_2 \\
+u_1 & v_3 & w_3
+\end{pmatrix}$ is linear in changes to $u, v, w$.
+\item $(\vec{u} \times \vec{v})\cdot \vec{w}$ actually IS  $\det\begin{pmatrix}
+w_1 & w_2 & w_3 \\
+u_1 & u_2 & u_3 \\
+v_1 & v_2 & v_3 \\
+\end{pmatrix}$ 
+\item $(\vec{u} \times \vec{v}) \times \vec{w}$ outputs a vector.
+\item $(\vec{u} \cdot \vec{v})\vec{w}$ outputs a vector.
+\item A 3-tensor is generally $T(\vec{u}, \vec{v}, \vec{w}) = (\sum_{i,j,k} t_{ijk}dx_i \otimes dx_j \otimes dx_k)(\vec{i}, \vec{v}, \vec{w}) = \sum_{i.j,k}t_{ijm}u_iv_jw_k$, so think of it as $(dx_i \otimes dx_j \otimes dx_k)(\vec{u}, \vec{v}, \vec{w}) = u_iv_jw_k$
+\end{itemize}
+
+Side note: Wedge product $\vec{a} \wedge \vec{b} =\frac{1}{2}[ \vec{a} \otimes \vec{b} - \vec{b} \otimes \vec{a}]$ is a square matrix measure of the anti-commutativity of $\vec{a} \otimes \vec{b}$.  So, $(\vec{a} \wedge \vec{b})_{ij} = u_iv_j - u_jv_i$. (Note: Some texts seem to omit the $\frac{1}{2}$.) It has algebraically verifiable properties of:
+
+\begin{itemize}
+\item Antisymmetry: $(\vec{a} \wedge \vec{b}) = -(\vec{b} \wedge \vec{a})$.  
+\begin{itemize}
+\item This makes the tensor called \textbf{alternating}. 
+\item This also means $(\vec{a} \wedge \vec{a}) = -(\vec{a} \wedge \vec{a}) = [0]$
+\item This also means (with basic associativity) that switching any two flips the sign: $\vec{a} \wedge \vec{b} \wedge \vec{c} = -\vec{b} \wedge \vec{a} \wedge \vec{a}$
+\end{itemize}
+\item Bilinearity:  $(c\vec{a} \wedge \vec{b}) = c(\vec{a} \wedge \vec{b})$
+\item Distributivity: $\vec{a} \wedge (\vec{b} + \vec{c} ) = \vec{a} \wedge \vec{b} + \vec{a} \wedge \vec{c}   $
+\item And others.
+\end{itemize}
+
+A \textbf{2-form} is an alternating 2-tensor: a linear operation taking in 2 vectors and producing a number, where switching the vectors flips the sign.
+
+A \textbf{3-form} is an alternating 3-tensor: a linear operation taking in 3 vectors and producing a number, where flipping two vectors flips the sign, so ``permutation rules'' signage.  So switch 
+
+A three dimensional wedge product continues this and again has all combinations :
+
+$dx_i \wedge dx_j \wedge dx_k = \frac{1}{6}[ \\
+	dx_i \otimes dx_j \otimes dx_k - dx_i \otimes dx_k \otimes dx_j \\
+	+ dx_j \otimes dx_k \otimes dx_i - dx_j \otimes dx_i \otimes dx_k \\
+	+ dx_k \otimes dx_i \otimes dx_j - dx_k \otimes dx_j \otimes dx_i ]$
+	
+\textbf{Form fields} eat position $\vec{x}$ and return a form (tensor taking in vectors and returning a number).
+\begin{itemize}
+\item Main rule: $df = \sum_{j=1}^n \frac{\delta f}{\delta x_j} dx_j$.
+\item Implies somehow (?): $d( \sum_{j=1}^n f_j(\vec{x})dx_j) = \sum_{j=1}^n [df_j] \wedge dx_j$.
+\item And suspending disbelief this means $d( \sum_{i,j=1}^n f_{ij}(\vec{x})dx_i \wedge dx_j ) = \sum_{i,j=1}^n [df_{ij}] \wedge dx_i \wedge dx_j$.
+\item Example: If $\omega = x dy - y dx = -y dx + x dy$
+\begin{itemize}
+\item Set $f_1  = -y, f_2 = x$
+\item $d\omega = df_1 \wedge dx + df_2 \wedge dy$ by second rule
+\item $=(\frac{\delta f_1}{\delta x} dx + \frac{\delta f_1}{\delta y} dy) \wedge dx + (\frac{\delta f_2}{\delta x} dx + \frac{\delta f_2}{\delta y} dy) \wedge dy$ by main rule
+\item $-dy \wedge dx + dx \wedge dy = 2dx \wedge dy$ by calcuation
+\end{itemize}
+\end{itemize}
+
+Another example: $\omega = \frac{1}{2}(x^2+y^2+z^2)[dx\wedge dy + dx\wedge dz + dy\wedge dz]$ sees $d\omega$ as:
+\begin{itemize}
+\item $=[x dx + y dy z dz] [dx\wedge dy + dx\wedge dz + dy\wedge dz]$ by third rule
+\item $=x (dx \wedge dy \wedge dz) + y (dy \wedge dx \wedge dz )+ z (dz \wedge dx \wedge dy)$ since anything like $dx \wedge dx$ zeroes out
+\item $=(x - y + z) dx \wedge dy \wedge dz $ 
+\end{itemize}
+
+\textbf{Manifolds} are part of differential geometry, or really, just space curves (1-manifold), surfaces (2-manifolds), regions (3-manifolds).  The number tells us how many numbers are needed to specify a point within it.
+
+Rule: We can only integrate an n-form on an n-manifold.  So, this means we can integrate a single (linear) vector-eating function on a line, a tensor eating two vectors on a surface, a 3-form on a region.
+
+Be careful - it's not just the variable count: $\omega = x dx - y dz \rightarrow d\omega = (dx) \wedge dx - (dy) \wedge dz = -dy \wedge dz$.  So it is a 2-manifold, and we can only integrate $d\omega$ on a surface.
+
+Example: If we want to integrate $f(x,y,z) = x^2 + 2y^2 + 3z$ on $\vec{x}(t) = \langle 1-t, t, 2+3t\rangle t \in [0,1]$:
+
+\begin{itemize}
+\item $dx = \frac{dx}{dt}dt, dx = \frac{dy}{dt}dt, dz = \frac{dz}{dt}dt$
+\item $\int_M df = \int_M[2xdx + 4ydy + 6zdz]$
+\item $= \int_{t=0}^1 [2x(t) \frac{dx}{dt} + 4y(t)\frac{dy}{dt} + 6z(t) \frac{dz}{dt}]$
+\item $= \int_{t=0}^1 [2(1-t)(-1) + 4(t)(1) + 6(2+3t)(3)]dt = 64$
+\end{itemize}
+
+Example: $M = x^2 + y^2 + z^2 \leq 1$, $\omega = x dy \wedge dz -ydx\wedge dz + z dx \wedge dy$.  What's $\int_{\delta M}\omega$
+
+\begin{itemize}
+\item Parameterize
+\item $dx = \frac{\delta}{\delta u}(\sin(u)\cos(v)) + \frac{\delta}{\delta v}(\sin(u)\cos(v)) = \cos(u)\cos(v)du-\sin(u)\sin(v)dv$
+\item $dy = \frac{\delta}{\delta u}(\sin(u)\sin(v)) + \frac{\delta}{\delta v}(\sin(u)\sin(v)) = \cos(u)\sin(v)du+\sin(u)\cos(v)dv$
+\item $dz = \frac{\delta}{\delta u}(\cos(u)) = -\sin(u)du$
+\item $dx \wedge dy = ( \cos(u)\cos(v)\sin(u)\cos(v) + \sin(u)\sin(v) \cos(u)\sin(v)) du \wedge dv =  \cos(u)\sin(u) du \wedge dv $
+\item $dx \wedge dz = -\sin(u)\sin(v)\sin(u) du \wedge dv =  -\sin^2(u)\sin(v) du \wedge dv $
+\item $dy \wedge dz = -\sin(u)\sin(v)\sin(u) du \wedge dv =  \sin^2(u)\cos(v) du \wedge dv $ (wrong should be negative)?
+\item $\omega = x dy \wedge dz -ydx\wedge dz + z dx \wedge dy$.
+\item  $= \sin(u)\cos(v) \sin^2(u)\cos(v) du \wedge dv - \sin(u)\sin(v)[  -\sin^2(u)\sin(v) du \wedge dv] + \cos(u) \cos(u)\sin(u) du \wedge dv$
+\item $=[\sin^3(u) + \cos^2(u)\sin(u)]  du \wedge dv$
+\item $= \sin(u)  du \wedge dv$
+\item So $\int_{v=0}^{2\pi}\int_{u=0}^{u=\pi} \sin(u)dudv  = 4\pi$
+\end{itemize}
+
+Example: Do it again by computing the other way $\int_M \delta\omega$:
+
+\begin{itemize}
+\item $\omega = x dy \wedge dz -ydx\wedge dz + z dx \wedge dy$.  
+\item $\delta \omega = 3 dx \wedge dy \wedge dz$
+\item $\iint_M 3dxdydz = 3 \times \frac{4\pi}{3} = 4\pi$.
+\item \textbf{BIG}: This is one example of $\int_{\delta M} \omega = \int_M d\omega$
+\end{itemize}
+
+Note: The great unification happens when dumping different forms into $\int_{\delta M} = \int_M \delta \omega$
+
+\begin{itemize}
+\item If we use $\omega = F_x dy \wedge dz + F_y dz \wedge dx + F_z dx \wedge dy$, then we find that $d\omega = \nabla \cdot F dx \wedge dy \wedge dz$.
+\item Then $\int d\omega = \iiint_M  \nabla \cdot F dx dy  dz$. (Why drop the wedges, exactly?)
+\item If we parametrize $\delta M $ as $\vec{x}(u,v)$, with $dx = \frac{\delta x}{\delta u}du + \frac{\delta x}{\delta u}dv$, similar for the other two, and compute all the $dy \wedge dz$ etc....
+\item And we churn through noticing cross products inside, we get $\omega = \vec{F}(\vec{x}(u,v)) \cdot (\vec{u}_u \times \vec{x}_v)du \wedge dv$
+\item So $\int_{\delta M} \omega = \iint_D \vec{F}(\vec{x}(u,v)) \cdot (\vec{u}_u \times \vec{x}_v)du \wedge dv$
+\item $=\vec{F}(\vec{x}(u,v)) \cdot \frac{\vec{u}_u \times \vec{x}_v}{\| (\vec{u}_u \times \vec{x}_v)\|}  \|(\vec{x}_u \times \vec{x}_v)\|  du \wedge dv$ 
+\item $=\iint_{\delta M} \vec{F} \cdot \vec{dA}$
+\item So we've equated $\iiint_M \nabla \cdot F dx dy dz =\iint_{\delta M} \vec{F} \cdot \vec{dA}$ after dropping the wedges somehow.
+\item Divergence Theorem!
+\end{itemize}
+
+Similarly, if we use $\omega = F_x dx + f_y dy + F_z dz$, we can do something similar to get $\int_{\delta M} \vec{F} \cdot d\vec{x} = \iint_M \nabla \times \vec{F} \cdot \vec{dA}$, or Stokes' Theorem.
+
+\textbf{NOTE}: Still need some intuiition for these forms.  Apparently these are described as ``that which makes Stokes's and Divergence Theorem fall out'': https://math.stackexchange.com/questions/2858098/what-is-a-differential-form
+
+
 
 
 \end{document}
