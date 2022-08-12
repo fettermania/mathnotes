@@ -810,7 +810,7 @@ The neat idea: $F_{tot} = \frac{4\pi R^3}{3} \times -\frac{p_0}{h}\hat{k}$ is re
 \item $= \iiint_B 1 dx dy dz  \times  -\frac{p_0}{h}\hat{k}$
 
 \item $= \iiint_B( -\frac{p_0}{h})\hat{k} dx dy dz$, with $p = p_0[1-\frac{z}{h}]$
-\item $=  \iiint_B(\frac{\delta p}{\delta z}) \hat{k} dx dy dz$
+\item $=  \iiint_B(\frac{\Delta p}{\delta z}) \hat{k} dx dy dz$
 \item $=  \iiint_B \nabla \cdot p dx dy dz$
 \item So the upshot is the divergence theorem again:\fbox{ $\iint_{S} p \hat{n}dA = \iiint_B \nabla \cdot p dx dy dz = \iiint_B \nabla \cdot p d\vec{x}$}
 \end{itemize}
@@ -1157,8 +1157,8 @@ Another implication: a closed surface (say sphere $S$) has $ \iint_S \nabla \tim
 \begin{itemize}
 \item Write the field as $\vec{F} = \langle P(x,y), Q(x,y), 0 \rangle$
 \item $\int_C \vec{F} \cdot d\vec{x} = \int_C P dx + Qdy$ by definition.
-\item Take the curl, which is $\nabla \times \vec{F} = \frac{\delta Q}{\delta x} -  \frac{\delta P}{\delta y}$
-\item By Stokes's Theorem, $ \int_C P dx + Qdy = \iint_S [\frac{\delta Q}{\delta x} -  \frac{\delta P}{\delta y}]dxdy$
+\item Take the curl, which is $\nabla \times \vec{F} = \frac{\delta Q}{\delta x} -  \frac{\Delta p}{\delta y}$
+\item By Stokes's Theorem, $ \int_C P dx + Qdy = \iint_S [\frac{\delta Q}{\delta x} -  \frac{\Delta p}{\delta y}]dxdy$
 \item \textbf{Green's theorem} \fbox{$\iint_D [\frac{\delta G_x}{\delta x} -  \frac{\delta G_y}{\delta y}]dx dy = \int_C \vec{G} \cdot \hat{n} ds$} is just a 2D divergence theorem.
 \begin{itemize}
 \item Why? Substitute $P = -G_y, Q = G_x$ into above, see $\int_C P dx + Q dy = \vec{G} \cdot \langle dy, -dx \rangle$.  The last vector is normal to $\langle dx, dy \rangle$, and unit, so we've got it. 
@@ -1239,7 +1239,7 @@ A \textbf{1-form} takes a \emph{vector}, outputs a \emph{number} and is \emph{li
 \item Note: A zero-form is a function on $\vec{x}$, since it just returns a scalar at that point.
 \end{itemize}
 
-Define $dx_j[\hat{e}_i] = 1$ if $i=j$ else $0$.  These are the \textbf{basis 1-forms} because 
+Define $dx_j[\hat{e}_i] = 1$ if $i=j$ else $0$.  Note: This is really a function $dx_j(\vec{x}) = [0, 0, 0, ... 1, ... 0] \cdot \vec{x}$, where the 1 is in the $j$ spot. These are the \textbf{basis 1-forms} because 
 \\
 \fbox{any 1-form can be written as $\omega = a_1dx_1 + ... + a_ndx_n$.}.  
 So $\omega[\vec{x}] = \vec{v} \cdot \vec {x}$ is just $\sum_{j=1}^n (v_jdx_j)[\vec{x}].$
@@ -1379,7 +1379,77 @@ Similarly, if we use $\omega = F_x dx + f_y dy + F_z dz$, we can do something si
 
 \textbf{NOTE}: Still need some intuiition for these forms.  Apparently these are described as ``that which makes Stokes's and Divergence Theorem fall out'': https://math.stackexchange.com/questions/2858098/what-is-a-differential-form
 
+Note: From lecture at ``https://www.youtube.com/watch?v=wlo2V8H5khM'', $d_{i_1, i_2, ... i_k}$ is a function that takes $k$ vectors in $\mathbb{R}^n$, concatenates horizontally, selects only rows $i_1, i_2, ... i_k$ and takes the determinant.  This is a multilinear, alternating function.
 
+\section{Chapter 5: Applications}
+\subsection{5.1: The Laplacian}
+
+\textbf{Laplacian}: $\nabla^2 \vec{F} = \nabla \cdot \nabla \vec{F} = \frac{\delta^2}{\delta x^2}F_x + \frac{\delta^2}{\delta y^2}F_y + \frac{\delta^2}{\delta z^2}F_z$ shows up often in partial differential equations.  
+
+ Example: Finding Potential $V$ of an electrostatic field $\vec{E} = -\nabla V$, if $\vec{E} = \frac{Q}{4\pi\epsilon_0}\frac{\vec{x}}{\|\vec{x}\|^3}$
+\begin{itemize}
+\item Consider this in spherical coordinates and note that V is only a function of $\rho$.
+\item Use the gradient in spherical coordinates: $\nabla \cdot \vec{V} = \frac{\delta V}{\delta\rho} \hat{\rho} + \frac{1}{\rho}\frac{\delta V}{\delta \phi} \hat{\phi} + \frac{1}{\rho \sin(\phi)} \frac{\delta V_{\theta}}{\delta \theta}\hat{\theta}$, ignoring the second and third terms of the sum.
+\item  $\vec{E} = \frac{Q}{4\pi\epsilon_0}\frac{\vec{x}}{\|\vec{x}\|^3} =  \frac{Q}{4\pi\epsilon_0}\frac{1}{\rho^2}\hat{\rho} = -\nabla V = \frac{\delta V}{\delta\rho} \hat{\rho}$
+\item $\frac{Q}{4\pi\epsilon_0}\frac{1}{\rho^2} = -\frac{\delta V}{\delta \rho}$
+\item $\frac{Q}{4\pi\epsilon_0}\frac{1}{p} + C = V(\rho)$ or $\frac{Q}{4\pi\epsilon_0}\frac{1}{\|\vec{x}\|} = V(\vec{x})$ is potential for point charge at origin.
+\item This means a set of charges at points $P_i$ have total potential $\sum_i \frac{Q}{4\pi\epsilon_0}\frac{1}{\|\vec{x} - \vec{P_i}\||}$, creating the field $\vec{E} = -\nabla V$
+\item So if $\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$ (Gauss's law), and $\vec{E} -\nabla V$, then:
+\item $\nabla \cdot \vec{E} = -\nabla \cdot (\nabla V) = -\frac{\delta}{\delta x}\frac{\delta V}{\delta x} - \frac{\delta}{\delta y}\frac{\delta V}{\delta y} -\frac{\delta}{\delta z}\frac{\delta V}{\delta z} =$ \fbox{$= -\delta_x^2V -\delta_y^2V -\delta_z^2 = -\nabla^2 V$}
+\item   Laplacian shorthand : $\nabla^2 = \nabla \cdot \nabla = \frac{\delta^2}{\delta x^2} +  \frac{\delta^2}{\delta y^2} +  \frac{\delta^2}{\delta z^2}$
+\end{itemize}
+
+Example: Two infinite thin sheets of metal aligned with $xy$-plane.  Function $T(z)$ is temperature, $T(0) = T_0, T(h)= 2T_0$.  What is $T$?
+
+\begin{itemize}
+\item From Laplace, $\nabla^2 T = (\frac{\delta^2}{\delta x^2} +  \frac{\delta^2}{\delta y^2} +  \frac{\delta^2}{\delta z^2})T = \frac{\delta^2T}{\delta z^2}$ since only $z$ matters here.
+\item Anti-derive $T''(z) = 0$ twice to get $T(z) = Az+B$.  
+\item $T(0) = T_0 \Rightarrow B = T_0 \Rightarrow T(z) = Az+T_0$
+\item $T(h) = 2T_0 \Rightarrow Ah = T_0 \Rightarrow A = \frac{T_0}{h} \Rightarrow T(z) = \frac{T_0}{h}z+ T_0$
+\end{itemize}
+
+Exmple: Thin circlular disk of radius $r$ floats on a cushion of air, over centered opening of radius $\epsilon$.  Pressure at opening is $p_{in}$, at edge (and outside) is necessarily $p_{atm}$.  If also follows $\nabla^2 p(r) = 0$
+\begin{itemize}
+\item To get "nabla squared" (or cylindrical Laplacian equation) we want to get "nabla of a vector" (div) on "nabla of a function" (grad).
+\item (1) Cylindrical grad equation: $\nabla f = \frac{\delta f}{\delta r} \hat{r} +   \frac{1}{r} \frac{\delta f}{\delta \theta} \hat{\theta} +  \frac{\delta f}{\delta z} \hat{z}$
+\item (2) Cylindrical div equation: $\nabla \cdot \vec{F} = \frac{1}{r}\frac{\delta rF_r}{\delta r} \hat{r} +  \frac{1}{r} \frac{\delta F_\theta}{\delta \theta} \hat{\theta} +  \frac{\delta F_z}{\delta z} \hat{z}$
+\item Subbing (1) in to (2) yields  \fbox{$\nabla \cdot (\nabla\vec{F}) = \frac{1}{r}\frac{\delta (r\frac{\delta f}{\delta r})}{\delta r} \hat{r} +  \frac{1}{r} \frac{\delta}{\delta \theta}(\frac{1}{r}\frac{\delta f}{\delta \theta}) \hat{\theta} +  \frac{\delta ^2F f}{\delta z^2} \hat{z}$} $= 0$
+\item We know we don't depend on $\theta$ or $z$, so this is just $0=\frac{1}{r}\frac{\delta (r\frac{\delta f}{\delta r})}{\delta r}$
+\item We know $r$ is not 0, so multiply by $r$: $0 = \frac{\delta}{\delta r} (r\frac{\delta f}{\delta r}) \Rightarrow A = r\frac{\delta f}{\delta r}  \Rightarrow \frac{A}{r}=\frac{\delta f}{\delta r} $
+\item Anti-derivatives yield $A\ln(r) + B = f(r)$, and specifically
+\\
+$A\ln(R) +B = p_{atm}$ 
+\\
+$Aln(\epsilon) +B = p_{in}$
+\item Subtract to get $A\ln (\frac{R}{\epsilon}) =  p_{atm}-p_{in} = \Delta p \Rightarrow A = \frac{\Delta p}{\ln (\frac{R}{\epsilon})} $
+\item Sub our new $A$ in to get $B = p_{in} - \ln(\epsilon) \frac{\Delta p}{\ln (\frac{R}{\epsilon})}$
+\item Subbing all gives us $p(r) = \Delta p \frac
+  {\ln(\frac{r}{\epsilon})}
+  {\ln(\frac{\epsilon}{R})}+ p_{in}$
+\end{itemize}
+
+Challenge: If lift $L = \iint_{disk} [p-p_{atm}]dA = W$ weight causes the disk to float, what $\Delta p = p_{in} - p_{atm}$ satisfies it?
+\begin{itemize}
+\item We know form $r \in [\epsilon, R], p(r) = \Delta p \frac
+  {\ln(\frac{r}{\epsilon})}
+  {\ln(\frac{\epsilon}{R})}+ p_{in}$ 
+\item And $r \in [0, \epsilon]$ means it is $p_in$.
+\item Split the integral apart. 
+\item $L = \int_{\theta =  0}^{2\pi} \int_{r=0}^{r=R} p-p_{atm}dA$, or $L = 2\pi\int_{r=0}^{r=R} p(r)r dr  - \pi*R^2p_{atm}$ (term 1)
+\item $2\pi\int_{r=0}^{r=R} p(r)r dr = 2\pi(\int_{r=\epsilon}^{r=R} p(r)r dr) + 2\pi(\int_{r=0}^{r=\epsilon} {p_{in}}r dr)$. Second term is $\pi * \epsilon^2 p_{in}$
+\item $2\pi(\int_{r=\epsilon}^{r=R} \Delta p \frac
+  {\ln(\frac{r}{\epsilon})}
+  {\ln(\frac{\epsilon}{R})}) = \frac{2\pi \Delta p}{\ln(\frac{\epsilon}{R})} \int_{r=\epsilon}^{r=R} \ln(\frac{r}{\epsilon})r dr
+= \frac{2\pi \Delta p}{\ln(\frac{\epsilon}{R})} \int_{r=\epsilon}^{r=R} \ln(r)r dr -  \frac{2\pi \Delta p \ln(\epsilon)}{\ln(\frac{\epsilon}{R})} *\frac{R^2-\epsilon^2}{2}$
+\item Last term above is term 3.
+\item Term 4 is $- \frac{R^2 - \epsilon^2}{4} + \frac{R^2\ln(R) - \epsilon^2\ln(\epsilon)}{2}$
+\item TODO Add all this crap together and solve for $\Delta p$?
+\end{itemize}
+
+
+\begin{itemize}
+\item TODO
+\end{itemize}
 
 
 \end{document}
