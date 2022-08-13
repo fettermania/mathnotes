@@ -1443,12 +1443,23 @@ Challenge: If lift $L = \iint_{disk} [p-p_{atm}]dA = W$ weight causes the disk t
 = \frac{2\pi \Delta p}{\ln(\frac{\epsilon}{R})} \int_{r=\epsilon}^{r=R} \ln(r)r dr -  \frac{2\pi \Delta p \ln(\epsilon)}{\ln(\frac{\epsilon}{R})} *\frac{R^2-\epsilon^2}{2}$
 \item Last term above is term 3.
 \item Term 4 is $- \frac{R^2 - \epsilon^2}{4} + \frac{R^2\ln(R) - \epsilon^2\ln(\epsilon)}{2}$
-\item TODO Add all this crap together and solve for $\Delta p$?
+\item $L = \frac{\Delta P}{\ln(\frac{R}{\epsilon})} \frac{\pi}{2}(R^2 -\epsilon^2) = W$
+\item $\Rightarrow \Delta p = \frac{2W\ln(\frac{R}{\epsilon})}{\pi (R^2-\epsilon^2)}$
 \end{itemize}
 
-
+Example: Capacitor for storing energy - Two concentric conducting shells, $R_1 < R_2$ voltage $V(R_1) = 0, V(R_2) = V_0$.  No charge between the spheres so $\nabla^2V = 0$.
 \begin{itemize}
-\item TODO
+\item Use spherical coordinates.  Everything obviously depends on $\rho$.  
+\item (1) Spherical grad equation: $\nabla f = \frac{\delta f}{\delta \rho} \hat{\rho} +   \frac{1}{\rho} \frac{\delta f}{\delta \phi} \hat{\phi} +  \frac{1}{\rho\sin(\phi))}\frac{\delta f}{\delta \theta} \hat{\theta}$
+\item (2) Spherical div equation: $\nabla \cdot \vec{F} = \frac{1}{\rho^2}\frac{\delta (\rho^2F_{\rho})}{\delta \rho}  +   \frac{1}{\rho \sin(\phi)} \frac{\delta}{\delta \phi} (\sin(\phi) F_{\phi}) +  \frac{1}{\rho\sin(\phi)}\frac{\delta F_{\theta}}{\delta \theta} $
+\item Subbing (1) in to (2) yields $\nabla^2V = \frac{1}{\rho^2}\frac{\delta}{\delta \rho}[\rho^2\frac{\delta V}{\delta \rho}] + \frac{1}{\rho^2\sin(\theta)}  \frac{\delta}{\delta \phi} (\sin(\phi)\frac{\delta V}{\delta \phi})  + \frac{1}{\rho^2\sin^2(\phi)}\frac{\delta ^2V}{\delta \theta^2}$
+\item Solving for the potential $V(\rho), R_1 \leq \rho \leq R_2$ is the same as above:
+\item $\frac{1}{\rho^2}\frac{\delta}{\delta \rho}[\rho^2\frac{\delta V}{\delta \rho}] = 0$.  Multiply by $\rho^2$
+\item $A = \rho^2 \frac{\delta V}{\delta \rho} \rightarrow A\rho^{-2}= \frac{\delta V}{\delta \rho} \Rightarrow B - A\rho^{-1} = V(\rho)$
+\item Churning through you get $B = \frac{A}{R_1}, A = \frac{V_0R_1R_2} {R_2-R_1}$, and $V(\rho) = \frac{R_2V_0}{R_2-R_1}[1 - \frac{R_1}{\rho}]$
+\item And therefore the field $\vec{E} = - \nabla V$ (grad of potential) and Spherical grad equation (1) above mean that $\vec{E} = \frac{\delta V}{\delta \rho}\hat{\rho} = \frac{-R_1r_2V_0}{R_2-R_1}\frac{\hat{\rho}}{\rho^2}$
+\item Note that this looks like the field from a point charge (proportional to $\frac{\vec{x}}{\|\vec{x}\|^3}$) for the same 
+\item Given that spherical charge distribution vs. placed all at center is the same field (from previous chapters), this applies as well since they're spherical shells. 
 \end{itemize}
 
 
