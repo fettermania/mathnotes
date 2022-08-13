@@ -1462,6 +1462,43 @@ Example: Capacitor for storing energy - Two concentric conducting shells, $R_1 <
 \item Given that spherical charge distribution vs. placed all at center is the same field (from previous chapters), this applies as well since they're spherical shells. 
 \end{itemize}
 
+\subsection{8.2:Gaussian Integrals I}
+
+Summary: A set of tricks for evaluating $I(a) = \int_{-\infty}^{\infty} x^n e^{-\frac{a}{2} x^2} dx$, specifically when $n=0: (\sqrt{\frac{2\pi}{a}})$, even (recursive built on $n=0$) or or odd (zero).
+
+\textbf{Gaussian for n=0}:
+\begin{itemize}
+\item $I(a)$ is defined as a function of $a$ with dummy variable $x$( or whatever):  $I(a)= \int_{-\infty}^{\infty} e^{-\frac{a}{2} x^2} dx$
+\item Trick to getting this integral is \emph{integrating it in both directions} over the $xy$ plane and taking the square root.
+\item Specifically, $I(a)^2 = (\int_{-\infty}^{\infty} e^{-\frac{a}{2} x^2}dx)(\int_{-\infty}^{\infty} e^{-\frac{a}{2} y^2}dy) = (\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{-\frac{a}{2} (x^2+y^2)}dx dy$
+\item Rewrite in polar and solve: $I(a)^2 = \int_{\theta = 0}^{2\pi}\int_{r=0}^{\infty} e^{\frac{a}{2}r^2}rdrd\theta = [2\pi * \frac{-1}{a}e^{-\frac{a}{2}r^2}]_0^{\infty} = \frac{2\pi}{a}$
+\item Thus $I(a)= \sqrt{ \frac{2\pi}{a}}$
+\end{itemize}
+
+\textbf{Gaussian for n=odd}: $\int_{-\infty}^{\infty}x^ne^{-\frac{a}{2}x^2} dx, a >0$: The $e^{f(x)}$ factor is symmetric, $x^n$ is odd, so the whole thing is zero.
+
+\textbf{Gaussian for n=2}: 
+\begin{itemize}
+\item Use a derivative trick to \emph{reproduce our tricky integral} from known identity $I(a) = \sqrt{\frac{2\pi}{a}}$ instead of trying to evaluate $\int_{-\infty}^{\infty} x^2 e^{-\frac{a}{2} x^2}dx)$
+\item $\frac{\delta}{\delta a} I(a) = \frac{\delta}{\delta a} \sqrt{2\pi}a^{-\frac{1}{2}} = -\frac{1}{2}\sqrt{2\pi}a^{-\frac{3}{2}}$
+\item $\frac{\delta}{\delta a} I(a) = \int_{-\infty}^{\infty} \frac{\delta}{\delta a} [e^{-\frac{a}{2}x^2}] dx = -\frac{1}{2} \int_{-\infty}^{\infty} x^2 [e^{-\frac{a}{2}x^2}] dx$
+\item Equating the ends of the last two lines shows that $\int_{-\infty}^{\infty} x^2 [e^{-\frac{a}{2}x^2}] dx = \sqrt{2\pi}a^{-\frac{3}{2}}$
+\item From here, we can attack $n=4$, then from there, $n=6$, etc.
+\end{itemize}
+
+If we're going to evaluate the general form $\int_{-\infty}^{\infty} [e^{-\frac{a}{2}x^2-bx+c}] dx$:
+\begin{itemize}
+\item First, complete the square of $f = -\frac{a}{2}x^2-bx+c$
+\begin{align}
+-\frac{2}{a}f =x^2+\frac{2b}{a}x-\frac{2c}{a} \\
+-\frac{2}{a}f =(x+\frac{b}{a})^2-\frac{b^2}{a^2}-\frac{2c}{a} \\
+f = -\frac{a}{2}(x+\frac{b}{a})^2 +\frac{b^2}{2a}+c\\
+\end{align}
+\end{itemize}
+
+Therefore, $\int_{-\infty}^{\infty} [e^{-\frac{a}{2}x^2-bx+c}] dx =  \int_{-\infty}^{\infty} [e^{-\frac{a}{2}(x+\frac{b}{a})^2 +\frac{b^2}{2a}+c}]dx = [e^{\frac{b^2}{2a}+c}] \int_{-\infty}^{\infty} [e^{-\frac{a}{2}(x+\frac{b}{a})^2}] dx$.  Notice that $u = x+\frac{b}{a}, du = dx$ makes the integral $\sqrt{\frac{2\pi}{a}}$.
+
+So general form of Gaussian, with $n=0$, is \fbox{ $\int_{-\infty}^{\infty} [e^{-\frac{a}{2}x^2-bx+c}] dx =\sqrt{\frac{2\pi}{a}} [e^{\frac{b^2}{2a}+c}] $}.
 
 \end{document}
 
