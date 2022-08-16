@@ -1500,5 +1500,65 @@ Therefore, $\int_{-\infty}^{\infty} [e^{-\frac{a}{2}x^2-bx+c}] dx =  \int_{-\inf
 
 So general form of Gaussian, with $n=0$, is \fbox{ $\int_{-\infty}^{\infty} [e^{-\frac{a}{2}x^2-bx+c}] dx =\sqrt{\frac{2\pi}{a}} [e^{\frac{b^2}{2a}+c}] $}.
 
+\subsection{8.2:Gaussian Integrals I|}
+
+Summary: Multivariable Gaussian integrals are quadratic combos of $x, y, z,$ etc. and \fbox{$\int_{\mathbb{R}^2} e^{-\frac{1}{2} [\vec{x} \cdot (A\vec{x})]} = \sqrt{\frac{(2\pi)^n}{\det(A)}}$}.  To evaluate them, you can split them out Fubini-style and multiply, you can get to a diagonal matrix, or you can rotate to a diagonal and back, which has the same determinant.
+
+Steps:
+\begin{itemize}
+
+\item If A = $aI_{n \times n}$, then $\int_{\mathbb{R}^2} e^{-\frac{1}{2} [\vec{x} \cdot (A\vec{x})]} =  (\sqrt{\frac{2\pi}{a}})^n$,
+\begin{itemize}
+\item since $\int e^{-\frac{1}{2}[ax^2 + ay^2...]} dx dy$
+$=  \int e^{-\frac{1}{2}[ax^2]} dx \int e^{-\frac{1}{2}[ay^2]} dy$
+\end{itemize}
+
+\item If A is a diagonal matrix with entries $\lambda_1 \lambda_2...$, then $\int_{\mathbb{R}^2} e^{-\frac{1}{2} [\vec{x} \cdot (A\vec{x})]} = \sqrt{\frac{(2\pi)^n}{\lambda_1 \times \lambda_2 ...}}$
+\begin{itemize}
+\item This is the same Fubini setup as above.  Separate the integrals and multiply results.
+\end{itemize}
+
+\item  If A is a symmetric matrix, $\int_{\mathbb{R}^2} e^{-\frac{1}{2} [\vec{x} \cdot (A\vec{x})]} = \sqrt{\frac{(2\pi)^n}{\det(A)}}$
+\begin{itemize}
+\item We can take any symmetric matrix and change coordinates to get a diagonal matrix  (TODO: I forget why).
+\item Then $A = RDR^T$, and since $R$ is a rotation matrix $\det(R) = \det(R^T) = 1$
+\end{itemize}
+
+\end{itemize}
+
+Example: Evaluate $\frac{1}{2\pi} \iint_{\mathbb{R}^2} \exp [-\frac{1}{2}[2x^2 - 2xy + 5y^2]]dx dy$
+\begin{itemize}
+\item A matrix $A = \begin{pmatrix} a & b \\ b & d \end{pmatrix}$, and writing $\vec{x} = \langle x, y \rangle$, together presented as $\vec{x}\cdot(A\vec{x})$, means that $a = 2, b = -1, d = 5$ by just expanding the multiplication explicitly.
+\item since $\det(A) = 9$, then $\sqrt{\frac{(2\pi)^2}{9}} = 2\pi \frac{1}{3}$
+\end{itemize}
+
+Example: Evaluate $\frac{1}{2\pi} \iint_{\mathbb{R}^2} \exp [-\frac{1}{2}[2x^2 + y^2 - 8x - 2y + 9]]dx dy$
+\begin{itemize}
+\item Rewrite the exponent as  $[-\frac{1}{2}[2(x-2)^2 + (y-1)^2]$
+\item Separate out into two integrals $\int f(x) dx \int g(y) dy$
+\item The $dx$ integral is of the form $\int \exp[-\frac{a}{2}u^2]$, with $u = x-2$.  So that's $\sqrt{\frac{(2\pi)}{2}}$
+\item The $dy$ integral is of the form $\int \exp[-\frac{a}{2}v^2]$, with $v = y-1$.  So that's $\sqrt{\frac{(2\pi)}{1}}$
+\item Multiplying together, you get $\frac{2\pi}{\sqrt{2}}$
+\end{itemize}
+
+Example: Evaluate $\frac{1}{2\pi} \iint_{\mathbb{R}^2} \exp [-\frac{1}{2}[-2x^2 + 2xy -2y^2 - 6x +6y -6]]dx dy$.  This is mixed so trickier,.
+\begin{itemize}
+\item Rewrite in the format $\exp[-\frac{1}{2} \vec{x}\cdot(A\vec{x}) + \vec{b}\cdot \vec{x} + c$.  
+\item Here, $A = \begin{pmatrix} 2 & -1 \\ -1 & 2 d \end{pmatrix}, \vec{b} = \langle -3, 3 \rangle, c = -3$
+\item Linear algebra says we can transform to a diagonal matrix : eigenvectors rotate to the eigenspace, then expand via the diagonal, then rotate back) 
+\item Once you get these $R$ and $R^T$ matrices, you can find the change of coordinates $u = \frac{1}{\sqrt{2}}(x+y), v =frac{1}{\sqrt{2}}(-x+y) $
+\item $\Rightarrow x = \frac{1}{\sqrt{2}}[u+v], y = \frac{1}{\sqrt{2}}[u-v]$
+\item NOTE: They then mention the Jacobian $J = |  \det\begin{pmatrix} \frac{\delta x}{\delta u} & \frac{\delta x}{\delta v} \\ \frac{\delta y}{\delta u} & \frac{\delta y}{\delta v}  \end{pmatrix}  | = 1$
+\item This leaves us with$\frac{1}{2\pi} \iint_{\mathbb{R}^2} \exp [-\frac{1}{2}[u^2 + 3v^2] + 3\sqrt{2}v - 3]dudv$
+\item Rewrite exponent to $-\frac{1}{2}u^2 -\frac{3}{2} (v-\sqrt{2})^2$ to get $\frac{2\pi}{\sqrt{1}\sqrt{3}} \times 2\pi = \frac{1}{\sqrt{3}}$
+
+\item \end{itemize}
+
+
+\begin{itemize}
+\item TODO
+\end{itemize}
+
+
 \end{document}
 
