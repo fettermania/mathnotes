@@ -1548,11 +1548,81 @@ Example: Evaluate $\frac{1}{2\pi} \iint_{\mathbb{R}^2} \exp [-\frac{1}{2}[-2x^2 
 \item Linear algebra says we can transform to a diagonal matrix : eigenvectors rotate to the eigenspace, then expand via the diagonal, then rotate back) 
 \item Once you get these $R$ and $R^T$ matrices, you can find the change of coordinates $u = \frac{1}{\sqrt{2}}(x+y), v =frac{1}{\sqrt{2}}(-x+y) $
 \item $\Rightarrow x = \frac{1}{\sqrt{2}}[u+v], y = \frac{1}{\sqrt{2}}[u-v]$
-\item NOTE: They then mention the Jacobian $J = |  \det\begin{pmatrix} \frac{\delta x}{\delta u} & \frac{\delta x}{\delta v} \\ \frac{\delta y}{\delta u} & \frac{\delta y}{\delta v}  \end{pmatrix}  | = 1$
+\item NOTE: They then mention the Jacobian $J$ where $|  \det\begin{pmatrix} \frac{\delta x}{\delta u} & \frac{\delta x}{\delta v} \\ \frac{\delta y}{\delta u} & \frac{\delta y}{\delta v}  \end{pmatrix}  | = 1$
 \item This leaves us with$\frac{1}{2\pi} \iint_{\mathbb{R}^2} \exp [-\frac{1}{2}[u^2 + 3v^2] + 3\sqrt{2}v - 3]dudv$
 \item Rewrite exponent to $-\frac{1}{2}u^2 -\frac{3}{2} (v-\sqrt{2})^2$ to get $\frac{2\pi}{\sqrt{1}\sqrt{3}} \times 2\pi = \frac{1}{\sqrt{3}}$
 
 \item \end{itemize}
+
+
+\subsection{8.4: Fourier Transforms}
+
+Summary: By employing the Dirac Delta function \fbox{$\delta(\vec{x}) \approx \int_{\mathbb{R}^n} e^{2\pi i \vec{x}\cdot\vec{k} }d\vec{k}$}, we can transform functions into a separate eigenspace where derivatives and integrals may be easier.
+
+Note from the internet: The Fourier transform maps like a $3\sin(x)$ waveform to a function which has a peak at (frequency) $3$.  This makes sense that the Dirac ends up being a bunch of "point spikes".  More to figure out.
+
+\begin{itemize}
+\item Motivation: While linear transform $A = RDR^T$ transforms $e_i$ to eigenvectors $w_i$: $Re_i \rightarrow w_i$, where $A$ is diagonal, so that $Aw_i = \lambda_iw_i$
+\item Similarly, operators like $\nabla$ change functions into vector-valued functions.  So an "eigenfunction" of $\nabla$ would have $\nabla f_{\vec{k}}(\vec{x}) \propto  k  f_{\vec{k}}(\vec{x})  $
+\item The function $e^{2\pi i \vec{k} \cdot \vec{x}}$ fits that bill.
+\item So in the same way that the eigenvector basis $w_i$ means any $\vec{v} = \sum a_j \hat{w_j}$,
+\\
+ \fbox{any function $f(\vec{x}) = \int_{\mathbb{R}^n} \hat{f}(\vec{k})e^{2\pi i \vec{k}\cdot \vec{x}} d\vec{k}$ for some function $\hat{f}_{\vec{k}}$ called the \textbf{Fourier Transform} of $f$}.
+ \item This looks like a pretty crappy integral to evaluate, so we'll learn some tricks here.
+\end{itemize}
+
+Things to remember about $\delta(x)$
+\begin{itemize}
+\item  $\delta(x) = 0$ except at $x=0$.  Another way to think about this is $\delta(x - a) = 0$ except at $x=a$. 
+\item This also means $f(x)\delta(x-a)= f(a)\delta(x-a)$ since $f(x)$ only comes into play when $x=a$.  \emph{Note: This is useful for getting rid of $x$ in some integrals}
+\item $\int_{\mathbb{R}} \delta(x-a) = 1$ for any $a$.  
+\item Can we approximate $\delta$ using normal functions?
+
+\begin{itemize}
+\item This basically looks like a Gaussian $\propto e^{\frac{-x^2}{2}}$ with an extremely sharp center.
+\item Normalizing: If we set $A = \frac{1}{\sqrt{2\pi \epsilon}}$, then $\int_{\mathbb{R}} Ae^{\frac{-x^2}{2}} dx = 1$.
+\item If we take the limit as $\epsilon \rightarrow 0$, then $\delta(x) \approx \frac{1}{\sqrt{2 \pi \epsilon}} e^{-\frac{x^2}{2\epsilon}}
+   \approx \int_{\mathbb{R}} e^{-2\pi^2\epsilon k^2}e^{2\pi i k x}dk$ if $\epsilon$ is small.
+\item Subbing $\epsilon = 0$, which is not technically allowed, makes this look like $\int_{\mathbb{R}} e^{2\pi i k x } dk$
+\item This generalizes as $\delta(\vec{x} - \vec{a}) = \int_{\mathbb{R}^n} e^{2\pi i \vec{k} \cdot [\vec{x} - \vec{a}] } d\vec{k}$
+\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+\item So above we've basically posited the transformation $f(\vec{x}) = \int_{\mathbb{R}^n}\hat{f}(\vec{k})e^{2 \pi i \vec{x} \cdot \vec{k}} d\vec{k}$ from Fourier space to regular space.
+\item This means that $\hat{f}(\vec{k}) = \int_{\mathbb{R}^n}f(\vec{x})e^{-2 \pi i \vec{k} \cdot \vec{x}} d\vec{x}$ works the other way.  How to rip out $\hat{f}(\vec{k})$ from the integral?
+
+\begin{itemize}
+\item We know $\int \delta(k' - k) dk' = 1$, so $\hat{f}(k) = \hat{f}(k) \int \delta(k' - k) dk'$
+\item $=  \int \hat{f}(k) \delta(k' - k) dk'$ by moving a k-based function inside the k'-based integral.
+\item $ =  \int \hat{f}(k') \delta(k' - k) dk'$ by the delta function rule.
+\item $= \int \hat{f}(k') [\int e^{2\pi i x [k'-k]} ]dk'$ by Gaussian-based definition of $\delta$.
+\item $= e^{2\pi i x [-k]} \int \hat{f}(k') e^{2\pi i x k'}  dk'$ by pulling out the $k$ terms from the $k'$ integral.
+\item $= f(x) e^{-2\pi i x k}$ by definition of $f(x)$ from above.
+\end{itemize}
+
+\item So \textbf{transform to Fourier space} is $\hat{f}(\vec{k}) = \int_{\mathbb{R}^n}f(\vec{x})e^{-2\pi i \vec{k}\cdot \vec{x}} d\vec{k}$
+\item Playing around in Fourier space:
+\begin{itemize}
+\item $\hat{\frac{df}{dx}}(k)$, meaning the transform of derivative $f'(x)$, is $2\pi i k \hat{f}(k)$ after integrating $\int_{\mathbb{R}} f'(x)e^{-2\pi i x \cdot k}dx$ by parts, with $dv = f'(x), u = e^{-2\pi i x \cdot k}$. 
+\item Since all the components are independent, the two-variable case $[2\pi i]^2 k_ik_j \hat{f}(\vec{k}) = \hat{\frac{\delta^2 f}{\delta x_i \delta x_j}}$ follows.
+\end{itemize}
+\end{itemize}
+
+Example of solving diff eqs with Fourier Transform:
+\begin{itemize}
+\item Applying this, the differential equation $\frac{d^2f}{dx} + \omega^2 f = 0$ admits the solution $([2\pi i k]^2 + \omega^2] \hat{f}(\vec{k}) = 0$
+\item If we assume $\hat{f}(\vec{k}) \neq 0$ \emph{everywhere}, then it has values only at $k = \pm \frac{\omega}{2\pi}$
+\item This suggests the general form $a \delta(k-\frac{\omega}{2\pi}) + b \delta(k+\frac{\omega}{2\pi})$
+\item Let's evaluate one of the fourier terms: $g(x) =a \int \delta(k-\frac{\omega}{2\pi}) e^{2\pi k x} dk$
+\item Consider $f(x) =e^{2\pi k x}, a = \frac{\omega}{2\pi}$ and use the delta shift rule.
+\item So the integral ends up being $f(x) = f(a) = a e^{2\pi i (\frac{\omega}{2\pi})\cdot x}\int \delta(k-\frac{\omega}{2\pi})dk = ae^{i\omega x}$
+\item The "b" term evaluates to $be^{-i \omega x}$
+\item Writing $f(x) = ae^{i\omega x} + be^{-i\omega x}$ using only real quantities: sub in $e^{i\omega x} = \cos(\omega x) + i\sin(\omega x)$.
+\item This yields the general solution $[a+b]\cos(\omega x) + i[a-b]\sin(\omega x).$  Define $A = a+b, B  =a-b$ for general solution $f(x) = A\cos(\omega x) + B\sin(\omega x)$
+\end{itemize}
+
+
 
 
 \begin{itemize}
