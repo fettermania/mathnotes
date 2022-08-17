@@ -527,7 +527,7 @@ Example: Sphere $x^2 + y^2 + z^2 = R^2$ surface area.  Take $\theta$ as angle ar
 \begin{itemize}
 \item Parametrization $x = R \sin \phi \cos \theta,  y = R \sin \phi \sin \theta,  z = R \cos \phi$
 \item $dx/d_{\theta} =  -R \sin \phi \sin \theta, dy/d_{\theta} =  R \sin \phi \cos \theta, dz/d_{\theta} =  0$
-\item $dx/d_{\phi} =  R \cos \phi \cos \theta, dy/d_{\phi} =  R \cos \phi \cos \theta, dz/d_{\phi} =  -R \sin \phi$
+\item $dx/d_{\phi} =  R \cos \phi \cos \theta, dy/d_{\phi} =  R \cos \phi \sin \theta, dz/d_{\phi} =  -R \sin \phi$
 \item After working it out, $dx/d_{\theta} \times dx/d_{\phi} = R^2 \sin \phi \langle -\sin \phi \cos \theta,  -\sin \phi \sin \theta, -\cos \phi \rangle$ 
 \item Doing the math, $ \|dx/d_{\theta} \times dx/d_{\phi} \| = R^2 \sin \phi $
 \item So $\int_{\theta = 0}^{2\pi} \int_{\phi = 0}^{\pi} 1 \cdot  R^2 \sin \phi = 2 \pi \int_{\phi = 0}{\pi} R^2 \sin \phi  = 2\pi R^2 [ -\cos \phi]_0^{\pi} = 4 \pi R^2$
@@ -849,11 +849,11 @@ A cool interactive on the page shows how a sphere migrating its points via $\lan
 \section{Chapter 4: Work, Line Integrals, Stokes's Theorem}
 \subsection{4.1: Work Part I}
 
-\textbf{Energy U} for charge $q$ in field $\vec{E}$ is \fbox{$-q\vec{E} = \nabla U$}.
+\textbf{Energy}: U is a position-consuming function, an example of a potential. Energy $U$ for charge amount $q$ in field $\vec{E}$ is \fbox{$-q\vec{E} = \nabla U$}.
 \\
 \emph{Example}: Right-pointing constant field $\vec{E} = E_0\hat{i}$ means $(\frac{\delta}{\delta x}\hat{i} + \frac{\delta}{\delta y}\hat{j} + \frac{\delta}{\delta z}\hat{k})U = -qE_0\hat{i} \Rightarrow U = -qE_0x$
 
-\textbf{Work} is change in energy, e.g. $W_{field} = -[U(\vec{x_f} )- U(\vec{x_0})]$.  If the charge flows with the field, then the field is doing positive work.  If the charge flows against the field, the field is doing negative work.  So in the above case, $W_{field} = -[U(x_f,0,0) )- U(x_0, 0, 0)]  \Rightarrow -[-qE_0x_f - -qE_0x_0 = qE_0(x_f - x_0)$.
+\fbox{\textbf{Work} is change in energy, e.g. $W_{field} = -[U(\vec{x_f} )- U(\vec{x_0})]$. } If the charge flows with the field, then the field is doing positive work.  If the charge flows against the field, the field is doing negative work.  So in the above case, $W_{field} = -[U(x_f,0,0) )- U(x_0, 0, 0)]  \Rightarrow -[-qE_0x_f - -qE_0x_0 = qE_0(x_f - x_0)$.
 
 Continuing the example, moving from $(x_0,0, z_0) $ to $(x_f,0, z_f)$ in $\vec{E} = E_0\hat{i}$: only the x-coordinate affects the energy, so $U(x) = -qE_0x$ and $W_{field} = qE_0(x_f - x_0)$.  If $s$ is the distance between the two, then $\cos(\theta) = \frac{|x_f - x_0|}{s} \Rightarrow W_{field} = qE_0 s \cos(\theta)$.
 
@@ -867,7 +867,7 @@ W_{field} = q\vec{E} \cdot \Delta \vec{x} \\
 = \int_a^b q \vec{E}(\vec{x}(t)) \cdot \frac{d\vec{x}}{dt}dt
 \end{align}
 
-So we can take a \textbf{line integral} to measure work over a path in a field.
+\fbox{So we can take a \textbf{line integral} to measure work over a path in a field.}
 
 \subsection{4.2: Work Part 2}
 
@@ -944,7 +944,7 @@ Example: Moment of interatia around z-axis: $\int[x^2+y^2]\rho ds$ for $\vec{x}(
 \item $A = \rho * \int_{t=0}^{t=2\pi} 4 \sqrt{13} =  \frac{1}{2\pi\sqrt{13}} * 2\pi * 4\sqrt{13} = 4$
 \end{itemize}
 
-Example: Infinite wire of current going up on the x-axis.  Field equation, for (generated?) field $\vec{B}$, penetrated region bounded by curve $C$, unit tangent (to the curve) $\hat{T}$ , constant $\mu_0$ and current amount $I$: \fbox{$\int_C [\vec{B} \cdot \hat{T}]ds = \mu_0I$}.  What is $\| \vec{B} \|$ at some distance from the z-axis $r$?
+Example: Infinite wire of current going up on the z-axis.  Field equation, for (generated?) field $\vec{B}$, penetrated region bounded by curve $C$, unit tangent (to the curve) $\hat{T}$ , constant $\mu_0$ and current amount $I$: \fbox{$\int_C [\vec{B} \cdot \hat{T}]ds = \mu_0I$}.  What is $\| \vec{B} \|$ at some distance from the z-axis $r$?
 \begin{itemize} 
 \item C should be a circle of radius $r$.  Then, $ds = \frac{d\vec{x}}{dt}dt = r \| \cos(t), \sin(t) \| = r$
 \item $\vec{B} = \|B\| \hat{T}$ by definition I suppose.
@@ -1623,6 +1623,74 @@ Example of solving diff eqs with Fourier Transform:
 \end{itemize}
 
 
+\subsection{5.5: Diffusion Equation}
+
+ Laplacian: $0 = \nabla ^2 T = \frac{\delta ^2 T}{delta x^2} +  \frac{\delta ^2 T}{delta y^2} +  \frac{\delta ^2 T}{delta z^2}$ looks similar but not the same.
+
+Derivation of Diffusion Equatin.
+\begin{itemize}
+\item Diffusion: $ \frac{\delta u}{delta t }= D\nabla^2 u$
+\item Definitions:
+\begin{itemize}
+\item $D > 0$ is a \textbf{diffusion constant}, different per material
+\item $u(\vec{x},t)$ is unit density function - probability of seeing particle in some point in space.  Integrates over $\mathbb{R}^3$ to 1
+\item $\rho(\vec{x},t) = Nu(\vec{x},t)$ is overall density function - $N$ number of particles times the unit density function.
+\item $\vec{J}$ is the \textbf{current density}.  Magnitude is particles cross a unit area per unit time.  Direction points in average particle motion.
+\item Therefore $\iint_S \vec{J}\cdot \vec{dA}$ is the rate at which particles enter and exit the whole surface $S$.  \emph{Just like the flux.}
+\item Therefore  $-\iint_S \vec{J}\cdot \vec{dA} = \iiint_V \frac{\delta \rho}{\delta t}(\vec{x}, t)d\vec{x}$, since the flux is the particles leaving, and $\rho$ is the particle (remaining) density.
+\item But by the divergence theorem,  $-\iint_S \vec{J}\cdot \vec{dA} = \iiint_V \nabla \cdot \vec{J}(\vec{x}, t)d\vec{x}$
+\item Equating these triple integrals, $\frac{\delta \rho}{\delta t} = \nabla \cdot \vec{J}(\vec{x}, t) \Rightarrow \frac{\delta \rho}{\delta t}  + \nabla \vec{J} = 0$
+\item Also, \fbox{Fick's Law: $\vec{J} = -D\nabla \rho$}, since the rate at which we're leaving an area is the negative of the gradient (which points towards the quantity increasing).
+\item Therefore, $\frac{\delta \rho}{\delta t} = D \nabla^2\rho \Rightarrow \frac{\delta u}{\delta t} = D \nabla^2u$ since $\rho = Nu$.
+\end{itemize}
+
+Now we have to get to some Fourier magic to solve this equation.
+\begin{itemize}
+\item Start from $\frac{\delta u}{\delta t}$ on the one side.
+\item  $\frac{\delta u}{\delta t} = D\nabla ^2 u$
+\item $u = \iiint_{\mathbb{R}^3} \hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k}$ (Fourier OUT)
+\item $\frac{\delta u}{\delta t} = D( \frac{\delta ^2}{\delta x^2} +  \frac{\delta ^2}{\delta y^2}  + \frac{\delta ^2}{\delta z^2} ) \iiint_{\mathbb{R}^3} \hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k}$
+\item $=\iiint_{\mathbb{R}^3} [2\pi i]^2(\vec{k}\cdot\vec{k}) \hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k} =\iiint_{\mathbb{R}^3} [-4\pi^2\|\vec{k}\|]^2\hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k} $
+\item But form the other side and the definition of Fourier OUT: $\frac{\delta u}{\delta t} = \iiint \frac{\delta u}{\delta t} e^{2\pi i \vec{x}\vec{k}}d\vec{k} $
+\item Therefore, by equating the contents of the integrals, we find the derivative on the Fourier side: $\frac{\delta \hat{u}}{\delta t} = D\cdot -4\pi^2\|k\|^2\hat{u}$
+\item Therefore, we can use the standard $f' = kf$, and the knowledge that $t=0 \rightarrow \hat{u} = \hat{u}(\vec{k}, 0)$ to find \textbf{the solved diff eq on the Fourier side} \fbox{ $\hat{u}(\vec{k}, t) = \hat{u}(\vec{k}, 0)e^{ -4\pi^2\|k\|^2t}$} if we assume $D=1$
+\end{itemize}
+
+Then it looks like we have what appears to be a standard dance:
+\begin{itemize}
+\item Put this $\hat{u}$ into the Fourier OUT equation.
+\item Assume a FOURIER IN of some $y$ so that  $\hat{u}(\vec{k}, 0) = \iiint u(\vec{y}, 0)e^{-2\pi i \vec{y} \cdot \vec{k}} d\vec{y}$
+\item Rewrite so to shift $\vec{y}$ into the $d\vec{k}$ part
+\item Complete the square in the exponent and evaluate.
+\item Leading us to \fbox{$u(\vec{x}, t)= (\frac{1}{4 \pi D t})^{\frac{3}{2}} \iiint u(\vec{y}, 0) e^{-\frac{1}{4 Dt} \| x - y\|^2}d\vec{y}$} as the almost full solution.  Just need the initial constant.
+\item Note that $u(\vec{y}, 0)$ is:
+\begin{itemize}
+\item The initial probability distribution.  The particle is at $\vec{a}$, so it's "infinitely likely" there, and 0 elsewhere.
+\item Therefore $u(\vec{y}, 0) = \delta{x-a}$.  So we only need to evaluate at $\vec{y} = \vec{a}$.
+\item So, since $\delta{y-a}$ confers ALL the distribution when $y=a$, then $(\frac{1}{4 \pi D t})^{\frac{3}{2}} \int_{\mathbb{R}^3}\delta(y-a)e^{-\frac{1}{4 Dt} \| x - y\|^2}d\vec{y} = (\frac{1}{4 \pi D t})^{\frac{3}{2}} e^{-\frac{1}{4 Dt} \| x - a\|^2}$
+\item \textbf{This trick} looks useful!  Taking the fourier transform of a delta with a function (taking care to keep the $d\vec{x}$ or $d\vec{k}$ out of it, looks like it yields the function!
+\item 
+
+\end{itemize}
+\item 
+\end{itemize}
+
+\end{itemize}
+
+
+Example: How far does the average particle travel, if $u(x,t) = (\frac{1}{4\pi D t})^{\frac{3}{2} }\iiint_{\mathbb{R}^3} e^{-\frac{1}{4DT} \|x-a\|^2}$ 
+\begin{itemize}
+\item We're looking to estimate average distance, or $\sqrt{\iiint_{\mathbb{R}^3} \|x - a\|^2 u(\vec{x},t) d\vec{x}}$
+\item Consider $\vec{a} = 0$ (move to origin)
+\item Let's apply square root at the end.
+\item Switch to polar coordinates with (see above) $d\vec{x}=\rho^2 \sin(\phi) d\rho d\phi d\theta$
+\item THen we're looking at constant factors $(\frac{1}{4\pi D t})^{\frac{3}{2}}$, $2$ from integrating $\sin(\phi)$ from $[-\pi, \pi]$, and $2\pi$ from integrating $\theta$.
+\item The integral becomes $\int \rho^4 e^{-\frac{1}{4\pi D t} \rho^2} d\rho$
+\item Set $u = \frac{\rho}{2\sqrt{Dt}}, du = \frac{d\rho}{2\sqrt{Dt}}$
+\item Integral becomes $(2\sqrt{Dt})^4 (2\sqrt{Dt}) \int u^4e^{-u^2}du = (2\sqrt{Dt})^4 (2\sqrt{Dt}) \frac{3\sqrt{\pi}}{8} * (\frac{1}{4\pi D t})^{\frac{3}{2}} * 2 * 2\pi$
+\item $=6Dt$. So result is the square root.
+\item Therefore, if $D=6$, say, a particle will travel 1200 cm in on average $\sqrt{6*6*t} = 1200 \Rightarrow t = 400$  seconds.
+\end{itemize}
 
 
 \begin{itemize}
