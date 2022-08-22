@@ -1559,11 +1559,11 @@ Example: Evaluate $\frac{1}{2\pi} \iint_{\mathbb{R}^2} \exp [-\frac{1}{2}[-2x^2 
 
 Summary: By employing the Dirac Delta function \fbox{$\delta(\vec{x}) \approx \int_{\mathbb{R}^n} e^{2\pi i \vec{x}\cdot\vec{k} }d\vec{k}$}, we can transform functions into a separate eigenspace where derivatives and integrals may be easier.
 
-Note from the internet: The Fourier transform maps like a $3\sin(x)$ waveform to a function which has a peak at (frequency) $3$.  This makes sense that the Dirac ends up being a bunch of "point spikes".  More to figure out.
+Note from the internet: The Fourier transform maps like a $\sin(3x)$ waveform to a function which has a peak at (frequency) $3$.  This makes sense that the Dirac (sort of what you're creating in the Fourier space) ends up being a bunch of ``point spikes'' in this case.  More to figure out.
 
 \begin{itemize}
-\item Motivation: While linear transform $A = RDR^T$ transforms $e_i$ to eigenvectors $w_i$: $Re_i \rightarrow w_i$, where $A$ is diagonal, so that $Aw_i = \lambda_iw_i$
-\item Similarly, operators like $\nabla$ change functions into vector-valued functions.  So an "eigenfunction" of $\nabla$ would have $\nabla f_{\vec{k}}(\vec{x}) \propto  k  f_{\vec{k}}(\vec{x})  $
+\item Motivation: A linear transform $A = R^TDR$ transforms $e_i$ to eigenvectors $w_i$: $Re_i \rightarrow w_i$, where $A$ is diagonal, so that $Aw_i = \lambda_iw_i$
+\item Similarly, operators like $\nabla$ change functions into vector-valued functions.  So an ``eigenfunction'' of $\nabla$ would have $\nabla f_{\vec{k}}(\vec{x}) \propto  \vec{k}  f_{\vec{k}}(\vec{x})  $ for some constant $\vec{k}$
 \item The function $e^{2\pi i \vec{k} \cdot \vec{x}}$ fits that bill.
 \item So in the same way that the eigenvector basis $w_i$ means any $\vec{v} = \sum a_j \hat{w_j}$,
 \\
@@ -1574,8 +1574,9 @@ Note from the internet: The Fourier transform maps like a $3\sin(x)$ waveform to
 Things to remember about $\delta(x)$
 \begin{itemize}
 \item  $\delta(x) = 0$ except at $x=0$.  Another way to think about this is $\delta(x - a) = 0$ except at $x=a$. 
-\item This also means $f(x)\delta(x-a)= f(a)\delta(x-a)$ since $f(x)$ only comes into play when $x=a$.  \emph{Note: This is useful for getting rid of $x$ in some integrals}
+\item This also means $f(x)\delta(x-a)= f(a)\delta(x-a)$ since $f(x)$ only comes into play when $x=a$.  \emph{Note: This is useful for getting rid of $x$ from the $f()$ part in some integrals}
 \item $\int_{\mathbb{R}} \delta(x-a) = 1$ for any $a$.  
+\item \textbf{Fourier tip}: This also means $\int \delta(x-a)f(x)dx$ will be $f(a)$, since it's 0 except for the point $f(a)$, where all the weight of the distribution is.
 \item Can we approximate $\delta$ using normal functions?
 
 \begin{itemize}
@@ -1605,13 +1606,14 @@ Things to remember about $\delta(x)$
 \item Playing around in Fourier space:
 \begin{itemize}
 \item $\hat{\frac{df}{dx}}(k)$, meaning the transform of derivative $f'(x)$, is $2\pi i k \hat{f}(k)$ after integrating $\int_{\mathbb{R}} f'(x)e^{-2\pi i x \cdot k}dx$ by parts, with $dv = f'(x), u = e^{-2\pi i x \cdot k}$. 
-\item Since all the components are independent, the two-variable case $[2\pi i]^2 k_ik_j \hat{f}(\vec{k}) = \hat{\frac{\delta^2 f}{\delta x_i \delta x_j}}$ follows.
+\item Since all the components are independent, the two-variable case $\hat{\frac{\delta^2 f}{\delta x_i \delta x_j}} = [2\pi i]^2 k_ik_j \hat{f}(\vec{k})$ follows.
+\item TODO: Finding derivatives more easily seems uninteresting.  Is the upshot here that the antiderivative of $2\pi i x k\hat{f}(\vec{k})$ is now very easy?
 \end{itemize}
 \end{itemize}
 
 Example of solving diff eqs with Fourier Transform:
 \begin{itemize}
-\item Applying this, the differential equation $\frac{d^2f}{dx} + \omega^2 f = 0$ admits the solution $([2\pi i k]^2 + \omega^2] \hat{f}(\vec{k}) = 0$
+\item Applying this, the differential equation $\frac{d^2}{dx^2}f(\vec{x}) + \omega^2 f(\vec{x}) = 0$ admits the solution $([2\pi i k]^2 + \omega^2) \hat{f}(\vec{k}) = 0$
 \item If we assume $\hat{f}(\vec{k}) \neq 0$ \emph{everywhere}, then it has values only at $k = \pm \frac{\omega}{2\pi}$
 \item This suggests the general form $a \delta(k-\frac{\omega}{2\pi}) + b \delta(k+\frac{\omega}{2\pi})$
 \item Let's evaluate one of the fourier terms: $g(x) =a \int \delta(k-\frac{\omega}{2\pi}) e^{2\pi k x} dk$
@@ -1625,33 +1627,33 @@ Example of solving diff eqs with Fourier Transform:
 
 \subsection{5.5: Diffusion Equation}
 
- Laplacian: $0 = \nabla ^2 T = \frac{\delta ^2 T}{delta x^2} +  \frac{\delta ^2 T}{delta y^2} +  \frac{\delta ^2 T}{delta z^2}$ looks similar but not the same.
+ Laplacian: $0 = \nabla ^2 T = \frac{\delta ^2 T}{\delta x^2} +  \frac{\delta ^2 T}{\delta y^2} +  \frac{\delta ^2 T}{\delta z^2}$ looks similar but not the same as diffusion equation $\frac{\delta u}{\delta t} = D\nabla^2 u$.
 
-Derivation of Diffusion Equatin.
+Derivation of Diffusion Equatin.: $ \frac{\delta u}{\delta t }= D\nabla^2 u$
+
 \begin{itemize}
-\item Diffusion: $ \frac{\delta u}{delta t }= D\nabla^2 u$
 \item Definitions:
 \begin{itemize}
 \item $D > 0$ is a \textbf{diffusion constant}, different per material
 \item $u(\vec{x},t)$ is unit density function - probability of seeing particle in some point in space.  Integrates over $\mathbb{R}^3$ to 1
 \item $\rho(\vec{x},t) = Nu(\vec{x},t)$ is overall density function - $N$ number of particles times the unit density function.
-\item $\vec{J}$ is the \textbf{current density}.  Magnitude is particles cross a unit area per unit time.  Direction points in average particle motion.
+\item $\vec{J}$ is the \textbf{current density}.  Magnitude is particles that cross a unit area per unit time.  Direction points in average particle motion.
+\end{itemize}
 \item Therefore $\iint_S \vec{J}\cdot \vec{dA}$ is the rate at which particles enter and exit the whole surface $S$.  \emph{Just like the flux.}
 \item Therefore  $-\iint_S \vec{J}\cdot \vec{dA} = \iiint_V \frac{\delta \rho}{\delta t}(\vec{x}, t)d\vec{x}$, since the flux is the particles leaving, and $\rho$ is the particle (remaining) density.
-\item But by the divergence theorem,  $-\iint_S \vec{J}\cdot \vec{dA} = \iiint_V \nabla \cdot \vec{J}(\vec{x}, t)d\vec{x}$
-\item Equating these triple integrals, $\frac{\delta \rho}{\delta t} = \nabla \cdot \vec{J}(\vec{x}, t) \Rightarrow \frac{\delta \rho}{\delta t}  + \nabla \vec{J} = 0$
+\item But by the divergence theorem,  $-\iint_S \vec{J}\cdot \vec{dA} = \iiint_V - \nabla \cdot \vec{J}(\vec{x}, t)d\vec{x}$
+\item Equating these triple integrals, $\frac{\delta \rho}{\delta t} = - \nabla \cdot \vec{J}(\vec{x}, t)$ (or also, $ \frac{\delta \rho}{\delta t}  + \nabla \vec{J} = 0$)
 \item Also, \fbox{Fick's Law: $\vec{J} = -D\nabla \rho$}, since the rate at which we're leaving an area is the negative of the gradient (which points towards the quantity increasing).
-\item Therefore, $\frac{\delta \rho}{\delta t} = D \nabla^2\rho \Rightarrow \frac{\delta u}{\delta t} = D \nabla^2u$ since $\rho = Nu$.
+\item Therefore, sub Fick's definition of $\vec{J}$ into the above to get $\frac{\delta \rho}{\delta t} = D \nabla^2\rho \Rightarrow \frac{\delta u}{\delta t} = D \nabla^2u$ since $\rho = Nu$.
 \end{itemize}
 
 Now we have to get to some Fourier magic to solve this equation.
 \begin{itemize}
-\item Start from $\frac{\delta u}{\delta t}$ on the one side.
-\item  $\frac{\delta u}{\delta t} = D\nabla ^2 u$
+\item Start from  $\frac{\delta u}{\delta t} = D\nabla ^2 u$ on the one side.
 \item $u = \iiint_{\mathbb{R}^3} \hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k}$ (Fourier OUT)
-\item $\frac{\delta u}{\delta t} = D( \frac{\delta ^2}{\delta x^2} +  \frac{\delta ^2}{\delta y^2}  + \frac{\delta ^2}{\delta z^2} ) \iiint_{\mathbb{R}^3} \hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k}$
-\item $=\iiint_{\mathbb{R}^3} [2\pi i]^2(\vec{k}\cdot\vec{k}) \hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k} =\iiint_{\mathbb{R}^3} [-4\pi^2\|\vec{k}\|]^2\hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k} $
-\item But form the other side and the definition of Fourier OUT: $\frac{\delta u}{\delta t} = \iiint \frac{\delta u}{\delta t} e^{2\pi i \vec{x}\vec{k}}d\vec{k} $
+\item $\frac{\delta u}{\delta t} = D( \frac{\delta ^2}{\delta x^2} +  \frac{\delta ^2}{\delta y^2}  + \frac{\delta ^2}{\delta z^2} )u =  D( \frac{\delta ^2}{\delta x^2} +  \frac{\delta ^2}{\delta y^2}  + \frac{\delta ^2}{\delta z^2} )\iiint_{\mathbb{R}^3} \hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k}$
+\item $=D\iiint_{\mathbb{R}^3} [2\pi i]^2(\vec{k}\cdot\vec{k}) \hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k} =\iiint_{\mathbb{R}^3} D\cdot[-4\pi^2\|\vec{k}\|^2]\hat{u}(\vec{k}, t)e^{2\pi i \vec{x}\vec{k}}d\vec{k} $
+\item But form the other side and the definition of Fourier OUT: $\frac{\delta u}{\delta t} = \iiint \frac{\delta \hat{u}}{\delta t} e^{2\pi i \vec{x}\vec{k}}d\vec{k} $
 \item Therefore, by equating the contents of the integrals, we find the derivative on the Fourier side: $\frac{\delta \hat{u}}{\delta t} = D\cdot -4\pi^2\|k\|^2\hat{u}$
 \item Therefore, we can use the standard $f' = kf$, and the knowledge that $t=0 \rightarrow \hat{u} = \hat{u}(\vec{k}, 0)$ to find \textbf{the solved diff eq on the Fourier side} \fbox{ $\hat{u}(\vec{k}, t) = \hat{u}(\vec{k}, 0)e^{ -4\pi^2\|k\|^2t}$} if we assume $D=1$
 \end{itemize}
@@ -1666,23 +1668,19 @@ Then it looks like we have what appears to be a standard dance:
 \item Note that $u(\vec{y}, 0)$ is:
 \begin{itemize}
 \item The initial probability distribution.  The particle is at $\vec{a}$, so it's "infinitely likely" there, and 0 elsewhere.
-\item Therefore $u(\vec{y}, 0) = \delta{x-a}$.  So we only need to evaluate at $\vec{y} = \vec{a}$.
-\item So, since $\delta{y-a}$ confers ALL the distribution when $y=a$, then $(\frac{1}{4 \pi D t})^{\frac{3}{2}} \int_{\mathbb{R}^3}\delta(y-a)e^{-\frac{1}{4 Dt} \| x - y\|^2}d\vec{y} = (\frac{1}{4 \pi D t})^{\frac{3}{2}} e^{-\frac{1}{4 Dt} \| x - a\|^2}$
-\item \textbf{This trick} looks useful!  Taking the fourier transform of a delta with a function (taking care to keep the $d\vec{x}$ or $d\vec{k}$ out of it, looks like it yields the function!
-\item 
-
+\item Therefore $u(\vec{y}, 0) = \delta(x-a)$.  So we only need to evaluate at $\vec{y} = \vec{a}$.
+\item So, since $\delta(y-a)$ confers ALL the distribution when $y=a$, then $(\frac{1}{4 \pi D t})^{\frac{3}{2}} \int_{\mathbb{R}^3}\delta(y-a)e^{-\frac{1}{4 Dt} \| x - y\|^2}d\vec{y} = (\frac{1}{4 \pi D t})^{\frac{3}{2}} e^{-\frac{1}{4 Dt} \| x - a\|^2}$f
+\item \textbf{This trick} looks useful!  Taking the fourier transform of a $\delta(x-a)f(t)$ with a function (taking care to keep the $d\vec{x}$ or $d\vec{k}$ out of it), looks like it yields the function evaluated at $a$, or $f(a)$!
 \end{itemize}
 \item 
 \end{itemize}
 
-\end{itemize}
 
 
 Example: How far does the average particle travel, if $u(x,t) = (\frac{1}{4\pi D t})^{\frac{3}{2} }\iiint_{\mathbb{R}^3} e^{-\frac{1}{4DT} \|x-a\|^2}$ 
 \begin{itemize}
 \item We're looking to estimate average distance, or $\sqrt{\iiint_{\mathbb{R}^3} \|x - a\|^2 u(\vec{x},t) d\vec{x}}$
-\item Consider $\vec{a} = 0$ (move to origin)
-\item Let's apply square root at the end.
+\item Simplify: Consider $\vec{a} = 0$ (move to origin) and apply square root at the end.
 \item Switch to polar coordinates with (see above) $d\vec{x}=\rho^2 \sin(\phi) d\rho d\phi d\theta$
 \item THen we're looking at constant factors $(\frac{1}{4\pi D t})^{\frac{3}{2}}$, $2$ from integrating $\sin(\phi)$ from $[-\pi, \pi]$, and $2\pi$ from integrating $\theta$.
 \item The integral becomes $\int \rho^4 e^{-\frac{1}{4\pi D t} \rho^2} d\rho$
@@ -1690,6 +1688,79 @@ Example: How far does the average particle travel, if $u(x,t) = (\frac{1}{4\pi D
 \item Integral becomes $(2\sqrt{Dt})^4 (2\sqrt{Dt}) \int u^4e^{-u^2}du = (2\sqrt{Dt})^4 (2\sqrt{Dt}) \frac{3\sqrt{\pi}}{8} * (\frac{1}{4\pi D t})^{\frac{3}{2}} * 2 * 2\pi$
 \item $=6Dt$. So result is the square root.
 \item Therefore, if $D=6$, say, a particle will travel 1200 cm in on average $\sqrt{6*6*t} = 1200 \Rightarrow t = 400$  seconds.
+\end{itemize}
+
+\subsection{5.6: The Wave Equation}
+
+Summary: General wave equation form: \fbox{$ \frac{\delta^2u}{\delta t^2}  = v^2 \nabla^2u$} 
+
+Derivation of Wave Equation:
+\begin{itemize}
+\item Fundamental idea: line of particles attached by springs of resting lenght $l$, labeled by initial position $x+kl$, with \emph{displacements} from these positions $u(x-l,t), u(x,t), u(x+l,t)$.  
+\item So, we could see $u(x+l, t) < u(x, t)$, for example, if the right-hand ball is a little left of start, and the left-hand ball a little right of start.
+\item Force law: $F = k | l' - l |$.
+\item Therefore, length of spring between right and middle: $u(x+l, t) + l - u(x,t)$, with rightward force $k | u(x+l, t) + l - u(x,t) - l | = k|u(x+l, t) - u(x,t)|$
+\item Therefore, length of spring between middle and left: $u(x, t) + l - u(x-l,t)$, with leftward force $-k | u(x+l, t) + l - u(x,t) - l | = -k|u(x, t) - u(x-l, t)|$
+\item Add these together to get $k |u(x+l, t) + u(x-l, t) - 2u(x,t)|$.  Note that this is messy but all cases apply symmetrically.
+\item To estimate this, \emph{use Taylor approximation}
+\begin{itemize}
+\item Expand around center x: $T(x) = f(x_0) + f'(x_0)(x-x_0) + f''(x-x_0)^2 + ...$
+\item $T(x+l) = u(x+l, t) \approx u(x,t) + u'(x,t)l + \frac{1}{2}u''(x,t)l^2 + ...$,
+\item $u(x-l, t) \approx u(x,t) + u'(x,t)(-l) + \frac{1}{2}u''(x,t)(-l)^2 + ...$
+\item $\Rightarrow u(x+l, t) + u(x-l, t)  - 2u(x,t) \approx u''(x,t)l^2$
+\item So total force is then $kl^2\frac{\delta^2u}{\delta x^2}$
+\item With $F=ma$, this means $F=m\frac{\delta^2u}{\delta t^2} = kl^2\frac{\delta^2u}{\delta x^2} \Rightarrow \frac{\delta^2u}{\delta t^2} = \frac{kl^2}{m}\frac{\delta^2u}{\delta x^2} $
+\item With ``wave speed'' $v$, for some reason $v^2 = \frac{kl^2}{m}$, for \textbf{general wave equation form} \fbox{$ \frac{\delta^2u}{\delta t^2}  = v^2 \nabla^2u$} 
+\item Note: For rest of chapter, we set $v=1$ (for simplicity) and add damping term for energy loss, so $ \frac{\delta^2u}{\delta t^2} + 2\gamma \frac{\delta u}{\delta t}= v^2 \nabla^2u$
+\end{itemize}
+
+\emph{Note: The sides of the drum are fixed} on a drumhead of $[0, l_x] \times [0, l_y]$, so $u(x, 0, t) = u(0, y, t) = u(x, l_y, t) = u(l_x, y, t) = 0$
+
+How can $\hat{u}(k,t)$ guarantee periodicity in $u(x,t)$? 
+If \fbox{$\hat{u}(k,t) = \hat{u}(k,t) e^{2\pi i k l}$}, then 
+\begin{align}
+u(x+l, t) = \int \hat{u}(k,t)e^{2\pi i k (x+l)k} dk \\
+=  \int (\hat{u}(k,t)e^{2\pi i k l}) e^{2\pi i k x} dk \\
+ = \int \hat{u}(k,t) e^{2\pi i k x} = u(x, t) 
+\end{align}
+\item And if we find such a condition, we're looking at $\hat{u}(k,t)e^{2 \pi i k l} = \hat{u}(k,t)*1 = \hat{u}(k,t) * e^{2 \pi i m}, m \in \mathbb{Z}$.
+\item This suggests $kl = m \in \mathbb{Z}$ or $k = \frac{m}{l}$ for some $m$, otherwise $\hat{u}(k,t)$ = 0.  Looks like a delta function me!
+\item Therefore, the general version of a function period of $l$ satisfying $\hat{u}(k,t) = \hat{u}(k,t) e^{2\pi i k l}$ for $k \in \mathbb{R}$ would be $\hat{u}(k,t) = \sum_{m \in \mathbb{Z}} a_m(t)\delta(k-\frac{m}{l})$ , with (integer-indexed) set of constants $a_m$, which depend on $t$ (but, as stated, work for any $k \in \mathbb{R}$.
+\item, Therefore, we can derive a condition for $u(x+l, t) = u(x,t)$ by plugging in:
+\begin{itemize}
+\item We know: $\hat{u}(k,t) = \sum_{m \in \mathbb{Z}} a_m(t)\delta(k-\frac{m}{l})$
+\item We know: $u(x,t) = \int_{\mathbb{R}} \hat{u}(k,t)e^{2\pi i x\cdot k}dk$
+\item Plug in to get $u(x,t) =  \int_{\mathbb{R}} \sum_{m \in \mathbb{Z}} a_m(t)\delta(k-\frac{m}{l})e^{2\pi i x\cdot k}dk$.  This is only nonzero at each $x = \frac{m}{l}$
+\item So $u(x,t) = \sum_{m \in \mathbb{Z}} a_m(t)e^{2\pi i \frac{m}{l} \cdot k}$
+\item Now to \textbf{boundary conditions} $u(0,t) = u(l,t) = 0.$ (TODO: what does this mean, really?).
+\begin{itemize}
+\item Just need to ensure $u(0,t) = 0$, since the function is $l-$periodic.
+\item If we ensure $a_m(t) = -a_{-m}(t), m \in \mathbb{Z}$, then: whenever $l$ divides $x$, the $e^{2\pi i x \cdot \frac{m}{l}}$ will be 1, and the two terms will cancel.  
+\end{itemize}
+\item From here we can derive the 1-D wave equation:
+\begin {itemize}
+\item We know: Euler's law: $e^{ix} = \cos(x) + i\sin(x) \Rightarrow \frac{e^{ix} - e^{-ix}}{2i} = \sin(x)$
+\item We know: $u(x,t) = \sum_{m=1}^{\infty}[a_{-m}(t)e^{-2\pi i x \cdot \frac{m}{l}} + a_{m}(t)e^{2\pi i x \cdot \frac{m}{l}}]$
+\item $= \sum_{m=1}^{\infty}a_m(t)[e^{2\pi i x \cdot \frac{m}{l}} - e^{-2\pi i x \cdot \frac{m}{l}}] = 2ia_m(t)[\sin(2\pi i x \cdot \frac{m}{l})]$
+\item Set $A_m = 2ia_m(t) \Rightarrow$ \fbox{$u(x, t)  = A_m(t)[\sin(2\pi i x \cdot \frac{m}{l})]$}
+\item Repeating this in 2D yields a \textbf{Fourier sine series} 
+\fbox{$u(x,y,t) = \sum_{m,n = 1}^{\infty}A_{mn}(t)\sin(\frac{2\pi m}{l_x} x\sin(\frac{2\pi m}{l_y} y)$}
+\end{itemize}
+\item From here, we can get a diff eq by combining with damped wave equation $\frac{\delta^2 u}{\delta t^2} + 2\gamma \frac{\delta u}{\delta t}  - \nabla ^2 u =0$
+\begin{itemize}
+\item Name constant $K = \sin(\frac{2 \pi m}{l_x}x)\sin(\frac{2 \pi n}{l_y}y)$
+\item Then term $A_{mn}$ becomes $\frac{\delta^2}{\delta t^2} A_{mn}(t) K + 2\gamma \frac{\delta}{\delta t} A_{mn}(t)K - K(-A_{mn} * (\frac{2\pi m}{l_x})^2 - -A_{mn} * (\frac{2\pi n}{l_y})^2) = 0$
+\item This yields $\frac{\delta^2}{\delta t^2} A_{mn}(t) + 2\gamma \frac{\delta}{\delta t} A_{mn}(t)  + 4\pi^2A_{mn}[ (\frac{m}{l_x})^2 +  (\frac{n}{l_y})^2] = 0$
+\item An educated guess (or understanding ordinary diff eq's) yields $A_{mn} = e^{-\gamma t}[c_{mn}\cos(\omega_{mn} t) + s_{mn}\sin(\omega_{mn} t)]$
+\end{itemize}
+\end{itemize}
+\item Finally, we end up with a total description of the wave equation.
+\item \textbf{m} is the wave count in the $x$ direction, \textbf{n} in the $y$.
+\item Constants $c_{mn}$ and $s_{mn}$ signify how hard the drum is hit initially after respecting $u(x,y,0)$ and $\frac{\delta u}{\delta t}(x,y,0)$, the initial height and velocity.
+\item $\gamma$ controls damping.
+\item $\omega_{mn} = \sqrt{4\pi^2 [(\frac{m}{l_x})^2 + (\frac{n}{l_y})^2] -\gamma^2}$
+\item $A_{mn} = e^{-\gamma t}[c_{mn}\cos(\omega_{mn} t) + s_{mn}\sin(\omega_{mn} t)]$
+\item\ $u(x,y,t) = \sum_{m,n = 1}^{\infty}A_{mn}(t)\sin(\frac{2\pi m}{l_x} x)\sin(\frac{2\pi m}{l_y} y)$
 \end{itemize}
 
 
