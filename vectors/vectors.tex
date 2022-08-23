@@ -1763,6 +1763,65 @@ u(x+l, t) = \int \hat{u}(k,t)e^{2\pi i k (x+l)k} dk \\
 \item\ $u(x,y,t) = \sum_{m,n = 1}^{\infty}A_{mn}(t)\sin(\frac{2\pi m}{l_x} x)\sin(\frac{2\pi m}{l_y} y)$
 \end{itemize}
 
+\subsection{5.7: Maxwell's Equations Part I}
+
+With an electric field $\vec{E}$ and a related (generated?) magnetic field $\vec{B}$, Helmholtz has a theorem: \fbox{As long as the fields go to $\vec{0}$ at infinity, the divergences and curls of the field completely determine them}.
+
+These quatities are:
+
+\begin{itemize}
+\item $\nabla \cdot \vec{E} = 0$
+\item $\nabla \cdot \vec{B} = 0$
+\item $\nabla \times \vec{E} = 0$
+\item $\nabla \times \vec{B} = 0$
+\end{itemize}
+
+Derivation of each follow.
+
+\fbox{$\nabla \cdot \vec{B} = 0$}
+
+\begin{itemize}
+\item Gauss's Law says $\iint_S \vec{E} \cdot \vec{dA} = \frac{Q_{tot}}{\epsilon_0}$ 
+\item Combinig this with the divergence theorem), we know \fbox{$\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$} for the charge density $\rho(\vec{x})$.
+\item Magnetic fields have no sources or sinks (no point charges that repel everything or attract everything).
+\item Therefore the divergence is zero, so  $\nabla \cdot \vec{B} = 0$.
+\end{itemize}
+
+\fbox{$\nabla \times \vec{E} = -\frac{\delta \vec{B}}{\delta t}$}
+\begin{itemize}
+\item In \emph{electrostatics}, we have a gradient field, so the curl is always zero.
+\item But drop the ``static'' part, and moving electric fields (flowing charge) can create magnetic fields.  And vice versa!
+\item Experimental equation for electric field and magnetic flux: $\int_C \vec{E} \cdot \vec{dA} = -\frac{d \Phi}{dt}$
+\item Derivation: By def. of magnetic flux $\Phi = \iint_S \vec{B} \cdot \vec{dA} \Rightarrow  -\frac{\delta \Phi}{\delta t} =  \iint_S -\frac{\delta \vec{B}}{\delta t} \cdot \vec{dA}$  by differentiating.
+\item $= -\frac{d \Phi}{dt} = \int_C \vec{E} \cdot \vec{dA} = \iint_S \nabla \times \vec{E} \cdot \vec{dA}$ (last step by Stokes).
+\item Since the surface $S$ is arbitrary, it must be true that the inside of the integrals are equal, so $\nabla \times \vec{E} =- \frac{\delta \vec{B}}{\delta t}$
+\end{itemize}
+
+
+\fbox{$\nabla \times \vec{B} = \mu_0\vec{J} + \mu_0 \epsilon_0  \frac{\delta \vec{E}}{\delta t}$}
+\begin{itemize}
+\item Start with known Ampere's rule for a current I (charge flowing through surface $S$, boundary $C$ per unit time): $\int_C \vec{B} \cdot \vec{dx} = \mu_0I$.
+\item This only works if electric fields are unchanging (i.e. no ``time'' variable).  Assume no changing fields here.
+\item Define $\vec{J}$ as charge flow per unit time per unit area of $S$: $I = \iint_S \vec{J} \cdot {dA} \Rightarrow \mu_0I =  \iint_S \mu_0 \vec{J} \cdot {dA}$
+\item But $\mu_0I =  \int_C \vec{B} \cdot \vec{dx} = \mu_0I \iint_S \nabla \times \vec{B} \cdot \vec{dA}$ by Stokes.
+\item Since $C$ is arbitrary, it must be true that the inside of the integrals are equal, so $\nabla \times \vec{B}  = \mu_0 \vec{J}$
+\item In general, the divergence of the curl of any field is zero (work through the matrix): $\nabla \cdot \nabla \times \vec{B} = 0$
+\item So the divergence of the lefthand side is always zero, but that's not necessarily true for $\vec{J}$ if the surface has sources or sinks inside.  So to the missing piece:
+\item If charge density is $\rho$, then charge changes at rate $\frac{\delta \rho}{\delta t}$
+\item Total charge $Q$ flows out of the surface at rate $\frac{\delta Q}{\delta t} = -\iint_S \vec{J} \cdot \vec{dA}$
+\item Then  $-\iint_S \vec{J} \cdot \vec{dA} = \iiint_V -\nabla \cdot \vec{J} \cdot \vec{dA}$ by divergence theorem
+\item while $Q = \iiint_V  \rho d\vec{x} \Rightarrow  \frac{\delta Q}{\delta t}  =  \frac{\delta}{\delta t} \iiint_V \rho d\vec{x}= \iiint_V  \frac{\delta \rho}{\delta t} $\
+\item Since the contained volume $V$ is arbitrary, it must be true that the inside of the integrals are equal, so $\nabla \cdot \vec{J} =- \frac{\delta \rho}{\delta t}$
+\item We now know: $\nabla \cdot \vec{J} =- \frac{\delta \rho}{\delta t}$ and $\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$
+\item We want to find term T  in $\nabla \times \vec{B} = \mu_0\vec{J} + T$
+\item $\Rightarrow 0 = \nabla \cdot \nabla \times \vec{B} = \nabla \cdot \mu_0\vec{J} + \nabla \cdot T$
+\item $\Rightarrow  \mu_0\frac{\delta \rho}{\delta t} =  \nabla \cdot T$
+\item Remember $\rho = \epsilon_0 \nabla \cdot \vec{E} \Rightarrow \frac{\delta \rho}{\delta t} = \nabla \cdot (\epsilon_0  \frac{\delta \vec{E}}{\delta t})$
+\item $\Rightarrow  \mu_0\frac{\delta \rho}{\delta t} = \nabla \cdot T =  \nabla \cdot (\mu_0 \epsilon_0  \frac{\delta \vec{E}}{\delta t})$
+\item So $T = \mu_0 \epsilon_0  \frac{\delta \vec{E}}{\delta t}$
+
+\end{itemize}
+
 
 \begin{itemize}
 \item TODO
