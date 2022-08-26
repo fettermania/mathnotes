@@ -1386,6 +1386,12 @@ Note: From lecture at ``https://www.youtube.com/watch?v=wlo2V8H5khM'', $d_{i_1, 
 
 \textbf{Laplacian}: $\nabla^2 \vec{F} = \nabla \cdot \nabla \vec{F} = \frac{\delta^2}{\delta x^2}F_x + \frac{\delta^2}{\delta y^2}F_y + \frac{\delta^2}{\delta z^2}F_z$ shows up often in partial differential equations.  
 
+\textbf{Gotcha}: This $\nabla^2$ syntax is confusing.  
+\begin{itemize}
+\item The Laplacian discussed here is a scalar quantity, often equated to scalar zero in these equations: $\nabla \cdot (\nabla \vec{F}) = \frac{\delta^2}{\delta x^2}F_x + \frac{\delta^2}{\delta y^2}F_y + \frac{\delta^2}{\delta z^2}F_z$, the "divergence of the grad"
+\item There's another thing which is $\langle \frac{\delta^2}{\delta x^2}, \frac{\delta^2}{\delta y^2}, \frac{\delta^2}{\delta z^2} \rangle$, which I feel like people call $\nabla^2$.  What out for it!
+\end{itemize}
+
  Example: Finding Potential $V$ of an electrostatic field $\vec{E} = -\nabla V$, if $\vec{E} = \frac{Q}{4\pi\epsilon_0}\frac{\vec{x}}{\|\vec{x}\|^3}$
 \begin{itemize}
 \item Consider this in spherical coordinates and note that V is only a function of $\rho$.
@@ -1765,24 +1771,33 @@ u(x+l, t) = \int \hat{u}(k,t)e^{2\pi i k (x+l)k} dk \\
 
 \subsection{5.7: Maxwell's Equations Part I}
 
+Static electric charges create electric fields $\vec{E}$.  \emph{Moving} electric charges create \emph{magnetic} fields $\vec{B}$.  (TODO: Does a moving electric charge then create no electric field?  )
+
+
 With an electric field $\vec{E}$ and a related (generated?) magnetic field $\vec{B}$, Helmholtz has a theorem: \fbox{As long as the fields go to $\vec{0}$ at infinity, the divergences and curls of the field completely determine them}.
 
-These quatities are:
+These quantities are:
 
 \begin{itemize}
-\item $\nabla \cdot \vec{E} = 0$
+\item $\nabla \cdot \vec{E} =  \frac{\rho}{\epsilon_0}$
 \item $\nabla \cdot \vec{B} = 0$
-\item $\nabla \times \vec{E} = 0$
-\item $\nabla \times \vec{B} = 0$
+\item $\nabla \times \vec{E} = -\frac{\delta \vec{B}}{\delta t}$
+\item $\nabla \times \vec{B} = \mu_0\vec{J} + \mu_0 \epsilon_0  \frac{\delta \vec{E}}{\delta t}$
 \end{itemize}
 
 Derivation of each follow.
 
+\fbox{$\nabla \cdot \vec{E} =  \frac{\rho}{\epsilon_0}$}
+
+
+\begin{itemize}
+\item Gauss's Law says $\iint_S \vec{E} \cdot \vec{dA} = \frac{Q_{tot}}{\epsilon_0}$.  This tells us \emph{how much of a field is sourced or lost at this point}.
+\item Combining this with the divergence theorem), we know \fbox{$\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$} for the charge density $\rho(\vec{x})$.
+\end{itemize}
+
 \fbox{$\nabla \cdot \vec{B} = 0$}
 
 \begin{itemize}
-\item Gauss's Law says $\iint_S \vec{E} \cdot \vec{dA} = \frac{Q_{tot}}{\epsilon_0}$ 
-\item Combinig this with the divergence theorem), we know \fbox{$\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$} for the charge density $\rho(\vec{x})$.
 \item Magnetic fields have no sources or sinks (no point charges that repel everything or attract everything).
 \item Therefore the divergence is zero, so  $\nabla \cdot \vec{B} = 0$.
 \end{itemize}
@@ -1791,7 +1806,7 @@ Derivation of each follow.
 \begin{itemize}
 \item In \emph{electrostatics}, we have a gradient field, so the curl is always zero.
 \item But drop the ``static'' part, and moving electric fields (flowing charge) can create magnetic fields.  And vice versa!
-\item Experimental equation for electric field and magnetic flux: $\int_C \vec{E} \cdot \vec{dA} = -\frac{d \Phi}{dt}$
+\item Empirical equation for electric field and magnetic flux for curve $C=\delta S$ bounding surface $S$ : $\int_C \vec{E} \cdot \vec{dA} = -\frac{d \Phi}{dt}$
 \item Derivation: By def. of magnetic flux $\Phi = \iint_S \vec{B} \cdot \vec{dA} \Rightarrow  -\frac{\delta \Phi}{\delta t} =  \iint_S -\frac{\delta \vec{B}}{\delta t} \cdot \vec{dA}$  by differentiating.
 \item $= -\frac{d \Phi}{dt} = \int_C \vec{E} \cdot \vec{dA} = \iint_S \nabla \times \vec{E} \cdot \vec{dA}$ (last step by Stokes).
 \item Since the surface $S$ is arbitrary, it must be true that the inside of the integrals are equal, so $\nabla \times \vec{E} =- \frac{\delta \vec{B}}{\delta t}$
@@ -1810,7 +1825,7 @@ Derivation of each follow.
 \item If charge density is $\rho$, then charge changes at rate $\frac{\delta \rho}{\delta t}$
 \item Total charge $Q$ flows out of the surface at rate $\frac{\delta Q}{\delta t} = -\iint_S \vec{J} \cdot \vec{dA}$
 \item Then  $-\iint_S \vec{J} \cdot \vec{dA} = \iiint_V -\nabla \cdot \vec{J} \cdot \vec{dA}$ by divergence theorem
-\item while $Q = \iiint_V  \rho d\vec{x} \Rightarrow  \frac{\delta Q}{\delta t}  =  \frac{\delta}{\delta t} \iiint_V \rho d\vec{x}= \iiint_V  \frac{\delta \rho}{\delta t} $\
+\item while $Q = \iiint_V  \rho d\vec{x} \Rightarrow  \frac{\delta Q}{\delta t}  =  \frac{\delta}{\delta t} \iiint_V \rho d\vec{x}= \iiint_V  \frac{\delta \rho}{\delta t}  d\vec{x} $\
 \item Since the contained volume $V$ is arbitrary, it must be true that the inside of the integrals are equal, so $\nabla \cdot \vec{J} =- \frac{\delta \rho}{\delta t}$
 \item We now know: $\nabla \cdot \vec{J} =- \frac{\delta \rho}{\delta t}$ and $\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$
 \item We want to find term T  in $\nabla \times \vec{B} = \mu_0\vec{J} + T$
@@ -1822,9 +1837,68 @@ Derivation of each follow.
 
 \end{itemize}
 
+\subsection{5.8: Maxwell's Equations Part II}
+
+
+Setup: Solenoid going up z axis.
+\begin{itemize}
+\item There is no electric field, so our equations reduce to:
+\begin{itemize}
+\item $\nabla \cdot \vec{E} = 0$
+\item $\nabla \cdot \vec{B} = \mu_0\vec{J}$
+\item $\nabla \times \vec{E} = -\frac{\delta \vec{B}}{\delta t}$
+\item $\nabla \times \vec{B} = \mu_0\vec{J}$
+\end{itemize}
+
+Also, the field doesn't vary with $z$ (infinitely high) or $\theta$ (same at every angle). So only $r$ matters.
+
+Using formula for div in cylindrical coordinates, the first equation $\nabla \cdot \vec{B} = 0 \Rightarrow \frac{1}{r} \frac{\delta [r B_r]}{\delta r} = 0$.  Multiply by $r$ and this means $rB_r = A \Rightarrow B_r = \frac{A}{r}$. To make this not infinity at $r=0$, $A$ must be 0.  What else do we know?
 
 \begin{itemize}
-\item TODO
+\item The whole equation must be then $\vec{B} = B_z\hat{k}$ (for some reason TODO).
+\item Assume $N$ loops per unit length with current $I$
+\item We have $\mu_0I_{tot} = \iint_S \vec{J} \cdot dA$ by our known physical law.
+\item We have $ \iint_S \vec{J} \cdot dA = int_C \vec{B} \cdot d\vec{x}$ by Stokes's Theorem.
+\item $\int_C \vec{B} \cdot d\vec{x} = \mu_0I_{tot}$
+\item $I_{tot} = Nl$ since there are $N$ coils per unit length
+\item So $B_zl = \mu_0NIl \Rightarrow B_z = \mu_0NI$
+\end{itemize}
+
+For a toroid, we have $\vec{B} = \vec{0}$ outside and $\vec{B} = B_{\theta}\hat{\theta}$ inside.  By some other logic (TODO) this makes $B_{\theta} = \frac{\mu_0NI}{2\pi r}$, which appears to be the same thing, except a function of a different surface.
+
+\end{itemize}
+
+Theorem: \fbox{$\nabla \times (\nabla \times \vec{E}) = \nabla (\nabla \cdot \vec{E}) - \nabla^2 \vec{E}$}.  This is obtained just by working it out.  Note that  $\nabla^2 \vec{E}$ in this case means $\langle \frac{\delta^2 \vec{E}}{\delta x^2}, \frac{\delta^2 \vec{E}}{\delta y^2},\frac{\delta^2 \vec{E}}{\delta z^2} \rangle $
+
+Using this ``double-curl'' formula with the no-field Maxwell equations above yields that 
+\begin{itemize}
+\item $\nabla \times (\nabla \times \vec{E}) = -\nabla^2 \vec{E}$ (by zero div in curl formulae)  $= \nabla \times -\frac{\delta \vec{B}}{\delta t}$ (by Maxwell)
+\item $=   -\frac{\delta}{\delta t} [\nabla \times\vec{B}] = -\mu_0\epsilon_0 \frac{\delta ^2 \vec{E}}{\delta t^2}$ (by Maxwell) $\Rightarrow \nabla^2\vec{E} = \mu_0\epsilon_0 \frac{\delta ^2 \vec{E}}{\delta t^2}$
+\item An identical argument shows $\nabla^2\vec{B} = \mu_0\epsilon_0 \frac{\delta ^2 \vec{B}}{\delta t^2}$
+\end{itemize}
+
+\begin{itemize}
+\item This wave equation $\nabla^2\vec{E} = \mu_0\epsilon_0 \frac{\delta ^2 \vec{E}}{\delta t^2}$ admits a solution $\vec{E}(\vec{x}, t) = \sin(2\pi [\lambda^{-1} \vec{n} \cdot \vec{x} - \nu t ])\vec{E}_0$ .
+\item Consider $\lambda$ a wavelength and $\nu$ the frequency of a wave here, so $\lambda \nu$ is ``meters per wave times waves per second'', or ``meters per second'', a measure of speed.
+\item Evaluating the formula on both sides yields $-(\frac{2\pi}{\lambda})^2\vec{E} = -\mu_0\epsilon_0 (2\pi\nu)^2\vec{E}$, or $\lambda \nu = \frac{1}{\sqrt{\mu_0\epsilon_0}}$ 
+\item This evaluates to $3.0 \times 10^8 = c$, the speed of light!
+\end{itemize}
+
+
+Finally, if there's no charge or current ($\rho = 0, \vec{J} = \vec{0}$) and choosing units to $c=1$, there's a \textbf{field strength} or \textbf{Faraday matrix}:
+$F = \begin{pmatrix}
+0 & E_x& E_y& E_z \\
+-E_x & 0 &  -B_z & B_y \\
+-E_y & B_z & 0 &-B_x \\
+-E_z & -B_y & B_x & 0 \\
+\end{pmatrix}$
+with $\vec{x} = (t,x,y,z).$  Consider 2-form $F = \frac{1}{2}\sum_{i,j = 1}^{4} F_{ij}dx_idx_j$.  What does it mean if $dF = 0$?
+\begin{itemize}
+\item Remember that say, $dE_x = \frac{d E_x}{dt} dt + \frac{d E_x}{dx} dx + \frac{d E_x}{dy} dy + \frac{d E_x}{dz} dz $
+\item So the first row, second column is $(dE_x) \wedge dt \wedge dx$, which will contribute terms to $dt \wedge dx \wedge dy$ and $dt \wedge dx \wedge dz$ .
+\item Gather these up and see that this implies $\nabla \cdot \vec{B} = 0, \nabla \times \vec{E} = \frac{\delta \vec{B}}{\delta t}$ (THE MAXWELL EQUATIONS!)
+\item Similarly, the ``dual'' form $\star F = -E_xdy\wedge dz - E_ydz\wedge dx - E_zdx\wedge dy + (B_xdx+B_ydy+B_zdz)\wedge dt$ yields the other two Maxwell equations.
+\item TODO: How did we end up with this Matrix in the first place??
 \end{itemize}
 
 
