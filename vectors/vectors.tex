@@ -1901,6 +1901,79 @@ with $\vec{x} = (t,x,y,z).$  Consider 2-form $F = \frac{1}{2}\sum_{i,j = 1}^{4} 
 \item TODO: How did we end up with this Matrix in the first place??
 \end{itemize}
 
+\subsection{5.9: More electrostatics}
+
+We rarely get an electric field $\vec{E}$ from which we derive a charge distribution $\rho$. Usually it's the other way around.
+We're looking at solutions for a general pde here.
+
+The rare case of finding $\rho$ from $\vec{E}$
+\begin{itemize}
+\item Say we know $\vec{E} = [yz + x]\hat{i} +  [xz + y]\hat{j} +  [xy + z]\hat{k}$
+\item Finding V, the potential: Then, taking the antiderivative, it's clear that $\int \vec{E} = -V = -xyz - \frac{1}{2}(x^2 + y^2 + z^2)$
+\item Finding $\rho$, the charge distribution.  Take $\epsilon_0 = 1$ in Maxwell's $\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0 = 1} = \rho = 3$.
+\end{itemize}
+
+
+\begin{itemize}
+\item If there no magnetic fields (specifically, $\vec{B} = \vec{0}$
+\item Implies one Maxwell equation is: $\nabla \times \vec{E} = \vec{0}$
+\item Implies another Maxwell equation is : $\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}$
+\item The first means that the field is the grad of a potential $\vec{V}$.
+\item All this together means $\vec{E} = -\nabla \vec{V} \Rightarrow$ \fbox{$\nabla^2\vec{V} = -\frac{\rho}{\epsilon_0}$}  (Poisson's Equation)
+\item Instead, we'll start with $\rho$, solve $-\nabla^2V = \rho$ for $V$, and use $\vec{E} = -\nabla V$ to find the field.
+\end{itemize}
+
+ The difficult part (solving the  $-\nabla^2V = \rho$ equation) can be aided by \emph{proving Poisson's has a unique possible solution} and then building up from simple pieces.
+
+ONe proof (Green's Identity): For a smooth function $u$ on $\mathbb{R}^3$, \fbox{$\iiint_R u\nabla^2u + \nabla u \cdot \nabla u d\vec{x} = \iint_{\delta R} u\nabla u \vec{dA}$}
+
+\begin{itemize}
+\item Basically, by the chain rule, $\nabla u \cdot \nabla u +u \nabla^2 u =  \nabla (u \nabla u)$,
+\item By the divergence theorem, $\iint_{\delta R} [u \nabla u] \vec{dA} =  \iiint_{R}  \nabla (u \nabla u) \vec{dA}  = \iiint_R \nabla u \cdot \nabla u +u \nabla^2 u$
+\end{itemize}
+
+From there, we can prove if functions $u_1$ and $u_2$ both satisfy Poisson's with (Dirichlet) conditions $u_1 = u_2$ on $\delta R$, they must be equal.
+\begin{itemize}
+\item Note: There are another set of equivalent (Neumann) conditions $\nabla u_1 \cdot \hat{n}|_{\delta R} = \nabla u_2 \cdot \hat{n}|_{\delta R}$ but we ignore those.
+\item If $u_1 = u_2$ on $\delta R$, then set $u = u_1-u_2$. Since $u_1$ and $u_2$ both solve $\nabla^2 u_i = \rho$, then $\nabla^2 u = \nabla^2 [u_1 - u_2] = 0$.
+\item Plug into Green's, $\iiint_R u\nabla^2u + \nabla u \cdot \nabla u d\vec{x} = \iiint_R 0 + \nabla u \cdot \nabla u d\vec{x} = \iint_{\delta R} [u_1 - u_2] \nabla [u_1-u_2] \vec{dA}$
+\item Then, since $u_1 - u_2 = 0$ on $\delta R$, this must mean $\iiint_R \nabla u \cdot \nabla u = \iiint_R \| u \|^2 = 0$
+\item And since the integral is nonnegative, this must mean that $u_1 - u_2$  all over, or $u_1 = u_2$
+\end{itemize}
+
+Example:
+
+\begin{itemize}
+\item Set a charge $Q$ at height $h$ above an infinite plane $z=0$ held to ground (meaning,potential $V = 0$). What's the electric field?
+\item Trick: Beacuse of the uniqueness, instead place a charge $-Q$ at height $-h$.
+\item The potential created by a single charge at $(x_0, y_0, z_0)$ is defined as  plate is the $V = \frac{Q}{\sqrt{(x-x_0)^2 + (y-y_0)^2 + (z-z_0)^2}}$
+\item Therefore, the charge of the two together at $z=0$ is $\frac{Q}{\sqrt{x^2+y^2 + (-h)^2}} + \frac{-Q}{\sqrt{x^2 + y^2 + h^2}} = 0$
+\item By the uniqueness result, this has to be the same as the grounded plate setup.
+\end{itemize}
+
+Expanding this example:
+\begin{itemize}
+\item Say we're back to a charge of magnitude $Q$ at $(0, 0, h)$.
+\item The charge density on the plate is $\rho = -\frac{1}{4\pi} \frac{\delta V}{\delta z}|_{z=0}$.  What is the total charge on the plate?
+\item $\rho(x,y) = -\frac{1}{4\pi} \frac{\delta V}{\delta z} = -\frac{1}{4\pi} * \frac{\delta}{\delta z}Q(x^2+y^2+z^2)^\frac{-1}{2} = -\frac{1}{2\pi}Qh(x^2+y^2+z^2)^\frac{-3}{2} $
+\item  $\iint_R  \rho(x,y)  dx dy =  -\frac{1}{2\pi} \iint_R Qh(x^2+y^2+z^2)^\frac{-3}{2}  dx dy = 2\pi *-\frac{Qh}{2\pi} \int_{r=0}^{\infty} (r^2+h^2)^\frac{-3}{2} r dr$
+\item $= -Qh (r^2+h^2)^\frac{-1}{2} |_{r=0}^{r=\infty} =- Q$
+\item This should make sense (I guess?) since the charge Q will induce a charge $-Q$ onto the plate
+\end{itemize}
+
+Another example:
+\begin{itemize}
+\item Say we're back to a charge of magnitude $Q$ at $(h, 0, 0)$.
+\item There's a grounded sphere of radius R.
+\item Where can we put a charge $q$ (of what size) inside the sphere to cancel out the effects of Q on the sphere?
+\item Note that it \emph{has} to be on the x-axis, otherwise one side gets more negative juice than the other.
+\item This means we have to find a height $h'$ and a charge $q$ so that $\frac{q}{\sqrt{(x-h')^2 + y^2+z^2}} = \frac{Q}{\sqrt{(x-h)^2 + y^2+z^2}}$
+\item Set $R^2 = x^2 + y^2 + z^2$ to reduce to $\frac{q}{\sqrt{R^2 -2h'x+[h']^2}} = \frac{Q}{\sqrt{R^2 - 2hx + h^2}}$
+\item Working this out yields $h' = \frac{R^2}{h}, q = -Q\frac{R}{h}$
+\item We can follow with figuring out charge induced on the sphere ($\sigma(\theta, \phi) = -\frac{1}{4\pi}\frac{\delta V}{\delta \rho}|_{\rho=R}$) by substituting $(0, 0, R)$ in (point closest to the negative charge, an ``intuition'')
+\item We can also figure out total charge on the sphere by switching to spherical coordinates (easiest if we think of x as z instead) and computing $\iint_S \sigma \vec{dA}$
+\end{itemize}
+
 
 \end{document}
 
