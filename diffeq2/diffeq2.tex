@@ -30,7 +30,77 @@
 Note: Latex reference: http://tug.ctan.org/info/undergradmath/undergradmath.pdf
 
 \section{Chapter 1: Basics}
-\subsection{Chapter 1.1: TODO}
+\subsection{Chapter 1: Nonlinear Equations}
+
+
+
+The two types of problems in this course are: 
+
+
+\begin{itemize}
+\item Nonlinear equations (several equations on one independent variable)
+\item Partial differential equations (single equation with several independent variables)
+\end{itemize}
+
+\textbf{Linear} equations have solutions like $y_1,y_2$ that can be combined using any $c \in \mathbb{R}$ like $y_1 + cy_2$.
+
+\textbf{Example}: Bacteria in a dish with a lot of food, no deaths
+\begin{itemize}
+\item $b'(t) = r_bb(t), r_b > 0. r_b$ would be the rate of growth.
+\item This is linear. Reason 1: $\frac{d}{dt}(y_1 +cy_2) = y_1' +cy_2' = r_b(y_1 +c_y2)$ since $y' = r_by(t)$, and same for y2.
+\item Also, this works because the solution is $b(t) = b(0)e^{r_b t}$, so $b_1(t) + cb_2(t) = b_1(0)e^{r_b t} +cb_2(0)e^{r_b t} = (b_1(0) + cb_2(0))e^{r_bt}$
+\end{itemize}
+
+\textbf{Example}: \textbf{Logistic} equation: Bacteria in a dish with a lot of food, limited by carrying capacity $M$.
+\begin{itemize}
+\item $b'(t) = r_bb(t)[M-b(t)]$.
+\item This is nonlinear. Reason: $\frac{d}{dt}(y_1' +cy_2') = y_1'+cy_2' = r_b[y_1 + cy_2][M-y_1-cy_2] = My_1+Mcy_2-y_1^2-2cy_1y_2 -cy_1^2y_2^2$
+\item $\neq My_1 - y_1^2 + Mcy_2-c^2y_2^2$ because of the extra $-2cy_1y_2$ term.
+\end{itemize}
+
+Sidebar: Note that this equation $b' = r_bb[M-b]$ is \emph{separable}, so it can be solved.
+\begin{itemize}
+\item $\frac{db}{dt} = rb[M-b]$
+\item $\frac{db}{b(M-b)} = r dt$
+\item $\frac{1}{M }(\frac{1}{b} + \frac{1}{M-b}) db = r dt$ after partial fractions work
+\item $\frac{1}{M}(\ln(b)-\ln(M-b)) = rt + C \Rightarrow \ln(\frac{b}{M-b}) = Mrt + CM$
+\item $\frac{b}{M-b} = e^{Mrt}e^{CM} \Rightarrow b(1+e^{Mrt}e^{CM}) = M e^{Mrt}e^{CM}$
+\item $b = \frac{Mb(0)e^{Mrt}}{M+b(0)[e^{Mrt} -1]}$ after more manipulation
+\end{itemize}
+
+This logistic solution will taper off to M at some point. Note that $\lim_{t \rightarrow \infty} b(t) = M$ since the non-exponential terms stop mattering.  Also $b(t) = M$ sticks as a constant solution or \textbf{equilibrium} immediately.  \emph{These equilibria tell us what matters - the long-term behavior of solutions!}
+
+Another \textbf{Example}: Lotka-Volterra equation pairs: Bacteria (b) and bacteria-killing phages (p), with kill rate $k$.
+\begin{itemize}
+\item The ``product'' $k b(t)p(t)$ measures the interactions and kills resulting from this.
+\item $b'(t) = r_b b(t) - k p(t) b(t)$, or the normal growht rate minus kill rate
+\item $p'(t) = kp(t)b(t)$ since its population grows as it kills bacteria.
+\item Equilibria include $b = 0, p = 0$ and $b = 0, p > 0$, since these are \emph{constant} solutions, or places where $b'(t) = 0, p'(t) = 0$.
+\end{itemize}
+
+\textbf{Direction fields}, with vector pointing towards $\langle b'(t), p'(t) \rangle$ (TODO - I think) let us follow the arrows to determine the curve over time.  In this case, the bacteria will always go extinct.
+
+\ 
+However, if we add a new death rate term $-d_pp(t)$ so $p'(t) = -d_pp(t) + kp(t)b(t)$:
+\begin{itemize}
+\item We get an equilibrium at $b = \frac{d_p}{k}, p = \frac{r_b}{k}$. (Since $0 = b'(t) = rb - kpb, (\Rightarrow pk = r), 0 = p'(t)  -dp + kpb,(\Rightarrow bk = d)$)
+\item But otherwise the solutions swirl around this point.  This is called a \textbf{cycle}.  TODO What is a \textbf{limit cycle}?
+\end{itemize}
+
+Note that there are systems where the ``solution particle'' neither reaches an equilibrium or cycles around one point.  The \textbf{Lorenz system} famously has this owl-eye shaped double attractor (an example of \textbf{strange sets}) where initially close particles diverge unpredictably if the constants $\rho, \sigma, b$ are chosen right:
+
+\begin{itemize}
+\item $x'(t) = \sigma(y-x)$
+\item $y'(t) = x(\rho - z) - y$
+\item $z'(t) = xy-bz$
+\end{itemize}
+
+\begin{itemize}
+\item TODO
+\end{itemize}
+
+
 
 \end{document}
+
 
