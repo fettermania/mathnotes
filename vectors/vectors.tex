@@ -1379,7 +1379,33 @@ Similarly, if we use $\omega = F_x dx + f_y dy + F_z dz$, we can do something si
 
 \textbf{NOTE}: Still need some intuiition for these forms.  Apparently these are described as ``that which makes Stokes's and Divergence Theorem fall out'': https://math.stackexchange.com/questions/2858098/what-is-a-differential-form
 
-Note: From lecture at ``https://www.youtube.com/watch?v=wlo2V8H5khM'', $d_{i_1, i_2, ... i_k}$ is a function that takes $k$ vectors in $\mathbb{R}^n$, concatenates horizontally, selects only rows $i_1, i_2, ... i_k$ and takes the determinant.  This is a multilinear, alternating function.
+\subsubsection{Re-treatment of differential forms}
+Note: From lecture at ``https://www.youtube.com/watch?v=wlo2V8H5khM'', $d_{i_1, i_2, ... i_k}$ is a function that takes $k$ vectors in $\mathbb{R}^n$, concatenates horizontally, selects only rows $i_1, i_2, ... i_k$ and takes the determinant.  This is a multilinear, alternating function.  Continue through lesson 2 at ``https://www.youtube.com/watch?v=ZFPWK2gHGrY''
+
+\begin{itemize}
+\item There's a vector space of alternating functions of input vectors $\Lambda^k(\mathbb{R}^n)$.  These take in $k$ vectors in $\mathbb{R}^n$.  
+\item The element $d\vec{x}_I$, where $I$ is a subset of $\{1, 2, ... n\}$, is such a function.  $dx_{12}$ would select rows 1 and 2 from its inputs, say $(\vec{v}, \vec{w})$ and do a determinant on them.The VALUE of this would be the signed area of the parallelogram of $(\vec{v}, \vec{w})$ proejcted on the $x_1, x_2$ plane.  Note: This makes me think of the Jacobian ("size" of the infinitesimal volume we're integrating over).
+\item These $dx_I$ form a basis of this $\Lambda$ vector space, which is of size ${n \choose k}$.  Note that any repeated indices create a linearly dependent matrix, so determinant is zero.
+\item These become interesting because we can ``multiply'' these $dx_I$ functions together with the wedge product $\wedge$
+\begin{itemize}
+\item If $\phi \in \Lambda^k(\mathbb{R}^n)^*, \psi \in \Lambda^l(\mathbb{R}^n)*$, then $\phi \wedge \psi \in \Lambda^{k+l}(\mathbb{R}^n)^*$.
+\item So we have a function that eats $k + l$ vectors, now, defined as $dx_I \wedge dx_J = dx_{I, J}$ (concatenated list).  
+\item $\wedge$ is associative (by definition of lists) 
+\item $\wedge$ is skew-commutative ($dx_I \wedge dx_J) = (-1)^{k\cdot l} dx_J \wedge dx_I)$, since swapping $dx_{I,J}, dx_{J,I}$ requires doing $k \times l$ flips of individual indices.
+\item $\wedge$ is distributive by definition, but example: $(3d\vec{x}_{14} - 7d\vec{x}_{32} ) \wedge (5d\vec{x}_{12} - 6d\vec{x}_{23} - 4d\vec{x}_{23}) = 18d\vec{x}_{1423}$ after all the zeros are eliminated.
+\item \textbf{Convention for $\Lambda^0$}: $\Lambda^0$ is a function of no variables, so $\Lambda^0(\mathbb{R}^n) = \mathbb{R}$.  So $\phi \in \Lambda^0(\mathbb{R}^n)^* \Rightarrow \phi = c \in \mathbb{R}$, and $ \psi \in \Lambda^l(\mathbb{R}^n)^* \Rightarrow \phi \wedge \psi  = c\psi$
+\end{itemize}
+
+\item \textbf{Example of wedge}: 
+
+\begin{itemize}
+\item $\Lambda(\mathbb{R}^2)^* $in$ \mathbb{R}^3$ means $dx \leftrightarrow dx_1, dy \leftrightarrow dx_2, dz \leftrightarrow dx_3$
+\item $(adx + bdy) \wedge (cdx + edy) = ae(dx\wedge dy) + bc (dy \wedge dx) = (ae-bc)(dx \wedge dy)  \in \Lambda^2(\mathbb{R}^2)^*$
+\item This ends up being the determinant of $\begin{pmatrix} a & b \\ c & e \end{pmatrix}$, or of the two vectors stacked on each other in the matrix.
+\item In general, if $\phi = \sum a_i dx_i, \psi = \sum b_j dx_j$, then, say, the $d\vec{x}_{23}$ term of $\phi \wedge \psi = a_2b_3-a_3b_2$
+\item TODO: Continue with lecture three:  https://www.youtube.com/watch?v=Rci22jC\_pS8
+\end{itemize}
+\end{itemize}
 
 \section{Chapter 5: Applications}
 \subsection{5.1: The Laplacian}
