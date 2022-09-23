@@ -153,6 +153,55 @@ The Fourier transform changes the domain of $x$ to that of $\omega$.  It comes w
 \end{itemize}
 
 
+\section{Chapter 2: Nonlinear Equations}
+
+Major ideas:
+\begin{itemize}
+\item \textbf{phase plane}: TODO
+\item \textbf{nullcline}: TODO
+\item \textbf{direction field}: TODO
+\item \textbf{equilibria}: TODO
+\end{itemize}
+ 
+\textbf{Example}: Bacteria vs. phages (again)
+\begin{itemize}
+\item Bacteria unrestrained grow in proportion to their population, so $\frac{db}{dt} = r_b b(t)$ (solved: $b(t) = b(0)e^{r_b t}$)
+\item Phages unfed decrease in proportion to current size, so $\frac{dp}{dt} = -d_p p(t)$  (solved: $p(t) = p(0)e^{-d_p t}$)
+\item Bacteria die with likelihood of meeting a phage, and phages increase with likelihood of meeting a bacterium.  So the set of equations, for constant $k$, becomes:
+\begin{itemize}
+\item $b'(t) = r_b b(t) - kb(t)p(t)$
+\item $p'(t) = -d_p p(t) + kb(t)p(t)$
+\item \emph{The product of p and b makes our equations nonlinear} (WHY?)
+\item I guess, very generally, $b_1p_1 = k, b_2p_2 = k,$ but $(b_1+b_2)(p_1+p_2) = b_1p_1 + b_2p_2 + b_1p_2+b_2p_1 = 2k + b_1p_2+b_2p_1 \neq 2k$, so the last two ``mixed'' terms mean you can't just add solutions $(b_1, p_1)$ and  $(b_2, p_2)$.
+\end{itemize}
+\end{itemize}
+
+General thoughts on this solution:
+\begin{itemize}
+\item So a solution $(b(t), p(t))$, traces out a curve on the bp-phase plane (b is x-axis, p is y-axis) as time (unrepresented in the plane) continues.
+\item If we add a unit tangent vector at every point $(B, P)$ aligned with $(b'(t), p'(t)) = ( r_bB - kBP, -d_p P + kBP)$, we can follow the arrows to see the solution over time.
+\item The above is called a \textbf{direction field}
+\item This is sometimes hard to sketch analytically, so we can look to the \textbf{nullclines}: places where one of the components of the direction field is zero.
+\item In this case, $r_bB - kBP = (r_b-kP)B = 0$ when $P = 0$ or $P = \frac{r_b}{k}$, and $-d_p P + kBP = (kB-d_p)P = 0$ when $P=0$ or $B = \frac{d_p}{k}$.
+\item The \textbf{upshot of nullclines} (since we don't care about $P, B \leq 0$): The lines $B = \frac{d_p}{k}, P = \frac{r_b}{k}$ \emph{divide the plane into pieces where the components of this (continuous) function pair can't change sign}.  
+\item For instance, $B > \frac{d_p}{k}, P <  \frac{r_b}{k}$  means $r_b b - kbp > 0, -d_p p+ kdp > 0$, so both populations are growing here.  This helps to sketch the curve.
+\item The curve looks like a counterclockwise whirlpool around the $(B, P) = ( \frac{d_p}{k}, \frac{r_b}{k})$.  (bacteria grow with low but growing phages; bacteria decrease as phages overwhelm; both decrease as phages starve; bacteria start coming back)
+\item The center point is a (constant \textbf{equilibrium}) solution, and other solutions swirl around it but don't get attracted or repelled.
+\end{itemize}
+
+There are a few types of equilibria:
+\begin{itemize}
+\item This one is a \textbf{center} around which solutions circle.
+\item A \textbf{stable equilibrum} would see small upsets come back to an unchanging state.
+\item An \textbf{unstable equilibrum} would see small upsets create wildly divergent paths.
+
+
+\end{itemize}
+
+
+
+
+
 \begin{itemize}
 \item TODO
 \end{itemize}
