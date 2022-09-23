@@ -154,6 +154,8 @@ The Fourier transform changes the domain of $x$ to that of $\omega$.  It comes w
 
 
 \section{Chapter 2: Nonlinear Equations}
+\subsection{2.1: Lotka-Volterra I}
+
 
 Major ideas:
 \begin{itemize}
@@ -198,12 +200,38 @@ There are a few types of equilibria:
 
 \end{itemize}
 
+\subsection{2.2: Lotka-Volterra II}
 
+In the Bacteria-Phage system, we can't yet prove everything rotates around the \textbf{center}.  Let's do that.
 
+Developing a \textbf{conserved quantity} will help to do that.  \textbf{Example}: Block on a horizontal spring with mass $m$, spring constant $k_s$:
+\begin{itemize}
+\item $x(t)$: Displacement from rest position.
+\item $v(t) = \frac{dx}{dt}$: Horizontal velocity
+\item $\frac{dv}{dt} = -\frac{k_s}{m}x(t)$ by Hooke's law, I think.
+\item Suppose there's some Energy function $E(x,v)$.  By chain rule $\frac{d}{dt}E(x(t), v(t)) = \frac{dE}{dx}\frac{dx}{dt} +  \frac{dE}{dv}\frac{dv}{dt}$
+\item $=  \frac{dE}{dx}v - \frac{k_s}{m} \frac{dE}{dv}x$.  If we set E as conserved, as in $E'(t) = 0$, then $\frac{dE}{dx}v = \frac{k_s}{m} \frac{dE}{dv}x$
+\item We can eyeball and see that $E = \frac{1}{2}k_sx^2 +  \frac{1}{2}mv^2$ solves this equation, or we can assume $E(x,v) = F(x) + G(v) \Rightarrow 0 = E'(t) = F'(x)v - \frac{k_s}{m}G'(v)x = 0$ from the above equations and guess from there.
+\item This means in the xv phase space, that there's a fixed E such that the particle follows the ellipse $E = \frac{1}{2}k_sx^2 +  \frac{1}{2}mv^2$ in phase space around the solution point (0,0).
+\end{itemize}
+
+\textbf{Extended Example}: Continuing on finding a conserved quantity for Bacteria / Phage:
+\begin{itemize}
+\item We need to find $U(b(t), p(t))$ such that $U'(t) = 0$, or by chain rule $\frac{\delta U}{\delta b}\frac{\delta b}{\delta t}  + \frac{\delta U}{\delta p}\frac{\delta p}{\delta t} = 0$
+\item Subbing in, $\frac{\delta U}{\delta b}[r_bb-kbp]  + \frac{\delta U}{\delta p}[-d_pp+kbp] = 0$
+\item A hint suggests finding $U$ such that $\frac{\delta U}{\delta b} = -\frac{d_p}{b} + k, \frac{\delta U}{\delta p} = -\frac{r_b}{p} + k$ to make terms cancel.
+\item Integrating these gives us $U$ as both $-d_p\ln(b)+kb+Q(p)$ and $-r_b\ln(p)+kp+R(b)$ so $U = -d_p\ln(b)-r_b\ln(p)+kb+kp$.  This weird curve consistutes a level set in pb-space upon which a solution sits.
+\item The spring example has an elliptic paraboloid solution.  There's an absolute minimum ($E = 0$ at $(0,0)$) but level sets become closed loops away from it.
+\item For the Lotka example, there is a critical point ($\nabla U = \vec{0}$) when $\nabla U(b,p) = (\frac{\delta U}{\delta b}, \frac{\delta U}{\delta p}) = (k-\frac{d_p}{b}, k - \frac{r_b}{p})$, which is $(0, 0)$ at our known center $(\frac{d_p}{k}, \frac{r_b}{k})$
+\item Showing that we always increase gong away from the point $(\frac{d_p}{k}, \frac{r_b}{k})$ should guarantee us closed level sets.
+\item One method: Assume we're picking a unit vector $\vec{v} = \langle \hat{v_b}, \hat{v_p} \rangle$ so that our line from our center is $\vec{v} = \langle \frac{d_p}{k}+t{v_b}, \frac{r_b}{k}+t{v_b} \rangle$.  $U=F(b) + G(p)$ in this case, so sub the $b$ part into $F$ to get $F (\frac{d_p}{k} +t\hat{v_b}) = d_p[1-\ln(\frac{d_p}{k} + t\hat{v_b})]+kt\vec{v_b}$.  Taking derivative of that w.r.t $t$ shows it is always positive.  Same goes for the G(p) portion of U.
+\item Another (DF) method: Note that $\nabla U = (k - \frac{d_p}{b}, k - \frac{r_b}{p})$'s grad (second derivative) is always positive.  So derivative always has positive curvature (maybe using that term wrong), and we'll always increase around this point.
+\item Also, we know that the particle travels around the level set (loop) and doesn't reverse course, because then, $b'(t) = p'(t) = 0$, and we only have that at the center point (nullcline intersection)
+\end{itemize}
 
 
 \begin{itemize}
-\item TODO
+\item TODO 
 \end{itemize}
 
 
