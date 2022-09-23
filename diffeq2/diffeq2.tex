@@ -105,6 +105,14 @@ Note that there are systems where the ``solution particle'' neither reaches an e
 
 \subsection{Chapter 1.2: PDEs}
 
+Many methods of attack for PDEs
+
+\begin{itemize}
+\item Separation of variables
+\item Power series (Note: did we actually touch on this?)
+\item Fourier Transform
+\end{itemize}
+
 \textbf{Example}: Standing wave, where one end of a rope is fixed.  
 \begin{itemize}
 \item Vertical displacement from a line of rope: $u(x,t)$ depends on where ($x$) and when ($t$t).
@@ -129,9 +137,17 @@ The Fourier transform changes the domain of $x$ to that of $\omega$.  It comes w
 \item One dimensional: moves left or right in a random way.  Starts at $x=0, t=0$.
 \item $u(x,t)$ is probability of being at point $x$ at time $t$.  Naturally, $\int_{x=-\infty}^{x=\infty} u(x,t)dx = 1$.
 \item Also, it obeys the 1-dD diffusion equation $\frac{\delta u}{\delta t} = \frac{\delta ^2 u}{\delta x^2}$
-\item So by taking Fourier transform of both sides of diffusion equation
+\item The Fourier transform doesn't affect $t$ at all.
+\item So by taking Fourier transform of both sides of diffusion equation we get 
 \begin{itemize}
-\item 
+\item $F(u_t)=  \frac{\delta}{\delta t} F(u) $ since $F$ doesn't care about $t$.
+\item $\frac{\delta ^2 u}{\delta x^2} = i\omega F(\frac{\delta u}{\delta x}) = -\omega^2 F(u)$
+\item So $  \frac{\delta}{\delta t} F(u)  = -\omega^2 F(u)$
+\item This is solvable as $F(u) = ce^{-\omega^2 t}$.  Take it on faith that $c = \frac{1}{2\pi}$ for now. TODO
+\item Known fact: $F[Ae^-{\frac{ax^2}{2}}] = \sqrt{\frac{1}{2 \pi a}} Ae^{\frac{-\omega^2}{2a}}$
+\item This means $t = \frac{1}{2a}$ and $a = \frac{1}{2t}$
+\item $F(u)  = 	\frac{1}{2\pi}e^{-\omega ^2 t}, F[Ae^-{\frac{ax^2}{2}}] = \sqrt{\frac{1}{2 \pi a}} Ae^{\frac{-\omega^2}{2a}}$ so $u  = Ae^{\frac{-ax^2}{2}}$
+\item Solving, you get $A = \sqrt{\frac{1}{4\pi t}}, a=\frac{1}{2t}$, so $u(x,t) = \sqrt{\frac{1}{4\pi t}} e^{-\frac{x^2}{4t}}$
 \end{itemize}
 
 \end{itemize}
