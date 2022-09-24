@@ -226,9 +226,58 @@ Developing a \textbf{conserved quantity} will help to do that.  \textbf{Example}
 \item Showing that we always increase gong away from the point $(\frac{d_p}{k}, \frac{r_b}{k})$ should guarantee us closed level sets.
 \item One method: Assume we're picking a unit vector $\vec{v} = \langle \hat{v_b}, \hat{v_p} \rangle$ so that our line from our center is $\vec{v} = \langle \frac{d_p}{k}+t{v_b}, \frac{r_b}{k}+t{v_b} \rangle$.  $U=F(b) + G(p)$ in this case, so sub the $b$ part into $F$ to get $F (\frac{d_p}{k} +t\hat{v_b}) = d_p[1-\ln(\frac{d_p}{k} + t\hat{v_b})]+kt\vec{v_b}$.  Taking derivative of that w.r.t $t$ shows it is always positive.  Same goes for the G(p) portion of U.
 \item Another (DF) method: Note that $\nabla U = (k - \frac{d_p}{b}, k - \frac{r_b}{p})$'s grad (second derivative) is always positive.  So derivative always has positive curvature (maybe using that term wrong), and we'll always increase around this point.
-\item Also, we know that the particle travels around the level set (loop) and doesn't reverse course, because then, $b'(t) = p'(t) = 0$, and we only have that at the center point (nullcline intersection)
+\item Also, we know that the particle travels around the level set (loop) and doesn't reverse course, because then, $b'(t) = p'(t) = 0$, and we only have that at the center point (nullcline intersection).
 \end{itemize}
 
+
+\subsection{2.3: Linearization}
+
+\textbf{Extended Example}: Suppose there's a limit to bacterial growth, so we cap our population at $M_b$.
+\begin{itemize}
+\item If $b(t) << M_b$, things should be similar.  If $b(t)$ is nearly $M_b$, then growth should approach 0.  So, this implies $\frac{db}{dt} = r_bb(t) \rightarrow \frac{db}{dt} = r_bb(t) (1-\frac{b(t)}{M_b})$.  Note: This isn't the only possibility but we'll use it.
+\item This updates our Lotka-Volterra model to something more complicated:
+\begin{itemize}
+\item $b'(t) = r_bb(t) (1-\frac{b(t)}{M_b})- kb(t)p(t)$
+\item $p'(t) = -d_p p(t) + kb(t)p(t)$
+\end{itemize}
+\item Other than $b=0, p=0$, the meaningful nullclines are solved by setting $b'(t) = 0$ (yielding $r_b(1-\frac{b}{M_b})-kp = 0$) and $p'(t) = 0$ (yielding $b = \frac{d_p}{k}$)
+\item Note: We'll clean up through some MAGIC non-dimensionalization (how to derive?) to simplify:
+\begin{itemize}
+\item $x(t) = \frac{1}{M_b}b(\frac{t}{r_b}), y(t) = \frac{k}{r_b}(\frac{t}{r_b}), \alpha = \frac{d_p}{r_b}, \beta = \frac{kM_b}{r_b}$
+\item Gives us new equations: $\frac{dx}{dt} = x(t)[1-x(t)] - x(t)y(t), \frac{dy}{dt} = -\alpha y(t) + \beta x(t)y(t)$
+\item And new nullclines: $x+y=1, x=\frac{a}{b}$
+\item So  there's an equilibrium point in the positive xy quadrant if: $y = 1-x = 1-\frac{\alpha}{\beta}$ and $y > 0$ implies $1-\frac{\alpha}{\beta} > 0 \Rightarrow \frac{\alpha}{\beta} < 1$
+\item Looking at the direction field, it appears solutions swirl around and are attracted \emph{into} the center point $(\frac{\alpha}{\beta}, 1 - \frac{\alpha}{\beta})$, making it a \textbf{stable equilibrum}
+\end{itemize}
+\end{itemize}
+
+This is similar to the block-spring example, if a damping term $-\frac{\gamma}{m}v$ is added.
+\begin{itemize}
+\item $\frac{dx}{dt} = v, \frac{dv}{dt} = -\frac{k_s}{m}x -\frac{\gamma}{m}v$
+\item This can be thought of in matrix terms: $\frac{d}{dt} \begin{pmatrix} x(t) \\ v(t) \end{pmatrix} =  \begin{pmatrix} 0 & 1 \\ -\frac{k_s}{m} & -\frac{\gamma}{m} \end{pmatrix}  \begin{pmatrix}x(t) \\ v(t)\end{pmatrix}$ Call the matrix $A$.
+\item From Diff Eq I, the solution is $exp(tA)$ (matrix exponential), making x(t) a linear combination of $e^{\lambda t}$ or possibly $te^{\lambda t}$ terms, with the eigenvalues as $\lambda$s.
+\item The eigenvalues in this case, using the quadratic formula, could be:
+\begin{itemize}
+\item Two real, distinct, negative roots. So, these $e^{\lambda t}$ terms decay, and x(t) levels off.
+\item Two distinct complex roots with real part $-\frac{\gamma}{2m} < 0$.  This ends up being some sines and cosines multiplied by $e^{-\frac{\gamma t}{2m}}$, which decays too.
+\item Finally, if we have a repeated negative real eigenvalue, we have solution $x(t) = Ae^{-\frac{\gamma t}{2m}} + Bte^{-\frac{\gamma t}{2m}} $, also decaying.
+\item So any disturbance in the spring will oscillate and come to rest at $x(t) = v(t) = 0$ quickly.
+\end{itemize}
+
+So with linear systems $\vec{x}'(t) = A\vec{x}(t)$, the eigenvalues determine what happens around the equilibrium point.  However, the \textbf{bacteria-phage model is non-linear}.  Here is \textbf{how we linearize} for nearby solutions in a nonlinear system:
+\begin{itemize}
+\item Set small disturbance $\delta x(t) << 1, \delta y(t) << $ so $x(t) = \frac{\alpha}{\beta} + \delta x(t), y(t) = 1-\frac{\alpha}{\beta} + \delta y(t)$
+\item Since they're small, all powers like $\delta x(t)^2$ and $\delta x(t) \delta y(t)$ are considered basically zero.
+\item So substitute $x(t) \rightarrow \frac{\alpha}{\beta} + \delta x(t), y(t) \rightarrow = 1-\frac{\alpha}{\beta} + \delta y(t)$ into our $\frac{dx}{dt}$ and $\frac{dy}{dt}$ equations.
+\item This gives us the A solving $\frac{d}{dt} \begin{pmatrix} \delta x(t) \\ \delta y(t) \end{pmatrix} = A \begin{pmatrix}\delta x(t) \\ \delta  y(t)\end{pmatrix}$, which is $A = \begin{pmatrix} -\frac{\alpha}{\beta} & -\frac{\alpha}{\beta}  \\ \beta - \alpha & 0 \end{pmatrix}$ after working through the substitution.
+\item Finding the eigenvalues here yields the same situation as the block-spring example: decays in all situations.
+\end{itemize}
+
+It turns out through the \textbf{Hartman-Grobman Theorem} that $\vec{x}'(t) = \vec{F}(\vec{x}(t))$, for some continuously differential vector field $F$, if we linearize near equilibrium $x_0$, then what falls out of this $A$ approach works if the eigenbalues \emph{aren't all purely imaginary}.
+
+It turns out the uncapped bacteria system from before looks like $\frac{d}{dt} \begin{pmatrix} \delta x(t) \\ \delta y(t) \end{pmatrix} =  \begin{pmatrix} 0 & -1 \\ \alpha & 0 \end{pmatrix}  \begin{pmatrix} \delta x(t) \\ \delta y(t)\end{pmatrix}$ , with characteristic equation $\lambda ^2 + \alpha = 0, \alpha > 0$.  This means both values are imaginary, and we had to use the conserved quantity appraoach! 
+
+\end{itemize}
 
 \begin{itemize}
 \item TODO 
