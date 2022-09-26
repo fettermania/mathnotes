@@ -279,6 +279,45 @@ It turns out the uncapped bacteria system from before looks like $\frac{d}{dt} \
 
 \end{itemize}
 
+\section{2.4: Hartman-Grobman Theorem}
+
+\textbf{Extended Example}: Consider a phage that dies off quicky:
+\begin{itemize}
+\item $\frac{db}{dt} = r_bb(t)-k_bb(t)p(t), \frac{dp}{dt} = -r_pp(t) = 0 \cdot b(t)p(t)$, where $k_p$ is the zero (phages don't increase), and $k_b$ is still the kill factor for the bacteria.
+\item In this base, $b(t) = p(t) = 0$ is the only equilibrium.
+\item Non-dimensionalize as $x(t) = b(\frac{t}{r_b}), y(t) = \frac{k_b}{r_b}p(\frac{t}{r_b}), \alpha = \frac{r_p}{r_b}$
+\item This makes the equations $x'(t) = x(t) - x(t)y(t), y'(t) = -\alpha y(t)$, and the nullclines therefore $x(t) = 0, y(t) = 1, y(t) = 0$
+\item Looking at this six-section dierection field, we see that solutions exactly on the y-axis are attracted to equilibrium $(0,0)$, and other are repelled.
+\item This makes sense since if the bacteria is 0, the phage die and approach $(0,0)$, otherwise the bacteria multiply and win (so it's a \emph{saddle point})
+\item The way to tell: linearize the equations.  $\frac{d}{dt} \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} \approx \begin{pmatrix} 1 & 0 \\ 0 & -\alpha \end{pmatrix}  \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} $ since, if $x(t), y(t) << 1,  x(y)t(t) = 0$.  
+\item Then the eigenvalues are $\lambda = 1, -\alpha$ so the solution is $Ae^t$,  $Be^{-\alpha t}$ for $x(t), y(t)$ (TODO respectively?) \textbf{Hartman-Grobman ensures this is the general solution}.
+ \end{itemize}
+
+However, let's solve directly and see if we come to the same result. 
+\begin{itemize}
+\item $y'(t) = -\alpha y(t), y(0) = y_0 \Rightarrow y(t) = y_0 e^{-\alpha t}$
+\item With this in hand, $\frac{dx}{dt} = x(t) -= x(y)y(t) = x(t)[1-y_0e^{-\alpha t}]] , x(0) = x_0$ separates out to 
+\begin{itemize}
+\item $\frac{dx}{x} = [1-y_0e^{-\alpha t}]dt $
+\item $\ln(x) = [t + \frac{y_0}{\alpha}e^{-\alpha t}] + C $
+\item $x = e^Ce^t \exp(\frac{y_0}{\alpha}e^{-\alpha t})$
+\item $x(0) = x_0 \Rightarrow e^C = x_0e^{-\frac{y_0}{\alpha}}$
+\item $\Rightarrow x(t) = x_0 e^t \exp(\frac{y_0}{\alpha}(e^{-\alpha t} - 1))$
+\end{itemize}
+
+But how do we deform the phase plane so this looks linear?  We need some mapping $\vec{h}(x,y) = \langle u(x,y), v(x,y) \rangle$ that is continuous and invertible (so we don't ``damage'' the phase plane).  This is called a \textbf{homeomorphism}.
+\begin{itemize}
+\item So near the equilibrium $(0,0)$, the equations  $y'(t) = -\alpha y(t), y(0) = y_0 \Rightarrow y(t) = y_0 e^{-\alpha t}$ linearized for $\delta x, \delta y$ must be similar to those for $u(x(t), y(t), v(x(t), y(t))$
+\item This means we need $\frac{du}{dt} = u, \frac{dv}{dt} = -\alpha v$
+\item After doing the substitution, we see that $v = v_0e^{-\alpha t}$ exactly mimics $y(t) = y_0 e^{-\alpha t}$ for the phage solution.  So we take $v = y$.
+\item Therefore, we know that since $u = u_0e^t$ and $x(ty) = x_0 \exp(t + \frac{y_0}{\alpha}(e^{-\alpha t} - 1))$, that we need $u(x(t), y(t) = u(x_0, y_0)e^t$
+\item And this is satisfied if we guess $u(x,y) = xe^{-y}{\alpha}$ and work it out.
+\item This function $\vec{h}(x,y) = (u, v) = \langle xe^{-\frac{y}{\alpha}}, y \rangle $ is invertible by $(x,y) = \langle ue^{\frac{v}{\alpha}} , v \rangle$, which is continuous.
+\end{itemize}
+
+\end{itemize}
+
+
 \begin{itemize}
 \item TODO 
 \end{itemize}
