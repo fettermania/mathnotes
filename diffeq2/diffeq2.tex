@@ -317,9 +317,87 @@ But how do we deform the phase plane so this looks linear?  We need some mapping
 
 \end{itemize}
 
+\section{2.5: Application - Lasers}
+
+Lasers create excited atoms, which then emit photos while transitioning to an unexcited state.  This system has a close analogue with the previous phages (like photons) and bacteria (like atoms) model.
 
 \begin{itemize}
-\item TODO 
+\item $n(t)$: number of photons in the laser; $r_g$: rate of photons gained (created by excited atoms transitioning to unexcited state); $r_l$: rate of photons lost (emitted)
+\item $\Rightarrow \frac{dn}{dt} = r_g - r_l$ by definition.
+\item We can assume we're losing a constant $k$ (kill?) portion of photons per unit time, so $ \frac{dn}{dt} = r_g - kn(t)$
+\item $e(t)$: number of excited atoms (that will maybe create photons).  Atoms are excited by external energy pump.
+\item Excited atoms radiate when meeting a photon (which survives the meeting)
+\item So we can use the same setup from the bacteria: with $I$ the constant of meeting (intersect?), $r_g = Ie(t)n(t) \Rightarrow n'(t) = Ie(t)n(t) - kn(t)$
+\end{itemize}
+
+\textbf{Mini example: Assume no photons leave} (cap the end of the laser)
+
+\begin{itemize}
+\item $k = 0$ in this scenario.
+\item So every meeting creates one more photon ($n \rightarrow n + 1$) while enervating one excited atom $(e \rightarrow e - 1)$.  This implies, equivalently:
+\begin{itemize}
+\item $e+n$ is a conserved quantity,
+\item $e(t) + n(t) = e(0) + n(0),$
+\item $[e(t) + n(t)]' = 0$
+\item Then, if$ k=0,  n'(t) = Ie(t)n(t) - kn(t)$, and coupled with $e'(t) + n'(t) = 0$ above, we have $e'(t) = -Ie(t)n(t)$
+\end{itemize}
+\end{itemize}
+
+\textbf{Extended example: Atoms spontaneously lose energy}.  This is actually what happens
+\begin{itemize}
+\item From quantum physics, we have a rate $s$ of atoms just (s)pontaneously losing energty.
+\item We also have an energy (p)ump that energizes atoms with quantity $p$.
+\item Then, our change in (e)xcited atoms is $e'(t) = p -s - Ie(n)(t)$
+\item If we want to find the smallest $p$ guaranteeing $n \geq 1$ (there's at least one photo) at equilibrium ($e'(t) = n'(t) = 0$):
+\begin{itemize}
+\item $n'(t) = 0 \Rightarrow Ien = kn \Rightarrow n(Ie-k) = 0$.  If $n \neq 0, \Rightarrow e = \frac{k}{I}$
+\item $e'(t) = 0 \Rightarrow Ien = p - se$
+\item Together, $p - se = Ien = kn \Rightarrow kn + se = p \Rightarrow kn + s\frac{k}{I} = p$
+\item $n \geq 1 \Rightarrow p \leq  k +  \frac{ks}{I}$
+\item \textbf{Another tactic}: We could also assume we \emph{start out at equilibrium}, so $n_0, e_0$ are constant solutions.
+\item Solving $n' = 0 = Ie_0n_0 - kn_0, e' = 0 = Ie_0n_0 - se_0 + p$, we find equilibria $n_0 = \frac{p}{k} - \frac{s}{I}, e_0 = \frac{k}{I}$
+\item Then,  $n_0 \geq 1 \Rightarrow  \frac{p}{k} - \frac{s}{I} \geq 1 \Rightarrow p \geq k + \frac{ks}{I}$
+\end{itemize}
+\end{itemize}
+
+\textbf{Non-dimensionalization time}:
+\begin{itemize}
+\item Scale against $e_0 (= \frac{k}{I}), n_0  (= \frac{p}{k} - \frac{s}{I})$ like this: $x(t) = \frac{n(\alpha t)}{n_0}, y(t) = \frac{e(\alpha t)}{e_0}$
+\item NOTE: What does this do?  This makes (1,1) the equilibrium, as $x(t) = \frac{n_0}{n_0} = 1, y(t) = \frac{e_0}{e_0} = 1$ !
+\item What $\alpha$ lets us tke $n' = Ien - kn, e'=-Ien - se + p$ and write 
+\begin{itemize}
+\item $\frac{dx}{dt} = x(t)y(t) - x(t)$
+\item $\frac{dy}{dt} = \frac{1}{k}(\frac{pI}{k} -s)[1 - x(t)y(t)] + \frac{s}{k}[1-y(t)]$
+\item $x' = \frac{\alpha n'(\alpha t)}{n_0} = xy - x = \frac{Ie(\alpha t)n(\alpha t)}{k n_0} - \frac{n(\alpha t)}{n_0}$
+\item $\frac{\alpha Ien - \alpha kn(\alpha t)}{n_0} = \frac{Ie(\alpha t)n(\alpha t)}{k n_0} - \frac{n(\alpha t)}{n_0}$
+\item $ \alpha Ie - \alpha k = \frac{Ie(\alpha t)}{k} - 1 \Rightarrow \alpha (Ie - k) = \frac{Ie-k}{k} \Rightarrow \alpha = \frac{1}{k}$
+\item This solves the x equation, and I suppose it can be validated in the y equation (tediously).
+\item If we chunk up our (somehow positive?) constants as $c = \frac{1}{k}(\frac{pI}{k} - s), d = \frac{s}{k}$, we end up with $y' = c[1-xy] + d[1-y]$
+\item We only care about $x,y > 0$, so $x' = 0 = xy-x = x(y-1)$ implies $y=1$ is a nullcline
+\item $y'  = 0 = c[1-xy] + d[1-y] = c - cxy + d - dy \Rightarrow c+d = y(d + cx) \Rightarrow y = \frac{c+d}{d + cx}$, a scaled and shifted hyperbola.
+\end{itemize}
+
+\textbf{Look at the solutions}:
+\begin{itemize}
+\item It appears we have a counterclockwise swirl around $(1,1)$, and nearby solutions tend toward this equilibrium.
+\item Hartman-Grobman: rewrite our linearized solution in neighborhood of $(1,1)$ as $x(t) = 1 + \delta x(t), y(t) = 1 + \delta y(t)$
+\item Using $x' = xy-x, y'=c[1-xy]+d[1-y]$ and $\frac{d}{dt}\begin{pmatrix} \delta x(t) \\ \delta y(t) \end{pmatrix} = A\begin{pmatrix} \delta x(t) \\ \delta y(t) \end{pmatrix}$, we can solve and write $A = \begin{pmatrix} 0 & 1 \\ -c & -c-d  \end{pmatrix} $
+\item Eigenvalues: $\lambda = \frac{1}{2}(-c -d \pm \sqrt{(c+d)^2 - 4c})$
+\begin{itemize}
+\item If square root term is zero, we have repeated eigenvalue, so $\delta x(t), \delta y(t)$ are combos of $e^{-\frac{c+d}{2}}, te^{-\frac{c+d}{2}}$, which decays
+\item If square root term is greater than zero, we have two distinct real, negative eigenvalues (since c, d are positive), so this decays.
+\item If square root term is less than zero, we have distinct complex eigenvalues, but combos of $e^{-\frac{c+d}{2}} \cos (\frac{1}{2} \sqrt{-(c+d)^2+4c}), e^{-\frac{c+d}{2}} \sin (\frac{1}{2} \sqrt{-(c+d)^2+4c})$ decay too
+\item Note : I suppose Hartman-Grobman can't work in purely imaginary eigenvalue scenario, because these kinds of functions don't converge or diverge without a term outside the $\sin$ or $\cos$ 
+\item And in any case, since these lambdas aren't strictly imaginary, Hartman-Grobman works.
+\end{itemize}
+
+\end{itemize}
+
+\end{itemize}
+
+
+\begin{itemize}
+\item 
 \end{itemize}
 
 
