@@ -348,6 +348,7 @@ Lasers create excited atoms, which then emit photos while transitioning to an un
 \item From quantum physics, we have a rate $s$ of atoms just (s)pontaneously losing energty.
 \item We also have an energy (p)ump that energizes atoms with quantity $p$.
 \item Then, our change in (e)xcited atoms is $e'(t) = p -s - Ie(n)(t)$
+\item So our \textbf{final laser equations} are $e'(t) = p -s - Ie(n)(t), n'(t) = Ie(t)n(t)-kn(t)$ 
 \item If we want to find the smallest $p$ guaranteeing $n \geq 1$ (there's at least one photo) at equilibrium ($e'(t) = n'(t) = 0$):
 \begin{itemize}
 \item $n'(t) = 0 \Rightarrow Ien = kn \Rightarrow n(Ie-k) = 0$.  If $n \neq 0, \Rightarrow e = \frac{k}{I}$
@@ -395,9 +396,98 @@ Lasers create excited atoms, which then emit photos while transitioning to an un
 
 \end{itemize}
 
+\subsection{2.6: Liapunov Equations}
+
+We had some intuition that ``nearby'' solutions would fall into an equilibrium, but what does ``nearby'' mean?  \textbf{Liapunov Equations} help us here.  What is the ``basin of attraction''?
 
 \begin{itemize}
-\item 
+\item Suppose we turn the pump off ($p = 0$), and set spontaneous enervation equal to photon leak $s = k$.
+\item (TODO?) Somehow we can rescale to $\frac{dx}{dt} = Ie(t)n(t) - kn(t), \frac{dy}{dt} = -Ie(t)n(t) - kn(t)$ which (TODO??) gives us $\frac{dx}{dt} = xy-x, \frac{dy}{dt} = xy-y$
+\item This means equilibria ($x' = y' = 0$) exist at $(0,0), (1,1)$
+\item If we're turning the pump off, we're looking at equilibrium (0,0).  Linearizing, we get $x' = -\delta x, y'=-\delta y$, so a matrix of $\begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}$
+\item With repeated non-imaginary (H-G applies!) eigenvalues $-1, -1$, we can see that both $e^{-t}, te^{-t}$ decay, and we get sucked into the origin.
+\end{itemize}
+
+But how do we prove this?  Let's find a conserved quantity $U'(x(t), y(t)) =  0$
+\begin{itemize}
+\item $U'(x(t), y(t)) =  \frac{\delta U}{\delta x}\frac{\delta x}{\delta t}  + \frac{\delta U}{\delta y}\frac{\delta y}{\delta t} = \frac{\delta U}{\delta x}x(y-1) + \frac{\delta U}{\delta y}y(x-1)$
+\item Setting $\frac{\delta U}{\delta x}x = -x+1, \frac{\delta U}{\delta y}y = y-1$ makes this zero
+\item Solving those two by separating variables and combining, we get $U = -x+y+\ln(|\frac{x}{y}|)$
+\item So if we're stabiling $f = (x-y)$ (why?), we see $(x-y)' = x'-y' = (xy-x) - (xy-y) = x-y = f \Rightarrow f = e^{-t}$
+\item With $x(0) = x_0, y(0) = y_0 \Rightarrow f(0) = x_0 - y_0, f = x(t) - y(t) =  (x_0 - y_0)e^{-t}$
+\item How to express $y(t)$ while eliminating $x(t)$, knowing $x(y) - y(t) = (x_0 - y_0)e^{-t}$ and $U(x,y) = y-x + \ln(|\frac{x}{y}|)$ is conserved?  \textbf{The trick: $U(x_0, y_0) = U(x,y)$} since \emph{it doesn't change}!
+\begin{itemize}
+\item $y_0 - x_0 +  \ln(|\frac{x}{y}|) =  y - x + \ln(|\frac{x}{y}|) = -(x_0-y_0)e^{-t} + \ln(|\frac{x}{y}|) $
+\item $(1-e^{-t})(y_0 - x_0)   = \ln(\frac{x / y}{x_0 / y_0}) $
+\item Defining for convenience, $f = \exp((1-e^{-t})(y_0 - x_0) )$, then $f\frac{y}{y_0} = \frac{x}{x_0}$
+\item Sub in to $x - y = (x_0 - y_0)e^{-t}: y[\frac{x_0}{y_0}f - 1] = (x_0 - y_0)e^{-t}$
+\item Solve for $y: y = \frac{y_0(x_0-y_0)e^{-t}}{x_0f(t) - y_0}$ 
+\item Combine with above to get $x = \frac{x_0(x_0-y_0)e^{-t}f(t)}{x_0f(t) - y_0}$
+\end{itemize}
+\item So with equilibria $(0,0), (1,1)$, the direction field computer plot shows us attracted to $(0,0)$ (no laser action) pretty much anywhere left and down from $(1,1)$ in the $x,y$ phase plane.
+\item Apparently the linearized solutions near $0,0$ are $x_{lin} = x_0e^{-t}, y_{lin} = y_0e^{-t}$ (WHY?)
+\item Looking above, if $(x_0 - y_0) \approx 0$, then $f(t) \approx 1$, and $x, y \rightarrow x_{lin}, y_{lin}$
+\end{itemize}
+
+On to \textbf{Liapunov} functions, which will tell us perhaps the size of the ``basin of convergence'', unlike Hartman-Grobman, which just says there is a neighborhood.
+
+A \textbf{Liapunov} function $U(x,y)$ is 
+
+\begin{itemize}
+\item Continuously differentiable
+\item With a unique minimum $(x_0, y_0)$, usually aligned to be $U$'s only zero.
+\item $U'(x(t), y(t)) \leq 0$.  Everything ``flows downhill''; 
+\item Tailor made for the problem, hard to find.
+\end{itemize}
+
+
+\textbf{Back to the rescaled laser example}
+
+\begin{itemize}
+\item $x'(t) = x(t)y(t) - x(t)$
+\item $y'(t) = c[1-x(t)y(t)] + d[1-y(t)], c, d > 0$
+\begin{itemize}
+\item \textbf{Analogy: The damped-block spring system} $\frac{d}{dt} \begin{pmatrix} x(t) \\ v(t) \end{pmatrix} =  \begin{pmatrix} 0 & 1 \\ -\frac{k_s}{m} & -\frac{\gamma}{m} \end{pmatrix}  \begin{pmatrix}x(t) \\ v(t)\end{pmatrix}$ 
+\item When $\gamma = 0$, we know $E(x,v) = \frac{1}{2}k_sx^2 + \frac{1}{2}mv^2$ is conserved when looking at $E'$
+\item $\gamma = 0 \Rightarrow x' = v, v' = -\frac{k_s}{m}x$
+\item $\frac{dE}{dt} = ( \frac{1}{2}k_sx^2 + \frac{1}{2}mv^2)' = 0$ since $\frac{1}{2}(k_s xx' + mvv' ) = \frac{1}{2}(kxv + mv\frac{-k}{m}x) = 0$
+\item But if $\gamma \neq 0, \frac{d}{dt}E(x(t), v(t)) = \frac{d}{dt}[ \frac{1}{2}k_sx^2 + \frac{1}{2}mv^2] = kxx' + mvv'$
+\item $= kx(v) + mv(\frac{-k_s}{m}x - \frac{\gamma}{m}v) = -\gamma v(t)^2 = \frac{dE}{dt}$
+\item Total spring energy is then decreasing in the fluid.
+\item Brilliant has Cool visualization of spiraling down into the "bowl" of $x,y$ with $E$ as the $z$ dimension, equilibrium $(0,0, 0)$
+\item We need to choose a $\gamma$-fied $E-$like function that decreases for pairs $\delta x(t), \delta y(t)$. We can choose, like $E$, some $u(\delta x, \delta y) = \frac{1}{2}C_1[\delta x]^2 + C_2[\delta y]^2$.
+\item Choosing $C_1 = c, C_2 = 1$ gives us $\frac{d}{dt}u(\delta x(t), \delta y(t)) = \frac{d}{dt}(\frac{c}{2}[\delta x(t)]^2 + \frac{1}{2}[\delta y(t)]^2)$
+\item $= c(dx)(dx)' + dy(dy)' = c (dx)(dy) + dy(-c(dx)-(c+d)(dy)) = -(c+d)[\delta y(t)]^2$
+\item So $u =  \frac{d}{dt}(\frac{c}{2}[\delta x(t)]^2 + \frac{1}{2}[\delta y(t)]^2)$ is an energy function that could work for the laser.
+\end{itemize}
+
+Finally, we want to construct a function that
+\begin{itemize}
+\item Doesn't increase (derivative negative) on any pairs $x, y > 0$ (pulls down)
+\item Is near equal to  $u = \frac{c}{2}(x-1)^2 + \frac{1}{2}(y-1)^2$ near $(1,1)$. (the energy function for block-spring above)
+\item With $x' -= xy-x, y'=c-cxy + d-dy$, plus the identity near $z \approx 1$ of $\ln(z) \approx (z-1)-\frac{1}{2}(z-1)^2$...
+\item You can find $U(x,y) = c(x-1)+(y-1) -c\ln(x)-\ln(y)$ that satisfies all of these
+\item It therefore shows that pumped laser solutions tend to equilibrium $(1,1)$ in the long term.
+\end{itemize}
+
+TODO: So this is enough to establish a convergence to an equilibrium?
+\begin{itemize}
+\item Find an equilibrium $(x_0, y_0)$
+\item Find an energy function $u$ that decreases for all pairs ($\delta x(t) \delta y(t))$ near the minimum.
+\item Find a Liapunov function $U$ function that decreases EVERYWHERE along $x(t), y(t)$ (in our domain, like $x,y > 0$)
+\item Ensure that $U = u$ in the neighborhood of the equilibrium.
+\item Then Liapunov's theorem somehow makes this work (TODO)?
+\end{itemize}
+
+
+
+
+
+\end{itemize}
+
+
+\begin{itemize}
+\item TODO
 \end{itemize}
 
 
