@@ -479,8 +479,57 @@ TODO: So this is enough to establish a convergence to an equilibrium?
 \item Then Liapunov's theorem somehow makes this work (TODO)?
 \end{itemize}
 
+\end{itemize}
 
+\subsection{2.7: Dog chasing a duck (Limit Cycles)}
 
+This is a pair of nonlinear equations to determine if a dog in the pond's interior catches a duck who skates along the border.
+\begin{itemize}
+\item Variables:
+\begin{itemize}
+\item $r_p$: Radius of pond.
+\item  $\vec{r_H}$: Distance of duck to center (always the radius of the pond)
+\item $\vec{l}$: Displacement of dog from duck, which is of some length $R$ at any point.
+\item $\theta$: Duck's position in the lake (think polar coordinates)
+\item $\phi$: Angle between $\vec{r_H}$ and $\vec{l}$.  
+\item Duck always swims at  speed $r_p\theta'(t)$, and dog swims at $k > 0$ times this, or $kr_p\theta'(t)$.
+\end{itemize}
+\item Therefore $\vec{r_H} = \langle r_p \cos(\theta), r_p \sin(\theta) \rangle$. It's just the polar coordinates.
+\item Doing some geometry gets you $\vec{l} = R \langle \cos(\theta + \phi, \sin(\theta + \phi) \rangle$
+\item We can establish $\vec{T} = \vec{r_H} - \vec{l}$ and dog's speed squared $\|T'(t)\|^2 =( \vec{r_H}' - \vec{l}')\cdot ( \vec{r_H}' - \vec{l}') = \|\vec{r_H}'\|^2 + \|\vec{l}'\|^2 - 2\vec{r_H}'\vec{l}'$
+\item Naturally, this  $\|T'\|^2$ is also equal to the constant $(kr_p\theta')^2$.  Our diff equations will fall out of these.
+\item $\vec{r_H}^2 = r_p^2[\theta'(t)]^2$ since duck's speed is constant. $\vec{l} = (R')^2 + R^2[\theta'+\phi']^2$ after working it out.
+\item Finally, after using identities $\cos(\theta + \phi) = \cos(\theta)\cos(\phi) -  \sin(\theta)\sin(\phi), \sin(\theta + \phi) = \cos(\theta)\sin(\phi) +  \sin(\theta)\cos(\phi)$, we can work out $-2\vec{r_H}'\vec{l}' = -2r_p\theta'[R\cos(\phi)(\theta' + \phi') + \sin(\phi)R']$
+\item After rescaling $R$ to $\rho$ such that $\frac{R}{r_p} = \rho$ and diving our speed equation by constant $r_p\theta'$, we end up with speed equation $k^2 = [\rho(1+ \frac{d\phi}{d\theta} - \cos(\phi)]^2 + (\frac{d\rho}{d\theta} - \sin(\phi))^2$
+\item 
+
+We propose that there are some solutions here for the \textbf{pursuit equations}.  We'll ignore the generalized form an focus on one set
+\begin{itemize}
+\item $\rho(1+\frac{d\phi}{d\theta}) - \cos(\phi) = 0, \frac{d\rho}{d\theta} - \sin(\phi) = -k$ do work in the above.  (Doesn't prove others don't work)
+\item This leaves our equations as $\frac{d\phi}{d\theta} = \frac{\cos(\phi)}{\rho}-1, \frac{d\rho}{d\theta} = -k + \sin(\phi)$
+\item However, there \emph{aren't simple equilibria here}.  In no world with $k \neq 0$ does the dog sit still (or the duck).
+\item Supposing $k<1$ and $R, \phi$ are fixed (dog never gets closer and just loops), this means he's going in a circle, since the two legs of a triangle ($\vec{l}, \vec{r_p}$) and the interior angle ($\phi$) are fixed, so this fixes length of the third leg, which is a radius
+\item You can also use dog's position vectors $x(t) = r_p\cos(\theta) - R\cos(\theta + \phi),y(t)=  r_p\sin(\theta) - R\sin(\theta + \phi)$ and trig identities to prove $x(t)^2 + y(t)^2 = r_p^2+R^2 - 2r_pR\cos(\phi)$
+\item If $k < 1$, then solving $ \frac{d\rho}{d\theta} = 0 = -k + \sin(\phi) \Rightarrow \sin(\phi) = k \Rightarrow \phi = \sin^{-1}(k)$ and $\rho = \cos(\phi) = \cos(\sin^{-1}(k)) = \sqrt{1-k^2}$
+\begin{itemize}
+\item Quick proof of $ \cos(\sin^{-1}(k)) = \sqrt{1-k^2}$:
+\item  $\cos^2(\sin^{-1}(k)) +  \sin^2(\sin^{-1}(k)) = 1 \Rightarrow  \cos(\sin^{-1}(k)) = 1 -  \sin^2(\sin^{-1}(k))$
+\item $= 1-k^2 \Rightarrow  \cos(\sin^{-1}(k)) = \sqrt{1-k^2}$
+\end{itemize}
+
+\item When $k < 1$, the direction field seems to have attractive equilibriua but \textbf{GOTCHA}: there are $\phi$ angles that differ by $2\pi$ units, so they're the same.  The direction field is a cylinder with circumference $2\pi$, and there are other solutions tracking toward $(\sin^{-1}(k), \sqrt{1-k^2})$
+\item Linearizing, assume we are near our equilibirum point and $\phi = \sin^{-1}k + \delta \phi, \rho = \sqrt{1-k^2} + \delta \rho.$
+\item We can also remember that $f(x+\delta x) \approx f(x) + f'(x)\delta x$ from calculus.
+\item $\frac{d}{d\theta}[\delta \rho] = \frac{d}{d\theta}[\rho - \sqrt{1-k^2}] = \frac{d\rho}{d\theta} - \frac{d}{d\theta}\sqrt{1-k^2} = -k + \sin(\phi)$
+\item $= -k + \sin(\sin^{-1}(k) + \delta \phi)$ and by the calculus rule $ \frac{d}{d\theta}[\delta \rho]  = -k + \sin(\sin^{-1}(k)) + \cos(\sin^{-1}(k))\delta \phi = \sqrt{1-k^2}\delta \phi$
+\item And for $\frac{d}{d\theta}[\delta \phi] = \frac{d}{d\theta}\phi -  \frac{d}{d\theta} (\sin^{-1}(k)) = \frac{\cos(\phi)}{\rho} - 1$
+\item Using multivariable hint $f(x + \delta x, y + \delta y) \approx f(x,y) + \frac{\delta f}{\delta x}\delta x +  \frac{\delta f}{\delta y}\delta y$,
+\item $f = \frac{\cos(\sin^{-1}(k) + \delta \phi)}{\sqrt{1-k^2} + \delta \rho} -1  \approx \frac{\sqrt{1-k^2}}{\sqrt{1-k^2}} - 1 + \frac{-\sin(\sin^{-1}(k)}{\sqrt{1-k^2}} \delta \phi - \frac{\cos(\sin^{-1}(k))}{1-k^2} \delta \rho$
+\item $=-\frac{k\delta \phi + \delta \rho}{\sqrt{1-k^2}}$
+\item So$ \frac{d}{d\theta}\begin{pmatrix} \delta \phi \\ \delta \rho \end{pmatrix} \begin{pmatrix} -\frac{k}{\sqrt{1-k^2}} &-\frac{1}{\sqrt{1-k^2}} \\ \sqrt{1-k^2} & 0  \end{pmatrix} \begin{pmatrix} \delta \phi \\ \delta \rho \end{pmatrix}$, and the eigenvalues aren't purely imeginary, and the real part is negative, so all decay.  Therefore, the equilibrium at $(\sin^{-1}(k), \sqrt{1-k^2})$ attracts\ nearby solutions.
+\item There aren't solutions (for $K < 1$?), but numerically solved, the dog catches at $k > 1$, and for $k \leq 1$, swims out to a path approaching a circle.  This is a \textbf{limit cycle}, an isolated trajectory that closes on itself.
+
+\end{itemize}
 
 
 \end{itemize}
