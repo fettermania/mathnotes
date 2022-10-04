@@ -530,9 +530,83 @@ We propose that there are some solutions here for the \textbf{pursuit equations}
 \item There aren't solutions (for $K < 1$?), but numerically solved, the dog catches at $k > 1$, and for $k \leq 1$, swims out to a path approaching a circle.  This is a \textbf{limit cycle}, an isolated trajectory that closes on itself.
 
 \end{itemize}
-
-
 \end{itemize}
+
+\subsection{Poincare-Bendixson Theorem}
+
+Limit cycles in the real world: a chemical reaction in perpetual osciallation!
+
+Key concept - \textbf{trapping region}: a region in phase plane on some region $D$, with differential solutions touching every point, where the direction field sees every boundary arrow point IN.  This means:
+\begin{itemize}
+\item The solution has to stay in D.
+\item Any solution that self-intersects forms a cycle in the phase plane.
+\item The three conceivable ways a solution can ``snake'' around forever (the \textbf{Poincare-Bendixson theorem} says it):
+\begin{itemize}
+\item Approaches a closed loop in $D$.
+\item Approaches a fixed point in $D$ (possibly a special case of the last bullet)
+\item Cycle: Snake eats its own tail
+\end{itemize}
+\item A non-cycling solution is the only other possibility - just a point equilibirum.
+\end{itemize}
+
+\textbf{Example}: Chemical oscillatory reaction.
+\begin{itemize}
+\item $x$ is concentration of $I^-$, $y$ is concentration of $ClO_2^-$ ions in some reaction.
+\item $a$ is positive, and clearly $x, y \geq 0$ in the physical world.
+\item Otherwise meaningless equations: $\frac{dx}{dt} = 5a - x - \frac{4xy}{1+x^2}, \frac{dy}{dt} = x(\frac{4y}{1+x^2})$
+\item Solve for equilibria by setting $\frac{dx}{dt} = \frac{dy}{dt} = 0$
+\begin{itemize}
+\item Denote $Q = \frac{y}{1+x^2}$
+\item First equation implies $x(1+4Q) = 5a$
+\item Second euqation, plus knowing $x \neq 0$, $\Rightarrow x(1-Q) = 0 \Rightarrow Q = 1$
+\item $Q = 1 \Rightarrow 5x = 5a \Rightarrow x = a$
+\item $\Rightarrow 1 = \frac{y}{1+x^2} \Rightarrow y = 1+a^2$
+\item Only solution pair is $(a, 1+a^2)$
+\end{itemize}
+\end{itemize}
+
+Linearizing the solution around $(a, 1+a^2)$
+\begin{itemize}
+\item $x = a + \delta x, y = 1 + a^2 + \delta y \Rightarrow \frac{dx}{dt} = \frac{d[\delta x]}{dt}, \frac{dy}{dt} = \frac{d[\delta y]}{dt}$
+\item Call $f =  \frac{d[\delta x]}{dt} = 5a - x - \frac{4xy}{1+x^2}$, 
+\item Approximate $f(x + \delta x, y + \delta y) \approx f(x,y) + \frac{\delta f}{\delta x}\delta x +  \frac{\delta f}{\delta y}\delta y$
+\item $f(x,y)(a, 1+a^2)= 5a - x - \frac{4xy}{1+x^2}(a, 1+a^2) = 5a - a - 4(a\frac{1+a^2}{1+a^2}) = 0$
+\item $\frac{\delta f}{\delta x}\delta x (a, 1+a^2) = (-1 - \frac{(1+x^2)(4y-2x4xy}{(1+x^2)^2})\delta x (a, 1+a^2)) =(-1 - 4 - \frac{8a^2}{1+a^2})\delta x  = \frac{-5 + 3a^2}{1+a^2}\delta x $
+\item $\frac{\delta f}{\delta y}\delta y (a, 1+a^2) = \frac{-4x}{1+x^2}\delta y (a, 1+a^2)) =\frac{-4a}{1+a^2}\delta y $
+\item Call $g =  \frac{d[\delta y]}{dt} = x - \frac{xy}{1+x^2}$
+\item Approximate $g(x + \delta x, y + \delta y) \approx g(x,y) + \frac{\delta g}{\delta x}\delta x +  \frac{\delta g}{\delta y}\delta y$
+\item $g(x,y)(a, 1+a^2) = x - \frac{xy}{1+x^2}(a, 1+a^2) = a - a\frac{1+a^2}{1+a^2} = 0$
+\item $\frac{\delta g}{\delta x}\delta x (a, 1+a^2) = (1 -\frac{(1+x^2)y - xy2x}{(1+x^2)^2})\delta x ( = 1 -\frac{(1+a^2)^2 - 2a^2(1+a^2)}{(1+a^2)^2})\delta x = 2a^2\delta x $
+\item $\frac{\delta g}{\delta y}\delta y (a, 1+a^2) = \frac{-x}{1+x^2}\delta y = \frac{-a}{1+a^2}\delta y $
+\item  $\Rightarrow \frac{d}{dt}\begin{pmatrix} \delta x \\ \delta y \end{pmatrix}  = \frac{1}{1+a^2} \begin{pmatrix}  3a^2 - 5 & -4a \\ 2a^2 & -a \end{pmatrix} \begin{pmatrix} \delta x \\ \delta y \end{pmatrix}$
+\item Let's arbitrarily choose $a = 2 \Rightarrow (a, 1+a^2) = (2,5)$.  The coefficient matrix ends up being $\frac{1}{5} \begin{pmatrix} 7 & -8 \\ 8 & -2\end{pmatrix}$, which has eigenvalues with a positive real $\pm$ some $i$ component.  So, Hartman-Grobman applies and we don't decay into our point but push away.
+\end{itemize}
+
+We want to \textbf{build the trapping region}.   
+\begin{itemize}
+\item Remember, $\frac{dx}{dt} = 10 - x - \frac{4xy}{1+x^2}, \frac{dy}{dt} = x(1 - \frac{y}{1+x^2})$ subbing in 2 for $a$)
+\item On the left, if $x = 0$ we see $\frac{dx}{dt} = 10, \frac{dy}{dt}  = 0$.  So we're pointing right (into the first quadrant region)
+\item On the bottom, if $y = 0$, we're pointing at $\langle 10 -x , x \rangle$ (into the region).
+\item On the right, for some $x = b$, $10 - b - \frac{4b}{1+b^2}y$ will make sure we point left.
+\item On the top, for some $y = c$, $x(1-\frac{c}{1+x^2} < 0$ makes sure we point down.
+\item Assume, since we're encircling $(2,5)$, that $b \geq 3, c \geq 6$ for comfort.
+\item To satisfy all of these, note $x(1-\frac{c}{1+x^2}) < 0 \Rightarrow 1 - \frac{c}{1+x^2} < 0 \Rightarrow c > 1+x^2, 0 < x < b \Rightarrow c > 1+b^2 \Rightarrow  \sqrt{c - 1 } > b $ 
+\item And for $0 < y < c$, note that $10 - x - \frac{4xy}{1+x^2} < 10 - b < 0. $ 
+\item Pick $b = 11$, say, implying $11 < \sqrt{c-1}$, so then $123 < c$.  So $(b,c) = (11, 124)$ ensures oscillation around $(2,5)$ without leaving that region.
+\end{itemize}
+
+Tricky: How to reduce this region?  No real way except simulation or some tricks.   If we PRESUME a cycle, we can prove the cycle extens to the left of $x=3$ or $ x_{min} < 3$
+\begin{itemize}
+\item \textbf{META trick}: Don't worry if you have unsolvable integrals - maybe you can cancel them out.  \textbf{Run with what you have.}
+\item Trick: Assume $x(t + T) = x(t), y(t + T) = y(t)$ for some $T>0$, or that there's a PERIOD T.
+\item $\int_0^T \frac{dx}{dt}dt = x(T) - x(0) = 0, \int_0^T \frac{dy}{dt}dt = y(T) - y(0) = 0$ by fundamental theorem.
+\item Our equations again:  $\frac{dx}{dt} = 10 - x - \frac{4xy}{1+x^2}, \frac{dy}{dt} = x(1 - \frac{y}{1+x^2})$
+\item So $0 = \int_0^T [10 - \int x(t) - 4\int \frac{x(t)y(t)} {1+x(t)^2}]dt$ by the first equation
+\item $0 = \int x(t) - \int \frac{x(t)y(t)} {1+x(t)^2}]dt$ by the second.
+\item Subtract four times the second from the first to get $0 = 10T - 5 \int_0^T x(t) \Rightarrow 2T = \int_0^T x(t)dt \geq int_0^T x_{min}dt = Tx_{min}$
+\item So $2 \geq x_{min}$
+\end{itemize}
+
 
 
 \begin{itemize}
