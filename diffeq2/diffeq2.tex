@@ -279,7 +279,7 @@ It turns out the uncapped bacteria system from before looks like $\frac{d}{dt} \
 
 \end{itemize}
 
-\section{2.4: Hartman-Grobman Theorem}
+\subsection{2.4: Hartman-Grobman Theorem}
 
 \textbf{Extended Example}: Consider a phage that dies off quicky:
 \begin{itemize}
@@ -317,7 +317,7 @@ But how do we deform the phase plane so this looks linear?  We need some mapping
 
 \end{itemize}
 
-\section{2.5: Application - Lasers}
+\subsection{2.5: Application - Lasers}
 
 Lasers create excited atoms, which then emit photos while transitioning to an unexcited state.  This system has a close analogue with the previous phages (like photons) and bacteria (like atoms) model.
 
@@ -608,11 +608,105 @@ Tricky: How to reduce this region?  No real way except simulation or some tricks
 \end{itemize}
 
 
+\subsection{Chaos and the Lorenz Equation}
+
+What enabled mathematical \textbf{chaos} (unpredictability in nonlinear differential equations) was really computers and seeing simulated solutions.
+
+The (simplified) \textbf{Lorenz system} are these equations
+\begin{itemize}
+\item $\frac{dx}{dt} = \sigma (y-x)$
+\item $\frac{dy}{dt} = x(\rho - z) - y$
+\item $\frac{dx}{dt} = xy-bz$
+\item All with $\sigma, \rho, b > 0$
+\end{itemize}
+
+Solving the equations, we see equilibria for these are:
+\begin{itemize}
+\item $(0,0)$ always
+\item The two solutions $(\pm \sqrt{b(\rho - 1)}, \pm \sqrt{b(\rho - 1)}, \rho - 1)$ when $\rho > 1$.
+\end{itemize}
+
+Looking at $0 < \rho < 1$ specifically:
+\begin{itemize}
+\item Linearaizing is simple, with $x(t)= \delta x(t), y(t)= \delta y(t), z(t)= \delta z(t)$ and linearized system:
+\item $\frac{d[\delta x]}{dt} = \sigma(\delta y - \delta x)$
+\item $\frac{d[\delta y]}{dt} = \rho \delta x - \delta y$
+\item $\frac{d[\delta z]}{dt} = -b \delta z$
+\item
+ $\frac{d}{dt} \begin{pmatrix} \delta x \\ \delta y \\ \delta z  \end{pmatrix} \approx  \begin{pmatrix} -\sigma & \sigma & 0 \\
+ \rho & -1 & 0 \\ 0 & 0 & -b \end{pmatrix}  \begin{pmatrix} \delta x \\ \delta y \\ \delta z  \end{pmatrix} $
+ \item Characteristic equation is $(-b - \lambda)[(1+\lambda)(\sigma + \lambda) - \sigma \rho]  = 0$
+ \item Eigenvalues are $-b < 0$ and $\lambda = \frac{1}{2}[-(\sigma + 1) \pm \sqrt{(\sigma + 1)^2 - 4\sigma (1-\rho)}]$
+ \item If $\rho < 1$, we have distinct, real, negative eigenvalues, and a locally attractive equilibrium by Hartman-Grobman.
+\end{itemize}
+
+But if $\rho < 1$ globally attactive?  Find a Liapunov function.
+
+\begin{itemize}
+\item Requirement is that the function $U(x(t), y(t), z(t))$ is minimized at the equilibrium, and that as time progresses, $U$ decreases (so we're sucked into the bowl)
+\item We suppose that $U(x,y,z) = ax^2 + y^2 + z^2$ and using $xy \leq \frac{1}{2}x^2+ \frac{1}{2}y^2$:
+\begin{itemize}
+\item Identity derivation: $0 \leq (x-y)^2 \Rightarrow 0 \leq x^2 -2xy + y^2 \Rightarrow xy \leq \frac{1}{2}(x^2 + y^2)$
+\end{itemize}
+\item $\frac{\delta U}{\delta x} x'(t)+ \frac{\delta U}{\delta y} y'(t)+ \frac{\delta U}{\delta z}z'(t) = 2ax\sigma (y -x) + 2yx(\rho - z)-2y^2x+2zxy-2bz^2$
+\item $=2(a\sigma + \rho)xy - 2a\sigma x^2 -2y^2-2bz^2$
+\item \textbf{GOTHCA}: We can't choose $a = -\frac{\rho}{\sigma}$ since then $U = -\frac{\rho}{\sigma}x^2+y^2+z^2$ isn't minimized at $(0,0,0)$!  So $a$ needs to be positive.
+\item Choosing $a = \frac{1}{\sigma} \Rightarrow a\sigma = 1$, with $\rho < 1 \Rightarrow
+2(a\sigma + \rho)xy - 2a\sigma x^2 -2y^2-2bz^2 < 2a\sigma(2xy - x^2-y^2) - 2bz^2 \leq -2bz^2$ by the identity above.
+\item Then $U = \frac{1}{\sigma}x^2+y^2+z^2$ decreases as $t \rightarrow \infty$ and is minimized at the globally attractive $(0, 0, 0)$
+\end{itemize}
+
+If $\rho > 1$ things get chaotic.  Instead of one equilibrium, we have two new ones at $(\pm \sqrt{b(\rho - 1)}, \pm \sqrt{b(\rho - 1)}, \rho - 1)$. Everything \textbf{bifurcates}, or qualitatively shifts when inching past $\rho = 1$:
+\begin{itemize}
+\item We have three equilibria.
+\item The origin turns into a saddle equilibrium.
+\item Linearizing around   $(\alpha, \alpha , \rho - 1)$ with $\alpha$ denoting  $\sqrt{b(\rho - 1)}$ (pretty straightforward), we get characteristic equation for $A$ of $-\lambda^3 - (\sigma + b + 1)\lambda^2 - b(\sigma + \rho)\lambda - 2\sigma b(\rho - 1) = 0$
+\item Problem is, setting $\rho = 1$ drops the $(\rho - 1)$ term and we have $-\lambda(\lambda^2+(\sigma +1 + b)\lambda + b(\sigma + 1)) = 0$, with solutions $\lambda = 0, -b, -\sigma -1$.
+\item The last two solutions are attractive, but the zero doesn't work for Hartman-Grobman.
+\item If we set $\lambda = (\rho - 1)\Delta r$ when nudging $\rho$ just over 1, we ignore all $\lambda^2, \lambda^3$... as negligible and get
+ $-b(\sigma + \rho) (\rho - 1)\Delta r - 2\rho b(\rho - 1) \approx 0$
+ \item This means $\Delta r \approx -\frac{2\rho}{\rho + \sigma}$, or that this nudged root has to be negative when $\rho$ is near $1$.
+ \item More rigorously, we could have proven the roots of the equation are negative for small $\rho - 1 > 0$
+ \item In any case, this means that the near-zero root is negative, so   $(\alpha, \alpha , \rho - 1)$ attracts locally.
+ \item We can show that this applies the same for   $(-\alpha, -\alpha , \rho - 1)$ 
+\end{itemize}
+
+How do equilibria change as we change $\rho$?
+\begin{itemize}
+\item We saw the What about as we dial past $\rho = 1$, our origin equilibrium changes from globally attractive to saddle point.
+\item In going from a stable equilibrium with negative real-part eigenvalues (attractors) to $(0,0,0)$ as a saddle (mix of negative and positive real parts), we necessarily have a point where the eigenvalues' real parts are zero.
+\item In other words, $\lambda = ia$ for some real $a$.
+\item Subbing $ia$ into our $-\lambda^3 - (\sigma + b + 1)\lambda^2 b(\sigma + \rho)\lambda - 2\sigma b(\rho - 1) = 0$, we end up getting 
+ $[(\sigma + b + 1)a^2 - 2\sigma b(\rho - 1)] + i[a^3-(b(\sigma + \rho)a]= 0$
+\item Then we need $a^3 - b(\sigma + \rho)a = 0 \Rightarrow a = 0, a = \pm, \sqrt{b(\sigma + \rho)}$
+\item If $a = 0$. the real part isn't zero.  But subbing $a = \pm \sqrt{b(\sigma + \rho)}$ gives us solutions for a set of $\rho = \frac{\sigma(\sigma + b + 3)}{\sigma - b - 1}$
+\item So, when moving past this value, our two new equilibria change from locally attractive to saddles too.
+\end{itemize}
+
+Can we create a trapping region?
+\begin{itemize}
+\item The hint: The solutions have to pass through every ellipsoid of form $R^2 = \rho x^2 + ]sigma y^2 + \sigma (z-2p)^2$
+\item What we need to prove: At every point on the boundary, the direction field points ``in'', or more specificlally, \emph{the angle between inward normal and direction field is acute}.
+\item This also means that the gradient $\nabla g$ of the level set $R^2 = \rho x^2 + \sigma y^2 + \sigma (z-2r\rho)^2$ is the normal. This is $\langle 2\rho, 2\sigma, 2(z-2\rho)\rangle$
+\item So $-\nabla g \cdot \langle \frac{dx}{dt},\frac{dy}{dt},\frac{dz}{dt} \rangle > 0 \Rightarrow ... \Rightarrow 2 \rho\sigma x^2+2\sigma y^2 + 2\sigma z^2-4\rho\sigma z > 0$
+\item Use $R^2 - \rho x^2 -\sigma (z-2p)^2  =  \sigma y^2 \Rightarrow \rho\sigma x^2+2\sigma y^2 + 2\sigma z^2-4\rho\sigma z > 0$
+\item This simplifies the dot product to $2R^2 - 8\rho^2\sigma + 4\sigma \rho z + 2 \rho (\sigma-1)x^2 > 0$
+\item Since the $x^2$ term is always positive, we just need to set $R$ to clear zero when $z$ is its most negative (x = 0, y = 0, z = $2\rho - \frac{R}{\sqrt{\sigma}}$).  If we churn a little more we can see that setting $R > 2\sqrt{\sigma}\rho$ will provide a trapping region.
+
+\end{itemize}
+
+Question: Do the confined solutions fill up the whole (ellipsoid) container?  
+\begin{itemize}
+\item Looking at the divergence (volume change of a cube over time) of the solution will tell us.
+\item For unspecified reasons, $\frac{1}{v(t)}v'(t) = \nabla \cdot \langle \sigma(y-x), x(\rho - z) - y, xy-bz \rangle = -\sigma -1 - b$
+\item Solving, $v(t) = v(0)e^{-t(\sigma + 1 + b)}$
+\item This means the volume decays to 0, so therefore, our line is confined to a smaller and smaller space (but not just a point, I guess?)
+\end{itemize}
+
 
 \begin{itemize}
 \item TODO
 \end{itemize}
-
 
 
 \end{document}
