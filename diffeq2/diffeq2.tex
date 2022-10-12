@@ -703,6 +703,61 @@ Question: Do the confined solutions fill up the whole (ellipsoid) container?
 \item This means the volume decays to 0, so therefore, our line is confined to a smaller and smaller space (but not just a point, I guess?)
 \end{itemize}
 
+\section{Partial Differential Equations}
+\subsection{1D  Wave Equation and D'Lambert's Formula}
+
+Set up:
+
+
+\begin{itemize}
+\item A rope with a fixed right end  (boundary condition and a moving left end.  \emph{Starting with no boundary condition here (infinite rope, pulse in the middle}
+\item $u(x,t)$ measures the vertical displacement form the x-axis of the rope at point $x$, time $t$
+\item Physical observation gives us the PDE rule $\frac{\delta u}{\delta x} = \frac{\delta u}{\delta t}$
+\item $g(x) = u(x, 0)$ is the initial shape of the rope.
+\item It's assumed that the rope is not moving iniitally, so $u_t(x,0) = 0$
+\end{itemize}
+
+Beginning to solve this:
+\begin{itemize}
+\item $u_{tt} = u_{xx} \Rightarrow u_{tt} - u_{xx} = 0$
+\item Sort of like $a^2 - b^2 = 0 \Rightarrow (a+b)(a-b) = 0$, we have $0 = (\frac{\delta}{\delta t} \pm \frac{\delta}{\delta x})(u_t \mp u_x) 
+= u_{tt} - u_{xt} + u_{tx} - u_{xx} = u_{tt} - u_{xx}$
+\item This means the solution is either $u_+ = u_{t} + u_{x}$ or $u_- = u_{t} - u_{x}$
+\item These can be written as, e.g. $0 = u_t + u_x = \langle 1, 1 \rangle \cdot \langle u_x, u_t  \rangle =  \langle 1, 1 \rangle \cdot \nabla u$
+\item TRICK: This is a directional derviative along $\langle 1, 1 \rangle$.  Introducing a variable like $s$ (accelerant along $\langle 1,1 \rangle $?) below does nothing interesting:
+\begin{itemize}
+\item $\frac{d}{ds}[u(x+sb, t+sc)] = \frac{\delta u}{\delta x}(x+sb,t+sc)b +  \frac{\delta u}{\delta t}(x+sb,t+sc)c = \langle b, c\rangle \cdot \nabla u(x+sb, t+sc)$
+\item So if we set $b = c =1$, we see that $\frac{d}{ds}[u(x+s, t+s)] = \langle 1, 1\rangle \cdot \nabla u(x+s, t+s)$
+\item However, since in our world, $u_x + u_t = 0$, then this dot product is zero.  
+\item So then $u(x,t) = u(x+s, t+s)$, and shifting $x$ forward by $s$ (seconds?) and $t$ by the same changes nothing.
+\item From this, we see that $u_+(x, t) = u_+(x-t, 0)$ as well.  \emph{(The height of the wave at $(10, 0)$ equals that at $(11, 1)$, $(12, 2)$ etc>?  Does this mean the wave travels ``right'' at 1 unit per second, say?)}
+\end{itemize}
+\item Note: We can't have one solution satisfy both conditions $u_+ = g(x), u_{+,t} = 0$, since then $g'(x) = 0$ which only works if $g$ is a constant.
+\item Also, $u_{tt} - u_{xx} = 0$ is a linear PDE, in that solutons $u_1(x,t), u_2(x,t)$ see that $\frac{\delta^2}{\delta t^2}[c_1u_1(x,t) + c_2u_2(x,t)] - \frac{\delta^2}{\delta x^2}[c_1u_1(x,t) + c_2u_2(x,t)= 0$
+\item  If we set $t=0$, we get  $u(x,t) = c_+g(x+t)+c_-g(x-t) \Rightarrow u(x,0) = c_+g(x+0) + c_-(x-0) = (c_+ + c_-)g(x) = u(x,0)$ ,so $(c_+ + c_-) = 1$
+\item Differentiating by $t$, $u_t(x,t) = c_+g'(x+t) - c_-g'(x-t)$ so $u_t(x,0) = (c_+ - c_-)g'(x) \Rightarrow (c_+ - c_-) = 0$.  So $c_+ = c_- = \frac{1}{2}$
+\item This translates into one ``lump'' of $g(x)$ around $x=0$ starting at $t=0$ and propagating right, and one left.
+\end{itemize}
+
+With inverted conditions $u(x, 0) = 0, u_t(x,0) = f(x)$, we can use the fact that $u(x,t)$ solving the wave equation implies $u_t$ solves it as well!
+
+\begin{itemize}
+\item $\frac{\delta^2u_t}{\delta t^2} - \frac{\delta^2u_t}{\delta x^2}  = \frac{\delta}{\delta t}[\frac{\delta^2u}{\delta t^2} - \frac{\delta^2u}{\delta x^2}] = 0$, and so $\frac{\delta^2u}{\delta t^2} - \frac{\delta^2u}{\delta x^2} = 0$ works!
+\item Therefore, $u_t(x,0) = f(x)$ admits the same solution $u_t(x,t) = \frac{1}{2} [f(x+t) - f(x-t)]$
+\item Since $u(x,t) - u(x,0)  = \int  \frac{1}{2} [f(x+t) - f(x-t)]$, and $u(x,0) =  0$ by assumption in this setup, 
+$u(x,t) = \int_{s=0}^{s=t} [f(x+s) - f(x-s)]ds$, which is $\frac{1}{2} \int f(s)$ from $x-t$ to $x+t$  = $\frac{1}{2}\int_{s=x-t}^{s=x+t} f(s)ds$
+\end{itemize}
+
+And because the region of the intergral for a point $x$ gets wider as $t \rightarrow \infty$, on a flat rope with a pulse in the middle at $x=0$, we see $u(x,t)$ sitting at $0$ until the wave, at which point it stays at the peak (integral of the whole thing).
+
+So \textbf{d'Alembert's formula} is the superposition of the initially flat wave with the initially still wave:
+
+\mbox{$u(x,t) = \frac{1}{2}[g(x+t) + g(x-t)] + \frac{1}{2}\int_{s=x-t}^{s=x+t} f(s)ds$}, which solves at $u_{tt} = u_{xx}$ for $u(x,0) = g(x), u_t(x,0) = f(t)$.  In this instance, the propagation speed is clearly finite.
+
+\begin{itemize}
+\item TODO
+\end{itemize}
+
 
 \begin{itemize}
 \item TODO
