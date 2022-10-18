@@ -706,15 +706,15 @@ Question: Do the confined solutions fill up the whole (ellipsoid) container?
 \section{Partial Differential Equations}
 \subsection{1D  Wave Equation and D'Lambert's Formula}
 
-Set up:
+General set up: A rope with a fixed right end  (boundary condition and a moving left end), moving up and down.
 
+Start out with special case: no boundary condition  (infinite rope, pulse in the middle)
 
 \begin{itemize}
-\item A rope with a fixed right end  (boundary condition and a moving left end.  \emph{Starting with no boundary condition here (infinite rope, pulse in the middle}
 \item $u(x,t)$ measures the vertical displacement form the x-axis of the rope at point $x$, time $t$
-\item Physical observation gives us the PDE rule $\frac{\delta u}{\delta x} = \frac{\delta u}{\delta t}$
+\item Physical observation gives us the PDE rule $\frac{\delta^2 u}{\delta x^2} = \frac{\delta^2 u}{\delta t^2}$ (or $u_{xx} = u_{tt}$)
 \item $g(x) = u(x, 0)$ is the initial shape of the rope.
-\item It's assumed that the rope is not moving iniitally, so $u_t(x,0) = 0$
+\item It's assumed that the rope is not moving initally, so $u_t(x,0) = 0$
 \end{itemize}
 
 Beginning to solve this:
@@ -722,47 +722,172 @@ Beginning to solve this:
 \item $u_{tt} = u_{xx} \Rightarrow u_{tt} - u_{xx} = 0$
 \item Sort of like $a^2 - b^2 = 0 \Rightarrow (a+b)(a-b) = 0$, we have $0 = (\frac{\delta}{\delta t} \pm \frac{\delta}{\delta x})(u_t \mp u_x) 
 = u_{tt} - u_{xt} + u_{tx} - u_{xx} = u_{tt} - u_{xx}$
-\item This means the solution is either $u_+ = u_{t} + u_{x}$ or $u_- = u_{t} - u_{x}$
+\item This means the solution is either $u_+ = u_{t} + u_{x}$ or $u_- = u_{t} - u_{x}$.  Note - we don't solve these simultaneously, since that just gives us $u(x,t) = 0$.
 \item These can be written as, e.g. $0 = u_t + u_x = \langle 1, 1 \rangle \cdot \langle u_x, u_t  \rangle =  \langle 1, 1 \rangle \cdot \nabla u$
 \item TRICK: This is a directional derviative along $\langle 1, 1 \rangle$.  Introducing a variable like $s$ (accelerant along $\langle 1,1 \rangle $?) below does nothing interesting:
 \begin{itemize}
 \item $\frac{d}{ds}[u(x+sb, t+sc)] = \frac{\delta u}{\delta x}(x+sb,t+sc)b +  \frac{\delta u}{\delta t}(x+sb,t+sc)c = \langle b, c\rangle \cdot \nabla u(x+sb, t+sc)$
-\item So if we set $b = c =1$, we see that $\frac{d}{ds}[u(x+s, t+s)] = \langle 1, 1\rangle \cdot \nabla u(x+s, t+s)$
-\item However, since in our world, $u_x + u_t = 0$, then this dot product is zero.  
-\item So then $u(x,t) = u(x+s, t+s)$, and shifting $x$ forward by $s$ (seconds?) and $t$ by the same changes nothing.
-\item From this, we see that $u_+(x, t) = u_+(x-t, 0)$ as well.  \emph{(The height of the wave at $(10, 0)$ equals that at $(11, 1)$, $(12, 2)$ etc>?  Does this mean the wave travels ``right'' at 1 unit per second, say?)}
+\item So if we set $b = c =1$, we see that $\frac{d}{ds}[u(x+s, t+s)] = \langle 1, 1\rangle \cdot \nabla u(x+s, t+s)$  
+\item However, since in our world, $u_x + u_t = 0$, then this dot product is zero, and $\frac{d}{ds} u = 0$.  This is then \emph{constant in s}.
+\item So then $u(x,t) = u(x+s, t+s)$, and shifting $x$ forward by $s$ (seconds?) and $t$ by the same changes nothing.  \emph{Interpretation: $u(x,t) = u(x+s, t+s)$ means that $s$ (``shift'') seconds later, the point $x+s$ will see the same displacement as $x$.  The wave goes ``right'' down the line}.
+\item From this, we see that $u_+(x, t) = u_+(x-t, 0)$ as well.  So, our function at $t$ is what happened $t$ seconds ago at the origin.  
 \end{itemize}
-\item Note: We can't have one solution satisfy both conditions $u_+ = g(x), u_{+,t} = 0$, since then $g'(x) = 0$ which only works if $g$ is a constant.
-\item Also, $u_{tt} - u_{xx} = 0$ is a linear PDE, in that solutons $u_1(x,t), u_2(x,t)$ see that $\frac{\delta^2}{\delta t^2}[c_1u_1(x,t) + c_2u_2(x,t)] - \frac{\delta^2}{\delta x^2}[c_1u_1(x,t) + c_2u_2(x,t)= 0$
+\item Note: We can't have one solution satisfy both conditions $u_+ = g(x), (u_+)_t = 0$, since then $g'(x) = 0$ which only works if $g$ is a constant.
+\item Also, $u_{tt} - u_{xx} = 0$ is a linear PDE, in that solutons $u_1(x,t), u_2(x,t)$ see that $\frac{\delta^2}{\delta t^2}[c_1u_1(x,t) + c_2u_2(x,t)] - \frac{\delta^2}{\delta x^2}[c_1u_1(x,t) + c_2u_2(x,t)] = 0$.  Multiply by a constant or add solutions together and it's still zero.
 \item  If we set $t=0$, we get  $u(x,t) = c_+g(x+t)+c_-g(x-t) \Rightarrow u(x,0) = c_+g(x+0) + c_-(x-0) = (c_+ + c_-)g(x) = u(x,0)$ ,so $(c_+ + c_-) = 1$
-\item Differentiating by $t$, $u_t(x,t) = c_+g'(x+t) - c_-g'(x-t)$ so $u_t(x,0) = (c_+ - c_-)g'(x) \Rightarrow (c_+ - c_-) = 0$.  So $c_+ = c_- = \frac{1}{2}$
-\item This translates into one ``lump'' of $g(x)$ around $x=0$ starting at $t=0$ and propagating right, and one left.
+\item Differentiating by $t$, $u_t(x,t) = c_+g'(x+t) - c_-g'(x-t)$ so $u_t(x,0) = (c_+ - c_-)g'(x) \Rightarrow (c_+ - c_-) = 0$.  So $c_+ = c_- = \frac{1}{2}$, and \textbf{our solution with initial shape $g(x)$ with $g'(x) = u_t(x, 0) = 0$} is $u = \frac{1}{2}g(x+t) - \frac{1}{2}g(x-t)$
+\item \textbf{This no-initial-velocity wave function translates} into ``my displacement at time 3, say, is the average of the initial displacements 3 to my left and 3 to my right'' (as those urges meet at ``me'' 3 seconds from the start).  Conceptually, along the fixed initial curve $g(x)$, each point  sends out two sensors, one left, one right, and averages the initial values at those points to find itself at time $t$. So the top of a hill will start dipping down, becoming two hills pushing out, for example.
 \end{itemize}
 
 With inverted conditions $u(x, 0) = 0, u_t(x,0) = f(x)$, we can use the fact that $u(x,t)$ solving the wave equation implies $u_t$ solves it as well!
 
 \begin{itemize}
-\item $\frac{\delta^2u_t}{\delta t^2} - \frac{\delta^2u_t}{\delta x^2}  = \frac{\delta}{\delta t}[\frac{\delta^2u}{\delta t^2} - \frac{\delta^2u}{\delta x^2}] = 0$, and so $\frac{\delta^2u}{\delta t^2} - \frac{\delta^2u}{\delta x^2} = 0$ works!
+\item  $\frac{\delta^2u}{\delta t^2} - \frac{\delta^2u}{\delta x^2} = 0 \Rightarrow \frac{\delta}{\delta t}[\frac{\delta^2u}{\delta t^2} - \frac{\delta^2u}{\delta x^2}] = 0 \Rightarrow  \frac{\delta^2u_t}{\delta t^2} - \frac{\delta^2u_t}{\delta x^2}  = 0$.
 \item Therefore, $u_t(x,0) = f(x)$ admits the same solution $u_t(x,t) = \frac{1}{2} [f(x+t) - f(x-t)]$
-\item Since $u(x,t) - u(x,0)  = \int  \frac{1}{2} [f(x+t) - f(x-t)]$, and $u(x,0) =  0$ by assumption in this setup, 
+\item Since $u(x,t) - u(x,0)  = \int  \frac{1}{2} [f(x+t) - f(x-t)]dt$, and $u(x,0) =  0$ by assumption in this setup, 
 $u(x,t) = \int_{s=0}^{s=t} [f(x+s) - f(x-s)]ds$, which is $\frac{1}{2} \int f(s)$ from $x-t$ to $x+t$  = $\frac{1}{2}\int_{s=x-t}^{s=x+t} f(s)ds$
 \end{itemize}
 
-And because the region of the intergral for a point $x$ gets wider as $t \rightarrow \infty$, on a flat rope with a pulse in the middle at $x=0$, we see $u(x,t)$ sitting at $0$ until the wave, at which point it stays at the peak (integral of the whole thing).
+And because the region of the intergral for a point $x$ gets wider as $t \rightarrow \infty$, on a flat rope with a pulse in the middle at $x=0$, we see $u(x,t)$ sitting at $0$ until the wave meets it, at which point it rises and then stays at the peak (integral of the whole thing).
 
-So \textbf{d'Alembert's formula} is the superposition of the initially flat wave with the initially still wave:
+So \textbf{d'Alembert's formula} is the superposition of the initially flat wave with the initially still wave, which accomodates \emph{all} solutions:
 
-\mbox{$u(x,t) = \frac{1}{2}[g(x+t) + g(x-t)] + \frac{1}{2}\int_{s=x-t}^{s=x+t} f(s)ds$}, which solves at $u_{tt} = u_{xx}$ for $u(x,0) = g(x), u_t(x,0) = f(t)$.  In this instance, the propagation speed is clearly finite.
+\fbox{$u(x,t) = \frac{1}{2}[g(x+t) + g(x-t)] + \frac{1}{2}\int_{s=x-t}^{s=x+t} f(s)ds$}
+
+\emph{For the case of no boundary conditions}, this solves $u_{tt} = u_{xx}$ for $u(x,0) = g(x), u_t(x,0) = f(t)$.  In this instance, the propagation speed is clearly finite.
+
+\emph{Note: This complete of a PDE solution is unusual.}
+
+\subsection{Sources and Boundary conditions}
+
+\textbf{Scenario 1: Here, we fix the infinite rope at the origin}, with the wave coming in from the negative x-axis.
+
+Looking at \textbf{boundary conditions}, or constraints on spatial edges of a PDE problem:
+\begin{itemize}
+\item A free boundary (a loop that can shift up and down a pole) will cause a reflected wave to travel backwards.
+\item A fixed boundary (setting $u(0, t) = 0, t \geq 0$) will cause an inverted pulse backwards.  
+\end{itemize}
+
+We set up a function $\tilde{u}(x,t) = \{ u(x,t), x \leq 0; = -u(-x, t), x \geq 0\}$ using \textbf{extension by odd reflection}.  So an inverted ghost rope exists to the right of the origin.
+
+\emph{Note}: This seems to be more about cleverly encoding a boundary behavior (we will invert our wave) with this ghost rope than proving we'll have that behavior with math.
 
 \begin{itemize}
-\item TODO
+\item And if $u_t(x,0) = 0, g(0) = 0, u(x,0) = g(x)$ extended to $x > 0$ as $\tilde{g}(x)$, then d'Alembert's applies: $\tilde{u}(x,t) = \frac{1}{2}[\tilde{g}(x+t) + \tilde{g}(x-t)]$
+\item So when $x \leq 0, x \leq t \Rightarrow -t \leq x \leq 0$: (meaning, negative $x$, close enough to the origin to be affected by time $t$)
+\begin{itemize}
+\item $\tilde{u}(x,t) = u(x,t)$ here, since there's no inversion on the left side.
+\item $(x+t)$ is positive , so $\tilde{g}(x+t) = -g(-(x+t))$ by definition of $\tilde{u}$.
+\item $(x-t)$ is negative , so $\tilde{g}(x-t) = g(x-t)$ by definition of $\tilde{u}$.
+\item So d'Alembert's reduces to $u(x,t) = \frac{1}{2} [-g(-(x+t)) + g(x-t)]$.  This means \emph{I'm the average of the starting position to my left $t$ seconds ago, and the inverted right-of-origin ghost position to my right $t$ seconds ago}
+\end{itemize}
+\end{itemize}
+
+This means that for the part of the rope we care about, $x \leq 0$:
+\begin{itemize}
+\item For $x \leq -t$ (parts of the line unaffected by the reflection so far),  $u(x,t)= \frac{1}{2}[g(x+t) + g(x-t)]$
+\item For $x \geq -t$ (parts affected by the reflection)  $u(x,t) = \frac{1}{2} [-g(-(x+t)) + g(x-t)]$
+\item The intuition, still hard to visualize: if I'm zero at point -10, and wave crests at -11, then
+\begin{itemize}
+\item First my left sensor will eat the left wave and I'll go up and over.  
+\item Then much later my right sensor will eat the right shadow wave and I'll do the inverted behavior.
+\item These in total mean I'll get a reflection.
+\item For the intuition, keep moving my point closer to the origin - nothing changes.
+\end{itemize}
+\end{itemize}
+
+\textbf{Scenario 2: Here, we let the rope slide up and down at the origin}, but bound the total energy:
+
+\begin{itemize}
+\item One hand on the rope at $x=-L$, very far away:
+\item Our energy is the sum of kinetic (change in u based on time?) and elastic (change in u based on x?) energies.
+\item $E = \int_{x=-L}^{x=0} [(\frac{\delta u}{\delta t})^2 + (\frac{\delta u}{\delta x})^2]dx$
+\item We can't gain or lose energy.  This means $\frac{dE}{dt} = 0$. Solving that:
+\begin{itemize}
+\item $0 = \frac{d}{dt} ( \frac{1}{2} \int_{x=-L}^{x=0} [(\frac{\delta u}{\delta t})^2 + (\frac{\delta u}{\delta x})^2]dx)  = \frac{1}{2} \int_{x=-L}^{x=0} [ \frac{\delta}{\delta t} (\frac{\delta u}{\delta t})^2 + \frac{\delta}{\delta t} (\frac{\delta u}{\delta x})^2]dx)$
+\item $= \int_{x=-L}^{x=0} [ u_t u_{tt} + u_x \frac{\delta u_t}{\delta x}]dx)$.  
+\item (Do integration by parts on the second term with $U = u_x, dV= \frac{\delta u_t}{\delta x})$: $0 = \int_{x=-L}^{x=0} [ u_t u_{tt}]dx + u_xu_t - \int_{x=-L}^{x=0} [u_tu_{xx}]dx =  \int_{x=-L}^{x=0} u_t[u_{tt} - u_{xx}]dx + u_xu_t$
+\item Since $u_{tt} - u_{xx}$ = 0 (REMEMBER YOUR PROBLEM-SPECIFIC IDENTITIES!), $u_x(0,t)u_t(0,t) = 0$
+\item Saying the displacement can't change with respect to $t$ there gives us the fixed rope case above, so that's uninteresting.
+\item Therefore, if there's no energy change as the rope vibrates, we know $u_x(0,t) = 0$
+\end{itemize}
+
+Note: Dirichlet conditions are constraints on the value of the function at the boundary (like $u(0, t) = 0$).  Neumann constraints are on the derivatives at the boundary.
+
+So redoing d'Alembert with the energy conservation, and therefore the ``Neumann'' condition $u_x(0,t) = 0$:
+\begin{itemize} 
+\item We know if $u$ solves $u_{tt} - u_{xx} = 0$, then $u_x$ does too, since $0 = u_{tt} - u_{xx} = \Rightarrow  0 = \frac{d}{dx}[u_{tt} - u_{xx}] = [[u_x]_{tt} - [u_x]_{xx}] = 0$.
+\item We know $u_x(0,t) = 0$ by given constaints, so then we enforce this through odd reflection on $u_x$ as well: $\tilde{u}_x = \{ u_x(x,t), x\leq 0; -u_x(-x,t), x \geq 0\}$
+\item By D'Alembert, this solves the wave equation with $u_x(x,0) = g'(x)$, so $\tilde{u}_x = \frac{1}{2}[\tilde{g}'(x+t) + \tilde{g}'(x-t)]$
+\item Therefore at $-t \leq x \leq 0=, \tilde{u}_x(x,t) = \frac{1}{2}[\tilde{g}'(x+t) + \tilde{g}'(x-t)] = \frac{1}{2}[- g'(-x-t) + g'(x-t)]$
+\item Then integrating, we drop the minus sign in the first term! $u(x,t) =  \frac{1}{2}[g(-x-t) + g(x-t)] + C$.  Note that $u(x,0) =  \frac{1}{2}[g(x) + g'(x))] \Rightarrow C = 0$!
+\end{itemize}
+
+(Note: a nonzero initial velocity profile $u_t(x,0) = f(x)$ can be handled as well.  We skip it).
+\end{itemize}
+
+Remember the 1D springs Wave Equation, where springs are initially $l$ apart, have displacement from this measured by $u(x, t)$,  have Hooke's coefficient $k$?
+\begin{itemize}
+\item Force pushing from the left on ball $x$: $F_L = k[u(x-l,t) - u(x,t)]$
+\item Force pushing from the right on ball $x$: $F_R = k[u(x+l,t) - u(x,t)]$
+\item Additional ``source'' force $F(x,t)$ means total force $F_{tot} = F_L(x,t) + F_R(x,t) + F(x,t)$
+\item $F_{tot} = ma = mu_{tt}$
+\item The Taylor-ish formula $f(x + \delta x) \approx f(x) + f'(x)(\delta x) + f''(x)(\delta x)^2$ means $F_L + F_R \approx kl^2f''(x) = kl^2u_{xx}$
+\item Therefore, $mu_{tt} = kl^2u_{xx} + F(x,t) \Rightarrow F(x,t) = u_{tt} - \frac{kl^2}{m}u_{xx}$.  Set $1 = v = \frac{kl^2}{m}, f(x,t) = 
+\frac{F(x,t)}{m}$ to get a simplified all-purpose wave equation. $f(x,t) = u_{tt} - u_{xx}$, with $f$ as the source force-per-unit-mass.
+\end{itemize}
+
+\textbf{New setup: Source force} $f(x,t)$, ignore boundary conditions, and set $u(x,0) = 0, u_t(x,0) = 0$ (still, flat (infinite) rope).
+\begin{itemize}
+\item Part 1: We can relate $f(x,t)$ to a made-up intermediate function $I(x,t)$ which has properties motivated by $u_{tt} - u_{xx} = (\frac{\delta}{\delta t} - \frac{\delta}{\delta x})(\frac{\delta u}{\delta t} + \frac{\delta u}{\delta x})$
+\item $I(x,t) = (\frac{\delta u}{\delta t} + \frac{\delta u}{\delta x})$
+\item $u_{tt} - u_{xx} = f(x,t) \Rightarrow (\frac{\delta I}{\delta t} - \frac{\delta I }{\delta x}) = f(x,t)$
+\item We can derive that $u(x,0) = 0, u_t(x,0) = 0$ means that at $x=0$, $I(x,0) =  u_t(x,0) +  u_x(x,0) =  u_x(x,0)$
+\item Since $u(x,0) = 0$ and $I(x,0) = u_x(x,0)$, $I(x, 0 ) = 0$.
+\end{itemize}
+
+We can relate $f(x,t)$ and $I(x,t)$:
+\begin{itemize}
+\item Use the dummy variable trick, and look at $f(x-s, t+s)$.  We know also that $\frac{\delta I}{\delta t} - \frac{\delta I }{\delta x} = f(x,t)$
+\item $f(x-s, t+s) = \frac{\delta I}{\delta t}(x-s,t+s) - \frac{\delta I }{\delta x}(x-s,t+s) = \frac{d}{ds}[I(x-s, t+s)]$ by chain rule.
+\item Integrating both sides: $\int_{s=-t}^{s=0} f(x-s, t+s)ds = I(x,t) - I(x+t, 0) = I(x,t)$
+\item We can rewrite, using $k=-s$, as $I(x,t) = \int_{k=t}^{k=0} f(x+k, t-k)d(-k) = \int_{s=0}^{t}f(x+s, t-s)ds$ 
+\end{itemize}
+
+Using the same technique, we can relate 	$I(x,t)$ and $u(x,t)$ since $I(x,t) = (\frac{\delta u}{\delta t} + \frac{\delta u}{\delta x})$
+\begin{itemize}
+\item Use the dummy variable trick with variable $s'$ and look at $f(x-s', t-s')$.  We know also that $\frac{\delta u}{\delta t} + \frac{\delta u }{\delta x} = I(x,t)$
+\item $I(x-s', t-s') = \frac{\delta u}{\delta t}(x-s,t-s) - \frac{\delta u}{\delta x}(x-s',t-s') = \frac{d}{ds'}[u(x-s', t-s)']$ by chain rule.
+\item Integrating both sides: $\int_{s'=-t}^{s'=0} f(x-s', t-s')ds = u(x,t) - I(x-t, 0) = u(x,t)$
+\item We can rewrite, using $j=-s'$, as $u(x,t) = \int_{j=t}^{j=0} f(x-j, t-j)d(-j) = \int_{j=0}^{t}I(x-j, t-j)dj$
+\item So, $u(x,t) = \int_{s'=t}^{s'=0} f(x-s', t-s')ds' = \int_{s'=0}^{t}I(x-s', t-s')ds'$
+\end{itemize}
+
+Combining these, $u(x,t) =  \int_{s'=0}^{t}I(x-s', t-s')ds'$, and $I(x,t) =  \int_{s=0}^{t}f(x+s, t-s)ds$:
+\begin{itemize}
+\item  $I(x-s', t-s') =  \int_{s=0}^{t}f(x+s-s', t-s-s')ds$:
+\item So $u(x,t) =  \int_{s'=0}^{t}  \int_{s=0}^{t}f(x+s-s', t-s-s')dsds'$
+\item Change of variables, $y= x+s-s', w = s' + s \Rightarrow u(x,t) = \frac{1}{2} \int_{w=0}^t \int_{y=x-w}^{y=x+w} f(y, t-w)dydw$
+\begin{itemize}
+\item TODO: The $\frac{1}{2}$ term apparently comes from the Jacobian (TODO) $\| \frac{\delta(s', s)}{\delta (w,y)}\|$
+\end{itemize}
+\item This together means that the \emph{points that can influence $u(x,t)$} in the $xt-$plane are a triangle with $(x,t)$ as the top, reaching down to $t=0$, slope 1.  So the ``wave speed'' in this setup is 1.
 \end{itemize}
 
 
+
+
+Notes to self:
 \begin{itemize}
-\item TODO
+\item Need a clear intuition for a lot of things.  What do the variables and their derivatives physically mean?
+\item Need more symbolic comfort with how integration works.
 \end{itemize}
 
+
+
+\begin{itemize}
+\item  TODO
+\end{itemize}
 
 \end{document}
 
