@@ -13,7 +13,7 @@
 \usepackage{syntonly}
 % \syntaxonly \langle -- use this for checking syntax only
 % \mbox {text} - keep together
-% \fbox {text} - keep together and draw around
+% \footnote{¥}box {text} - keep together and draw around
 
 %\pagestyle{plain|headings|empty} % header and footer p.27
 %SetFonts
@@ -867,13 +867,77 @@ Combining these, $u(x,t) =  \int_{s'=0}^{t}I(x-s', t-s')ds'$, and $I(x,t) =  \in
 \begin{itemize}
 \item  $I(x-s', t-s') =  \int_{s=0}^{t}f(x+s-s', t-s-s')ds$:
 \item So $u(x,t) =  \int_{s'=0}^{t}  \int_{s=0}^{t}f(x+s-s', t-s-s')dsds'$
-\item Change of variables, $y= x+s-s', w = s' + s \Rightarrow u(x,t) = \frac{1}{2} \int_{w=0}^t \int_{y=x-w}^{y=x+w} f(y, t-w)dydw$
+\item Change of variables, \fbox{ $y= x+s-s', w = s' + s \Rightarrow u(x,t) = \frac{1}{2} \int_{w=0}^t \int_{y=x-w}^{y=x+w} f(y, t-w)dydw$}
 \begin{itemize}
 \item TODO: The $\frac{1}{2}$ term apparently comes from the Jacobian (TODO) $\| \frac{\delta(s', s)}{\delta (w,y)}\|$
 \end{itemize}
 \item This together means that the \emph{points that can influence $u(x,t)$} in the $xt-$plane are a triangle with $(x,t)$ as the top, reaching down to $t=0$, slope 1.  So the ``wave speed'' in this setup is 1.
 \end{itemize}
 
+
+\subsection{2D and 3D (Compression) Waves}
+
+(Note: The 2D equation will fall out of the 3D one).
+
+Major setup for 3D compression waves:
+\begin{itemize}
+\item Air molecules compress together from sound, so $u(x,y,z,y)$ measures the density of air at that point.
+\item Let's assume $g(x \pm t)$ plays the same role as last time: the initial wave state.  (Note: The setup implies we're looking at waves that propagate at ``one x per t''.)
+\item Sound can come from multiple directions, so the expanded version should look like $u(\vec{x}, t) = g(\hat{n} \cdot \vec{x} \pm t)$, with $\hat{n}$ some fixed direction in $\mathbb{R}^3$.
+\item The equation is \fbox{$u_{tt} = u_{xx} + u_{yy} + u_{zz}$} since:
+\begin{itemize}
+\item Setting $\hat{n} = \hat{i}$ or any other basis vector, $g(\hat{i} \cdot \vec{x} \pm) = g(x \pm t)$, which means if the other dims are zero, then $u_{tt} = u_{xx}$ (reduce to 1D case).  That checks out (necessary, not sufficient)
+\item $\frac{\delta}{\delta t}[g(\hat{n} \cdot \vec{x} \pm t)] = \pm g'(\hat{n} \cdot \vec{x} \pm t)$, same for $g'$' and $\frac{\delta^2}{\delta t^2}$
+\item $\frac{\delta^2}{\delta x^2}[g(\hat{n} \cdot \vec{x} \pm t)] = \hat{n}_x^2g''(\hat{n} \cdot \vec{x} \pm t)$, same for $y, z$
+\item Since $[\hat{n}_x^2 + hat{n}_y^2 + hat{n}_z^2 = 1], u_{tt} = u_{xx} + u_{yy} + u_{zz}$ works out.
+\item This can also be written $u_{tt} - \nabla^2u$
+\end{itemize}
+\end{itemize}
+
+
+Setup with a forcing function:
+\begin{itemize}
+\item $u_{tt} - \nabla^2u = f(\vec{x}, t), u(\vec{x}, 0) = 0, u_t(\vec{x}, 0) = 0$.
+\item So with a still, blank initial state $f$ is going to be a POP at the origin for a brief time.
+\item Taking our experience from actual sound, we expect it to decrease away from the origin, and for there to be a finite propagation speed.
+\item It should also be spherically symmetric.
+\end{itemize}
+
+Switching to spherical coordinates ($u$ depends on $r, \theta, \phi$), and using the multivariable chain rule from vecctor calculus, we get
+\begin{itemize}
+\item $\nabla^2u = \frac{1}{r^2}\frac{\delta}{\delta r} [r^2 \frac{\delta u}{\delta r}] + \frac{1}{r^2\sin^2(\phi)} \frac{\delta^2u}{\delta \theta ^2} + \frac{1}{r^2\sin(\phi)} \frac{\delta}{\delta \phi} [\sin(\phi)\frac{\delta u}{\delta \phi}]$
+\item If we're taking this to be spherically symmetric, then we can zero out $\phi, \theta$ terms:  $\nabla^2u = \frac{1}{r^2}\frac{\delta}{\delta r} [r^2 \frac{\delta u}{\delta r}] $
+\item Expanding this out, this means that $u_{tt} -\frac{1}{r^2} \frac{\delta}{\delta r}[r^2\frac{\delta u }{\delta r}] = u_{tt} - \frac{2}{r} u_r - u_{rr} = f(r,t)$
+\item If we set $U = ru$, and churn through with e.g. $u_r  = \frac{\delta}{\delta r} [\frac{U}{r}] = -\frac{U}{r^2} + \frac{U_r}{r}$, etc., we end up with $U_{tt} - U_{rr} = rf(r,t)$.  Note that $\frac{U}{r} = u$ means that the solution diminishes $u$ with distance.
+\item So now we're solving with $U(r,0) = U_t(r,0) = 0$ since $U = ru$.
+\item Though only $r \geq 0$ matters, we need to keep $U(0,t)$ at zero through odd reflection.  Note that if $f$ is even, $rf(r,t)$ is odd.
+\item The result from last quiz implies: $U(x,t) = \frac{1}{2} \int_{s=0}^t \int_{\rho=r-s}^{\rho=r+s} \rho f(\rho, t-s)d\rho ds$ , with $s$ subbing for dummy $w$ and $\rho$ being the distance instead of $y$. Note that our function is really $\rho f$ now instead of $f$.
+\item Building a ``Dirac delta snap''  for a symmetric pop at the origin, set $f(r,t) = \frac{1}{\epsilon} e^{-\pi^2 \frac{r^2}{\epsilon^2}}\chi(t)$ for tiny $\epsilon$
+\item Define $\delta(\rho) = \frac{\exp(-\frac{\pi^2\rho^2}{\epsilon^2})} {\epsilon^2}$, change $s' = t-s$
+\item Eventually the math reduces to a delta pop at $r - t + s'$ (in range) and $r + t - s'$ (outside the interval)
+\item The math reduces to $\int_{s'=0}^{s'=t} \chi(s')\delta(r -t + s')ds'$, or just $\chi(t-r)$ (due to the integral of $\delta$ being one exactly at $t-r$.
+\item Therefore, \fbox{$ U(r,t) = \{ \frac{\epsilon^3}{(2\pi)^2}\chi(t-r), t - r > 0; 0, t -r \leq 0 \}$}
+\item Looking at this, we confirm that disturbance diminishes with distance, and has a finite propagation speed.
+\item \emph{TODO: So I guess $\chi$ is the actual initial wave function of time at the origin?}  The delta was I suppose there to ``center'' it?
+\end{itemize}
+
+What if we don't have spherical symmetry?  
+\begin{itemize}
+\item in the general case, all points $\vec{x}$ influence fixed point $\vec{P}$ through
+\begin{itemize}
+\item Distance separating points $r = \| \vec{x} - \vec{P} \|$
+\item Normalized direction $\frac { \vec{x} - \vec{P}}{\| \vec{x} - \vec{P} \|}$
+\end{itemize}
+\item However, we can \emph{average} $u$ over all points $r$ away: $U(r,t;P) = \frac{1}{4\pi r^2} \iint_{S(\vec{P}, r} u(\vec{x}, t) d\sigma(\vec{x}$, with $S$ being the r-sphere around P
+\item Getting the r-partials requires writing each $\vec{x}$ as some $\vec{P} + r\hat{n}$ over all directions, and using the divergence theorem.
+\item LOTS OF ALGEBGRA IN HERE to get $U_{tt} - U_{rr} - \frac{2}{r}U_r = F(r,t)$ with a dependence on $r,t. \vec{P}$.  This $F$ is an even function, and it approaches $u(x,t)$ as $r$ approaches zero.
+\item Our equation ens up being $u(\vec{P}, t) = \frac{1}{4\pi} \iiint_{B(\vec{P}, t)} \frac{f(\vec{y}, t - \| \vec{y} - \vec{P} \|)}{ \| \vec{y} - \vec{P} \|} d\vec{y}$
+\item Like the other case, we see that we points in space affecting $U$ are a ``4D cone'' with vertex at $(\vec{P}, t)$
+\item Also, if we consider that $f$ doesn't depend on $z$, we can flatten this spherical integral to a 2D one by looking at columns of $z$ over the disc of radius $t$
+\item This ends up being $u(\vec{P}, t) = \frac{1}{2\pi} \iint_{B_2(\vec{P}, t)} f(\vec{y}) \ln(\sqrt { (\frac{t}{\| \vec{y} - \vec{P} \|})^2 - 1}   + \frac{t}{\| \vec{y} - \vec{P} \|}  )d\vec{y} $
+\item This \textbf{method of descent} is really just ``reducing'' our 2D case from a 3D one.
+\item Also, the \textbf{spherical averages} let us reduce a 3D problem to a 1D problem, given the assumptions of the problem.
+\end{itemize}
 
 
 
