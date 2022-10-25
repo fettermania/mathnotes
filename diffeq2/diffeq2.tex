@@ -940,6 +940,64 @@ What if we don't have spherical symmetry?
 \end{itemize}
 
 
+\subsection{2D waves (boundary constrained): Separation of Variables} 
+
+
+Main Setup: 
+\begin{itemize}
+\item Rectangular drumhead from $[0,0]$ to $[w, l]$
+\item Vertical (z) displacement is $u(x,y,t)$, with Dirichlet condition $u(x,y,t) = 0$ enforced on the boundary.
+\item Known that $u_{tt} = u_{xx}+ u_{yy}$.
+\end{itemize}
+
+Solving for $u$ by guessing that there's a split solution $u(x,y,t) = S(x,y)T(t)$.
+\begin{itemize}
+\item  $u_{tt} = u_{xx}+ u_{yy}$.
+\item So $S(x,y)T''(t) = \frac{d^2S(x,y)}{dx^2}T(t) + \frac{d^2S(x,y)}{dy^2}T(t)$
+\item $\Rightarrow \frac{T''(t)}{T(t)} = \frac{\nabla^2 S(x,y)}{S(x,y)}$ 
+\item \textbf{Big A-ha}: left hand side is a function of \emph{t}, and right hand of \emph{x,y}.  If they are to be equal, they must both be consta
+\end{itemize}
+
+
+To solve for $T$:
+\begin{itemize}
+\item We know $\frac{T''(t)}{T(t)}$ is a constant, so equate it to $-k^2$ for some constant $k$.
+\item Supposing the solution $T(t) = e^{rt} \Rightarrow T'' = r^2e^{rt}$, we know $r^2 = -k^2 \Rightarrow r = \pm ik$.
+\item The solution $T(t) = Me^{ikt} + Ne^{-ikt}$ is equivalent to $T(t) = A\cos(kt) + B\sin(kt)$ since you can express $\sin, \cos$ as linear combos of $e^{ikt} = \cos(kt) + i \sin(kt)$ and $e^{-ikt} = \cos(kt) - i \sin(kt)$ 
+\end{itemize}
+
+To solve for $X, Y$:
+\begin{itemize}
+\item $\frac{\nabla^2 S(x,y)}{S(x,y)} = -k^2$ by its equality with $\frac{T''(t)}{T(t)}$.
+\item Suppose we can formulate a solution so that $S(x,y) = X(x)Y(y) \Rightarrow -k^2X(x)Y(y)
+ = Y(y)X''(x) + Y''(y)X(x) \Rightarrow -k^2 
+ = \frac{X''(x)}{X(x)} + \frac{Y''(y)}{Y(y)}$.
+ \item So, for some $j$, $\frac{X''(x)}{X(x)} = -j^2 \Rightarrow X(x) = C \cos(jx) + D \sin(jx)$ by the $T$ solution above.
+ \item However, $X(x) = 0$  and $X \neq 0$ (not a constant function) forces us to conclude $C = 0 \Rightarrow X(x) = D\sin(jx)$.
+ \item Also, the boundary condition $X(w) = 0$ also means for every $j = \frac{n \pi}{w}$, $n \in \mathbb{N}$, $X(x) = D \sin(\frac{\pi n}{w} x)$
+ \item Following this identical logic for $Y$ over length $l$, y $q = \frac{m  \pi}{l}$,$Y(y) = F \sin(\frac{\pi m}{l} x)$
+ \item Considering that $-k^2 = -j^2 - q^2$, this means $k = \sqrt{(\frac{\pi n}{w} x)^2+ (\frac{\pi m}{l} x)^2}$
+ \item Then, $u =T(t)X(x)Y(y)$
+ \item $ \Rightarrow u = (A_{mn} \cos (\sqrt{(\frac{\pi n}{w} x)^2+ (\frac{\pi m}{l} x)^2}) + B_{mn} \sin (\sqrt{(\frac{\pi n}{w} x)^2+ (\frac{\pi m}{l} x)^2}))(\sin(\frac{\pi n}{w} x))(\sin(\frac{\pi m}{l} x))$
+ \item This runs over all $m,n \in \mathbb{N}$
+\end{itemize}
+
+Turning to a \textbf{circular membrane} with radius $r_0$, displacement described by $z = u(r, \theta, t)$:
+\begin{itemize}
+\item Boundary condition is then Dirichlet condition $u(r_0, \theta, t) = 0$ 
+\item $u_{tt} = \nabla^2 u = \Rightarrow u_{tt} = u_rr + \frac{1}{r} u_r  +\frac{1}{r^2}u_{\theta \theta}$
+\item (Note: I suppose this magic (forgotten from vector calculus) is because $u_{tt} = u_{xx} + u_{yy}$, and we're converting between $x,y$ and $r, \theta$)
+\item $T(t) = A \sin(kt) + B \cos(kt)$ by identical logic to the rectangular drum, where $\frac{T''(t)}{T(t)}$ also was a constant.
+\item Assuming similarly that  $S(r,\theta) = R(r)\Theta(\theta)$, you end up with $R(r)\Theta(\theta) [\frac{R''}{R} + \frac{R'}{rR} + \frac{1}{r^2}\frac{\Theta''}{\Theta} + k^2] = 0$
+\item Finally, if $\frac{\Theta''}{\Theta} = \kappa$ for $\kappa \in \mathbb{R}$, then $\Theta(\theta) = Ce^{\sqrt{\kappa} \theta} + De^{-\sqrt{\kappa} \theta}$.  H
+\item However, we have an additional condition that we have to be able to rotate the whole scene by $\theta = m2\pi$ radians and have it remain the same, or $\Theta(\theta + 2\pi) = \Theta(\theta)$.  This means $\kappa < 0$ since we're in ``imaginary exponents yielding sign an cosine'' territory.
+\item This implies $\kappa = -m^2$ for an integer $m$, and therefore, \fbox{$\Theta(\theta) = C\cos(m\theta)+ D\sin(m\theta)$}.
+\item We know also that  \fbox{$T(t) = A \cos(kt) + B\sin(kt)$} 
+\item Setting $\frac{\Theta''}{\Theta} = \kappa = -m^2$, 
+and with $R(r)\Theta(\theta) [\frac{R''}{R} + \frac{R'}{rR} + \frac{1}{r^2}\frac{\Theta''}{\Theta} + k^2] = 0 \Rightarrow$ 
+\fbox{$r^2R'' + rR' + [k^2r^2 - m^2]R$} (a solution we'll look for later), we have the circular drum solution.
+\end{itemize}
+
 
 Notes to self:
 \begin{itemize}
