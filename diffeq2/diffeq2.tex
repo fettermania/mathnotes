@@ -942,6 +942,7 @@ What if we don't have spherical symmetry?
 
 \subsection{2D waves (boundary constrained): Separation of Variables} 
 
+Main idea: ``Guess'' that a function like $u(x,t)$ can be factored into $u(x,t) = X(x)T(t)$ and work from there.  You can do this recursively as well like  $u(x,y,t) = S(x,y)T(t), S(x,y) = X(x)Y(y)$.
 
 Main Setup: 
 \begin{itemize}
@@ -1003,6 +1004,83 @@ Notes to self:
 \begin{itemize}
 \item Need a clear intuition for a lot of things.  What do the variables and their derivatives physically mean?
 \item Need more symbolic comfort with how integration works.
+\end{itemize}
+
+\subsection{Fundamental Solutions}
+
+Main idea: The fundamental solution for the problem seems to:
+\begin{itemize}
+\item  Solve the differential equation.  Here, it is $u_t = \nabla^2 u$ or, specifically, $ u_t = u_{xx} + u_{yy}$
+\item Solve the initial conditions
+\item More specifically, as $t \rightarrow 0_+, u(x,y,t) \rightarrow g(x,y)$, or we can ``rewind back'' to the initial displacement setup.
+\item Somehow , this is the function from which all heat equations (presumably specified as $g(x,y)$?) are built. 
+\end{itemize}
+
+
+
+Motivation for heat equation (random 1D walk)
+\begin{itemize}
+\item Drunkard starts at lamppost (position 0) and walks left or right every $\Delta t$, each with probability $\frac{1}{2}$
+\item Probability of being $i$ steps away from lamppost at time $n\Delta t$ is $p(i, n\Delta t)$.
+\item This depends only on $p(i-1, n\Delta t), p(i+1, n\Delta t)$ as $p(i, (n+1)\Delta t) = \frac{1}{2}p(i-1, n\Delta t) +  \frac{1}{2}p(i+1, n\Delta t)$
+\item We can do the same thing we did the the 1D spring equation and approximate $p_x, p_{xx}$ by means of its relation to small perturbances.  Then we can relate this to $p_t$.
+\begin{itemize}
+\item Assume we're going to shrink these moves to $\Delta X$ instead of 1. 
+\item We know $p(x, (n+1)\Delta t) = \frac{1}{2}p(x + \Delta x, n\Delta t) +  \frac{1}{2}p(x - \Delta x, n\Delta t)$.
+\item We know the calculus rule for smooth $f$, small $\Delta x$: $f(x+\Delta x) \approx f(x) + f'(x)\Delta x + \frac{1}{2}f''(x)(\Delta x)^2$
+\item Applying this, this means $\frac{1}{2}p(x, (n+1)\Delta t) + \frac{1}{2}p(x - \Delta x, n\Delta t) = \frac{1}{2}[p(x,n\Delta t) + p_x(x, n\Delta t)\Delta x + \frac{1}{2}p_{xx}(x, n\Delta t)(\Delta x)^2] +  \frac{1}{2}[p(x,n\Delta t) + p_x(x, n\Delta t)\Delta -x + \frac{1}{2}p_{xx}(x, n\Delta t)(\Delta -x)^2] = p(x,n\Delta t) + \frac{1}{2}[\Delta x]^2 p_{xx}(x, n\Delta t)$
+\item So for small steps, $p(x, (n+1)\Delta t) \approx p(x, n\Delta t) + \frac{1}{2}[\Delta x]^2 p_{xx}(x, n\Delta t)$].  \emph{So we have this rule for $p$ relating to derivatives along $x$.}
+\item Now let's relate to derivatives along $t$! For small $\Delta t$, the definition of $\frac{\delta p}{\delta t} = \frac{p(x, (n+1)\Delta t) - p(x, n\Delta t)}{\Delta t} \approx \frac{[\Delta x]^2}{2 \Delta t}\frac{\delta ^2 p}{\delta x^2}(x, n \Delta t)$
+\item Special case: If we set $t = n\Delta t$, then in this case, we can say $\frac{\delta p}{\delta t} = D \nabla^2 p, D > 0$ if $D = \frac{[\delta x]^2}{2 \Delta t}$, the \textbf{diffusion equation}.  Note: Since we're pushing $\Delta x, \Delta t \rightarrow 0$, is this, uh, $D \approx  \frac{[\Delta x]^2}{2 \Delta t}$?
+\end{itemize}
+\end{itemize}
+
+We consider that $p$ should be peaked (sharply) around 0, since it's just as likely to go left as right.  We hypothesize that we should use a (sharp) bell curve to make that happen.  (Note: Is this sort of like the Dirac Delta function?)
+\begin{itemize}
+\item Looking at $D = \frac{[\Delta x]^2}{2 \Delta t}$, \emph{we hypothesize that the operative units must be} $\frac{x^2}{t}$
+\item Therefor rour bell curve looks like $p(x,t) = C(t)\exp\{-\frac{x^2}{\sigma^2 t}\}$ 
+\item Since it's a probability measure along the real line, $\int_{x=-\infty}^{x=\infty} p(x,t) dx = 1$.  At time $t$, the particle is at \emph{some} $x$.
+\item Using identity $\int_{u=-\infty}^{u=\infty} e^{-au^2}du = \sqrt{\frac{\pi}{a}}, a > 0 \Rightarrow a = \frac{1}{\sigma^2 t} \Rightarrow C(t) = \frac{1}{\sigma \sqrt{\pi t}}$
+\item Even though our guess was unsubstantiated, we see $p(x,t) = \frac{1}{\sigma \sqrt{\pi t}} \exp\{-\frac{x^2}{\sigma^2 t}\}$ solves $p_t = Dp_{xx}$.  To solve for D:
+\item To solve for D, find $p_t = \frac{\delta }{\delta t} [\frac{1}{\sigma \sqrt{\pi t}} \exp\{-\frac{x^2}{\sigma^2 t}\}]$, same for $p_{xx}$.  Through lots of chain rule churning, we see $p_t = \frac{\sigma^2}{4}p_{xx} \Rightarrow D = \frac{\sigma^2}{4} \Rightarrow \sigma = 2\sqrt{D}$.  \emph{Note that $p$ can't be negative, so ignore -$2\sqrt{D}$.}
+\item This implies our solution is $p(x,t) = [\frac{1}{\sqrt{4 \pi D t}} \exp\{-\frac{1}{4D} \frac{x^2}{t}\}], t > 0$
+\end{itemize}
+
+To say our solution is a  \textbf{fundamental diffusion solution} means, further, that we can start with any initial conditions $p(x, 0)= g(x)$, watch the equation unfold over $t$, and we'll still have $p_t = Dp_{xx}$.  
+
+\begin{itemize}
+\item A \textbf{convolution} $(\Phi \star g)(x, t)$ of (probability function) $\Phi$ and initial state $g$ is the function that combines the two at point $x$, or $(f \star g)(x) \int_{y=-\infty}^{y=\infty} f(x-y)g(y)dy =  \int_{y=-\infty}^{y=\infty} f(y)g(x-y)dy = ... $ (TODO)
+\item In this case, ($\Phi \star g) = p(x,t) = \int_{y=-\infty}^{y=\infty} \frac{1}{\sqrt{4\pi D t}} \exp\{-\frac{1}{4D}\frac{(x-y)^2}{t}\}g(y)dy, t >0$
+\item It has the properties: 
+\begin{itemize}
+\item $\lim_{t \rightarrow 0^+} p(x, t) = g(x)$ for every reasonable choice of $p(\vec{x}, 0) = g(\vec{x})$.
+\item $p_t = Dp_{xx}$
+\end{itemize}
+\item Note we can find a fundamental solution for the heat equation $u_t = \nabla^2 u$ as well
+\begin{itemize}
+\item For some $v$, we can hypothesize a distribution function $\Phi(\vec{x}, t) = t^{-a}v(\frac{\|x\|^2}{t})$
+\item Taking derivates $\frac{\delta}{\delta t}, \frac{\delta^2}{\delta x_i^2}$ lets us use $u_t = u{x_0x_0} + u_{x_1x_1} + ...$
+\item Calling the argument $z = \frac{\|x\|^2}{t}$, we take derivatives and find $0 = av(z) + (z+2n)v'(z) + 4zv''(z)$.  Note that $n$ is from $\mathbb{R}^n$, since $\nabla (\|\vec{x}\|^2) = 2\vec{x}$ and $\nabla (2\vec{x}) = 2n$.
+\item How do we choose $a$ so that the equation can be solved as $[\frac{1}{4}v(z) + v'(z)$?  
+\item Note that if $[\frac{1}{4}v(z) + v'(z)] = 0$, then its derivative $\frac{d}{dz} [\frac{1}{4}v(z) + v'(z)]=[\frac{1}{4}v'(z) + v''(z)] =0$
+\item Setting $a = \frac{n}{2}$, we get $0  = 2n[\frac{1}{4}v(z) + v'(z)] + \frac{z}{4}\frac{d}{dz}[\frac{1}{4}v'(z) + v''(z)]$
+\item We can rearrange to see $[av(z) = 2nv'(z)] + z[v'(z) + 4v''(z)] = 0$.
+\item Therefore the solution is $\Phi(\vec{x},t) = t^{-\frac{n}{2}}v(\frac{\|x\|^2}{t})$.  To find $v$, solve $[\frac{1}{4}v(z) + v'(z)] =0$
+\item This is obviously $v(z) = Ce^{-frac{1}{4}z}$, or  $\Phi(\vec{x},t) = Ct^{-\frac{n}{2}}v(\frac{\|x\|^2}{t})$, but we must find $C$ so that $\int \Phi = 1$. 
+\item The identity $\int_{\mathbb{R}^n} e^{-a\|x\|^2} = 
+(\frac{\pi}{a})^\frac{n}{2}$ helps us find 
+$\lim_{t \rightarrow 0^+} \frac{C}{t^{-\frac{n}{2}}} \int e^{-\frac{\|x\|^2}{4t}}d\vec{x} 
+= \lim_{t \rightarrow 0^+}  \frac{C}{t^{-\frac{n}{2}}} (4\pi t)^{\frac{n}{2}} = C(4\pi)^{\frac{n}{2}}$
+\item So the fundamental heat solution is $\Phi(\vec{x},t) = (4\pi t)^{-\frac{n}{2}}e^{-\frac{\|x\|^2}{4t}}$
+\item As an example, take $g(x,y) = u(x,y,0) = u_0e^{-x^2+y^2}$, like a candle had heated the origin.
+\item Solving $u(x,y) = (\Phi \star g)(\vec{x}, t) = \frac{u_0}{4\pi t}\int_{\mathbb{R}^2} e^{\frac{-\|x - y\|^2}{4t}}e^{-\|y\|^2}d\vec{y}$ basically requires completing the square to get rid of the $2\vec{x}\cdot\vec{y}$ components, then changing variables $\vec{v} = \vec{y} - \frac{1}{1+4t}\vec{x}$, which, over the whole plane, is the same integral.
+\item You end up with $u(x,y,t) = \frac{u_0}{1+4t}e^{-\frac{x^2+y^2}{1+4t}}$
+\item Computing partial derivatives $u_t, u_{xx}, u_{yy}$, checking $u_t = u_{xx}+u_{yy}$ and seeing that $\lim_{t \rightarrow 0^+}u(x,y,t) = g(x,y)$ validates it.
+\item And it turns out, using identity $\int_{\mathbb{R}^2} e^{-a(x^2+y^2)}dxdy = \frac{\pi}{a}$
+ (the square of the 1d case), that $u_tot = \frac{u_0}{1+4t}\int_{\mathbb{R}^2} e^{-\frac{x^2+y^2}{1+4t}} dx dy = \frac{u_0}{1+4t}(\pi (1+4t)) = \pi u_0$, so the total energy doesn't depend on time. It is conserved.
+\end{itemize}
+
+
 \end{itemize}
 
 
