@@ -210,7 +210,7 @@ We want to prove that there are exactly four unique solutions to $S^2 - S = S(S-
 \item If $S(S-1) = 0$, then $S = 0$ or $S = 1$.  This yields our two static solutions.
 \item Otherwise, $S(S-1)$ when factorized, must contain $2^n$ and $5^n$ if $10^n$ divides it.
 \item Since they differ by 1, the first and second factor cannot each contain a factor of 2.
-\item Since they differ by 1, the first and second term factor each contain a factor of 5.
+\item  Since they differ by 1, the first and second factor cannot each contain a factor of 5.
 \item Therefore, $S$ must be a multiple of $2^n$ and $S-1$ a multiple of $5^n$, or the reverse.
 \item (1) In the first case, this means $S \equiv 0 \mod 2^n, S \equiv 1 \mod 5^n$.
 \item (2) In the second case, this means $S \equiv 0 \mod 5^n, S \equiv 1 \mod 2^n$.
@@ -219,9 +219,6 @@ We want to prove that there are exactly four unique solutions to $S^2 - S = S(S-
 The Chinese remainder theorem from Number Theory guarantees the existence and uniqueness of solutions for (1) and (2) up to $2^n*5^n = 10^n$.
 
 Therefore, we have exactly four solutions.
-
-
-
 
 
 \end{document}
