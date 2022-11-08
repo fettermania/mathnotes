@@ -1,0 +1,70 @@
+\documentclass[11pt, oneside]{article} 	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry} 		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}  		% ... or a4paper or a5paper or ... 
+\usepackage[parfill]{parskip} 		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{authblk}
+\usepackage[
+backend=biber,
+style=alphabetic,
+]{biblatex}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{verbatim}
+\usepackage{tikz} 
+\usepackage{subfig}
+\usepackage{hyperref}
+
+\usepackage{syntonly}
+% \syntaxonly <-- use this for checking syntax only
+% \mbox {text} - keep together
+% \fbox {text} - keep together and draw around
+
+%\pagestyle{plain|headings|empty} % header and footer p.27
+%SetFonts
+%\include{filename}, \includeonly{filename1, filename2} , \input[fiename}
+
+%SetFonts% 
+
+\title{The Number Endings Problem}
+\author{Dave Fetterman}
+\affil{Obviously Unemployed}
+\date{11/8/22}
+\begin{document}
+\maketitle
+
+\section{Special Number Endings}
+
+In base 10, squaring a number sometimes leaves pieces of that number behind.  It's clear to us that squaring a number ending in zero always ends in zero, and squaring a number ending in five ends in five.  Playing around a little, you could also convince yourself correctly that numbers ending in one square to numbers ending in one, and the same for six.  However, these special things (we'll call them just ``endings'' throughout this problem set) can get a lot longer, and have some interesting properties.
+
+Most interesting: \emph{There is an infinitely long, nontrivial sequence of digits that, when squared, ends in itself.  We can only ever know the back end of this number.  And, in fact, there are two.}
+
+\subsection{Problem 1} 
+
+\emph{Prerequisites: Persistence.}
+
+What combinations of two digits at the end of a number always see those two digits reappear at the end when squared?  For example, $4100^2 = 16810000$, and similar for anything ending in 00.  How about three digits? This requires only persistence or a little insight.
+
+\subsection{Problem 2} 
+
+\emph{Prerequisites: Some algebra.}
+
+What do you notice about the two digit endings?  If we have a two digit ending that works, what one digit endings must work?  Why?  What about finding a two digit ending if you know a three digit one?  Does this continue indefinitely?
+
+\subsection{Problem 3} 
+
+\emph{Prerequisites: Some programming.}
+
+Assume that, for every $n$ there are \emph{exactly four} endings of length $n$ that square to themselves.  Use this, and the previous solutions, to find the four 100-digit endings that square to themselves.  \textbf{Hint}: It may be helpful to determine a method for predicting the suitable endings of length $n$, possibly starting with known endings of length $n-1$.
+
+\subsection{Problem 4}
+
+\emph{Prerequisites: Elementary Number Theory}
+
+Prove that there are exactly four endings that recreate themselves on squaring, no matter what the size is.  So there is a trillion digit ending (well, four of them) of numbers that shows up again when you square a number that has it as an ending.  There are even four $10^{trillion}$ digit endings!  
+
+
+\end{document}

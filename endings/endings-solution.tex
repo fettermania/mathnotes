@@ -1,0 +1,227 @@
+\documentclass[11pt, oneside]{article} 	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry} 		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}  		% ... or a4paper or a5paper or ... 
+\usepackage[parfill]{parskip} 		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{authblk}
+\usepackage[
+backend=biber,
+style=alphabetic,
+]{biblatex}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{verbatim}
+\usepackage{tikz} 
+\usepackage{subfig}
+\usepackage{hyperref}
+
+\usepackage{syntonly}
+% \syntaxonly <-- use this for checking syntax only
+% \mbox {text} - keep together
+% \fbox {text} - keep together and draw around
+
+%\pagestyle{plain|headings|empty} % header and footer p.27
+%SetFonts
+%\include{filename}, \includeonly{filename1, filename2} , \input[fiename}
+
+%SetFonts% 
+
+\title{The Number Endings Problem}
+\author{Dave Fetterman}
+\affil{Obviously Unemployed}
+\date{11/8/22}
+\begin{document}
+\maketitle
+
+\section{Special Number Endings}
+
+In base 10, squaring a number sometimes leaves pieces of that number behind.  It's clear to us that squaring a number ending in zero always ends in zero, and squaring a number ending in five ends in five.  Playing around a little, you could also convince yourself correctly that numbers ending in one square to numbers ending in one, and the same for six.  However, these special things (we'll call them just ``endings'' throughout this problem set) can get a lot longer, and have some interesting properties.
+
+Most interesting: \emph{There is an infinitely long, nontrivial sequence of digits that, when squared, ends in itself.  We can only ever know the back end of this number.  And, in fact, there are two.}
+
+\subsection{Problem 1} 
+
+\emph{Prerequisites: Persistence.}
+
+What combinations of two digits at the end of a number always see those two digits reappear at the end when squared?  For example, $4100^2 = 16810000$, and similar for anything ending in 00.  How about three digits? This requires only persistence or a little insight.
+
+\subsection{Problem 2} 
+
+\emph{Prerequisites: Some algebra.}
+
+What do you notice about the two digit endings?  If we have a two digit ending that works, what one digit endings must work?  Why?  What about finding a two digit ending if you know a three digit one?  Does this continue indefinitely?
+
+\subsection{Problem 3} 
+
+\emph{Prerequisites: Some programming.}
+
+Assume that, for every $n$ there are \emph{exactly four} endings of length $n$ that square to themselves.  Use this, and the previous solutions, to find the four 100-digit endings that square to themselves.  \textbf{Hint}: It may be helpful to determine a method for predicting the suitable endings of length $n$, possibly starting with known endings of length $n-1$.
+
+\subsection{Problem 4}
+
+\emph{Prerequisites: Elementary Number Theory}
+
+Prove that there are exactly four endings that recreate themselves on squaring, no matter what the size is.  So there is a trillion digit ending (well, four of them) of numbers that shows up again when you square a number that has it as an ending.  There are even four $10^{trillion}$ digit endings!  
+
+
+
+\section{Solutions}
+
+In general, the reader should first convince themselves of the \emph{Only Endings Matter Rule}:
+
+
+\emph{Any number whose last digits are ending $S$ will square to a number ending in $S$ if and only if $S^2$ ends with $S$.}
+
+
+
+ In other words, for our special endings, it really doesn't matter if any [more significant] digits come ``before'' our ending when evaluating how the endings behave upon squaring.   This isn't really a special theorem - this is more a simple rule for those new to modular arithmetic.  Note that this only works in bases like 10, 100, 1000, etc. since we're describing number endings using digit positions.
+
+For example, it feels obvious that any number ending in 6 when squared ends in 6, but more formally, for any whole number $k$ ($k \in \mathbb{Z}$), $(10k + 6)^2 = 100k^2 + 2*6*10k + 36  = 10(10k^2 + 2*6*k + 3) + 6 \equiv 6 \mod 10$. That sentence means: whatever whole number $10 \times k$ comes before $6$ (whether that's 36, 106, 3423426, -4446...) in a number doesn't matter for our purposes: the result of squaring will be ``ten times some whole number'', plus a 6 at the end.
+
+Similar arguments work for any of the ``endings'' we discover.  So if we're looking at the behavior of the two-digit ending ``76'', we don't need to check 176, 276, 376, etc.  $76^2$ does all the work for us.
+
+\subsection{Problem 1 solution}
+
+\begin{itemize} 
+\item By squaring out all of the number endings from 00 to 99, you can find  endings 00, 01, 25, and 76.
+\item By squaring out all of the number endings from 00 to 999, you can find  endings 000, 001, 625, and 376.
+\end{itemize} 
+
+\subsection{Problem 2 solution} 
+
+In solving problem 1, you might cut down the space by noticing that any candidates \emph{must} end in 0, 1, 5, or 6.  
+
+For if not, imagine the ending $47$, when squared, left $47$ as an ending, or $47^2 = 47 \mod 100$.  In that case, adding any whole number of the form $10k$ and squaring would end with 7 too: $(10k+47)^2 = 100k^2 + 2*47*10 + 47^2 = 10(10k^2 + 2*47) + 47^2$.  The first term doesn't affect the last digit, and the last digit is $7$ by hypothesis.  Therefore, \emph{any} ending $07, 17, ... 47 ... 97$ squares to end in 7.  Therefore, 7 must be a single digit ending if this is so.
+
+Of course, 7 does not end in itself when squared, so 47 can't be a possibility.  This leaves only numbers ending in 0, 1, 5, 6 to investigate for 2-digit endings, and only numbers ending in 00, 01, 25, and 76 for three digit endings, and so on.
+
+Swapping 47 with generic ending $S$, the above argument is easily generalized for any number of digits (size of the exponent for modulus $10^n$).  The upshot: \emph{If digits $a_{n-1}a_{n-2}...a_1$ is an ending modulo $10^n$, then $a_{n-2}...a_1$ is an ending modulo $10^{n-1}$}.  And, by contrapositive, \emph{if $a_{n-2}...a_1$ isn't an ending, then $a_{n-1}a_{n-2}...a_1$ can't be either}.  So let's call that the \emph{Nesting Endings Rule}.
+
+This will help us trim the space of solutions immensely.
+
+\subsection{Problem 3 solution}
+
+Here are the endings that square to themselves modulo $10^{100}$:
+\begin{itemize}
+\item  00...0 (100 zeroes)
+\item  00....1 (99 zeroes, then 1)
+\item 3953007319108169802938509890062166509580863811 \\ 
+000557423423230896109004106619977392256259918212890625
+\item 604699268089183019706149010993783349041913618899 \\
+9442576576769103890995893380022607743740081787109376
+\end{itemize}
+
+The first two should be obvious from the \emph{Only Endings Matter Rule}, since $0^2 = 0, 1^2=1$.  
+
+The third (``the one ending in 5'') needs to be found more systematically, and programming likely required in any case.  However, brute force won't do it; using a computer to search through all numbers exhaustively may work for one, two, three, or even six digits, but $10^{100}$ is too large a search space.  Two options occur to me:
+
+\subsubsection{Option 1: Using the Nesting Endings Rule}
+
+This is the most straightforward.  We know that \emph{if} a valid ending exists for ending size $n$, then it must contain an ending of size $n-1$.  So armed with our ending $S_{n-1}$ of size $n-1$, we find our next ending by the algorithm:
+\begin{itemize}
+\item Start with $S_1 = 5, n = 2$.
+\item Loop these: 
+\item Create new candidate $0S_{n-1}$.  (Example: If the ending is $625$, create $0625$.)
+\item Check if this candidate squares to itself modulo $10^n$.  
+\item If so, move on to the next $n$ ($n \leftarrow n + 1$).
+\item Otherwise, move on to the next candidate (in this case $(1S_n{-1}))$, up through 9.
+\item \emph{(If we're out of candidates, angry-mail fettermania@gmail.com.  We shouldn't get here.)}
+\end{itemize}
+
+This works because:
+\begin{itemize}
+\item Checking up to 10 digits for 100 rounds is computationally achievable.
+\item The \emph{Nesting Endings Rule} states that if there is an ending of greater size, it contains our last one.
+\item The problem statement assumed that we have four endings of every size.  (We will prove this in another problem).
+\item Two endings that end in 0, 1, 5, or 6 of size $n$ cannot ``collide'' and share an ending of size $n-1$.   (Therefore, we have an unbroken string of endings at any size: the one that stops with 0, the one with 1, the one with 5, and the one with 6).
+\end{itemize}
+
+The no collisions fact can be proved directly.  We cannot have $x$ and $x+k10^n$ be solutions modulo $10^{n+1}$.
+\begin{itemize}
+\item We suppose $x^2 - x = 0 \mod 10^{n+1}$ and $(x+k10^n)^2 - (x + k10^n) = 0 \mod 10^{n+1}$
+\item Subtracting these, we get $k10^n(2x - 1) = 0 \mod 10^{n+1}$
+\item $\Rightarrow k(2x-1) = 0 \mod 10$
+\item If $x$ ends in 5, $2x - 1$ cannot have factors 5 or 2.  (The same is also true if $x$ ends in 0, 1, or 6).
+\item Therefore $k$ must be zero or have divisors 5 \emph{and} 2, meaning it is $0$ modulo 10.
+\item So, the only way $x$ and $x+k10^n$ are both solutions is if they are the same modulo $10^{n+1}$.  So no collisions are possible.
+\end{itemize}
+
+
+
+\subsubsection{Option 2: Computing the ``5'' answer directly}
+
+If constructing the answer by hand for the first few digits, you may notice a pattern:
+\begin{itemize}
+\item $5^2 = 25 \equiv 5 \mod 10$
+\item $25^2 = 625 \equiv 25 \mod 100$
+\item $625^2 = 390625 \equiv 625 \mod 1000$
+\item $625^2  = 390625 \equiv 0625 \mod 10000$
+\item $0625^2  = 390625 \equiv 90625 \mod 100000$
+\item $90625^2 = 8212890625 \equiv 890625 \mod 1000000$
+\item ...
+\end{itemize}
+
+So the next new digit seems to come from rightmost digit we 'dropped' last time when creating our next ending.  Borrow that one, and it'll be the next prefix we're looking for in creating our subsequent ending.  This works, though there's a more precise formulation.  We can see that the formula $5^{2^{n-1}}$ will actually find our solution for modulus $10^n$.  In other words, just square our last solution: 
+
+\begin{itemize}
+\item $n=1$: $5^2 \equiv 5 \mod 10 \Rightarrow 5^2 - 5 \equiv 0 \mod 10 \Rightarrow 5(5-1) \equiv 0 \mod 10$
+\item $n=2:$ $25^2 \equiv 25 \mod 100 \Rightarrow 25^2 - 25 \equiv 0 \mod 100 \Rightarrow 5^2(5^2-1) = 5^2(5+1)(5-1) \equiv 0 \mod 100$
+\item $n=3$: $625^2 \equiv 625 \mod 1000 \Rightarrow 625^2 - 625 \equiv 0 \mod 1000 \Rightarrow 5^4(5^4-1) = 5^4(5^2+1)(5^2-1) = 5^4(5^2+1)(5+1)(5-1) \equiv 0 \mod 1000$
+\item $n=4$:   $390625^2 \equiv 625 \mod 10000 \Rightarrow 390625^2 - 390625 \equiv 0 \mod 10000 \Rightarrow 5^8(5^8-1) = ... =5^8(5^4+1)(5^2+1)(5+1)(5-1) \equiv 0 \mod 10000$
+\end{itemize}
+
+We need to ensure that the candidate on the left hand size has the factors to ensure the modulus $10^n$ on the right hand side divides it.  This works out to $n$ 5s and $n$ 2s.  Our fives are easy, since $2^{n-1} \geq n$ for all $n \geq 1$.  And we see that the cascading set of factors on the right gives us $n$ even numbers, which takes care of our $n$ 2's.
+
+Naturally, computing $5^{2^{100}}$ is prohibitive.  Since we're only looking at the last n digits, and in arithmetic modulo $10^n$, those are the only digits that matter, we can simply take our last solution digits, square them, and take the result modulo $10^n$ for our next set of digits.
+
+This number is so big it seems like it must be overkill.  However, looking at the powers of 5 in a list, we do see a certain binary resemblance.  As powers of $5^n$ proceed:
+\begin{itemize}
+\item The third digit (from right) cycles along the list of 2: $[6, 1]$, (looping back to the beginning when stepping over).
+\item The fourth digit from right cycles among 4: $[0, 3, 5, 8]$
+\item The fifth digit cycles among 8: $[9,5,6,2,4,0,1,7]$
+\item The sixth digit cycles among 16: $[7,8,1,7,4,5,5,8,4,2,3,6,2,0,0,3,9]$
+\end{itemize}
+
+This suggests the ``tumblers all line up'' for endings to match only on powers of 2.  \emph{Note: There's probably another fun problem in here to create}.
+
+\subsection{What about the ``6''?}
+
+We have our 00...0 and 00...1 cases, and the ability to compute our answer ending in 5.  We're only left with the number ending in 6.
+
+It turns out for digit length $n$, any solution $S$ yields another partner solution $(1 - S) \mod 10^n$ (or, equivalently, $10^n + 1 - S$).  To see this:
+
+\begin{itemize}
+\item $S^2 = S  \mod 10^{n+1}$, by $S$ being a solution.
+\item $(1-S)^2 = 1-2S+S^2 = 1-2S+S = (1-S) \mod 10^{n+1}$
+\end{itemize}
+
+The second equivalency on the second line follows from the first line.
+
+However, we can't keep generating new solutions this way, since $1 - (1 - S) = S$.  So every solution ending in ``5'' has a buddy solution ending in ``6'': $(5, 10 + 1 - 5 = 6), (25, 100 + 1 - 25 = 76), (625, 1900 +1 - 625 = 376)...$ This is how we found the 100-digit solution ending in ``6'' above.
+
+\subsection{Problem 4 Solution}
+
+We want to prove that there are exactly four unique solutions to $S^2 - S = S(S-1) \equiv 0 \mod 10^n$.  We know:
+
+\begin{itemize}
+\item If $S(S-1) = 0$, then $S = 0$ or $S = 1$.  This yields our two static solutions.
+\item Otherwise, $S(S-1)$ when factorized, must contain $2^n$ and $5^n$ if $10^n$ divides it.
+\item Since they differ by 1, the first and second factor cannot each contain a factor of 2.
+\item Since they differ by 1, the first and second term factor each contain a factor of 5.
+\item Therefore, $S$ must be a multiple of $2^n$ and $S-1$ a multiple of $5^n$, or the reverse.
+\item (1) In the first case, this means $S \equiv 0 \mod 2^n, S \equiv 1 \mod 5^n$.
+\item (2) In the second case, this means $S \equiv 0 \mod 5^n, S \equiv 1 \mod 2^n$.
+\end{itemize}
+
+The Chinese remainder theorem from Number Theory guarantees the existence and uniqueness of solutions for (1) and (2) up to $2^n*5^n = 10^n$.
+
+Therefore, we have exactly four solutions.
+
+
+
+
+
+\end{document}
