@@ -1083,6 +1083,67 @@ $\lim_{t \rightarrow 0^+} \frac{C}{t^{-\frac{n}{2}}} \int e^{-\frac{\|x\|^2}{4t}
 
 \end{itemize}
 
+\subsection{Fun with Functionals}
+
+Note that the heat solution ($u_t = nabla^2 u$) and the diffusion equation ($p_t = D\nabla^2 p$) are very similar.  The first measures how much heat (density) $u(x,y,z,t)$ exists at a spot $u$ in time; the second measures the probability density of a (particular) particle being in that spot at a time.  This means \emph{we can think about one in terms of the other}.
+
+If, for example, we confined our space $G$  to an ellipsoid (or really, any closed region) in $\mathbb{R}^3$, then saying ``it's insulated to any heat going in our out'' and ``particles are confined to not leave or enter'' is the same thing.  They would have these things in common:
+
+\begin{itemize}
+\item The solutions \emph{feel} like they should settle down to a constant, uniform value as $t \rightarrow \infty$
+\item The transfer at the ``skin'' $\delta G$ is zero so on the boundary, for normal $\hat{n}, D_{\hat{n}} |_{\delta G} = \nabla u \cdot n |_{\delta G} = 0$.  Otherwise, the heat transfer, say, would be nonzero.   (Note that this is an example of a Neumann condition.)
+\item This means that $\frac{d}{dt} \iiint_G u d\vec{x} = 0$.  For one, no heat entering or leaving means the total has to stay the same.  
+Also consider that $\frac{d}{dt} \iiint_G u d\vec{x} =  \iiint_G u_t d\vec{x} =  \iiint_G \nabla^2 u d\vec{x} $ (by heat equation definition) $= \iiint_G \nabla \cdot (\nabla u ) d\vec{x} =  \iint_{\delta G} \nabla u \cdot \hat{n} d\sigma(\vec{x})$  (by divergence them on function $\nabla u$)  $= 0$.  
+\item We can define a cost function $C = \frac{1}{2}\iiint_G [(\nabla u) \cdot (\nabla u)] d\vec{x} =  \frac{1}{2}\iiint_G [(\nabla u)]^2d\vec{x}$, since this is zero exactly when $\nabla u \cdot \nabla u = 0$ all over the space.
+\end{itemize}
+
+The idea of \textbf{functionals} is that these setups for ``energy'' ($E[u] = \iiint_G u d\vec{x}$) and ``cost'' ($C[u] = \frac{1}{2} \iiint_G [\nabla u]^2 d\vec{x}$) take in \emph{functions} to become scalar-producing functions themselves.
+
+We can prove a few things: the cost decreases over time, TODO
+
+Cost decreases over time:
+\begin{itemize}
+\item $\frac{d}{dt} [\frac{1}{2} \iiint_G [\nabla  u]^2 dx]$
+\item =  $\frac{1}{2}  [ \iiint_G \frac{\delta}{\delta t} [\nabla  u]^2 dx]$ by... Fubini's maybe ?
+\item =$\iiint_G [\nabla u \cdot \nabla u_t] dx$ by the chain rule (applied to each dimension, basically)
+\item Do a multivariable product rule $\nabla \cdot [fV] = \nabla f + V \cdot f\nabla \cdot V \Rightarrow \nabla f \cdot V = \nabla (fV) - f \nabla V$, setting $f = u_t, V = \nabla u$
+\item This gives $C[u] = \frac{1}{2} \iiint_G [\nabla u]^2 dx = \iiint_G \{ \nabla \cdot [u_t \cdot \nabla u] - u_t \nabla \cdot \nabla u \} dx$
+\item Using divergence on the first term gives  $= \iiint_G \{ \nabla \cdot [u_t \cdot \nabla u] = \iint_{\delta G} [u_t \cdot \nabla u] = 0$ by the boundary Neumann conditions
+\item The second term $-\iiint_G ( u_t \nabla \cdot \nabla u )dx = -\iiint_G ( u_t \nabla^2 u )dx = -\iint_G [\nabla^2 u]^2 dx$ by definotion of heat equation.  The integrand must be non-negative, so the whole thing has to decrease or stay constant.
+\end{itemize}
+
+Note that if $\iint_G [\nabla^2 u]^2 dx = 0$ (exact equality), then $u$ must be constant.
+
+\begin{itemize}
+\item The above equation implies that $\nabla^2 u = 0$ throughout $G$. 
+\item Use the product rule in reverse again, with $f = u, V = \nabla u: \nabla \cdot (u \nabla u) = \nabla u \cdot \nabla u + u \nabla^2 u$
+\item We proved the second term is zero.  (The first term is equivalent to $\| \nabla u \|^2$, by the way.)
+\item The divergence theorem say $\iiint_G \nabla \cdot (u \nabla u) dx = \iint_{\delta G} u\nabla u \cdot \hat{n} d\sigma  = 0$.
+\item Therefore the cost $C[u]$ is 0, therefore $u$ is constant.
+\end{itemize}
+
+If it's an inequality, $C[u]$ must decrease forever.
+
+Example: Unit cube $[0, 1] \times [0, 1] \times [0, 1]$, intial condition $u(x,y,z,0) = u_1 \cos(\pi x) \cos(2 \pi y) \cos(3 \pi z) + u_0$
+
+\begin{itemize}
+\item  Note that the boundary does satisfy $\nabla u \cdot \hat{n} |_{\delta G} = 0$:
+\item Notice that $\nabla u = \langle K \sin(\pi x), L \sin(2 \pi y), M \sin(3 \pi z) \rangle$ for some messy constants, and those are all 0 at $x, y, z \in \{0, 1\}$ (the boundaries)
+\item Also, we can solve this equation $u_t = \nabla u$: 
+
+\begin{itemize}
+\item Note that $u_xx = -\pi^2 (u-u_0), u_yy =  -4\pi^2 (u-u_0), u_yy =  -9\pi^2 (u-u_0)$, so $\nabla ^2 u = -14\pi^2 (u-u_0)$
+\item $\frac{du}{dt} = 1-4\pi^2 (u-u_0)$
+\item $\frac{du}{ (u-u_0)} = -14\pi^2 dt$
+\item $\ln(u-u_0) = -14\pi^2t + C$
+\item $u = u_0 + De^{-14\pi^2t}$.  Only $D =  u_1 \cos(\pi x) \cos(2 \pi y) \cos(3 \pi z)$ satisfies initial conditions.
+\item So $u =  u_0 + u_1\cos(\pi x) \cos(2 \pi y) \cos(3 \pi z) e^{-14\pi^2t}$
+\end{itemize}
+\item We see also that energy is conserved, or that $E[u]= \iiint_G u(x,y,z,t) = \iiint_G u_0 + u_1[\int_0^1 \cos(\pi x)] \times [\int_0^1 \cos(2 \pi y)] \times [\int_0^1 \cos(3 \pi z)] = u_0$, since the factors (we can separate into them easily) are zero on this $[0, 1]$ interval. 
+\item Finally $C[u] =  \frac{1}{2} \iiint_G [\nabla u]^2 dx $ for  $u =  u_0 + u_1\cos(\pi x) \cos(2 \pi y) \cos(3 \pi z) e^{-14\pi^2t}$ decreases over time approaching (but in general not hitting) 0, since $ [\nabla u]$ is some function $u_1e^{-14\pi^2 t}[-\pi \sin(...)\cos(...)\cos(...) + ..]$, and $ [\nabla u]^2 $ is $u_1^2e^{-28\pi^2t}$ times something less than one.  The integral is therefore less than $u_1^2e^{-28\pi^2t}$, and trends toward zero.
+\end{itemize}
+
+
 
 
 \begin{itemize}
