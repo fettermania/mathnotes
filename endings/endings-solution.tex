@@ -170,7 +170,7 @@ So the next new digit seems to come from rightmost digit we 'dropped' last time 
 \item $n=1$: $5^2 \equiv 5 \mod 10 \Rightarrow 5^2 - 5 \equiv 0 \mod 10 \Rightarrow 5(5-1) \equiv 0 \mod 10$
 \item $n=2:$ $25^2 \equiv 25 \mod 100 \Rightarrow 25^2 - 25 \equiv 0 \mod 100 \Rightarrow 5^2(5^2-1) = 5^2(5+1)(5-1) \equiv 0 \mod 100$
 \item $n=3$: $625^2 \equiv 625 \mod 1000 \Rightarrow 625^2 - 625 \equiv 0 \mod 1000 \Rightarrow 5^4(5^4-1) = 5^4(5^2+1)(5^2-1) = 5^4(5^2+1)(5+1)(5-1) \equiv 0 \mod 1000$
-\item $n=4$:   $390625^2 \equiv 625 \mod 10000 \Rightarrow 390625^2 - 390625 \equiv 0 \mod 10000 \Rightarrow 5^8(5^8-1) = ... =5^8(5^4+1)(5^2+1)(5+1)(5-1) \equiv 0 \mod 10000$
+\item $n=4$:   $390625^2 \equiv 625 \mod 10000 \Rightarrow 390625^2 - 390625 \equiv 0 \mod 10000 \Rightarrow 5^8(5^8-1) = ... =5^8(5^4+1)(5^2+1)(5+1)(5-1) \equiv 0 \mod 10000$.  Note: The solution here, modulo 10000, is "0625".
 \end{itemize}
 
 We need to ensure that the candidate on the left hand size has the factors to ensure the modulus $10^n$ on the right hand side divides it.  This works out to $n$ 5s and $n$ 2s.  Our fives are easy, since $2^{n-1} \geq n$ for all $n \geq 1$.  And we see that the cascading set of factors on the right gives us $n$ even numbers, which takes care of our $n$ 2's.
@@ -200,7 +200,7 @@ It turns out for digit length $n$, any solution $S$ yields another partner solut
 
 The second equivalency on the second line follows from the first line.
 
-However, we can't keep generating new solutions this way, since $1 - (1 - S) = S$.  So every solution ending in ``5'' has a buddy solution ending in ``6'': $(5, 10 + 1 - 5 = 6), (25, 100 + 1 - 25 = 76), (625, 1900 +1 - 625 = 376)...$ This is how we found the 100-digit solution ending in ``6'' above.
+However, we can't keep generating new solutions this way, since $1 - (1 - S) = S$.  So every solution ending in ``5'' has a buddy solution ending in ``6'': $(5, 10 + 1 - 5 = 6), (25, 100 + 1 - 25 = 76), (625, 1000 +1 - 625 = 376)...$ This is how we found the 100-digit solution ending in ``6'' above.
 
 \subsection{Problem 4 Solution}
 
