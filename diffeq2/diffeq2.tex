@@ -1144,11 +1144,108 @@ Example: Unit cube $[0, 1] \times [0, 1] \times [0, 1]$, intial condition $u(x,y
 \end{itemize}
 
 
+\subsection{Laplace Equation}
 
+Motivation: Soap bubble created over an (arbitrary) wire loop.  Physics dictates this is of smallest area (\textbf{minimal area surfaaces}).
+
+Laplaces's equation $\nabla^2 u = 0$
+
+Setup:
 
 \begin{itemize}
-\item  TODO
+\item  Disk $D = \{ (x,y) \in \mathbb{R}^2 | x^2 + y^2 \leq \mathbb{R}^2 \}$
+\item Function $h(x,y) > 0$ gives height of the wire at any point on $\delta D$.
+\item So what is the function $u(x,y)$ with $u|_{\delta D}$ that describes the soap bubble?
+\item Note that area is $A[u] = \iint_D \sqrt{1 + (\frac{\delta u}{\delta x})^2 + (\frac{\delta u}{\delta y})^2 } dx dy$
+\begin{itemize}
+\item TODO: Re-learn surface integrals again!
 \end{itemize}
+\item \emph{Lower bound} on $A[u]$ is necessarily $\pi R^2$, since $\sqrt{1 + (\frac{\delta u}{\delta x})^2 + (\frac{\delta u}{\delta y})^2 }  \geq \sqrt{1}$, and $D$ is of area $\pi R^2$.
+\item \emph{Upper bound} on $\sqrt{1 + (\frac{\delta u}{\delta x})^2 + (\frac{\delta u}{\delta y})^2 }$, if $u$ is super spiky, I guess:
+
+\begin{itemize}
+\item Start with known theorem: \emph{Holder inequality} : $| \iint_D f(x,y)g(x,y)dxdy| \leq \sqrt{\iint_D f(x,y)^2dxdy} \sqrt{\iint_D g(x,y)^2dxdy} $
+\item Set $f = \sqrt{1 + (\frac{\delta u}{\delta x})^2 + (\frac{\delta u}{\delta y})^2 } 
+\equiv  \sqrt{1 + \langle \frac{\delta u}{\delta x},  \frac{\delta u}{\delta y}  \rangle \cdot   \langle \frac{\delta u}{\delta x},  \frac{\delta u}{\delta y}  \rangle}
+\\
+\equiv \sqrt{1+ \nabla u \cdot \nabla u}$ (written as $\sqrt{1+ [\nabla u]^2}$)
+\item Set $g = 1$
+\item Then $A[u] = \iint_Dfgdxdy \leq
+ \sqrt{\iint_D (\sqrt{1+ [\nabla u]^2})^2dxdy}\sqrt{\iint_D (1)^2}dxdy 
+ \\ 
+ = 
+  \sqrt{\iint_D (1+ [\nabla u]^2)dxdy} \sqrt{\pi R^2}
+  $
+  \item Square both sides and divide by $\pi R^2$ to get $\frac{A[u]^2}{\pi R^2} \leq \iint_D [1 + [\nabla u]^2]dx dy = \pi R^2 + \iint_D[\nabla u]^2 dx dy$
+ \item So we find our upper bound: $0 \leq \frac{A[u]^2 - \pi R^2}{\pi R^2} \leq \iint_D[\nabla u]^2dxdy$
+\end{itemize}
+\item The upshot: We have to choose a $u$ bounded by the wire that makes $A[u]$ as close to $\pi R^2$ as possible.
+\item We can make last quiz's cost functional $C[u] = \frac{1}{2}\iint_D [\nabla u]^2 dx dy$ (look familiar?) as small as possible.
+\end{itemize}
+
+\begin{itemize}
+\item The main idea of \emph{nudges}: a 1D function $f(x)$ is at a minimum at $x_0$ if $f(x_0 + \eta) > f(x_0)$ for small $x_0$.
+\item Instead of a bump $\eta$, we'll use a function bump (in display, looks almost like a Dirac delta) that distorts our function $u$, but still $\eta = 0$ around $\delta D$ to maintain our conditions.
+\item So a ``minimizing'' function (? that minimizes $C[u]$ on this loop? ) $u$, with a minimum at $u_0(x,y)$ will necessarily be a minimum if $M = 0$ for $C[u_0(x,y) + M \eta (x,y)]$.  This means $\frac{d}{dM} |_{M = 0} C[u_0(x,y) + M \eta (x,y)] = 0$
+\item Since $C[u] = \frac{1}{2}\iint_D[\nabla u]^2 dx dy$ We can find $\frac{dC}{dM}$ at 0:
+\begin{itemize}
+\item $\nabla[u_0(x,y) + M \eta (x,y)] = \nabla u_0(x,y) + M \nabla \eta(x,y)$
+\item $\nabla[u_0(x,y) + M \eta (x,y)]^2 = \|\nabla u_0(x,y)\|^2 + M^2 \|\nabla \eta(x,y) \|^2 + 2 M \nabla u_0(x,y) \cdot \nabla \eta(x,y)$
+\item Integrating the above and dividing by 2 we we  $C[u_0(x,y) + M \eta (x,y)] = C[u] + M^2C[\eta] + M\iint_D  \nabla u_0(x,y) \cdot \nabla \eta(x,y)$
+\item At $M=0$, $\frac{dC}{dM} = \iint_D  \nabla u_0(x,y) \cdot\eta(x,y)$
+\item Since we know this is 0, then we know $ \iint_D  \nabla u_0 \cdot \nabla \eta = 0$
+\item So at $M=0$, the derivative w.r.t. $M$ is 0, and therefore $ \iint_D  \nabla u_0 \cdot \nabla \eta = 0$
+\end{itemize}
+\item Now we use this to prove that our minimizing function $u_0$ obeys Laplace: $\nabla ^2 u_0 = 0$
+\begin{itemize}
+\item If we have a mix of various $\nabla$ equations, it's often useful to see what we pieces we can play with by using the product rule for gradients: $\nabla \cdot (\eta \nabla u_0) = \eta \nabla^2 u_0 + \nabla u_0 \cdot \nabla \eta$.  
+\item Also, we have the divergence theorem $\iint_D \nabla V = \int_{\delta D} V_r$. (I suppose $V_r$ substitutes for $V \cdot \hat{n}$).
+\item So integrate everything over $D$: $\iint_D \nabla \cdot (\eta \nabla u_0) = \iint_D \eta \nabla^2 u_0  +\iint_D  \nabla u_0 \cdot \nabla \eta$.  
+\item First term is $\int_{\delta D}  \eta \nabla (u_0)_r dl $ by Divergence, but $\eta \rightarrow 0$ near $\delta D$, so it's 0.  Third is  0 by previous result.
+\item So $ \iint_D \eta \nabla^2 u_0 dx dy = 0$ for ANY bump function $\eta$.  Then if $\nabla ^2 u_0 \neq 0$ at some point, we can design an $\eta$, say a Dirac delta, that makes $\eta\nabla^2u_0 \neq 0$ there, and 0 elsewhere. But since  $ \iint_D \eta \nabla^2 u_0 dx dy = 0$ always, this means that $ \nabla^2 u_0  =0$ everywhere!
+\end{itemize}
+\item Just like making infinitesimal changes to functions in calcuus, this whole idea of ``bumping'' a functional forms the basis of \textbf{calculus of variations}, which is calculus on functionals.  We learned that any function that minimizes $C[u]$ with fixed boundary values $h(x,y)$ on $\delta D$, that \fbox {Laplace's equation $\nabla ^2 u = 0$} holds.  Solutions of Laplace's equation are called \textbf{harmonic} functions.
+\end{itemize}
+
+To find a solution for Laplace, use technique of \emph{spherical  averages}: 
+\begin{itemize}
+\item Around any point $P$, fix an $r$ and the corresponding disk $D = \{(x,y) \in \mathbb{R}^2 | (x-P_x)^2 + (y-P_y)^2 \leq r^2\}$
+\item The average of $u$ on that boundary $\delta D$ is then $U(r;P) = \frac{1}{2 \pi r} \int_{\delta D(P, r)} u dl$
+\item How do we find how this function changes (derivative) with respect to r?  \textbf{GOTCHA}: Can't crank through using $r$ directly since $r$ is in the limits of integration!  Solution: fix $r$ and integrate over $\theta$.
+\begin{itemize}
+\item Set $\delta D(P,r) = \{(P_x + r \cos (\theta), P_y + r \sin(\theta)\}$.
+\item Then $U(r; P) = \frac{1}{2\pi r} \int_{\theta = 0}^{\theta = 2\pi} u(P_x + r cos(\theta), P_y + r\sin(\theta)) r d\theta$.
+\item (Note: $dl = r d\theta$, so the $r$ sneaks in there.
+\item Since the integral is over $\theta$, cancel $r$:$U(r; P) = \frac{1}{2\pi} \int_{\theta = 0}^{\theta = 2\pi} u(P_x + r cos(\theta), P_y + r\sin(\theta)) d\theta$.
+\item So we want $U'(r;P) =  \frac{1}{2\pi} \int_{\theta = 0}^{\theta = 2\pi} \frac{d}{dr} u(P_x + r cos(\theta), P_y + r\sin(\theta)) d\theta$.
+\item Notice this is $\nabla u(P_x + r cos(\theta), P_y + r\sin(\theta)) \cdot \langle \cos(\theta), \sin(\theta) \rangle$
+\item That means we can use the divergence theorem as $U'(r;P) = \frac{1}{2\pi r} \int_{\delta D(P, r)} \nabla[u]_r dl = \frac{1}{2\pi r}\iint_{D(P,r)} \nabla^2 u dx dy$
+\item The last term is 0 by supposition of the Laplace condition, so $U'(r;P) = 0$
+\end{itemize}
+\item So the average is constant in $r$, which means by shrinking $\lim_{r\rightarrow 0^+} U(r;P)$, we have to get $u(P)$.  The \textbf{mean value property} of a harmonic ($\nabla ^2 u = 0)$  function $u$ says that the point's value is the average of the values around it.
+\item Logically, this means that either the whole function is constant, or that the max (min) has to occur on a boundary.
+\item This ``average of the surrounding circle'' has to extend to surrounding disks too: 
+
+\begin{itemize}
+\item $\frac{1}{2\pi}_{\delta D(P,r)} \int u dl = ru(P)$ is the integral over a circle of radius $r$.
+\item Integrating all of those from $r= 0$ to $r = r_0$: $u(P) \int_{r=0}^{r=r_0} r dr = u(P)\frac{r_0^2}{2}$
+\item But also equals $\frac{1}{2\pi} \int_{r=0}^{r=r_0} [\int_{\delta D(P,r)}  u dl] dr = \frac{1}{2\pi} \iint_{D(P, r_0)} u dx dy$
+\item So $u(P) = \frac{1}{\pi r_0^2} \iint_{D(P, r_0)} u dx dy$.  So $u(P)$ is the average of the u-values of the disk too.
+\end{itemize}
+\end{itemize}
+
+Example: Using mean value of $z = \frac{1}{2} \sin(2 \theta) + 2$ around the circle of radius 1:
+\begin{itemize}
+\item By mean value theorem, $u(0,0) = 2$ (substitute directly) should be the same as $\frac{1}{2\pi}\int_{\delta D} u dl$
+\item $\frac{1}{2\pi} \int_{\theta = 0}^{\theta = 2\pi} [\frac{1}{2}\sin(2 \theta) + 2] d\theta =
+ \frac{1}{2\pi} [-\frac{1}{4}cos(2\theta) + 2\theta ]|_{\theta = 0}^{\theta = 2\pi} = 2$.
+ 
+\end{itemize}
+
+\begin{itemize}
+\item TODO
+\end{itemize}
+
 
 \end{document}
 
