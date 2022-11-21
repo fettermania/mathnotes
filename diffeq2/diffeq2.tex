@@ -1242,6 +1242,77 @@ Example: Using mean value of $z = \frac{1}{2} \sin(2 \theta) + 2$ around the cir
  
 \end{itemize}
 
+\subsection{Approximating Laplace}
+
+Main idea: Most PDEs don't have exact solutions.  Even approximate solutions often need to be tailored to the particular PDE.  Two numerical solutions in the toolkit include:
+\begin{itemize}
+\item \textbf{finite difference method}: Discretize the space and use the spherical (surroundg points) average property of harmonic functions.
+\item \textbf{Rayleigh-Ritz variational method}: Guess a solution with unspecified parameters and minimize the cost function over those parameters
+\end{itemize}
+
+\textbf{Example for Finite differences}: Imagine we're on a lattice of square size $h$ with $P_1, P_2, P_3, P_4$ in the $N, W, S, E$ positions around point $(x,y)$.  What is $u$?
+\begin{itemize}
+\item Tool: use Taylor approximation $f(x+h) \approx f(x) + hf'(x) + h^2\frac{f''(x)}{2}, h \neq 0$
+\item This means $u(P_1) = u(x_0, y_0 + h) \approx u(x_0, y_0) + hu_y(x_0, y_0 + h) +h^2\frac{u_{yy}(x_0, y_0 + h)}{2}, u(P_3) = u(x_0, y_0 - h)  \approx u(x_0, y_0)  - hu_yf(x_0, y_0 - h)  + h^2\frac{u_{yy}(x_0, y_0 - h) }{2}$, similar for $P_2, P_4$.
+\item Adding these together yields $\frac{1}{4} [u(P_1) + u(P_2) + u(P_3) + u(P_4)] =  u(x_0, y_0)  + \frac{2}{4} h^2\nabla^2 u$, and since $\nabla^2 u = 0$ in this setup, $u(x_0, y_0)$ is the average of its neighbors.
+\item This should remind us of the mean-value property over circles and disks for these Laplace setups: $u(x,y) = \frac{1}{2 \pi r} \int_{C((x,y), r) \subset D} udl = \frac{1}{\pi r^2} \int_{D((x,y), r) \subset D} ud \sigma$ 
+\item But \emph{big idea}: We aren't limited to immediately surrounding points.  We can extend this over the whole grid (reaching, say, known Dirichlet boundary conditions) and solve for the unknowns, if we have enough information! (matrix algebra).  
+\end{itemize}
+
+\textbf{Example}:If our grid looks like 
+
+$ \begin{bmatrix} 
+ h_4 & h_3 &h_2 &h_1 \\
+h_5 & u_2 &u_1 &h_{12} \\
+h_6 & u_3 &u_4 &h_{11} \\
+h_7 & h_8 &h_9 &h_{10} \\
+ \end{bmatrix} $
+
+\begin{itemize}
+\item We can, express, e.g. $u_3 = \frac{h_8 + u_2 + u_4 + h_6}{4}$ and similar for other $u_1, u_2, u_4$
+\item And multiply to $4u_3 = u_4 + u_2 + h_6+h_8$ and similar
+\item Define $\vec{u} = \begin{pmatrix} u_1 \\ u_2 \\ u_3 \\ u_4 \\ \end{pmatrix}$,  $\vec{h} = \begin{pmatrix} h_{12}+ h_2 \\ h_5+h_3 \\ h_6+h_8 \\ h_{11}+h_9 \\ \end{pmatrix}$, write $A\vec{u} = \vec{h}$, with $A = 
+\begin{pmatrix} 4 & -1 & 0 & -1 \\
+-1 & 4 & -1 & 0 \\
+0& -1 & 4 & -1 \\
+-1 & 0 & -1 & 4 \\
+\end{pmatrix}$
+\item With boundary conditions in the unit square $u(x,0) = u(0,y) = 0, u(x,1) =3x, u(1,y) = 3y$ this lets us get the value of all the $h_i$ and plug into $\vec{h}$ to get $= \begin{pmatrix} 4 \\ 1 \\ 0 \\ 1\end{pmatrix}$
+\item Find the matrix inverse and solve to get $\vec{u} = \frac{1}{3}\begin{pmatrix} 4 \\ 2 \\ 1 \\ 2\end{pmatrix}$
+\item This suggests $u(\frac{2}{3}, \frac{2}{3}) \approx u_1 = \frac{4}{3}, u(\frac{1}{3}, \frac{2}{3}) \approx u_2 = \frac{2}{3}...$
+\item From there, we hand wave to get exact solution $u(x,y) = 3xy$.  \emph{(Presumably, a computer interpolates this? )}
+\item Without an exact solution, you can shrink $h$ and solve bigger and bigger matrix problems.
+\end{itemize}
+
+
+Finite differences work well for a square $D$, though it can be extended to rectangles and disks.  But for irregular shapes, we use Rayleigh-Ritz technique.
+
+\textbf{Example for Rayleigh-Ritz technique}.  
+\begin{itemize}
+\item Setup, circle interior: $\nabla^2 u = \frac{\delta ^2 u}{\delta x^2} +  \frac{\delta ^2 u}{\delta y^2}  = 0, x^2 + y^2 < 1$.  ``u is harmonic inside disk D''
+\item Setup, circle boundary: $u(x,y) = x^2, x^2 + y^2 = 1$.  ``u equals $x^2$ on $\delta D$''
+\item \emph{Main idea}: We want to find the $u$ that minimzes $C[u] = \frac{1}{2} \iint_D [\nabla u]^2 dx dy$ while maintaining $u=x^2$ on $\delta D$.  
+\item Restated: Among set of $D$-situated differentiate functions $F$, find $u \in F$ that has the smallest cost.
+\item Tactic: Pick a parametrized function that fits, and tweak the parameters to minimize cost.
+\item So, guess $u$ looks like $v(x,y) = x^2 + a(x^2 + y^2-1)$.
+\item Then $C[v] = C[x^2 + a(x^2 + y^2-1)] = \frac{1}{2} \iint_D[x^2 + a(x^2 + y^2-1)]^2dxdy$
+\item Call the integrand $[\nabla v]^2$.  Since $\nabla v = \langle 2x(1+a), 2ya \rangle, [\nabla v]^2 = \nabla v \cdot \nabla v = 4x^2(1+a) + 4y^2a^2$
+\item To integrate over the circle $D = \{x^2+y^2 \leq 1\}$, switch to polar $x=r\cos(\theta), y=r\sin(\theta)$, and churn through to get $C[v] = \frac{\pi}{2}((1+a)^2+a^2)$  This is minimized at $a=-\frac{1}{2}$
+\item Checking $v(x,y) = x^2 -\frac{1}{2}(x^2 + y^2 - 1)$, we see that:
+\begin{itemize}
+\item $\nabla^2 v = 2 + -2 = 0$ everywhere.
+\item $x^2+y^2 = 1 \Rightarrow v = x^2$
+\item Pretend we know $u$ and minimize $\frac{1}{2}\iint_D [\nabla (v-u)]^2dxdy$:
+\item $=\frac{1}{2}\iint_D[\nabla (v-u)] \cdot [\nabla (v-u)] dx dy$
+\item With product rule $\nabla(f\nabla g)-f\nabla^2g = \nabla f \cdot \nabla g$
+\item And divergence rule $\iint_D \nabla (f\nabla g) = \int_{\delta D} f\nabla g \cdot \hat{n} dl$
+\item We get $= \frac{1}{2}  \int_{\delta D} (v-u)\nabla (v-u) \cdot \hat{n} dl - \frac{1}{2} \iint_D \nabla (v-u)\nabla ^2(v-u) $
+\item Since $v-u = 0$ on $\delta D$, the first term is 0.
+\item Since $\nabla ^2 (v-u) = \nabla ^2 v - \nabla ^2 u = 0$ inside the disk, the second term is zero.
+\end{itemize}
+\item Therefore the cost is zero, which can only be true if $v=u$!
+\end{itemize}
+
 \begin{itemize}
 \item TODO
 \end{itemize}
