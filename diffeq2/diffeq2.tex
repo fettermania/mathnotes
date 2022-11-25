@@ -1313,9 +1313,58 @@ Finite differences work well for a square $D$, though it can be extended to rect
 \item Therefore the cost is zero, which can only be true if $v=u$!
 \end{itemize}
 
+
+\section{Chapter 4 - Transform methods}
+
+\subsection{Fourier Transforms}
+
+Main idea: 
 \begin{itemize}
-\item TODO
+\item We use identity $e^{int} = i \sin(nt) + \cos(nt)$.
+\item We have a signal composed of amplitudes $c_n$ at frequencies $n$: $s(t) = \sum_{n = -\infty}^{n = \infty}a_n i \sin(nt) + b_n\cos(nt) = \sum_{n = 0}^{n = \infty}c_n e^{int}$ for a $c_n$ composed of $a_n, b_n$.
+\item \textbf{Fourier's trick}: If you multiply signal $s(t)$ by a particular $e^{-imt}$ and integrate, you extract $c_m$ since $\int_{t=0}^{t=2\pi} e^{i(m+n)t}   = 1$ if $m = -n$ and $0$ otherwise (since  $e^{int} = i \sin(nt) + \cos(nt)$ and those each integrate to 0 over a full period).
+\item This means we can extract frequencies $c_n$ or (``source''?)  $\hat{s}_n$ as $\hat{s}_n(t)  = \frac{1}{2\pi} \int_{t=0}^{t=2\pi} s(t)e^{-int}$.
+\item And since $n$ gives us integer frequencies, our \textbf{Fourier Transform} says ``given a signal, integrate over the whole time period to get the source amplitude at a given frequency'': $\hat{s}(\omega) = \int_{t=0}^{t=2\pi} s(t)e^{-iwt}dt$
+\item The inverse is just the definition of $s(t)  = \sum_{n=-\infty}^{\infty}c_ne^{int}$ expressed over a continuum of frequencies: $s(t) = \frac{1}{2\pi}\int_{w=-\infty}^{\infty} \hat{s}(\omega)e^{iwt}d\omega$: ``given a source set of amplitudes, integrate over the whole frequency spectrum to get our result signal''
 \end{itemize}
+
+Example: Contribution of amplitude, frequency to signal strength
+\begin{itemize}
+\item If we're looking for the strength of a signal based on $\sin$ or $\cos$, integrating over $2\pi$ doesn't do since that would be zero.
+\item Therefore, we use ``root mean square average strength'' measure \fbox{$s_{rms}= \sqrt{\frac{1}{2\pi}\int_{t=0}^{t=2\pi}  [s(t)]^2dt}$}
+\item Say there's a signal $s(t) = 2\sin(3t) - \cos(t)$.  Which part contributes more to the strength?
+\item Temporarily relabel amplitudes as $w_1, w_2$ so $s(t) = \sqrt{\frac{1}{2\pi}\int_{t=0}^{t=2\pi} [w_1\sin(3t) - w_2\cos(t)]^2dt}$. 
+\item Rewrite using identities $\sin(at) = \frac{e^{iat} - e^{-iat}}{2i}, \cos(at) = \frac{e^{iat}+ e^{-iat}}{2}$
+\item ...(churn through) Everything ends up being paired up into sines and cosine terms (eliminated over 0 to $2\pi$ integral) except $(w_1\frac{-2}{2i})^2 + (w_2\frac{2}{2})^2$, and we end up with $s_{rms} = \sqrt{\frac{1}{2}(w_1^2+w_2^2)}$
+\item Takeaway: \emph{Only amplitude contributes to signal strength, not frequency}
+\item So signal stregth of $s(t)$ is $ \sqrt{\frac{1}{2\pi}\int_{t=0}^{t=2\pi}  [s(t)]^2dt} = \sqrt{\frac{1}{2\pi}\int_{t=0}^{t=2\pi} (\sum_{m=-\infty}^{\infty} c_m)(\sum_{k=-\infty}^{\infty} c_k)} = \sqrt{\sum_{k=-\infty}^{\infty} c_nc_{-n}}$ due to integral being zero for $e^{i(m+k)t}, m+k \neq 0$ terms
+\end{itemize}
+
+Using this to actually in solving PDEs: apparentlty for one example, we can use the Fourier transform of a function, find out its solution, then transform that back to the original domain.  (Does this work just some of the time?)
+\begin{itemize}
+\item Setup: The wave equation $u_{tt} = \nabla u$ actually does apply to (I suppose?) an infinitely long string over $x$.
+\item Other parameters: Intial shape $u(x,0) = g(x)$ on a still $u_t(x,0)= 0$ wire that tapers to zero on either end: $lim_{x \rightarrow \pm \infty} g(x) = 0 $.
+\item (Note that this only looks like Fourier if $x$ is like time.)
+\item $\hat{u}(\omega,t) = \frac{1}{2\pi} \int_{\mathbb{R}} u(x,t)e^{-i\omega x}dx$
+\item To find out what $\hat{u}_{tt}$ is, first consider $\frac{\delta ^2 }{\delta t^2} \hat{u} =  \frac{1}{2\pi} \int_{\mathbb{R}} u_{tt}(x,t)e^{-i\omega x}dx$
+\item And by $u_{tt} = u_{xx}$, this $= \frac{1}{2\pi} \int_{\mathbb{R}} u_{xx}(x,t)e^{-i\omega x}dx$
+\item And by integration by parts, with $U = e^{-i\omega x}, V = u_{xx}$, we have 
+	$= \frac{1}{2\pi}[  e^{-i\omega x}u_x|_{-\infty}^{\infty} - (-i\omega)   \int_{\mathbb{R}} u_{x}(x,t)e^{-i\omega x}dx]$.  The first term is zero from the  boundary 
+\item Repeating the process on the second term, we get $\hat{u}_{tt} = \frac{1}{2\pi}  \omega^2 \int_{\mathbb{R}} (x,t)e^{-i\omega x}dx$, which suggests $\frac{\delta ^2 \hat{u}}{\delta t^2} = -\omega^2 \hat{u}$
+\item WIth the boundary conditions $\hat{u}(\omega, 0) = \hat{g}(\omega)$ (the transform of the initial $g(x)$ state on $u$, and similarly $\hat{u}(\omega, t) = 0$ implies a solution of $\hat{u}(\omega, t) = \hat{g}(\omega)\cos(|\omega|t)$.  TODO: Why the absolute value? 
+\end{itemize}
+
+So, we reduced a second-order PDE with two variables ($t, x$) to an ordinary one with one variable $\omega$.
+%Mostly, we use Fourier transforms to find the coefficients $\hat{s}(\omega)$ from the signal $s(t)$ instead of the other way around.
+The wave solution then has a Fourier transform $\hat{u}(\omega, t) = \hat{g}(\omega) \cos(|\omega |t)$.  With the initial condition set as, say, $g(x) = 2\pi u_0e^{-\frac{x^2}{2}}$, we can transform back.
+\begin{itemize}
+\item With the identity $\int_{\mathbb{R}} e^{-ax^2} = \sqrt{\frac{\pi}{a}}$, and knowing $\hat{g}(\omega)  = \int_{\mathbb{R}} g(x)e^{-i\omega x}dx,$, we can complete the square to $\hat{g}(\omega) = u_0\int_{\mathbb{R}} e^{-\frac{1}{2}(x+i\omega)^2-\frac{1}{2}\omega^2} dx$
+\item We can sub $y = x+i\omega$ and use our identity well enough, to get $\hat{g}(\omega) = u_0\sqrt{2\pi}e^{-\frac{\omega^2}{2}}$
+\item Then, since $\hat{u}(\omega, t) = u_0\sqrt{2\pi}e^{-\frac{\omega^2}{2}} \cos(|\omega |t)$, we can use $u(x,t) = \int_{\mathbb{R}} \hat{u}(\omega, t)e^{ix\omega}d\omega$, knowing $\cos(|\omega|t) = \frac{e^{i|\omega|t} + e^{-|\omega|t}}{2}$
+\item After splitting the integrals over the positive and negative domains for the absolute values and completing the square, we get $\pi u_0[e^{-\frac{(x+t)^2}{2}} + e^{-\frac{(x-t)^2}{2}}]$
+\item Apparently this is the same solution as with d'Alembert's formula (the two sensors going out from x at time 0 and querying at t): $u(x,t) = \frac{1}{2}[g(x+t) - g(x-t)]$, since $g(x) = 2\pi u_0e^{-\frac{x^2}{2}}$.
+\end{itemize}
+
 
 
 \end{document}
