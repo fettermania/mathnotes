@@ -1321,36 +1321,38 @@ Finite differences work well for a square $D$, though it can be extended to rect
 Main idea: 
 \begin{itemize}
 \item We use identity $e^{int} = i \sin(nt) + \cos(nt)$.
-\item We have a signal composed of amplitudes $c_n$ at frequencies $n$: $s(t) = \sum_{n = -\infty}^{n = \infty}a_n i \sin(nt) + b_n\cos(nt) = \sum_{n = 0}^{n = \infty}c_n e^{int}$ for a $c_n$ composed of $a_n, b_n$.
-\item \textbf{Fourier's trick}: If you multiply signal $s(t)$ by a particular $e^{-imt}$ and integrate, you extract $c_m$ since $\int_{t=0}^{t=2\pi} e^{i(m+n)t}   = 1$ if $m = -n$ and $0$ otherwise (since  $e^{int} = i \sin(nt) + \cos(nt)$ and those each integrate to 0 over a full period).
-\item This means we can extract frequencies $c_n$ or (``source''?)  $\hat{s}_n$ as $\hat{s}_n(t)  = \frac{1}{2\pi} \int_{t=0}^{t=2\pi} s(t)e^{-int}$.
-\item And since $n$ gives us integer frequencies, our \textbf{Fourier Transform} says ``given a signal, integrate over the whole time period to get the source amplitude at a given frequency'': $\hat{s}(\omega) = \int_{t=0}^{t=2\pi} s(t)e^{-iwt}dt$
-\item The inverse is just the definition of $s(t)  = \sum_{n=-\infty}^{\infty}c_ne^{int}$ expressed over a continuum of frequencies: $s(t) = \frac{1}{2\pi}\int_{w=-\infty}^{\infty} \hat{s}(\omega)e^{iwt}d\omega$: ``given a source set of amplitudes, integrate over the whole frequency spectrum to get our result signal''
+\item We have a signal composed of amplitudes $c_n$ at frequencies $n$: $s(t) = \sum_{n = -\infty}^{n = \infty}a_n i \sin(nt) + b_n\cos(nt) = \sum_{n = 0}^{n = \infty}c_n e^{int}$ for a $c_n$ composed of $a_n, b_n$ (the $e$-based format is equivalent but easier to integrate).  This coefficients of $\sin, \cos$ are called a \textbf{Fourier series}
+\item \textbf{Fourier's trick}: If you multiply signal $s(t) = \sum_{n=-\infty}^{\infty} c_ne^{int}$ by a particular $e^{-imt}$ and integrate, you extract $c_m$ since $c_n = \frac{1}{2\pi}\int_{t=0}^{t=2\pi} s(t)e^{-imt}dt = \int_{t=0}^{t=2\pi} e^{i(n-m)t}   = 1$ if $m = n$ and $0$ otherwise (since  $e^{int} = i \sin(nt) + \cos(nt)$ and those each integrate to 0 over a full period).  
+\item This means we can extract frequencies $c_n$ or (``source''?)  $\hat{s}_n$ as $\hat{s}_n(t)  = \frac{1}{2\pi} \int_{t=0}^{t=2\pi} s(t)e^{-int}$, with $s(t) = \sum_{n=-\infty}^{\infty}\hat{s_n}e^{int}$ as the full  signal.
+\item And since $n$ gives us integer frequencies, our \textbf{Fourier Transform} says ``given a signal, integrate over the whole time period to get the source amplitude at a given frequency'': $\hat{s}(\omega) = \frac{1}{2\pi} \int_{t=-\infty}^{t=\infty} s(t)e^{-iwt}dt$.  TODO: Why did we switch from $t \in [0,2\pi]$ to $t \in \mathbb{R}$ here?  \emph{Note: We only use $\mathbb{R}$ as our domain from here on out, not $t \in [0,2\pi]$.}
+\item The inverse is just the definition of $s(t)  = \sum_{n=-\infty}^{\infty}c_ne^{int}$ expressed over a continuum of frequencies: $s(t) = \int_{w=-\infty}^{\infty} \hat{s}(\omega)e^{iwt}d\omega$: ``given a source set of amplitudes, integrate over the whole frequency spectrum to get our result signal''
 \end{itemize}
 
 Example: Contribution of amplitude, frequency to signal strength
 \begin{itemize}
 \item If we're looking for the strength of a signal based on $\sin$ or $\cos$, integrating over $2\pi$ doesn't do since that would be zero.
 \item Therefore, we use ``root mean square average strength'' measure \fbox{$s_{rms}= \sqrt{\frac{1}{2\pi}\int_{t=0}^{t=2\pi}  [s(t)]^2dt}$}
+\begin{itemize}
 \item Say there's a signal $s(t) = 2\sin(3t) - \cos(t)$.  Which part contributes more to the strength?
 \item Temporarily relabel amplitudes as $w_1, w_2$ so $s(t) = \sqrt{\frac{1}{2\pi}\int_{t=0}^{t=2\pi} [w_1\sin(3t) - w_2\cos(t)]^2dt}$. 
 \item Rewrite using identities $\sin(at) = \frac{e^{iat} - e^{-iat}}{2i}, \cos(at) = \frac{e^{iat}+ e^{-iat}}{2}$
 \item ...(churn through) Everything ends up being paired up into sines and cosine terms (eliminated over 0 to $2\pi$ integral) except $(w_1\frac{-2}{2i})^2 + (w_2\frac{2}{2})^2$, and we end up with $s_{rms} = \sqrt{\frac{1}{2}(w_1^2+w_2^2)}$
 \item Takeaway: \emph{Only amplitude contributes to signal strength, not frequency}
+\end{itemize}
 \item So signal stregth of $s(t)$ is $ \sqrt{\frac{1}{2\pi}\int_{t=0}^{t=2\pi}  [s(t)]^2dt} = \sqrt{\frac{1}{2\pi}\int_{t=0}^{t=2\pi} (\sum_{m=-\infty}^{\infty} c_m)(\sum_{k=-\infty}^{\infty} c_k)} = \sqrt{\sum_{k=-\infty}^{\infty} c_nc_{-n}}$ due to integral being zero for $e^{i(m+k)t}, m+k \neq 0$ terms
 \end{itemize}
 
-Using this to actually in solving PDEs: apparentlty for one example, we can use the Fourier transform of a function, find out its solution, then transform that back to the original domain.  (Does this work just some of the time?)
+Using this to actually in solving PDEs: apparently for one example, we can use the Fourier transform of a function, find out its solution, then transform that back to the original domain.  (Does this work just some of the time?)
 \begin{itemize}
-\item Setup: The wave equation $u_{tt} = \nabla u$ actually does apply to (I suppose?) an infinitely long string over $x$.
+\item Setup: The wave equation $u_{tt} = \nabla^2 u$ actually does apply to (I suppose?) an infinitely long string over $x$.
 \item Other parameters: Intial shape $u(x,0) = g(x)$ on a still $u_t(x,0)= 0$ wire that tapers to zero on either end: $lim_{x \rightarrow \pm \infty} g(x) = 0 $.
 \item (Note that this only looks like Fourier if $x$ is like time.)
 \item $\hat{u}(\omega,t) = \frac{1}{2\pi} \int_{\mathbb{R}} u(x,t)e^{-i\omega x}dx$
-\item To find out what $\hat{u}_{tt}$ is, first consider $\frac{\delta ^2 }{\delta t^2} \hat{u} =  \frac{1}{2\pi} \int_{\mathbb{R}} u_{tt}(x,t)e^{-i\omega x}dx$
-\item And by $u_{tt} = u_{xx}$, this $= \frac{1}{2\pi} \int_{\mathbb{R}} u_{xx}(x,t)e^{-i\omega x}dx$
+\item To find out what $\widehat{u_{tt}}$ is, first consider $\frac{\delta ^2 }{\delta t^2} \hat{u} =  \frac{1}{2\pi} \int_{\mathbb{R}} u_{tt}(x,t)e^{-i\omega x}dx$. (Note: This also equals $\hat{u}_{tt}$, the transform of $u_{tt}$, since the variable $t$ isn't used elsewhere.)
+\item And (the trick!) $\widehat{u_{tt}} = \widehat{u_{xx}}$  by $u_{tt} = u_{xx}$, so this $= \frac{1}{2\pi} \int_{\mathbb{R}} u_{xx}(x,t)e^{-i\omega x}dx$
 \item And by integration by parts, with $U = e^{-i\omega x}, V = u_{xx}$, we have 
-	$= \frac{1}{2\pi}[  e^{-i\omega x}u_x|_{-\infty}^{\infty} - (-i\omega)   \int_{\mathbb{R}} u_{x}(x,t)e^{-i\omega x}dx]$.  The first term is zero from the  boundary 
-\item Repeating the process on the second term, we get $\hat{u}_{tt} = \frac{1}{2\pi}  \omega^2 \int_{\mathbb{R}} (x,t)e^{-i\omega x}dx$, which suggests $\frac{\delta ^2 \hat{u}}{\delta t^2} = -\omega^2 \hat{u}$
+	$= \frac{1}{2\pi}[  e^{-i\omega x}u_x|_{-\infty}^{\infty} - (-i\omega)   \int_{\mathbb{R}} u_{x}(x,t)e^{-i\omega x}dx]$.  The first term is zero from the  boundary conditions ( I guess if $u \rightarrow 0$ then $u_x \rightarrow 0$ too?  Did I miss something?)
+\item Repeating the process on the second term, we get $\widehat{u}_{tt} = \frac{1}{2\pi}  \omega^2 \int_{\mathbb{R}} (x,t)e^{-i\omega x}dx$, which suggests $\frac{\delta ^2 \hat{u}}{\delta t^2} = -\omega^2 \hat{u}$
 \item WIth the boundary conditions $\hat{u}(\omega, 0) = \hat{g}(\omega)$ (the transform of the initial $g(x)$ state on $u$, and similarly $\hat{u}(\omega, t) = 0$ implies a solution of $\hat{u}(\omega, t) = \hat{g}(\omega)\cos(|\omega|t)$.  TODO: Why the absolute value? 
 \end{itemize}
 
@@ -1365,6 +1367,70 @@ The wave solution then has a Fourier transform $\hat{u}(\omega, t) = \hat{g}(\om
 \item Apparently this is the same solution as with d'Alembert's formula (the two sensors going out from x at time 0 and querying at t): $u(x,t) = \frac{1}{2}[g(x+t) - g(x-t)]$, since $g(x) = 2\pi u_0e^{-\frac{x^2}{2}}$.
 \end{itemize}
 
+
+\subsection{Fourier and the Heat Equation}
+Main ideas:
+
+\begin{itemize}
+\item The last section was solving $u_{tt} = u_{xx}$, the 1D wave equation.
+\item This section solves $u_{t} = \nabla^2 u$, the heat equation of on a 1D rod, with initial temp distribution $g(x)$.
+\item Solution to this in a previous section,  assuming a Dirac heat spike at $x=0$ was $C\exp\{-\frac{x^2}{\sigma^2 t}\}$
+\item Main tactic again is to take a PDE, Fourier transform into a simpler ODE, solve, and transform back.
+\item Like the radio frequency waves of the previous chapter, these Fourier transforms go over all reals $x \in \mathbb{R}$.  So we can't do it over time ($t \geq 0)$ but can over $x$.  
+\end{itemize}
+
+OK, let's get to it.  How do the derivatives of the transformed function relate to the transform of the function's derivatives?
+\begin{itemize}
+\item Main Fourier transform from signal domain to frequency domain, just like before: $\hat{u}(\omega, t) = \frac{1}{2\pi} \int_{x = -\infty}^{x = \infty} u(x,t)e^{-i\omega x} dx$.  
+\item Then $\widehat{u_x}(\omega, t) = \frac{1}{2\pi} \int_{x = -\infty}^{x = \infty} u_x(x,t)e^{-i\omega x} dx = \frac{1}{2\pi} u(x,t) e^{-i \omega x}|_{x = -\infty}^{x = \infty} - (-i\omega) \int_{x = -\infty}^{x = \infty} u(x,y)e^{-i \omega x} dx$ by integration by parts.  Assuming $u \rightarrow 0$ when approaching either infinity, the first term is zero, and the second is just $\hat{u}$, so:
+\\
+ \fbox{taking a FT of a derivative is just $(i\omega)$ times the FT of the original: $\widehat{u_x} = (i\omega)\hat{u}$}
+ \item This can be repeated easily, e.g. $\widehat{u_{xx}} = -\omega^2 \hat{u}$, or $\widehat{\frac{\delta^n u}{\delta x^n}}(\omega, t) = (i\omega)^n\hat{u}(\omega,t)$
+\end{itemize}
+
+Solving our Heat Equation
+
+\begin{itemize}
+ \item A-HA: And since, in this Laplace setup,  $u_{t} = \nabla^2 u \equiv u_{xx}$, then $\widehat{u_t} = -\omega^2 \hat{u}$ since transforms preserve equality \emph{(TODO: did we prove they were 1-1 before?) I guess if inv(trans(a)) = a, then they must be...}
+\item Boundary: $u(x,0) = g(x) \Rightarrow \hat{u}(\omega, 0) = \hat{g}(\omega)$.
+\item $\widehat{u_t} = \frac{d \hat{u}}{dt} =  - \omega^2 \hat{u} \Rightarrow \hat{u} = Ce^{-\omega^2 t}$
+\item $\hat{u}(\omega,t=0) = \hat{g}(\omega) \Rightarrow \hat{u} = \hat{g}(\omega)e^{-\omega^2 t}$
+\item We then need to ``undo'' the transform to get our actual $u$ in the signal domain.  We need to know $g$ to do this.
+\item Assume $g$ is a Dirac Delta at a: $g(x) = \delta_a(x)$.
+\item Then, by the nature of the delta function, then $\hat{g}(\omega)= \frac{1}{2\pi}\int_{x = -\infty}^{x = \infty}  \delta_a(x)e^{-i\omega x}dx = \frac{1}{2\pi}e^{-i\omega a}$, just picking out the one value where the integral is nonzero, and $dx = 1$ for this infinitesimal slice, basically.
+\item So to reverse $\hat{u} = \hat{g}(\omega)e^{-\omega^2 t}$, we transform back $ \int_{x = -\infty}^{x = \infty}  (\frac{1}{2\pi}e^{-i\omega a})e^{-\omega^2 t} e^{i\omega x} d\omega$ 
+\item Complete the square so the exponent is $-t(\omega + \frac{[x-a]}{2ti})^2-(\frac{[x-a]^2}{4t})$
+\item Use the identity $\int_{k = -\infty}^{k = \infty} e^{-ak^2} = \sqrt{\frac{\pi}{a}}$ with $k =  (\omega + \frac{[x-a]}{2ti})$ to get $u(x,t) = \sqrt{\frac{1}{4\pi t}} e^-\frac{[x-a]^2}{4t}$
+\end{itemize}
+
+This $F(x,t;a) =  \sqrt{\frac{1}{4\pi t}}  [e^-\frac{[x-a]^2}{4t}]$ turns out to be a \emph{fundamental solution}, in that if we have any initial ``data'' $g(x) = u(x,0)$, then we can sum over all points $a$ where the unit of heat is found: 
+\\
+More concretely, $u(x,t) = \int_{a=-\infty}^{a=\infty} F(x,t;a)u(a,0)da = \sqrt{\frac{1}{4\pi t}} \int_{a = -\infty}^{a = \infty}  [e^-\frac{[x-a]^2}{4t}u(a,0)]da$ says
+
+``Set $a$ as the point where all the heat is concentrated, in amount $u(a,0)$.  This is the initial condition for the fundamental solution.  Integrate over all of these''.
+\\
+This (integral sum) obeys $u_t = u_{xx}$ since F does! 
+\begin{itemize}
+\item  Note: this requires that $\lim_{t \rightarrow 0^+} \sqrt{\frac{1}{4\pi t}} \int_{a = -\infty}^{a = \infty}  [e^-\frac{[x-a]^2}{4t}u(a,0)]da = u(x,0)$
+\end{itemize}
+
+Example:
+\begin{itemize}
+\item If we set $u(x,0) = e^{-\beta x^2}$, then we have to simply evaluate 
+$\sqrt{\frac{1}{4\pi t}} 
+\int_{a=-\infty}^{a=\infty}u(a,0)e^{-\frac{[x-a]^2}{4t}}da 
+= \sqrt{\frac{1}{4\pi t}}
+\int_{a=-\infty}^{a=\infty}e^{-\frac{[x-a]^2}{4t}-\beta a^2} da$
+\item This requires completing the square, with steps $-\frac{1}{4t}[(1+4\beta t)a^2-2ax+x^2]$ and eventually $-\frac{1+4\beta t}{4t}[a-\frac{x}{1+4\beta t}]^2 - \frac{\beta x^2}{1+4\beta t}$
+\item Applying the shift and the lemma from above, we get $u(x,t) = \sqrt{\frac{1}{1+4\beta t}}e^{-\frac{\beta x^2}{1+4 \beta t}}$
+\item APPARENTLY (unverified) this solves $u_t = u_{xx}$ (lots of bad looking derivatives), and $u(x,0) = e^{-\beta x^2}$ (L' Hopital's Rule?
+\end{itemize}
+
+
+
+\begin{itemize}
+\item TODO
+\end{itemize}
 
 
 \end{document}
