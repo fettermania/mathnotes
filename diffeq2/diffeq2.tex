@@ -1426,12 +1426,50 @@ $\sqrt{\frac{1}{4\pi t}}
 \item APPARENTLY (unverified) this solves $u_t = u_{xx}$ (lots of bad looking derivatives), and $u(x,0) = e^{-\beta x^2}$ (L' Hopital's Rule?
 \end{itemize}
 
+\subsection{Practice: Fourier and Laplace}
 
+Usually, doing the FT is not hard.  The inverse is hard.
+//
+Theme of this section is the Laplace equation: $\nabla^2 u  = u_{xx} +   u_{yy}  = 0$
 
+Setup: Heat equation on the positive $y$ half-plane
 \begin{itemize}
-\item TODO
+\item Some $g(x)$ heat distribution on the x-axis
+\item Note: There's not a unique solution to $u_{xx} + u_{yy} = 0$ in general.
+\begin{itemize}
+\item Suppose there is a solution $f(x,y)$.  Then, since this is linear, if there's a solution $u$ with $u(x, 0) = 0$, then the solution $f + u$ will hold.
+\item If $u''(y) = 0$, then $u = ay + b$ has $u_{yy} = 0$ so $u + f$ is a solution.
+\item However, \emph{if u is bounded (that is, $u(x,y) < B$ for all $x,y$)}, then there is a unique solution (why?)
+\end{itemize}
+\item If $u_{xx} + u_{yy} = 0, u(x,0) =g(x)$, and $u, u_x \rightarrow 0$ as $x \rightarrow \pm \infty$, then we can solve the FT $\hat{u}(\omega, dy) = \frac{1}{2\pi} \int_{x=-\infty}^{x=\infty} u(x,y)e^{-i\omega x}dx$
+\begin{itemize}
+\item $\widehat{{u}_{yy} } = \hat{u}_{yy}  = \frac{1}{2\pi} \int_{x=-\infty}^{x=\infty} u_{yy}e^{-i\omega x} dw$
+\item $\hat{u}_{yy} = -\frac{1}{2\pi} \int_{x=-\infty}^{x=\infty} u_{xx}e^{-i\omega x} dw$ by $u_{xx} + u_{yy} = 0$
+\item IBP: $dV = u_{xx}, U = e^{-i\omega x}$:  $= -\frac{1}{2\pi}[e^{-i\omega x} u_x|_{-\infty}^{\infty} + (i\omega)\int u_xe^{-i\omega x}]$
+\item = $-\frac{1}{2\pi}[0 + -i\omega(e^{-i\omega x} u)|_{-\infty}^{\infty} + (i\omega)^2\int ue^{-i\omega x}]$
+\item So $\frac{d^2}{dy^2} \hat{u} = \omega^2 \hat{u}$
+\item And if we assume a solution of form $\hat{u}(\omega,y) = e^{ry}$, then $\frac{d\hat{u}}{dy^2} = r^2e^{ry} = \omega^2e^{ry} \Rightarrow r =\pm |\omega|$
+\item So, we have combinations of two possible solutions: $A(\omega)e^{|\omega|y} + B(\omega)e^{-|\omega|y} $
+\item However, if $u$ is bounded as $y \rightarrow \infty$, then $A(\omega) = 0$ by necessity.
 \end{itemize}
 
+To recap for the purpose of solving:
+\begin{itemize}
+\item $\hat{g}(\omega) = \frac{1}{2\pi} \int_{x=-\infty}^{x=\infty} g(x)e^{-i\omega x}$ by general FT.
+\item $\hat{u}(\omega, y) = \hat{g}(\omega)e^{-|\omega|y}$ by the solution above.
+\item $u(x,y) = \int_{\omega=-\infty}^{\omega=\infty} \hat{u}(\omega,y) e^{i\omega x} d\omega$ by general inverse FT.
+\item So $u(x,y) = \int_{s=-\infty}^{s=\infty} [\hat{g}(\omega)e^{-|\omega|y} ]e^{i\omega x}d\omega$ by substitution of $u(x,y)$
+\item And $u(x,y) = \int_{\omega=-\infty}^{\omega=\infty}  (\frac{1}{2\pi} \int_{s=-\infty}^{s=\infty} g(s)e^{-i\omega s}) e^{-|\omega|y}e^{i\omega x}d\omega = \frac{1}{2\pi}\int g(s)[\int e^{-i\omega s - |\omega| y + i\omega x} d\omega]ds$ (So there's no need to find $\hat{g}(\omega)$ explicitly.)
+\item The innermost integral evaluates to $\frac{2y}{(x-s)^2 + y^2}$, so we're solving 
+\\
+$u(x,y) = \frac{1}{\pi} \int_{s=-\infty}^{s=\infty} g(s)\frac{y}{(x-s)^2 + y^2} ds, y > 0$, which obeys $\nabla^2 u = 0$ on the half-plane.
+\item We also need $\lim_{y\rightarrow0^+}u(x,y) = g(x)$ for all real $x$, which,since $g(s) \approx g(x) = g(x)(s-x)+\frac{1}{2}g''(x)(s-x)^2...$, reduces to understanding what happens to $\int_{u=-\epsilon}^{u=\epsilon} \frac{u^n}{u^2+y^2}du$ for $u = s-x$.  $n \geq 2$ has no singularities, so this is all about solving $n \in \{0, 1\}$, which ends up evaluating to $g(x)$
+\end{itemize}
+\item To solve $u(x,y) = \frac{1}{\pi} \int_{s=-\infty}^{s=\infty} g(s) = \frac{y}{(x-s)^2 + y^2} ds$,
+ with $g(s) = 1+\cos(x)$, using $cos(A+B) = \cos(A)\cos(B) - \sin(A)\sin(B)$, we end up with $u = 1 + \cos(x)e^{-y}$
+\end{itemize}
+
+Note that for Laplace solutions, the maximum value is achieved on the boundary, at $y= 0$, where $e^{-y}$ is maximized.
 
 \end{document}
 
