@@ -1466,10 +1466,53 @@ $u(x,y) = \frac{1}{\pi} \int_{s=-\infty}^{s=\infty} g(s)\frac{y}{(x-s)^2 + y^2} 
 \item We also need $\lim_{y\rightarrow0^+}u(x,y) = g(x)$ for all real $x$, which,since $g(s) \approx g(x) = g(x)(s-x)+\frac{1}{2}g''(x)(s-x)^2...$, reduces to understanding what happens to $\int_{u=-\epsilon}^{u=\epsilon} \frac{u^n}{u^2+y^2}du$ for $u = s-x$.  $n \geq 2$ has no singularities, so this is all about solving $n \in \{0, 1\}$, which ends up evaluating to $g(x)$
 \end{itemize}
 \item To solve $u(x,y) = \frac{1}{\pi} \int_{s=-\infty}^{s=\infty} g(s) = \frac{y}{(x-s)^2 + y^2} ds$,
- with $g(s) = 1+\cos(x)$, using $cos(A+B) = \cos(A)\cos(B) - \sin(A)\sin(B)$, we end up with $u = 1 + \cos(x)e^{-y}$
+ with $g(s) = 1+\cos(x)$, using $cos(A+B) = \cos(A)\cos(B) - \sin(A)\sin(B)$, we end up with $u = 1 + \cos(x)e^{-y}$ after expanding and using some integral identities.
 \end{itemize}
 
 Note that for Laplace solutions, the maximum value is achieved on the boundary, at $y= 0$, where $e^{-y}$ is maximized.
+
+\subsection{Challenge: Fourier and 3D Waves}
+
+We generalize from the 1D Fourier wave equations (relating $x$ and some $\omega$ thing) (TODO Read  Fourier Transforms: https://blog.endaq.com/fourier-transform-basics) to $n-dimensional$ in trying to solve 3D (or n-D) Laplace: $u_{tt} = \nabla^2 u$.
+
+An example would be compression waves (density at 3D point $\vec{x}$).
+
+The core equations then become:
+\begin{itemize}
+\item $s(\vec{x}) = \int_{\vec{\omega} \in \mathbb{R}^n} \hat{s}(\vec{\omega}) \exp \{ i\vec{\omega} \cdot \vec{x}\} d\vec{\omega}$
+\item $\hat{s}(\vec{\omega}) = \frac{1}{(2\pi)^n}\int_{\vec{x} \in \mathbb{R}^n} s(\vec{x})\exp\{-i\vec{\omega} \cdot \vec{x} \} d\vec{x}$
+\end{itemize}
+
+First, develop the differential equation on the other side of the transform (meaning, of $\hat{u}$):
+\begin{itemize}
+\item Assume: $u(\vec{x}, 0) = g(\vec{x})$ goes to 0 at infinity,  and $u_t(\vec{x}, 0) = 0$.
+\item This means we can use the divergence theorem, I guess since the balls near infinity are all zero flux?  $\int_{\vec{x} \in \mathbb{R}^3} \nabla \cdot \vec{u}\ d\vec{x} = 0 \Leftrightarrow \lim_{\vec{x}\rightarrow \infty} \vec{u}(\vec{x}) = \vec{0}$
+\item Also, we have an (actually obvious) identity in hand that helps: $\nabla \cdot [f\nabla h - h\nabla f] = f\nabla^2h - h\nabla^2 f]$
+\item And, remember that $u_tt = \nabla^2u$ in our setup.
+\item $\frac{d^2 \hat{u}}{dt^2} = \widehat{u_{tt}} =  \frac{1}{(2\pi)^3}\int_{\vec{x} \in \mathbb{R}^n} u_{tt} \exp\{-i\vec{\omega} \cdot \vec{x} \} d\vec{x}$
+\item This equals $\frac{1}{(2\pi)^3}\int_{\vec{x} \in \mathbb{R}^n} \nabla^2u \exp\{-i\vec{\omega} \cdot \vec{x} \} d\vec{x}$ by the Laplace setup.
+\item Set $f = \exp\{-i\vec{\omega}\vec{x} \}, h = u$, so $\nabla\cdot[e^{-i\vec{\omega}\vec{x}} \nabla u - u\nabla e^{-i\vec{\omega}\vec{x}}] = e^{-i\vec{\omega}\vec{x}} \nabla^2u - u\nabla^2 e^{-i\vec{\omega}\vec{x}} ]$
+\item This means $ \frac{1}{(2\pi)^3}\int_{\vec{x} \in \mathbb{R}^n} [ \nabla^2u e^{-i\vec{\omega}\vec{x}} d\vec{x} - u\nabla^2 e^{-i\vec{\omega}\vec{x}}]  + u\nabla^2 e^{-i\vec{\omega}\vec{x}}$, and the bracketed part is $\nabla\cdot[e^{-i\vec{\omega}\vec{x}} \nabla u - u\nabla e^{-i\vec{\omega}\vec{x}}]$ by the last line.  This will be zero as $\vec{x} \rightarrow \infty$ by Divergence theorem.
+\item This also means, in this particular setup, that $\int_{\vec{x} \in \mathbb{R}^n} (\nabla^2u) e^{-i\vec{\omega} \cdot \vec{x}}d\vec{x} = \int_{\vec{x} \in \mathbb{R}^n} u \nabla^2 e^{-i\vec{\omega} \cdot \vec{x} } d\vec{x}$
+\item Since $\nabla^2  e^{-i\vec{\omega} \cdot \vec{x}} = (-i\vec{\omega} )^2 = -\|\vec{\omega}\|^2$, we get $\frac{d^2\hat{u}}{dt^2} = -\|\vec{\omega}\|^2 \hat{u}$
+\item Then $\hat{u} = \int_{\mathbb{R}^3}\hat{g}\cos(\|\omega\|t)e^{i\vec{\omega}\cdot \vec{x}}d\vec{\omega}$, since anything of the form $A(\omega)e^{i\vec{\omega}\cdot \vec{x}} + B(\omega)e^{-i\vec{\omega}\cdot \vec{x}}$ is also expressable as $C(\omega)\cos(\|\omega\|t) + D(\omega)\sin(\|\omega\|t)$ and our inital conditions force $C$ to be $g$ and thus $D$ to be zero.
+\end{itemize}
+
+If we have an initial density distribution $g$, we can  transform it to the omega domain. 
+Here, $g(x,y,z) = u_0 \exp\{-\frac{1}{2}(x^2+y^2+z^2)\}$
+so $\hat{g}(\vec{\omega}) = \frac{1}{(2\pi)^n}\int_{\vec{x} \in \mathbb{R}^n} g(\vec{x})\exp\{-i\vec{\omega} \cdot \vec{x} \} d\vec{x}$
+
+\begin{itemize}
+\item We're given identity $\int_{x \in \mathbb{R}^n} \exp\{-a\|x\|^2\} dx = (\frac{\pi}{a})^{\frac{n}{2}}$
+\item Recognize $\|\vec{\omega}\|^2$ in the exponent of $g$: $e^{-\frac{1}{2} \|\vec{x}\|^2}$
+\item Looks like we're completing squares again.  The exponent of the product becomes $-\frac{1}{2}(x+i\omega)^2 - \frac{1}{2}  \|\vec{\omega}\|^2$
+\item Set $q = x+iw, dq = dx$ and with the identity in hand, the integral becomes $\frac{u_0}{(2\pi)^3}e^{-\frac{1}{2}\|\vec{\omega}\|^2} \int e^{-\frac{1}{2}q^2} dq =\frac{u_0}{(2\pi)^{\frac{3}{2}}} e^{-\frac{1}{2}\|\vec{\omega}\|^2} $
+\end{itemize}
+
+\begin{itemize}
+\item TODO
+\end{itemize}
+
 
 \end{document}
 
