@@ -1494,24 +1494,95 @@ First, develop the differential equation on the other side of the transform (mea
 \item Set $f = \exp\{-i\vec{\omega}\vec{x} \}, h = u$, so $\nabla\cdot[e^{-i\vec{\omega}\vec{x}} \nabla u - u\nabla e^{-i\vec{\omega}\vec{x}}] = e^{-i\vec{\omega}\vec{x}} \nabla^2u - u\nabla^2 e^{-i\vec{\omega}\vec{x}} ]$
 \item This means $ \frac{1}{(2\pi)^3}\int_{\vec{x} \in \mathbb{R}^n} [ \nabla^2u e^{-i\vec{\omega}\vec{x}} d\vec{x} - u\nabla^2 e^{-i\vec{\omega}\vec{x}}]  + u\nabla^2 e^{-i\vec{\omega}\vec{x}}$, and the bracketed part is $\nabla\cdot[e^{-i\vec{\omega}\vec{x}} \nabla u - u\nabla e^{-i\vec{\omega}\vec{x}}]$ by the last line.  This will be zero as $\vec{x} \rightarrow \infty$ by Divergence theorem.
 \item This also means, in this particular setup, that $\int_{\vec{x} \in \mathbb{R}^n} (\nabla^2u) e^{-i\vec{\omega} \cdot \vec{x}}d\vec{x} = \int_{\vec{x} \in \mathbb{R}^n} u \nabla^2 e^{-i\vec{\omega} \cdot \vec{x} } d\vec{x}$
-\item Since $\nabla^2  e^{-i\vec{\omega} \cdot \vec{x}} = (-i\vec{\omega} )^2 = -\|\vec{\omega}\|^2$, we get $\frac{d^2\hat{u}}{dt^2} = -\|\vec{\omega}\|^2 \hat{u}$
-\item Then $\hat{u} = \int_{\mathbb{R}^3}\hat{g}\cos(\|\omega\|t)e^{i\vec{\omega}\cdot \vec{x}}d\vec{\omega}$, since anything of the form $A(\omega)e^{i\vec{\omega}\cdot \vec{x}} + B(\omega)e^{-i\vec{\omega}\cdot \vec{x}}$ is also expressable as $C(\omega)\cos(\|\omega\|t) + D(\omega)\sin(\|\omega\|t)$ and our inital conditions force $C$ to be $g$ and thus $D$ to be zero.
+\item Since $\nabla^2  e^{-i\vec{\omega} \cdot \vec{x}} = (-i\vec{\omega} )^2 = -\|\vec{\omega}\|^2$, we get \fbox{$\frac{d^2\hat{u}}{dt^2} = -\|\vec{\omega}\|^2 \hat{u}$ as the diff eq on the omega side.}
+\item Then \fbox{$u = \int_{\mathbb{R}^3}\hat{g}\cos(\|\omega\|t)e^{i\vec{\omega}\cdot \vec{x}}d\vec{\omega}$ is the solution} since anything of the form $A(\omega)e^{i\vec{\omega}\cdot \vec{x}} + B(\omega)e^{-i\vec{\omega}\cdot \vec{x}}$ is also expressable as $C(\omega)\cos(\|\omega\|t) + D(\omega)\sin(\|\omega\|t)$ and our inital conditions force $C$ to be $g$ and thus $D$ to be zero.
 \end{itemize}
 
 If we have an initial density distribution $g$, we can  transform it to the omega domain. 
-Here, $g(x,y,z) = u_0 \exp\{-\frac{1}{2}(x^2+y^2+z^2)\}$
+Here, \fbox{$g(x,y,z) = u_0 \exp\{-\frac{1}{2}(x^2+y^2+z^2)\}$ is given}
 so $\hat{g}(\vec{\omega}) = \frac{1}{(2\pi)^n}\int_{\vec{x} \in \mathbb{R}^n} g(\vec{x})\exp\{-i\vec{\omega} \cdot \vec{x} \} d\vec{x}$
 
 \begin{itemize}
 \item We're given identity $\int_{x \in \mathbb{R}^n} \exp\{-a\|x\|^2\} dx = (\frac{\pi}{a})^{\frac{n}{2}}$
 \item Recognize $\|\vec{\omega}\|^2$ in the exponent of $g$: $e^{-\frac{1}{2} \|\vec{x}\|^2}$
 \item Looks like we're completing squares again.  The exponent of the product becomes $-\frac{1}{2}(x+i\omega)^2 - \frac{1}{2}  \|\vec{\omega}\|^2$
-\item Set $q = x+iw, dq = dx$ and with the identity in hand, the integral becomes $\frac{u_0}{(2\pi)^3}e^{-\frac{1}{2}\|\vec{\omega}\|^2} \int e^{-\frac{1}{2}q^2} dq =\frac{u_0}{(2\pi)^{\frac{3}{2}}} e^{-\frac{1}{2}\|\vec{\omega}\|^2} $
+\item Set $q = x+iw, dq = dx$ and with the identity in hand, the integral becomes $\frac{u_0}{(2\pi)^3}e^{-\frac{1}{2}\|\vec{\omega}\|^2} \int e^{-\frac{1}{2}q^2} dq =$ \fbox{$\frac{u_0}{(2\pi)^{\frac{3}{2}}} e^{-\frac{1}{2}\|\vec{\omega}\|^2} = \hat{g}(\omega)$}
 \end{itemize}
 
+Putting $\hat{g}(\omega)$ into the inverse transform, we have $u(x,y,z,t) = \int_{\vec{\omega}\in\mathbb{R}^3} \hat{g}(\vec{\omega})\cos(\|\vec{\omega}\|t)e^{i\vec{\omega} \cdot \vec{x}} d\vec{\omega}$  
+
+So our inverse FT ends up with the usual pattern - integral of:  $\hat{g}$ times ``$\hat{u}$ diff eq solution'' times $e^{i\omega x}$
+
+ Combining $\hat{g}$ with $u$ equations gives us 
+ \\
+ 
+ $u = \frac{u_0}{(2\pi)^{\frac{3}{2}}}  \int_{\mathbb{R}^3}e^{-\frac{1}{2}\|\vec{\omega}\|^2}  \cos(\|\omega\|t) e^{i\vec{\omega}\cdot \vec{x}}d\vec{\omega}$
+ 
+ 
+$\equiv  \frac{u_0}{(2\pi)^{\frac{3}{2}}}  \int_{\mathbb{R}^3}  \cos(\|\omega\|t) \exp\{-\frac{1}{2}\|\vec{\omega}\|^2 + i\|\vec{\omega}\| \|\vec{x}\|\cos(\phi)\}d\vec{\omega} $
+
+
+Solving this is tricky and involves moving to spherical coordinates.
+
 \begin{itemize}
-\item TODO
+\item Big trick: change $\vec{x} \cdot  \vec{\omega}$ to $\| \vec{\omega} \| \|\vec{x} \|\cos(\phi)$ and use spherical coordinates to define $\omega$.  
+\begin{itemize}
+\item $\omega$ still integrates over all $\mathbb{R}^3$ but with $\phi$ declination from $\vec{x}$ and $\theta$ ``around'' $\vec{x}$.  (Think of $\vec{x}$ pointing up like $z$).
+\item TODO: I think the Jacobian implies $d\vec{\omega} = \| \vec{\omega}\|^2\sin(\phi)d\phi d\theta d(\|\vec{\omega}|)$
+\item The whole thing is then $2\pi \int_{|\vec{\omega}\| = 0}^{|\vec{\omega}\| =\infty} \cos(\|\vec{\omega}\|t)\|\vec{\omega}\|^2 e^{-\frac{\|\omega\|^2}{2}} ( \int_{\phi = 0}^{\phi = \pi} \exp\{i \| \vec{x}\|  \| \vec{\omega}\|      \cos(\phi)\} \sin(\phi)d\phi)d(\|\vec{\omega}\|) $
+\item Subbing $u = \cos(\phi)$, the inner integral is:
+\begin{itemize}
+\item $\int -\exp\{i \| \vec{x}\|  \| \vec{\omega}\| u\}du = -\frac{1}{i \| \vec{x}\|  \| \vec{\omega}\|} e^{i \| \vec{x}\|  \| \vec{\omega}\|      \cos(\phi)} |_{\phi = 0}^{\phi = \pi} = -\frac{1}{i \| \vec{x}\|  \| \vec{\omega}\|}[e^{-ixw}-e^{ixw}] = \frac{2\sin(\| \vec{x}\|  \| \vec{\omega}\|)} {\|\vec{x}\|  \| \vec{\omega}\| }$
+\item So the whole intergral is now 
+\\
+$u(\vec{x}, t) = \frac{u_0}{\|\vec{x}\|} \sqrt{\frac{2}{\pi}}  \int_{\|\vec{\omega}\| = 0}^{\|\vec{\omega}\| =\infty}\cos(\|\vec{\omega}\|t)\|\vec{\omega}\|e^{-\frac{\|\vec{\omega}\|^2}{2}} \sin(\|\vec{x}\| \|\vec{\omega}\|)d(\| \vec{\omega}\|)$
+\item Replace $\|\vec{\omega}\| = v$.  calculate $\cos(vt)\sin(\|\vec{x}\| v) = \frac{e^{vt}+e^{-vt}}{2}\frac{e^{\|\vec{x}\| v} - e^{-\|\vec{x}\| v}}{2i}$ to get $\frac{1}{2}[\sin(v\|x\|+t) + \sin(v\|x\|-t)]$
+\item Now evaluate $\int_{v=0}^{v=\infty} ve^{-\frac{v^2}{2}} \sin(av)dv$
+\\
+$ = a\int_{v=0}^{v=\infty} e^{-\frac{v^2}{2}} \cos(av)dv$ (IBP) 
+\\
+$= \frac{a}{2} \int_{v=0}^{v=\infty} e^{-\frac{v^2}{2}} \cos(av)dv$ (cosine is even)
+\\
+$= \frac{a}{2} \int_{v=0}^{v=\infty} e^{-\frac{v^2}{2}} \frac{1}{2}(e^{av}+e^{-av}) dv$ (Euler cosine)
+\\
+= ... (Completing squares, $\int e^{-a^2}{2} = \sqrt{\frac{\pi}{a}}$ theorem) ... 
+= $\sqrt{\frac{\pi}{2}}ae^{\frac{-a^2}{2}}$
+\item Finally, we get \fbox{
+$u(x,t) = \frac{u_0}{2\|\vec{x}\|} [(\|\vec{x}\| + t)\exp\{ -\frac{(\|\vec{x}\| + t)^2}{2} \}   +
+(\|\vec{x}\|- t)\exp\{ -\frac{(\|\vec{x}\| - t)^2}{2} \}   ] $
+}
+
 \end{itemize}
+\item We can confirm $u(x,0) = u_0\exp\{-\frac{\|x\|^2}{2}\}$ directly, and $u_t(x,0)=0$ by a TRICK: note that $u$ is symmetric in $t$, so $u_t(x,-t) = u_t(x,t)$, implying $u_t(x,0) = 0$!
+\item To confirm $u_{tt} = \nabla^2u$, we define $h(z)=u_0ze^{-\frac{z^2}{2}}$, making $u = \frac{h(\|x\| + t) + h(\|x\| - t)}{2 \|x\|}$
+\item Since $u(\vec{x},t)$ depends only on $\| x \| = r$, spherical coordinates' formula can be used: $\nabla^2 u = \frac{1}{r^2} \frac{\delta}{\delta r} [r^2 \frac{\delta u}{\delta r}]$
+\item Remember $h$ is a one-dimensional function.
+\item $u_t = \frac{h'(r+t) - h'(r-t)}{2r}, u_{tt} = \frac{h''(r+t) + h''(r-t)}{2r}$
+\item $u_r = \frac{rh'(r+t) + rh'(r-t)-h(r+t)-h(r-t)}{2r^2}$
+\item Don't go for $u_{rr}$!  Instead: $\frac{\delta}{\delta r}[r^2u_r] = \frac{r(h''(r+t)+h''(r-t))}{2}$
+\item Multiplying by $\frac{1}{r^2}$ shows they are equal.
+\end{itemize}
+\end{itemize}
+
+Results:
+\begin{itemize} 
+\item1D waves ($u(x,t) = \frac{g(x+t)+g(x-t)}{2})$
+\item 3D (compression) waves ($u(\vec{x}, t)= \frac{u_0}{2\|x\|}[(\| x\| + t)\exp\{  \frac{(\|x\| + t)^2}{2} \}  + (\| x\| - t)\exp\{  \frac{(\|x\| - t)^2}{2} \}  ]$ 
+\end{itemize}
+
+Starting with bump $g(x) = u_0e^{-\frac{x^2}{2}}$ and similar in 3D, there are some similarities:
+\begin{itemize}
+\item Both are bounded between 0 and 1.  (Use L'Hopital's for the 3D case to be sure)
+\item Both have disturbances travel at finite speed $t$
+\end{itemize}
+
+Diffrences:
+\begin{itemize}
+\item The 1D wave is a translation of the original function.  The 3D wave has $\|x\|$ in the denominator,so it flattens out.
+\item The 1D wave with this setup is always positive.  The 3D wave can be negative (rarefied, in compression terms)!
+\end{itemize}
+
+
 
 
 \end{document}
