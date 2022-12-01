@@ -1576,12 +1576,97 @@ Starting with bump $g(x) = u_0e^{-\frac{x^2}{2}}$ and similar in 3D, there are s
 \item Both have disturbances travel at finite speed $t$
 \end{itemize}
 
-Diffrences:
+Differences:
 \begin{itemize}
-\item The 1D wave is a translation of the original function.  The 3D wave has $\|x\|$ in the denominator,so it flattens out.
+\item The 1D wave is a translation of the original function.  The 3D wave has $\|x\|$ in the denominator, so it flattens out.
 \item The 1D wave with this setup is always positive.  The 3D wave can be negative (rarefied, in compression terms)!
 \end{itemize}
 
+\subsection{Schroedinger's Equation}
+
+This uses the Fourier transform to make isomorphic a probability density over position (x) with that over v velocity (p), and shows that the other side of the FT can have intrinsic meaning.
+
+Note: Much of this requires complex conjugation ($(a+bi)^* = a - bi$). 
+
+\subsubsection{Complex Conjugation tips:}
+\begin{itemize}
+\item $(a+b)^* = a^*+b^*$.  Separate the real and imaginary and it's clear.
+\item $(a \times b)^* = a^*\times b^*$.  Mulitply it out and it's clewar.
+\item $(e^{it})* = (e^{-it})^*$.  Change $e^{it}$ to $\cos(t) + i\sin(t)$ and it falls right out.
+\item $\|a + bi\|^2$, the squared ``length'' of tjhe complex number, is $a^2+b^2$ or $(a+bi)(a-bi) = (a+bi)(a+bi)^*$
+\item $(f'(t))^* = ((f^*)'(t))$.  Substitute $f^*$ for $f$ in the limit definition and it's clear.
+\item This makes sense since it looks like any linear transform (incl. derivative) of conjugation looks to be the conjugate of the transform.
+\item FT $F(\omega)$ of $(f^*)(x)$ ends up being $F^*(-\omega)$.  
+\end{itemize}
+
+\subsubsection{Main ideas of Schroedinger's equation}
+
+
+\begin{itemize}
+\item Equation is $u_t = \frac{i}{2}\nabla^2 u$.
+\item The ``signal'' ($u$) side sees $\|u(x,t)\|^2$ as probability particle is near $x$ at time $t$.
+\item The transformed ``motion'' ($\hat{u}$) sees $\|\hat{u}(p,t)\|^2$ as probability particle's \emph{velocity vector} is near $\vec{pd}$ at time $t$.
+\item This works because change in expected position (expected velocity) $\frac{dX}{dt}$ = $\iiint_p \vec{p}(2\pi)^3 |\hat{u}(p,t)|^2 d\vec{p}$ , where $X$ is $\iiint_x x \|u(x,t)\|^2$
+\end{itemize}
+
+Initial conditions $u(x,0) = g(x)$ require.
+\begin {itemize}
+\item $\iiint_{\mathbb{R}^3} |g(\vec{x})|^2 d\vec{x} = 1$, to be a legit probability distribution at time 0.
+\item Knowing $u_t = \frac{i}{2}\nabla*2 u$ means $u_t^* = -\frac{i}{2}\nabla^2 u$. Then $\frac{d}{dt}[\iiint_{\mathbb{R}^3} |u|^2 d\vec{x}] = \iiint u_tu^* + uu_t^* = \frac{i}{2} \iiint u^*\nabla^2 u - u\nabla^2 u^* = \nabla \cdot ( u^*\nabla u - u\nabla u^* )$ (TODO: WHYY??).  
+\item So If $u, \nabla u \rightarrow 0$ go to zero near infinity, then we can use divergence theorem (since any ball would be zero on the surface).  Those are the three conditions for using $u(x,0) = g(x)$ as an initial distribution.
+\end {itemize}
+
+Step one: Solve the diff eq on the $\hat{u}$ side.
+\begin {itemize}
+\item $\hat{u}(p,t) = \frac{1}{(2\pi^3} \iiint_{\mathbb{R}^3} u(\vec{x}, t) \exp \{ -i\vec{p} \cdot \vec{x}\} d\vec{x}$ by standard FT.
+\item Taking $\frac{d}{dt}$ of both sides and doing the $u_t = \frac{i}{2} \nabla^2 u$ substitution, cranking through $\nabla$s, yields \fbox{$\frac{d\hat{u}}{dt} = -\frac{i}{2} \|\vec{p}\|^2 \hat{u}(\vec{p}, t)$}, since the double derivative of the $\exp$ spits out $(-i \vec{p} \cdot -i \vec{p})$
+\item So $\hat{u}(\vec{p}, t) = \hat{g}(\vec{p})e^{-\frac{i}{2}\|\vec{p}\|^2t}$
+\end {itemize}
+
+Aside: The Dirac Delta function $\delta$
+
+\begin {itemize}
+\item Definition : (Also works in $\mathbb{R}^3$: $\int_{x=-\infty}^ {x=\infty} f(x)\delta(x-a) = f(a)$
+\item Fourier transform is $\hat{\delta}(\vec{p}) = \frac{1}{(2\pi)^3} \iiint_{\vec{x} \in \mathbb{R}^3} \delta(\vec{x} - \vec{a})\exp \{ -i\vec{p}\cdot\vec{x}\}d\vec{x} = \frac{1}{(2\pi)^3} e^{-i\vec{p}\cdot\vec{a}}$. Straightforward use of delta's main feature.
+\item Inverse of the transform is the $\delta(x-a) = \frac{1}{(2\pi)^3} \iiint_{\vec{p} \in \mathbb{R}^3} \exp \{ -i\vec{p}\cdot(\vec{x} - \vec{a})\}d\vec{p}$  
+\item This creates \textbf{Plancherel's Theorem}: $ \iiint_{\mathbb{R}^3} |g(x)|^2 = (2\pi)^3 \iiint_{\mathbb{R}^3} |\hat{g}(p)|^2$, since
+\begin {itemize}
+\item FT of $g$ is $\hat{g}(\vec{p}) = \frac{1}{(2\pi)^3} \iiint_{\vec{x} \in \mathbb{R}^3} g(p)exp \{ -i\vec{p}\cdot\vec{x}\}d\vec{x}$
+\item $|g(x)|^2 = g(x)(g^(x))^*$
+\item So $(2\pi)^3 \iiint_{\mathbb{R}^3} |\hat{g}(p)|^2 = \int (\int FT(g)) (\int FT(g))^*$
+\item $(FT(g))^* = \int g^*e^{iyt}dy$, so $\int (\int g(x)g^*(y) (\int \exp\{ip \cdot (y-x)) = \int \int g(x)g^*(y)\delta(y-x)dydx = \int g(x)g^*(x)$ There were some $(2\pi)^3$s here too.
+\item This shows that $(2\pi)^3\iiint \|\hat{u}(p,t)\|^2dp = 1$, and it's something of a probability density too.
+\end {itemize}
+\end {itemize}
+
+Expected position is then $\vec{X}(t) = \iiint \vec{x} |u(x,t)|^2d\vec{x}$
+\begin {itemize}
+\item Used together with $u_t = \frac{i}{2}\nabla^2u$ 
+\item and a divergence theorem (when $u$ and $\nabla u$ are 0 at inifity): $\iiint \vec{x}\nabla \cdot \vec{V}d\vec{x} = -\iiint \vec{V}\vec{dx}$
+\item Gives us that $\frac{dX}{dt} = \frac{d}{dt} [\iiint \vec{x} |u(x,t)|^2d\vec{x}] = \iiint_p \vec{p}(2\pi)^3 |\hat{u}(p,t)|^2 d\vec{p}$, or that the change in expected position is the expected value of the velocity, and the transform, $\iiint_p \vec{p}(2\pi)^3 |\hat{u}(p,t)|^2 d\vec{p}$ measures the likelihood of finding the particle with \emph{velocity} near p at time t.
+\end {itemize}
+
+Example: 
+If we start=with a known velocity distribution, $\hat{g}(p) = 
+\frac{1}{(2\pi\sigma)^{\frac{3}{2}}}
+\exp \{-\frac{\pi \|p - p_0\|^2}{2\sigma ^2} \}, \sigma << 1$ , whcih looks like a ``normal'' about point $p_0$ with some $\sigma^2$ variance:
+\begin {itemize}
+\item Glue it on to $\hat{u} = e^{-\frac{i}{2} \|p\|^2t}$
+\item Calculate expected position $\hat{P} = \iiint_p p(2\pi)^3 |\hat{u}(p,t)|^2 dp$
+\item Calculate variance $Var(\hat{p}) = \iiint_p (p-P)^2 (2\pi)^3 |\hat{u}(p,t)|^2 dp = \frac{3}{2}\frac{\sigma^2}{\pi^2}$ (requires some identities)
+\item Transform $\hat{u}$ back to get Schroedinger wave function $u(x,t) = \frac{1}{(2\pi\sigma)^\frac{3}{2}} \iiint_p \exp \{-\frac{\pi \|p - p_0\|^2}{2\sigma ^2} - \frac{i}{2}\|p\|^2\}$
+\item For this one, take $p_0 = \vec{0}, a(t) = \frac{\pi}{a^2} + it$
+\item Complete the square to get $u(x,t) = \frac{1}{[\sigma a(t)]^{\frac{3}{2}}} \exp \{ -\frac{\|x\|^2}{2a(t)} \}$
+\item The variance of the position is then $ \frac{3}{2}\frac{\sigma^2|a(t)|^2}{\pi^2}$ by our result before (replacing $\sigma$ with $\sigma a(t)$
+\item And the product of the two vairances $( \frac{3}{2}\frac{\sigma^2|a(t)|^2}{\pi^2})( \frac{3}{2}\frac{\sigma^2}{\pi^2})$ ends up as
+ $\frac{9}{4}(1+\frac{\sigma^4}{\pi^2}t^2)$
+ \item This is always positive and goes up with time.  Therefore, the \textbf{Heisenberg uncertainty principle} says the product of the variances in position and velocity is alwways positive.  
+ \item Perhaps this says ``you can't know both position and velocity with surety at the same time''?
+\end {itemize}
+
+\begin {itemize}
+\item TODO 
+\end {itemize}
 
 
 
