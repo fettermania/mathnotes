@@ -1801,6 +1801,55 @@ The Heaviside step function $u(x) = \{ 1, x>0; \frac{1}{2}, x=0; 0, x < 0 \}$ is
 
 With this table, we find that $\mathcal{L} = \alpha \mathcal{L}[u(t-t_0)\sin(t-t_0)](s) + x_0\mathcal{L}[\cos(t)](s) = \mathcal{L}[\alpha u(t-t_0)\sin(t-t_0) + x_0 \cos(t)](s)$, which obeys $x(0) = 0, x'(0) = 0$ for $t_0 > 0$.  This is a continuous but non-differentiable function, since the ``kick'' changes the derivative discontinuously.
 
+\subsection{Laplace Transform applications}
+
+Main motivation: RLC Circuit
+\begin{itemize}
+\item Original equation: $\frac{V_0(t)}{L} = Q''(t)+\frac{R}{L}Q'(t) + \frac{Q(t)}{LC}$.  
+\item After nondimensionalization, we have our main equation to solve this section: $x''(t)+2\epsilon x'(t) + x(t) = v_0\sin(\omega t), \epsilon > 0$
+\item Looking up in the table, we have $\mathcal{L}[v_0\sin(\omega t)] = \frac{\omega v_0}{s^2+\omega^2}$
+\end{itemize}
+
+Main tactic: Take Laplace transform of the side with the derivaties, setting up some $\mathcal{L}[x(t)] = f(s)$, do the same for the fixed side, and figure out $x(t)$ by triangulating in the transform table.
+\begin{itemize}
+\item General rule is $\mathcal{L}[x'(t)] = s\mathcal{L}[x(t)] - x(0)$.  Sub in $x''(t)$ or whatever for $x'(t)$ as needed.
+\item $\mathcal{L}[x''(t)] = s\mathcal{L}[x'(t)] - x'(0)= s(s\mathcal{L}[x(t)] - x(0))- x'(0)$.  Can do the same for $x'(t)$.
+\item Adding up, $\mathcal{L}[x''(t)+2\epsilon x'(t) + x(t)] = \mathcal{L}[x(t)](s^2+2\epsilon s + 1) =  \frac{\omega v_0}{s^2+\omega^2}$
+\item Then $ \mathcal{L}[x(t)]=  \frac{\omega v_0}{s^2+\omega^2} \frac{1}{s^2+2\epsilon s + 1} $. Settting $\epsilon = 0$, we can get $\mathcal{L}[x(t)]=  \omega v_0\frac{1}{s^2+\omega^2} \frac{1}{s^2 + 1} $
+\item Doing partial fractions gets us $= \frac{\omega v_0}{1-\omega^2} [\frac{1}{s^2+\omega^2} + \frac{1}{s^2+1}]$
+\item Using the table to find $\mathcal{L}[s=\sin(at)](s) = \frac{a}{s^2+a^2}$, we can work forwards to get $ \frac{v_0}{1-\omega^2}\mathcal{L}[\sin(\omega t) - \omega \sin(t)](s) = \frac{v_0}{1-\omega^2} ( \frac{\omega}{s^2+ \omega^2} -  \frac{\omega}{s^2+ 1})$
+\end{itemize}
+
+Now, the derivative trick on $\frac{d}{ds}\mathcal{L}[x(t)]$.  Suppose we're looking for the solution to the above when $\omega = 1$ (and $\epsilon = 0$).  We end up with $\mathcal{L}[x(t)]=  \omega v_0\frac{1}{s^2+\omega^2} \frac{1}{s^2 + 1} =  v_0 \frac{1}{(s^2 + 1)^2}$
+
+\begin{itemize}
+\item We know $\mathcal{L}[\cos(t)](s) = \frac{s}{(s^2 + 1)}$.  Guess $\cos(t)$ as our $x(t)$ and take $\frac{d}{ds}$ of both sides.  
+\item The right side becomes $- \frac{s^2-1}{(s^2 + 1)^2}$
+\item The left side becomes $\frac{d}{ds}\int_{t=0}^{t=\infty} \cos(t)e^{-st}dt = \int_{t=0}^{t=\infty} \frac{d}{ds} e^{-st}\cos(t)dt = \int_{t=0}^{t=\infty} -te^{-st}\cos(t)dt = \mathcal{L}[-t\cos(t)]$
+\item The Laplace transform of sine is $\frac{1}{s^2+1} = \frac{s^2+1}{(s^2+1)^2}$ 
+\item Subtracting these two yields $x(t) = \frac{v_0}{2}[\sin(t) - t\cos(t)]$
+\end{itemize}
+
+Another example: Instead of the wall outlet, we have a battery-operated switch tso that $x''(t)+x(t) = v_0u(t-t_0)$ (Heaviside step function)
+
+
+\begin{itemize}
+\item The Laplace transform of the right side is $\mathcal{L}[u(t-t_0)](s) = \int u(t-t_0)e^{-st}dt = -\frac{1}{s}e^{-st}|_{t=t_0}^{t=\infty} = 0 - (-\frac{1}{s}e^{-st_0}) = \frac{1}{s}e^{-st_0}$
+\item Since our solution of the left hand side is the same, $(s^2+1)\mathcal{L}[x(t)](s) = \frac{v_0}{s}e^{-st_0} \Rightarrow \mathcal{L}[x(t)](s) = \frac{v_0e^{-st_0}}{s(s^2+1)}$
+\item Partial fractions yield that $ \frac{v_0e^{-st_0}}{s(s^2+1)} = v_0[\frac{1}{s} - \frac{s}{s^2+1}]e^{-st_0}$
+\item Looking this up in the table yields that $x(t) = v_0u(t-t_0)(1-\cos(t))$.  So the circuit starts at $t_0$ and oscillates from there.
+\end{itemize}
+
+Another example: Third-order equations like $\theta^{(3)}(t) + \theta''(t) - \theta'(t) -\theta(t)= b$.
+
+\begin{itemize}
+\item If we assume $\theta(t) = 0, \theta'(t) = 0, \theta''(t) = 0$, then expanding quickly reveals that the left hand is $\mathcal{L}[x(t)](s)(s^3+s^2-s-1)$, exactly mirroring the $\theta$ terms in $s$.
+\item The right hand side, transforms as $\mathcal{L}[b] = \frac{b}{s}$, so the whole equation is $\mathcal{L}[x(t)] = \frac{b}{s(s^3+s^2-s-1)} = \frac{b}{s(s+1)(s^2-1)}  = \frac{b}{s(s+1)^2(s-1)}$
+\item By Partial Fractions, this becomes $-\frac{1}{s} + \frac{1}{4}\frac{1}{s-1} + \frac{1}{4}\frac{3s+5}{(s+1)^2}$
+\item We can tweak this around to $-\frac{1}{s} + \frac{1}{4}\frac{1}{s-1} + \frac{1}{4}\frac{3(s+1)}{(s+1)^2} + \frac{2}{(s+1)^2} $ and use our previous results to get $\theta(t) = -b + \frac{b}{4}e^t + \frac{3b}{4}e^{-t} + \frac{b}{2}te^{-t}$
+\end{itemize}
+
+
 \end{document}
 
 
