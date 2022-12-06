@@ -1612,7 +1612,7 @@ Note: Much of this requires complex conjugation ($(a+bi)^* = a - bi$).
 Initial conditions $u(x,0) = g(x)$ require.
 \begin {itemize}
 \item $\iiint_{\mathbb{R}^3} |g(\vec{x})|^2 d\vec{x} = 1$, to be a legit probability distribution at time 0.
-\item Knowing $u_t = \frac{i}{2}\nabla*2 u$ means $u_t^* = -\frac{i}{2}\nabla^2 u$. Then $\frac{d}{dt}[\iiint_{\mathbb{R}^3} |u|^2 d\vec{x}] = \iiint u_tu^* + uu_t^* = \frac{i}{2} \iiint u^*\nabla^2 u - u\nabla^2 u^* = \nabla \cdot ( u^*\nabla u - u\nabla u^* )$ (TODO: WHYY??).  
+\item Knowing $u_t = \frac{i}{2}\nabla*2 u$ means $u_t^* = -\frac{i}{2}\nabla^2 u$. Then $\frac{d}{dt}[\iiint_{\mathbb{R}^3} |u|^2 d\vec{x}] = \iiint u_tu^* + uu_t^* = \frac{i}{2} \iiint u^*\nabla^2 u - u\nabla^2 u^* = \nabla \cdot ( u^*\nabla u - u\nabla u^* )$ (Note: This is an identity - take $\nabla(f\nabla g - g\nabla f)$ and see!)
 \item So If $u, \nabla u \rightarrow 0$ go to zero near infinity, then we can use divergence theorem (since any ball would be zero on the surface).  Those are the three conditions for using $u(x,0) = g(x)$ as an initial distribution.
 \end {itemize}
 
@@ -1658,16 +1658,114 @@ If we start=with a known velocity distribution, $\hat{g}(p) =
 \item For this one, take $p_0 = \vec{0}, a(t) = \frac{\pi}{a^2} + it$
 \item Complete the square to get $u(x,t) = \frac{1}{[\sigma a(t)]^{\frac{3}{2}}} \exp \{ -\frac{\|x\|^2}{2a(t)} \}$
 \item The variance of the position is then $ \frac{3}{2}\frac{\sigma^2|a(t)|^2}{\pi^2}$ by our result before (replacing $\sigma$ with $\sigma a(t)$
-\item And the product of the two vairances $( \frac{3}{2}\frac{\sigma^2|a(t)|^2}{\pi^2})( \frac{3}{2}\frac{\sigma^2}{\pi^2})$ ends up as
+\item And the product of the two variances $( \frac{3}{2}\frac{\sigma^2|a(t)|^2}{\pi^2})( \frac{3}{2}\frac{\sigma^2}{\pi^2})$ ends up as
  $\frac{9}{4}(1+\frac{\sigma^4}{\pi^2}t^2)$
  \item This is always positive and goes up with time.  Therefore, the \textbf{Heisenberg uncertainty principle} says the product of the variances in position and velocity is alwways positive.  
  \item Perhaps this says ``you can't know both position and velocity with surety at the same time''?
 \end {itemize}
 
+\subsection{Conformal Maps}
+
+Visual: a conformal map is like flattening the Earth map out into a circle with a pole at the center.
+
+Main ideas:
+
 \begin {itemize}
-\item TODO 
+\item Solving Laplace on a disk $D = \{(u,v): u^2+v^2 \leq 1 \}$ can't use Fourier transform, since $D$ has an edge.
+\item Also, we can find $f(0,0)$ for any harmonic (mean-value) function with $f(0,0) = \frac{1}{2\pi} \int_{\delta D} g dl$, if $g$ is the boundary of the disk $D$.
+\item So if we rearrange points using \textbf{conformal maps} (maps that preserve angles) and \textbf{stereographic projection} (move points in a figure along lines mapping to a single focus, which I think makes a conformal map) then we can reshape D and point $(x_0,y_0)$ to the center of a similar disk.
+\item The process for this, starting from unit disk $D$:
+\begin{itemize}
+\item First, a translated disk lying parallel to  $y=0$,  axis, centered at $(0,-1, 1)$
+\item Then, a hemisphere via a stereographic projection.
+\item Then, the half plane $H$ via projecting through the north pole and the point to the plane
+\item Then, the half plane to itself, to align our $(x_0, y_0)$ to something like $(0,2)$
+\item Then, reversing all these to have a disk with our point at the center
+\end{itemize}
+\item We map from $(u,v)$ to $(x,y)$ like $(x(u,v), y(u,v))$.  
+\item We have some function on each, representable as either $f(x(u,v), y(u,v))$ or $\tilde{f}(u,v)$
+
 \end {itemize}
 
+Main setup:
+\begin {itemize}
+\item We map from $(u,v)$ to $(x,y)$ like $(x(u,v), y(u,v))$.  (Note that this chapter has a lot of mapping to e.g. $(x,y,0)$ or $(x, 0, z)$, but that's still 2d-to-2d.)
+\item We have some function on each, representable as either $f(x(u,v), y(u,v))$ or $\tilde{f}(u,v)$
+\item We need to make sure that $f$ is harmonic ($f_{xx} + f_{yy} = 0$) implies that $\tilde{f}$ is too.
+\item We can do this by ensuring $x_u = y_v$ and $x_v = -y_u$.  Why?
+\begin {itemize}
+\item First, if $\tilde{f}(u,v) = f(x(u,v), y(u,v))$, then $\nabla^2 \tilde{f} = \tilde{f_{uu}} + \tilde{f_{vv}}$.
+\item Take the tricky two-step derivatives along $u$ \emph{through} $x$ and $y$: $\tilde{f}_u = (f_xx_u + f_yy_u)$, so $\tilde{f}_{uu} = \frac{d}{du} \tilde{f}_u =   \frac{d}{du}(f_xx_u )+  \frac{d}{du}(f_yy_u) =  (\frac{d}{du}f_x)x_u+ f_x(\frac{d}{du}x_u) +  (\frac{d}{du}f_y)y_u+ f_y(\frac{d}{du}y_u) = (f_{xx}x_u + f_{xy}y_u)x_u + f_xx_{uu} + (f_{yy}y_u + f_{yx}x_u)y_u + f_yy_{uu}$.
+\item Similarly, $\tilde{f}_{vv} = (f_{xx}x_v + f_{xy}y_v)x_v + f_xx_{vv} + (f_{yy}y_v + f_{yx}x_v)y_v + f_yy_{vv}$.
+\item So $\nabla^2 \tilde{f} = [x_u^2+x_v^2]f_{xx} + [y_u^2+y_v^2]f_{yy} + 2f_{xy}[x_uy_u + x_vy_v] + f_x[x_{uu} + x_{vv}] + f_y[y_{uu} + y_{vv}]$
+\item If  $x_u = y_v$ and $x_v = -y_u$ and $f_{xx} + f_{yy} = 0$ then this is 
+$([y_u^2+(-y_v)^2][f_{xx} + f_{yy}] + (2f_{xy}[y_vy_u + -y_uy_v]) + (f_x[y_{vu} + -y_{uv}]) + (f_y[-x_{vu} + x_{uv}]) = 0 + 0 + 0 + 0$.  
+\item Notice also that $f$ is harmonic, since $x_{uu} + x_{vv} = y_{vu} - y_{uv} = 0 $, similar for $y_{uu} + y_{vv}$
+\end {itemize}
+\end {itemize}
+
+An example harmonic function would be $\tilde{f} = (x(u,v), y(u,v)) = (e^u\cos(v), e^u\sin(v))$, where it can be easily validated that $x_u=y_v, x_v=-y_u$.  
+
+You can prove the angles are the same before and after the map by:
+
+\begin {itemize}
+\item Starting with two curves $(u_1(t), v_1(t)), (u_2(t), v_2(t)) $  meeting in the plane at t=0, with their tangent vectors (pointwise derivatives $\vec{t_1}, \vec{t_2}$.
+\item Defining $\cos(\theta)$ with the dot poduct formula.
+\item Define $\cos(\theta')$ as meeting of  image $(x(u_1(t), v_1(t)), y(u_1(t), v_1(t))$ and its $u_2, v_2$ mate.
+\item We can see these are equal if we build a matrix.  We see $\frac{d}{dt}|_{t=0} [x(u_1(t), v_1(t))] = x_uu_1'(0)+ x_vv_1'(0)$ and the like to a derivative matrix $\begin{pmatrix} x_u & x_v \\ y_u & y_v\end{pmatrix}\langle u_j'(0), v_j'(0)\rangle$  
+\item Note that this matrix $A$ also equals $\begin{pmatrix} y_v & -y_u \\ y_u & y_v\end{pmatrix}$, and tehrefore $A^TA = I(y_u^2+y_v^2)$
+\item After a bit more linear algebra, the $A-$transformed $\theta'$ in the dot product formula ends up equaling the original $\cos(\theta)$
+\end {itemize}
+
+So the derivative conditions mean we preserve angles under that kind of map.  
+There's a simple (but not only?) way to make such a map by sliding any three points along lines with $t=0$ (starting point) to a common focus terminus at $t=1$.  The proof ends up being:
+\begin{itemize}
+\item Set each of three points $\vec{p_j}(t) = (1-t)\vec{p_j} + t\vec{c}$
+\item Use the dot product formula $\cos(\theta(t)) = ...$ using vectors $\vec{p_2}(t) - \vec{p_0}(t)$ and $\vec{p_1}(t) - \vec{p_0}(t)$
+\item Show that this equals $\cos(\theta(0))$, or the same setup with $\vec{p_2} - \vec{p_0}$ and $\vec{p_1} - \vec{p_0}$
+\end {itemize}
+
+The sequence of mappings from initial disk to elevated disk $D$ to unit hemisphere $S^+$ (sitting on origin, top at $(0, 0, 2)$ to half plane $H$ and back basically are just algebra.
+
+Example: $H$ to $S^+: x^2 + y^2 + (z-1)^2 = 1$ 
+\begin{itemize}
+\item Line between $(x,y,0)$ $(0,0,2)$ is $t \langle x, y, 2(1-t)\rangle, t\in [0,1]$
+\item The point touching $S^+$ satisfies $(tx)^2+(ty)^2+(2(1-t)-1)^2 = 1$
+\item Simplify to find $t = \frac{4}{x^2+y^2+4}$, and substitute into line $t \langle x, y, 2(1-t)\rangle$
+\item Thus $(x,y,z)$ on $S^+$ maps to $\frac{1}{x^2+y^2+4} \langle 4x, 4y, 2x^2+2y^2\rangle$
+\item A similar stragegy gives us inverse $(\frac{2x}{2-z}, \frac{2y}{2-z}, 0)$ going from $S^+$ to $H$.
+\end{itemize}
+
+Idea for mapping from $S^+$ to a disk $(x,0,z): x^2+(z-1)^2 \leq 1$ is to draw a line from $(0, -1, 1)$ the sphere, and see where we hit the y-parallel disk centered at $(0, 0, 1)$.
+\begin{itemize}
+\item A similar strategy: Create the line parametrized by $t$, see where $t$ satisfies the intersection condition.
+\item We end up with map from $S^+$ to disk as $(x,y,z) \rightarrow  (\frac{x}{y+1},y,\frac{z+y}{y+1}) $
+\item The inverse, from a similar path, is $\frac{1}{x^2+ (z-1)^2 + 1}\langle 2x, 1-x^2-(z-1)^2, x^2+z^2 \rangle$
+\end{itemize}
+
+Combining all of these maps, including the map that elevates and rotates a unit disk to $(x, 0, z)$ in $D: (x=u, z=1+v)$, maps $(u,v)$ on the unit disk to $(x,y,z) = \frac{1}{u^2+(v-1)^2} \langle 4u, 2(1-u^2-v^2), 0\rangle$, with an inverse of $(u,v) = \frac{1}{x^2+(y+2)^2} \langle 4x, x^2+y^2-4\rangle$
+
+One final map before we can go from unit disk to itself fully: moving $(x_0, y_0) \rightarrow (0,2)$ on $H$:
+\begin{itemize}
+\item Note: You can shift left/right without changing any angles.  (Can't shift along y, since 0 is the edge of the universe)
+\item Note: You can scale without changing any angles.  Can probably confirm this very easily in cross product theorem, but it's clear.
+\item So, shifting the coordinate over for x and scaling it for y yields (verifiably) conformal $(x,y) \rightarrow (\frac{2(x-x_0)}{y_0}, \frac{2y}{y_0})$
+\end{itemize}
+
+So if we wanted to find the value on the unit disk of some harmonic function $f$ of  $f(0, 0)$ with a known boundary condition $g(u,v) = u^2$, we could use the mean value property and average over the boundary.
+
+Instead, if we wanted to know  $f(0, \frac{1}{2})$, we could: 
+\begin{itemize}
+\item Make a conformal transformation of $(0,\frac{1}{2})$ to $(0, 0)$
+\item Know that that will become a similar subdisk in the original disk with the mean value property still holding.
+\item Find the condition on the edge of that destination disk knowing the original $g$ on the first disk.
+\item Integrate that around the edge of that destination disk.
+\end{itemize}
+
+Knowing the mapping $(\frac{3u}{u^2+(v+2)^2}, \frac{2u^2+2v^2+5v+2}{u^2+(v+2)^2})$ takes $(0,0)$ back to $(0, \frac{1}{2})$ means that we can integrate $r\cos^2(\theta) = [\frac{3u}{u^2+(v+2)^2}]^2$ around the disk to get $\frac{3}{8}$ on that disk, and thus the original.
+\begin{itemize}
+\item TODO
+\end{itemize}
 
 
 \end{document}
