@@ -1763,10 +1763,43 @@ Instead, if we wanted to know  $f(0, \frac{1}{2})$, we could:
 \end{itemize}
 
 Knowing the mapping $(\frac{3u}{u^2+(v+2)^2}, \frac{2u^2+2v^2+5v+2}{u^2+(v+2)^2})$ takes $(0,0)$ back to $(0, \frac{1}{2})$ means that we can integrate $r\cos^2(\theta) = [\frac{3u}{u^2+(v+2)^2}]^2$ around the disk to get $\frac{3}{8}$ on that disk, and thus the original.
+
+\subsection{The Laplace Transform}
+
+Main idea: Laplace is similar to Fourier (transform some PDEs into ODEs), but can handle a separate domain.
+
 \begin{itemize}
-\item TODO
+\item Fourier transforms are from $x \in (-\infty, -\infty)$.  (Note: what about the $[0, 2\pi)$ ones from the first chapter?).  Laplace handles $x \in [0, \infty)$, better suited actually for time $t$!
+\item Requirements:
+\begin{itemize}
+\item $\mathcal{L}[f](s)$ should be an integral, to handle the derivatives of diff eqs
+\item Integration limits should be $0, +\infty$
+\item $\mathcal{L}$ should be linear in $f(t)$.
+\item Finally, we need a handy derivative mapping like Fourier's $\mathcal{F}[f'] = (i\omega) \mathcal{F}[f]$
+\end{itemize}
+\item Laplace transform of $f(t)$, operating on $s$, is $\mathcal{L}[f](s) = \int_{t=0}^{t=\infty} K(t;s)f(t)dt$.  \item $s$ is a variable like Fourier's $\omega$, and $K(t;s)$ is called the kernel.  
+\item Suppose we want a derivative rule like :  $\mathcal{L}[\frac{df}{dt}](s)= \int_{t=0}^{t=\infty}\mathcal{L}K(t;s)f'(t)dt = s\mathcal{L}[f](s) + ...$
+\item If $f(t), K(t;s) \rightarrow 0$ as $t \rightarrow \infty$, then selecting $K(t;s) = e^{-st}$ and therefore $\mathcal{L}[f](s) = \int_{t=0}^{t=\infty}e^{-st}f(t)dt$ satisfies all these. (note: do integration by parts with $u = e^{-rs}, v' = f$)
+\item Churning the IBP gives you $\mathcal{L}[\frac{df}{dt}](s)=s\mathcal{L}[f](s) -f(0), \mathcal{L}[\frac{d^2f}{dt^2}](s)=s(\mathcal{L}[\frac{df}{dt}](s) -f'(0)) - f(0) = s(s\mathcal{L}[f](s) -f'(0)) - f(0)...$
+\item So ultimately, our rule is \fbox{ $\mathcal{L}[\frac{d^nf}{dt^n}](s) = s^n\mathcal{L}[f](s) - \sum_{j=0}^{n-1}s^{n-j-1}f^{(j)}(0)  $}
+\item This means we can get rid of all the derivatives on the transformed side and solve for the diff eq for $\mathcal{L}[f]$.  (We can also handle weirdos like $\delta$ below)
 \end{itemize}
 
+Major Example to solve: Impulse kicking an oscillating spring with force $\alpha$ at time $t_0$.  
+
+\begin{itemize}
+\item Diff Eq to solve: $x''(t) + x(t) = \alpha \delta(t-t_0)$, with Dirac $\delta$.
+\item $\mathcal{L}[\alpha\delta_{t-t_0}](s) = \int_{t=0}^{t=\infty}e^{-st}\alpha\delta(t-t_0)dt =\alpha e^{-st_0}$
+\item Taking $\mathcal{L}[x''(t) + x(t)] = \mathcal{L}[\alpha\delta(t-t_0)] = \alpha e^{-st_0}$, use the derivative rule to find the left hand side is $-x'(0) -sx(0) + s^2\mathcal{L}[x(t)](s)] + \mathcal{L}[x(t)](s)$.
+\item Assuming $x(0) = x_0$ (stretched $x_0$ units) and $x'(0) = 0$ (at arest), then we see $\mathcal{L}[x(t)](s) = \frac{\alpha e^{-st_0} + sx_0}{s^2+1}$
+\end{itemize}
+
+Note: The hard part is reversing these BACK into the original domain.  The integral reverse won't be detailed here (it's a lot of hard ideas, apparently.). It turns out you \emph{generally look up the inverse Laplace transform in a table.}  
+
+The Heaviside step function $u(x) = \{ 1, x>0; \frac{1}{2}, x=0; 0, x < 0 \}$ is included in the list, such that $\mathcal{L}[u(t-t_0]f(t-t_0) = e^{-st_0}F(s)$, and $\mathcal{L}[u(t)] = s^{-1}$ (Since $\int_{t=0}^{t=\infty} e^{-st}u(t)dt = \int_{t=0}^{t=\infty} e^{-st} = \frac{-1}{s}-e^{-st}|_{t=0}^{t=\infty} = [0 - \frac{-1}{s}] = s^{-1})$
+
+
+With this table, we find that $\mathcal{L} = \alpha \mathcal{L}[u(t-t_0)\sin(t-t_0)](s) + x_0\mathcal{L}[\cos(t)](s) = \mathcal{L}[\alpha u(t-t_0)\sin(t-t_0) + x_0 \cos(t)](s)$, which obeys $x(0) = 0, x'(0) = 0$ for $t_0 > 0$.  This is a continuous but non-differentiable function, since the ``kick'' changes the derivative discontinuously.
 
 \end{document}
 
