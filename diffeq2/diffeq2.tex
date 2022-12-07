@@ -1849,6 +1849,63 @@ Another example: Third-order equations like $\theta^{(3)}(t) + \theta''(t) - \th
 \item We can tweak this around to $-\frac{1}{s} + \frac{1}{4}\frac{1}{s-1} + \frac{1}{4}\frac{3(s+1)}{(s+1)^2} + \frac{2}{(s+1)^2} $ and use our previous results to get $\theta(t) = -b + \frac{b}{4}e^t + \frac{3b}{4}e^{-t} + \frac{b}{2}te^{-t}$
 \end{itemize}
 
+\section{Series Solutions}
+\subsection{Power Series (Series Solutions I)}
+
+Main idea: 
+
+\begin{itemize}
+\item You can always render $y(x)$ as some $a_0 + a_1x+a_2x^2 + a_3x^3...$
+\item This means $y'(x) = a_1+2a_2x+3a_3x^2+...$  and $y''(x) = 2a_2 + 6a_3x+12a_4x^2...$
+\item When confronted with, say, $y'(x) = y(x)$, you can directly equate those and see $a_0 = a_1, a_1 = 2a_2, a_2 = 3a_3$, and thus $a_n = a_0\frac{1}{n!}$, leading to $y(x) = e^x$.  
+\begin{itemize}
+\item Note: This proves you can't solve $y'(x) = y(x)$ with a nontrivial, finite series.
+\item Also, in general, we see that solution $a_0e^x = \sum_{n=0}^{\infty} \frac{a_0}{n!}$
+\end{itemize}
+
+\item This works with finite sums too, like $y''(x) = 5x^3, y'(0) = 1, y(0) = 0 \Rightarrow a_0 = 0, a_1=1, 20a_5x^3 =5x^3 \rightarrow a_5 = \frac{1}{4} \Rightarrow y(x) = x + \frac{1}{4}x^5$
+
+\end{itemize}
+
+The main idea is that $\sum_{n=0}^{N} a_nx^n$ approaches the real solution as $N \rightarrow \infty$.  Obviously they are equal at $N=0$, but as $x\rightarrow 0$, the solution seems to be more accurate.
+
+Another idea: Using recurrence relations to solve $y'(x) = y(x)$
+\begin{itemize}
+\item For the $e^x$ example, you can create a recurrence relation like $(n+1)(n+2)a_{n+2} = a_n$
+\item Note there are separate even and an odd cascades that land on $a_0$ and $a_1$ respectively.
+\item You can eyeball the solution as $\frac{1}{2}\frac{1}{n!}[a_0 + a_1 + (-1)^n(a_0-a_1)]$.
+\item POWERFUL TRICK: OR you can use this $a_n, b_n$ POWER RECURRENCE technique
+\begin{itemize}
+\item Set $a_n = \frac{b_n}{n!}$ (so $b_i$ is ``Blown up'')
+\item Note $(n+2)(n+1)a_{n+2}= (n+2)(n+1)\frac{b_{n+2}}{(n+2)!} = \frac{b_n}{n!} = a_n = \frac{b_n}{n!} \Rightarrow b_{n+2}=b_n$.  So, ignoring the factorials in the denominator, b terms are equal all the way down to $a_0$ or $a_1$
+\item However, you can hypothesize that $b_n = \alpha r^n$, so $b_{n+2}=\alpha r^{n+2} = b_n = \alpha r^n \Rightarrow r^2 = 1 \Rightarrow r = \pm 1$
+\item Thus the solution is any combo of $b_n = \alpha_+ 1^n + \alpha_- (-1)^n$
+\item And with $a_0 = b_0, a_1 = b_1$, we can solve to get $\alpha_+ = (a_0 + a_1), \alpha_- = (a_0 - a_1)$, so $b_n =\frac{1}{2}\frac{1}{n!}[(a_0 + a_1)1^n +  (-1)^n(a_0-a_1)]$.
+\end{itemize}
+\end{itemize}
+
+You can expand this to solve $y''(x) = y(x)$ most generally:
+\begin{itemize}
+\item Start with $b_n =\frac{1}{2}\frac{1}{n!}[(a_0 + a_1)1^n +  (-1)^n(a_0-a_1)]$.
+\item This means y(x)= $\sum_{n=0}^{\infty} \frac{1}{2}\frac{1}{n!}[(a_0 + a_1)1^n +  (-1)^n(a_0-a_1)]x_n$
+\item Rearrange to get $y(x) = \frac{a_0+a_1}{2}\sum_{n=0}^{\infty} \frac{1^n}{n!}x^n + \frac{a_0-a_1}{2}\sum_{n=0}^{\infty} \frac{(-1)^n}{n!}x^n =  \frac{a_0+a_1}{2}\sum_{n=0}^{\infty} \frac{1}{n!}x^n + \frac{a_0-a_1}{2}\sum_{n=0}^{\infty} \frac{1}{n!}(-x)^n$
+\item This is just $\frac{a_0+a_1}{2}e^x+ \frac{a_0-a_1}{2}e^{-x}$, or since $a_0 = y(0), a_1 = y'(0)$, this is $y(x) = \frac{y(0)+y'(0)}{2}e^x+ \frac{y(0)-y'(0)}{2}e^{-x}$,
+\end{itemize}
+
+However, if we're solving $y''(x) = -y(x)$, neat things happen. Follow the above steps exactly, except
+\begin{itemize}
+\item $b_{n+2}=\alpha r^{n+2} = -b_n = -\alpha r^n \Rightarrow r = \pm i$
+\item So our combined solution  is $b_n = [\alpha_+ i^n + \alpha_- (-i)^n]$
+\item We then end up with $a_{\pm i} = \pm \frac{1}{2i}$, and $b_n = \frac{i^n}{2i}[1^n-(-1)^n] \Rightarrow a_n = \frac{i^{n-1}}{2n!}[1-(-1)^n]$
+\item Noting that $e^{i\theta} = \cos(\theta) + i\sin(\theta)$, we can see that the terms with $i$ on them above are the series for $\sin(x) =  (1 - \frac{x^3}{x!} + \frac{x^5}{5!} - ...$), and the real terms are that of $\cos$
+\item Strangely, $\sin$ is periodic, and the infinite sum is too!  Naturally, the finite sum is a polynomial and not periodic.
+\end{itemize}
+
+\begin{itemize}
+\item TODO
+\end{itemize}
+
+
 
 \end{document}
 
