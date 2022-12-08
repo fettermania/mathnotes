@@ -1901,6 +1901,56 @@ However, if we're solving $y''(x) = -y(x)$, neat things happen. Follow the above
 \item Strangely, $\sin$ is periodic, and the infinite sum is too!  Naturally, the finite sum is a polynomial and not periodic.
 \end{itemize}
 
+\subsection{Power Series (Series Solutions II)}
+
+Main idea: Centering a series at $c$ rather than at $0$ gives us flexibility (and, I think, converges faster around that point, letting us use fewer terms). The general form: $y(x) = \sum_{n=0}^{\infty}a_n[x-c]^n$
+
+
+Example: $y'(x)+xy(x) = 0, y(1)=1$
+
+\begin{itemize}
+\item A good choice to estimate $y(0.95)$ would be $y(x) = \sum_{n=0}^Na_n[x-1]^n$, since it's close to .95 and we know $y(1)$.
+\item Writing terms as recurrence relation:
+\begin{itemize}
+\item Since we're looking around 1, write as  $y'(x)+[x-1]y(x) + y(x) = 0, y(1)=1$
+\item $y = a_0 + a_1[x-1] + a_2[x-1]^2 + a_3[x-1]^3...$
+\item $y' = a_1 + 2a_1[x-1] + 3a_2[x-1]^2 + 4a_3[x-1]^3...$
+\item $[x-1]y = a_0[x-1] + a_1[x-1]^2 + a_2[x-1]^3...$
+\item By writing out terms $y + [x-1]y+y = 0$ shows us $a_n+a_{n-1}+(n+1)a_{n+1} = 0, n \geq 1$
+\item Dealing with the boundary cases, we can say $y(x) = a_0 + a_1 + \sum_{n=1}^{\infty} ((n+1)a_{n+1}+a_n+a_{n-1})[x-1]^n=0$
+\item Solving for $y(1)=1$, we have $a_0 = 1, a_1=-1$
+\end{itemize}
+
+Note: At this point, solving the recurrence relation is difficult, so they embedded a small python script of the series centered around 1. $y(0.95)$ converged to 0.001\% error (against real solution $e^{-\frac{1}{2}(x^2-1)}$) in 4 iterations of the sum (or $N \in [0,3]$).
+
+\end{itemize}
+
+We can also solve the equation analytically:
+\begin{itemize}
+\item $y'+xy = 0 \Rightarrow \frac{y'}{y} = -x \Rightarrow \int \frac{dy}{y} = \int -x dx \Rightarrow y(x) = Ce^{-\frac{1}{2}x^2}$
+\item $Ce^{-\frac{1}{2}} = 1 \Rightarrow C = \sqrt{e} \Rightarrow \sqrt{e}e^{-\frac{1}{2}x^2} = y(x) $
+\item Putting this in the form $y(x) = \sum_{n=0}^{\infty} b_nx^n$ means putting $(-\frac{1}{2}x^2)$ in for $x$ and multiplying the result by $\sqrt{e}$.  This means all odd coefficients are 0, and evens are $\sqrt{e}\frac{1}{(-2)^{n/2}}\frac{1}{(n/2)!} = b_n$
+\end{itemize}
+
+With the solution in hand we can try our sum over $b_n$ and compare the analytical solution.  
+If we center on 0, $y(0.95)$ converges to 0.001\% error in 8 iterations to ($n = 0, 2, ...14$).
+This is twice as many as we needed at 1 (4, above)!
+
+Convergence:
+\begin{itemize}
+\item $\sum_{k=0}^Nc_k = \lim{N\rightarrow \infty} c_k$ converges if and only if $c_k$ decreases sufficiently quickly.
+\item If $c_{k+1}/c_k < C < 1$, for some constant $C$, this definitely converges.
+\item The \textbf{ratio test} says exactly this: if $\lim_{n \rightarrow \infty} [ \frac{a_{n+1}[x-c]^{n+1}} {a_{n}[x-c]^{n}} ]= \lim_{n \rightarrow \infty} [ \frac{a_{n+1}} {a_{n}} ] |x-c| <1$, the series converges.
+\item For example, $a_n = \frac{i^{n-1}}{2n!}[1-(-1)^n]$ converges:
+\begin{itemize}
+\item First, drop all the zero (even) terms by rewriting to $\sum_{j=0}^{\infty} \frac{(-1)^j}{(2j+1)!}x^{2j+1}$
+\item Apply the ratio test between $c_{j+1}x^{2(j+1)+1}$ and $c_jx^{2j}$
+\item $|\frac{c_{j+1}}{c_j}| = \frac{1}{(2j+3)(2j+2)}$, so this is less than one at some point regardless of $x^3$'s value (meaning x's value).
+\item Note this converges to $\sin(x)$.  I suppose the series form of $\sin(\frac{\pi}{4})$ would converge faster than that of  $\sin(\frac{\pi}{4}+ 200\pi)$
+\end{itemize}
+
+\end{itemize}
+
 \begin{itemize}
 \item TODO
 \end{itemize}
