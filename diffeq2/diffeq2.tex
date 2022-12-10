@@ -1951,6 +1951,103 @@ Convergence:
 
 \end{itemize}
 
+\subsection{The Airy Equation}
+
+Main motivation: The block-spring system, transferring Energy back and forth between kinetic ($\frac{1}{2}mv^2$) and potential (U(x) = $\frac{1}{2}kx^2)$ to a fixed sum total $E = \frac{1}{2}mv^2 + \frac{1}{2}kx^2$).  The turning point $x_0$ is where $v=0$ and the block switches directions.  The block can never see $x > x_0$ in this case.
+
+There's a quantum version of this in which the ``block'' does escape this bound.
+
+Schroedinger's equation rewritten: $i\frac{\delta \psi}{\delta t} = -\frac{1}{2} \frac{\delta ^2 \psi}{\delta x^2} + U(x)\psi(x,t)$. 
+\begin{itemize}
+\item Separate variables by saying $\psi(x,t) = X(x)T(t)$ take take derivatives.
+\item Divide by $XT$: $iXT'= -\frac{1}{2} X''T + U(x)XT \Rightarrow T'/T= \frac{1}{2} iX''/X + U(x)$
+\item Somehow (TODO)  we end up with $\psi(x,t) = y(x)e^{-iEt}$, where $y(x)$, a renamed $X(x)$, has property $-\frac{1}{2} y''(x)+U(x)y(x) = Ey(x) = -\frac{1}{2}y''(x)+\frac{1}{2}x^2y(x)$
+\item Near $x_0$, we can approximate y(x) with:
+\begin{itemize}
+\item TRICK: $\frac{1}{2}x^2 = \frac{1}{2}([x-x_0] + x_0) = \frac{1}{2}[x-x_0]^2 + x_0[x-x_0] + \frac{1}{2}x_0^2$
+\item The first term is very small, and the third term is $E$ since $v=0 $ there.
+\item So we can rewrite as $ -\frac{1}{2}y''(x)+\frac{1}{2}x^2y(x) = \approx -\frac{1}{2}y''(x)+ x_0[x-x_0]y(x) + Ey(x) = Ey(x) \Rightarrow y''(x) -  2x_0[x-x_0]y(x) = 0$
+\end{itemize}
+\end{itemize}
+
+Weird: we're defining a new variable $t = (2x_0)^{\frac{1}{3}}[x-x_0]$, which isn't time, but where $t>0$ is a forbidden region inyto which our block tunnels.  Coupled with $y''-ty=0$:
+\begin{itemize}
+\item Write out terms to see that $y'(t)-ty(t) = \sum_{n=2}^{\infty} a_nn(n-1)t^{n-2} - \sum_{n=0}^{\infty} a_nt^{n+1} =0$.  It looks like the sums skip over terms at a time!
+\item Writing out the first few terms, the sum is $2a_2+\sum_{n=1}^{\infty} [(n+2)(n+1)a_{n+2}-a_{n-1}]t^n = 0$
+\item TRICK: Since this is always true, try $t=0$ to see that $a_2$ must be 0.
+\item TRICK: Try $t \ne 0$ to see that $[(n+2)(n+1)a_{n+2}-a_{n-1}] = 0$ or that $a_{n+2} =\frac{a_{n-1}} {(n+2)(n+1)}, n \geq 1$ 
+\item  We can also write the whole thing now as $a_{n} =\frac{a_{n-3}} {(n)(n-1)}, n \geq 3, a_2=0, a_0,a_1\in\mathbb{R}^3$ 
+\item Write out terms to see there are three strings then:
+\begin{itemize}
+\item $n=3k-1$, where $a_n = 0$
+\item  $n=3k$, where $a_n = \frac{a_0}{3k \times 3k-1 \times ...\times 3 \times 2}$
+\item  $n=3k+1$, where $a_n = \frac{a_1}{3k+1 \times 3k \times ...\times 4  \times 3}$
+\item Ratio test: Dividing successive terms by each other (within each string), we see that $y_0$ term $c_k$ has property $|\frac{c_{k+1}}{c_k}| = \frac{|t^3|}{(3k+3)(3k+2)}$, which, for a fixed t, will eventually be less than one, so the series converges after that point.
+\item Similar for $y_1$ series ($3k+1$). So, the whole sum $y(t) = \sum_{k=0}^{\infty}a_{3k-1}t^{3k-1} +  \sum_{k=0}^{\infty}a_{3k}t^{3k} +  \sum_{k=0}^{\infty}a_{3k+1}t^{3k+1} = a_0y_0(t) + a_1y_1(t)$ converges for all $t$.
+\end{itemize}
+
+
+However, looking at the truncated sums, we see that while the block oscillates for $t<0$, for $t>0$ (block in the forbidden zone), the sum zooms to infinity.  This is because the truncated sums can't be periodic - they're finite polynomials.  Only infinite ones (like $\sin(t)$, for example) can oscillate.
+\end{itemize}
+
+\subsection{The Wronskian (Determinant)}
+
+Main idea: We had a solution of $a_0y_0(t) + a_1y_1(t)$ for the last problem.  How do we know that $y_0(t)$ and $y_1(t)$ are different?  As in, they are not mulitples of each other or really, they are linearly independent?  We use a matrix format for piles of these solutions and check if the determinant is nonzero.  This can be made clear for $n=2$, but it appears subtle for higher orders.
+
+Note: It's not always easy to tell if two functions (esp. sums) are linearly independent, since $\sin(t)$ and $\cos(t-\frac{pi}{2})$ look different but are of course the same.  Use the Wronskian determinant to tell more accurately.
+ 
+\begin{itemize}
+\item Two functions $y_0(t), y_1(t)$ are \textbf{linearly dependent} on an open interval $I$ if there are some $a,b \neq 0$ such that $ay_0(t) + by_1(t) = 0$
+\item Note this implies their derivatives are linearly dependent too, by differentiating both sides:  $ay_0'(t) + by_1'(t) = 0$
+\item Rearranging into a Wronskian matrix $W[y_0, y_1] = \begin{pmatrix} y_0(t) & y_1(t) \\ y_0'(t) & y_1'(t) \end{pmatrix}$, we see that, since $\begin{pmatrix} a \\  b \end{pmatrix}  \neq 0$, that $\begin{pmatrix} y_0(t) & y_1(t) \\ y_0'(t) & y_1'(t) \end{pmatrix} \begin{pmatrix} a \\  b \end{pmatrix} =
+ \begin{pmatrix} 0 \\  0 \end{pmatrix}$ must mean the determinant of $W$ is zero.  (Otherwise we could invert $\begin{pmatrix} 0 \\  0 \end{pmatrix}$ to a nontrivial vector)
+ \item This is the standard linear algebra test of linear independence, and works for any $n$ functions: $W[f_1 , f_n](t) = \begin{pmatrix} f_1 & ... & f_n \\ f_1' & ... & f_n' \\ ... & ... & ... \\ f_1^{n-1} & ... & f_n^{n-1} \\ \end{pmatrix} $ is singular if and only if the functions are linearly dependent.
+\end{itemize}
+
+Note: This works for $n=2$ for functions $a, b$ since $ab' - a'b \Rightarrow a'/a = b'/b \Rightarrow \ln(a) = \ln(b)+C \Rightarrow a = be^C$
+\\
+Example: 
+\begin{itemize}
+\item $\cos$ and $\sin$ are linearly independent since $|\begin{pmatrix} \cos(t) & \sin(t) \\ -\sin(t) & \cos(t) \end{pmatrix}| = 1$
+\item $\cosh = \frac{e^x+e^{-x}}{2}$ and $\sinh = \frac{e^x-e^{-x}}{2}$ are too since $|\begin{pmatrix} \cosh(t) & \sinh(t) \\ \frac{d}{dt}[\cosh(t)] & \frac{d}{dt}[\sinh(t)] \end{pmatrix}| = 1$
+\item For two functions $y_0, y_1$ that solve the Airy equation $y'' - ty = 0$, we can show that $W$ is not dependent on $t$:
+\begin{itemize}
+\item Starting with the diff eq,, $y_0''-ty_0 = 0, y_01'-ty_1 = 0 \Rightarrow y_0''/y_0 = t = y_1''/y $
+\item Then $y_0y_1''=y_0''y_1 \Rightarrow y_0y_1'' - y_0''y_1 = 0$
+\item Determinant $W(t) = y_0y_1'-y_0'y_1$
+\item $W'(t) = y_0y_1''+y_0'y_1'-y_0''y_1-y_0'y_1' = y_0y_1'' - y_0''y_1$, which is zero by line 2 above.
+\item A zero derivative of $W(t)$ means that $W(t)$ does not depend on $t$.
+\item This means that we can use ANY value of $W(t)$ for the Wronskian determinant. For the Airy equations $y_0(0)y_1'(0) - y_1(0)y_0'(0) = (1)(1) - (0)(0) = 1$
+\end{itemize}
+
+\end{itemize}
+
+Note that Airy is a special case of $y''(t) + p_1(t)y'(t) + p_2(t)y(t) = 0$, with $p_1 = 0, p_2 = -t$.  We can prove that $W = c\exp(-\int p_1(t)dt)$ is a general solution, with some unknown constant $c$.
+
+
+\begin{itemize}
+\item $y''+p_1y'+p_2y=0 \Rightarrow p_1y'=-y''-p_2y$
+\item $W = y_0y_1' - y_0'y_1$
+\item $p_1W = y_0(p_1y_1') - y_1(p_1y_0') = y_0(-y_1''-p_2y_1) - y_1(-y_0''-p_2y_0) = y_1y_0''-y_0y_1''$
+\item This last term is $-W'(t)$ by above results.  So $p_1W = W' \Rightarrow W = c\exp\{-\int p_1(t)dt\}$
+\item 
+\end{itemize}
+
+This is \textbf{Abel's formula}, and (somehow) generalizes to solve any $y^{(n)} + p_1(t)y^{(n-1)} + ... + p_ny(t) = 0$, as $W(t) = \det W[y_0, ... y_{n-1}](t) = c\exp\{-\int p_1(t)dt\}$
+
+Appllying Abel's formula to find solutions to $y''(t) + 2y'(t) + y(t) = 0$
+\begin{itemize}
+\item Find the first (homogeneous linear) solution by hypothesizing $y=e^{rt}$ and seeing $(r^2+2r+1)e^{rt} = 0 \Rightarrow (r +1)^2 = 0 \Rightarrow r= -1 \Rightarrow y = ce^{-t}$
+\item (Note : Forget the $c$ for now.  It's the same but cleaner)
+\item Then, the Wronskian can help us find the other linearly independent solution.
+\item We can find the Wronksian with Abel's formula, $p_1(t) = 2 \Rightarrow W(t) = c\exp \{-\int [2]dt \} = ce^{-2t}$. Again, forget the c.
+\item So the determinant equation says there's a function f so that $e^{-t}f' - (-e^{-t}f) = e^{-2t}$
+\item Multiply all by $e^t$, to get $f'+f = e^{-t}$
+\item Solve that diff eq by using integrating factor $e^t$ (multiply all by $e^t$ again) to see $\frac{d}{dt}[e^ty_1(t)] = 1 \Rightarrow e^ty_1(t) = t \Rightarrow y_1(t) = te^{-t}$
+\item Note that if we kept constant $c$ in there, then the solution would have been $y_1(t) = te^{-t}+ce^{-t} = te^{-t}+cy_0(t)$, but the last part isn't linearly independent of $y_0$'s solution.
+\item So the whole solution set is $Ce^{-t} + Dte^{-t}$
+\end{itemize}
+
 \begin{itemize}
 \item TODO
 \end{itemize}
