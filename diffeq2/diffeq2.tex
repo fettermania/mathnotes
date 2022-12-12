@@ -2048,6 +2048,66 @@ Appllying Abel's formula to find solutions to $y''(t) + 2y'(t) + y(t) = 0$
 \item So the whole solution set is $Ce^{-t} + Dte^{-t}$
 \end{itemize}
 
+\subsection{Cauchy-Euler Equation}
+
+Main idea: Laplace equation (in this case, for disk pressure at point $(x,y)$ on a floating air bearing disk), is $\nabla^2p = 0$.  Since it's angle-independent, in polar coordinates we have 
+$\nabla^2 p = \frac{1}{r}
+  \frac{\delta}{\delta r}
+  (r\frac{\delta p}{\delta r}) +
+   \frac{1}{r^2}\frac{\delta^2 p}{\delta \theta^2} = 0$
+
+How to find the diff eq to solve:
+\begin{itemize}
+\item Separate variables by assuming solution is $p(r,\theta) = R(r)\Theta(\theta)$ and that $\Theta(\theta) + a\sin(mt) + b\sin(mt)$.  
+\item The last assumption means that $\Theta''-\Theta$
+\item Churning through, we have 
+$\Theta(\theta)\{    \frac{1}{r}\frac{\delta}{\delta r}
+  (r\frac{\delta }{\delta r}[R(r)]) - \frac{m^2}{r^2 R(r)} \} = 0$
+  \\
+  $ \Rightarrow r^2R''(r) + rR'(r)-m^2R(r)=0$
+\item This is a special case of \textbf{Cauchy-Euler} problem $t^2y''+\alpha t y'+\beta y, t >0,\alpha,\beta\ \in \mathbb{R}$, with $\alpha = -t, \beta = -m^2$, which is different than Airy equation $y''-ty = 0$ since the highest-orer derivative has a multiple of $t$
+\end{itemize}
+
+How to solve the diff eq attempt 1: direct power series
+\begin{itemize}
+\item Plugging $y(t) = \sum_{n=0}^{\infty} a_nt^n$ and similar for $y', y''$, we list terms and and see $0 =\beta a_0 + [\alpha +\beta]a_1t _+  \sum_{n=2}^{\infty} a_n[n(n-1)+\alpha n + \beta]$
+\item Even though Cauchy-Euler suggests $t>0$, we suppose the equation needs to work for all $t$ (Ist this obvious?), so we know $a_0$.
+\item However, since the whole power series is identically zero at all times, this MUST mean all the coefficients are zero.  (TODO: When does this NOT happen?  When we have initial conditions?).  So this method only produces $y(t)=0$
+\end{itemize}
+
+How to solve the diff eq attempt 2: Try $y(t)=t^r$
+
+\begin{itemize}
+\item Plugging $y(t)=t^r$  into $y(t) = \sum_{n=0}^{\infty} a_nt^n$, we see that $r$ must satisfy $r(r-1) + \alpha r + \beta = 0$ (this is a characteristic equation or \textbf{indicial equation}, a term used in the Frobenius method of DE solving.  Apparently this is what we're doing).
+\item Finding two linearly indepedent solutons of form $y(t)=t^r$: $W[y_0,y_1](t) =  \begin{pmatrix}
+ t^{r_0} & t^{r_1} \\
+ r_0t^{r_0-1} & r_1t^{r_1-1}
+ \end{pmatrix}$
+ \item The determinant $W(t) = [r_1-r_0]t^{r_0+r_1 - 1}$ which is nonzero on $t > 0$ iff $r_1-r_0 =\neq 0$
+ \item So we have different $r_0$ and $r_1$, which satisfy the characteristic equation $t^2y''+\alpha t y'+\beta y$ if they are basically quadratic roots: $r_{\pm} = \frac{1-\alpha \pm \sqrt{(\alpha - 1)^2 - 4\beta}}{2}$  If $(\alpha - 1)^2 \neq 0$, then we should have two of them
+ \item Case 1: Roots are distinct and real, so we have $t(t() = a_+t^{r_+} + a_-t^{r_-}$
+ \item Case 2: Roots $r, \bar{r}$ are distinct and complex: $Re(r) \pm i\times Im(r)$. 
+ \begin{itemize}
+\item 
+ $t^r = t^{Re(r) + iIm(r)}= t^{Re(r)}t^{iIm(r)} = t^{Re(r)}e^{iIm(r)ln(t)}$ (by changing $t$ base) 
+ 
+ $= t^{Re(r)}[\cos(Im(r)\ln(t)) + i\sin(Im(r)\ln(t)]$ (by Euler identity)
+ \item Same argument gives $t^{\bar{r}} = t^{Re(r)}[\cos(Im(r)\ln(t)) - i\sin(Im(r)\ln(t)]$
+ \item So combinations of $at^r + bt^{\bar{r}}$ end up being $t^{Re(r)}[c_0\cos(Im(r)\ln(t)) +c_1 \sin(Im(r)\ln(t)]$ (TODO Verify more rgiorosuly)
+
+\end{itemize}
+\item Case three: Repeated (necessarily real) root.  There is a $t^r$ but also another one out there. Use Abel's formula!
+\begin{itemize}
+\item $W(t) = \det \begin{pmatrix} t^r & y_1(t) \\  rt^{r-1} & y_1'(t) \\   \end{pmatrix} = t^ry_1'(t)-rt^{r-1}y_1(t)$
+\item This is called \textbf{reduction of order} since with a root in hand, we are now in a first-order equation.
+\item To solve $t^2y''+\alpha ty' + \eta y = 0$, write as Cauchy-Euler form $y''(t) + p_1(t)y'(t) + p_2(t)y(t) = 0$, or $y''(t) = \frac{\alpha}{t}y'(t) + \frac{\beta}{t^2} y(t) = 0$.  Use $W(t) = c\exp \{ -\int p_1(t)dt\} = c\exp \{ -\int \frac{\alpha}{t}dt\} \Rightarrow W(t) = ct^{-a}, t>0$
+\item Finally, solve our equation $t^ry_1'(t) - rt^{r-1}y_1(t) = ct^{-\alpha}$.  Note that an integrating factor $u$ is something that helps us turn the left side into $\frac{d}{dt}[u \times y ] = uy' + u'y$.  In this case, we're looking for $u$ so $\frac{du}{dt} = - \frac{r}{t} u$, or $ u = t^{-r}$ (a separable equation)
+\item Setting $c=1$ for simplicity, then $\frac{d}{dt}[t^{-r} y_1] = t^{-r}t^{-\alpha - r}$.  But remember, from the quadratic equation, that $r = \frac{1-\alpha}{2}$, so solve $\frac{d}{dt}[t^{-r}y_1] = t^{-1}$
+\item This is $y_1(t) = Ct^r + t^r\ln(t)$.  Since $y_0(t) = Ct^r$, the combination solution is $Ct^r + Dt^r\ln(t)$
+\end{itemize} 
+\end{itemize}
+
+For some reason, in our air equation, $r^2R(r)''+rR'(r) -m^2R(r) = 0$, $m=0$, so we have a Cauchy-Euler with $\alpha = 1$. and a solution with repeated root 0.  So our solution ends up being $R(r) = ar^0 + br^0\ln(r) = a+b\ln(r)$
 \begin{itemize}
 \item TODO
 \end{itemize}
