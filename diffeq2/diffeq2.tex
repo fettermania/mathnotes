@@ -2108,8 +2108,74 @@ How to solve the diff eq attempt 2: Try $y(t)=t^r$
 \end{itemize}
 
 For some reason, in our air equation, $r^2R(r)''+rR'(r) -m^2R(r) = 0$, $m=0$, so we have a Cauchy-Euler with $\alpha = 1$. and a solution with repeated root 0.  So our solution ends up being $R(r) = ar^0 + br^0\ln(r) = a+b\ln(r)$
+
+\subsection{Bessel's Equation}
+
+Main idea: Equation (example: Vibrating drumhead) is $t^2y''(t) + ty'(t) + (t^2 - \nu^2)y(t) = 0$.  This equation:
+
 \begin{itemize}
-\item TODO
+\item 1. Leads with $t^2y''(t)$ like the Cauchy-Euler Equation (5.5).  (TODO Why?) Therefore it will include non-integer exponents in the series.  (like $t^{Re(r)}$, maybe?)
+\item 2. (All of its) coefficients depend on $t$ like the Airy Equation (5.4), so it should be a power series (Why?)
+\item Including non-integer exponents (1) IN a power series (2) apparently means we'll be using the \textbf{method of Frobenius}.  This isn't explained here but apparently is:
+\begin{itemize}
+\item Convert the equation to form $p_0(t)y(t)'' + p_1(t)y'(t)+p_2y(t)=0$, where there are no fractions among $p_i$.
+\item Assume the soolution is of the form $y(t) = t^r\sum_{n=0}^{\infty} a_n t^n$.  Note that the general form is $(t-t_0)$ for all those $t$'s but presented often with $t_0 = 0$ for simplicity.
+\item (NEW or HIDDEN?) : Bring the $t^r$ into the sum as $y=  \sum_{n=0}^{\infty} a_n t^{n+r}$
+\item Calculate the power series for $y = \sum_{n=0}^{\infty} a_nt^{n+r}, y = \sum_{n=0}^{\infty} a_n(n+r)t^{n+r-1}, y'' = \sum_{n=0}^{\infty} a_n(n+r)(n+r-1)t^{n+r-2}$
+\item Substitute those generic $y$ expressions into your equation and create one big series.
+\item Rewrite each $a_n$ term to not contain $t$, possibly as a recurrence.
+\item Consider $t=0$ and see what terms are arbitrary and what are zero. Then Look at the rewritten $a_n$ terms, set them to zero and solve them to get two roots $r_1, r_2$.
+\item Set $r=r_1$ and solve the whole thing for one solution, and same for $r=r_2$.  if they're the same, look to \textbf{Airy's equation} to find a linearly independent partner.
+\item Write the general solution, usually a linearly independent combo of the instance solutions.
+\end{itemize}
+\end{itemize}
+
+Subcase 1 (Simpler): Assume $\nu = 0$ and try a power series.
+\begin{itemize}
+\item With $t^2y''(t) + ty'(t) + (t^2 - \nu^2)y(t) = 0$, write out the power series by subbing in generic series for $y, y', y''$.
+\item This results in $0 = a_1t +\sum_{n=2}^{\infty} [a_{n-2} + a_n(n(n-1) + n)]t^n = a_1t+\sum_{n=2}^{\infty} [a_{n-2} + a_nn^2]t^n$
+\item Setting this to $t=0$ implies $a_0$ is arbitrary, $a_n = -\frac{a_{n-2}}{n^2}, n\geq 2$
+\item Writing this out, all odd index $a_i$ are 0, and even are $a_0 \sum_{n=0}^{\infty} \frac{(-1)^n}{[n!]^2} (\frac{t}{2})^{2n}$
+\item Apparently $\nu = 0$ is the only viable power series solution.
+\end{itemize}
+
+Subcase 2: Cauchy-Euler equation for $\nu \ne 0$.  This means assume $y(t) = t^4z(t)$
+\begin{itemize}
+\item Find out the diff eq that $z(t)$ satisfies by subbing $y=t^rz(t)$ in the Bessel equation.  This happens tobe $t^2z'' + (2r+1)z' + [r^2 -\nu^2+t^2]z = 0$
+\item Trick: Here, we see that setting $r^2 = \nu^2$ in $t^2z''(t) + (2r+1)z'(t) + [r^2-\nu^2+t^2]z(t) = 0$ sort of reduces it to  subcase 1.
+\item In any case, subbing $r = \pm \nu$ and jamming through yields $a_n = -\frac{a_{n-2}}{[n \pm \nu]^2-\nu^2}, n \geq 2$
+\item With $a_1=0$ (same as before), we have two solutions $y(t) = t^{\pm \nu}  \sum_{n=0}^{\infty} a_nt^n$, with $a_n$ as above.  We can set $a-0=1$ for convenience henceforth.
+\item The solution $t^{\nu}z(t)$, with $\nu > 0$, is denoted $J_{\nu}(t)$.  This goes to zero as $t$ approaches zero from above $(t \rightarrow 0^+)$
+\item The solution $t^{\nu}z(t)$, with $\nu < 0$, is denoted $N_{\nu}(t)$.  This diverges as $t$ approaches zero from above $(t \rightarrow 0^+)$
+\end{itemize}
+
+Apply to the vibrating circular membrane problem from previous chapters, specified by
+\begin{itemize}
+\item $u_m(r,\theta) = \sin(t)[C\cos(m\theta) + D\sin(m\theta)]R(r), m \in \{1, 2, 3... \}$
+\item with $R(r)$ satisfying equation $r^2R''(r) + rR'(r) + [k^2r^2 - m^2]R(r) = 0$
+\end{itemize}
+
+See that $kr$ takes the place of $r$ and $m$ takes the place of $\nu$.  
+We have Bessel functions $J_m(kr) + BN_m(kr)$ that solve the equation where $\nu$ is set to $m$ on the $y$ term.  However, a drumhead can't diverge in position so necessarily $B=0$.
+
+The functions are defined by $m$ (an element of the original equation), and the roots $n$. Somehow these two combine to create the number ($m+1$?) and complexity/position? ($n$?) of bumps vibrating in the drumhead.  NOte that we need to set $J_m(kr_0) = 0$ for the edge of the drum.  This, non-obviously, has an infinite number of solutions, which can generally only be approximated numerically.
+
+There's an exception here for a closed-form Bessel function.
+\begin{itemize}
+\item WIth $\nu  =\frac{1}{2}$, $J_{\nu}(t)$ sees $a_n = -\frac{a_{n-2}}{(n+\frac{1}{2})^2 - \frac{1}{4}}, n \geq 2$.  Note that $(n+\frac{1}{2})^2 - \frac{1}{4} = (n^2 + n) = (n+1)n$, so with the recursion, the bottom terms become $1!, 3!, 5!, ...$.  
+\item The whole thing becomes $1 - \frac{t^2}{3!} + \frac{t^4}{5!} - \frac{t^6}{7!} ... = \frac{\sin(t)}{t}$
+\item With the front term $t^{\frac{1}{2}}$, then $J_{\frac{1}{2}}(t) =  \frac{\sin(t)}{\sqrt{t}}$
+\end{itemize}
+
+Final case: If $\nu = 0$, we need the OTHER solution beyond case 1's series solution.  We'll use the Wronksian (with our known solution) with Airy's equation (for our $p_1$ in our initial diff eq):
+\begin{itemize}
+\item The determinant can be found with Airy's equation: $W(t) = c \exp \{-\int p_1(t) dt\}$ for $t^2y''(t) + ty'(t) + t^2y(t) = 0$
+\item This becomes $y''(t) + \frac{1}{t}y'(t) + y(t) = 0$, so $c \exp (-\int \frac{1}{t}) = c e^{-\ln(t)} = ct^{-1}$.  Choose $c=1$ to get $W(t) = \frac{1}{t}$
+\item Now let's find $N_0$, our unknown solution of the $\nu = 0$ equation. $\det \begin{pmatrix} J_0 & N_0 \\  J_0' & N_0' \\   \end{pmatrix} = J_0N_0' - N_0J_0' = \frac{1}{t}$.
+\item Rewrite as $N_0' - \frac{J_0'}{J_0}N_0 = \frac{1}{tJ_0}$.
+\item TRICK (general integrating factor): Remember that for general form $y' + \beta y = k$, the integrating factor $e^{\int \beta}$ lets us write the whole thing as $e^{\int \beta}y' + \beta e^{\int \beta} y = \frac{d}{dt} [e^{\int \beta} y ] = ke^{\int \beta}$
+\item In this case, $\beta = \int -\frac{J_0'}{J_0}$, so $e^{-\ln(J_0)} = \frac{1}{J_0}$
+\item Then $\frac{N_0'}{J_0} - \frac{J_0'}{J_0^2}N_0 = \frac{d}{dt}(\frac{N_0}{J_0}) = \frac{1}{tJ_0^2}$, so $N_0 = J_0 \int  \frac{1}{t[J_0(t)]^2}$
 \end{itemize}
 
 
