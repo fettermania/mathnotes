@@ -2178,7 +2178,73 @@ Final case: If $\nu = 0$, we need the OTHER solution beyond case 1's series solu
 \item Then $\frac{N_0'}{J_0} - \frac{J_0'}{J_0^2}N_0 = \frac{d}{dt}(\frac{N_0}{J_0}) = \frac{1}{tJ_0^2}$, so $N_0 = J_0 \int  \frac{1}{t[J_0(t)]^2}$
 \end{itemize}
 
+\subsection{ Hermite's Equation}
 
+Main idea: A simple quantum harmonic oscillator, like the Airy equation.  Somehow we will learn \emph{eveything} with Hermite's Equation (Note: this seems like we learned how many solutions ande how to use them as a probability measure)
+
+Earlier, we established the setup:
+\begin{itemize}
+\item Equation: $E y(x) = -\frac{1}{2}y''(x) + \frac{1}{2}x^2y(x)$, with $|y(x)|^2$ as the pdf of finding the oscillator near position $x$
+\end{itemize}
+
+Atempting a power series solution:
+\begin{itemize}
+\item $y(x) = b_0 + b_1x + b_2x^2 + ... = \sum_{n=0}^{\infty} b_nx^n$
+\item $y'(x) = b_1 + 2b_2x + 3b_3x^2 + ... = \sum_{n=0}^{\infty} (n+1)b_{n+1}x^n$
+\item $y''(x) = 2b_2 + 6b_3x + 12b_4x^2 + ... = \sum_{n=0}^{\infty} (n+2)(n+1)b_{n+2}x^n$
+\item Convert the equation to $-2Ey(x) = y''(x) - x^2y(x)$
+\item So $Ey(x) = y''-x^2y(x) = 2_b2+6b_3x + [12b_4 - b_0]x^2 + [20b_5 - b_1]x ^3 + ...$
+\item $2b_2 + 6b_3x + \sum_{x=0}^{\infty} [(n+3)(n+4)b_{n+4} - b_n]x^{n+2} = -2Ey(x) = -2Eb_0 - 2Eb_1x + \sum_{x=0}^{\infty} [-2Eb_{n+2}]x^{n+2}$
+\item This means $-Eb_0 = b_2, -Eb_1 = 3b3,$ and $b_{n+4}(n+3)(n+4)+2Eb_{n+2} - b_n = 0, n \geq 0$
+\end{itemize}
+
+Solving this equation is hard, but selecting $E=\frac{1}{2}$ and magically, as assuming $b_1 = 0$, we have:
+
+\begin{itemize}
+\item All $b_{odd} = 0$ since the recursion for $n+4$ depends on $n+2, n$.
+\item $b_0 = 1, E=\frac{1}{2} \Rightarrow -Eb_0 = -\frac{1}{2} = b_2$.
+\item $b_4(0+3)(0+4)+b_{0+2} -b_0 = 12b4+b_2-b_0 = 12b_4 - \frac{3}{2} = 0 \Rightarrow b_4=\frac{1}{8}$
+\item Continuing, we see $b_6 = -\frac{1}{48}$.  Looking at terms, you see $b_{2n}=\frac{(-1)^n}{n!2^n}, n \geq 0$
+\end{itemize}
+
+Why did we choose $E=\frac{1}{2}$?  Let's find a solution whtouht series.
+\begin{itemize}
+\item Start with $E y(x) = -\frac{1}{2}y''(x) + \frac{1}{2}x^2y(x)$
+\item ``Factor'' it as $-\frac{1}{2} [\frac{d}{dx} - x][\frac{dx}{dy} + xy]$
+\item Churn through derivatives to see this $
+= -\frac{d^2y}{dx^2} + \frac{1}{2}x^2y-\frac{1}{2}x^2y-\frac{1}{2}y+\frac{1}{2}x^2y
+= -\frac{d^2y}{dx^2} + \frac{1}{2}x^2y-\frac{1}{2}y$
+\item So we're left with $-\frac{1}{2} [\frac{d}{dx} - x][\frac{dx}{dy} + xy] = Ey - \frac{1}{2}Y = (E-\frac{1}{2}y) $, and if $E=\frac{1}{2}$, then $ (E-\frac{1}{2}y)  = 0 = [\frac{dx}{dy} + xy] = y'+xy$ (another diff eq)
+\item We reduced the order of the diff eq to a separable first-order one, so we can either separate or use the $e^{\int \beta}$ to see $y = a_0e^{-\frac{1}{2}x^2}$
+\end{itemize}
+
+The energy level $E=\frac{1}{2}$ sees an oscillating solution, but \textbf{this is not the only solution}.  Many oscillator energies (turns, out, any $E =n +  \frac{1}{2}$) exist, and share the same feature: $x \rightarrow \pm \infty \Rightarrow y \rightarrow 0$.  In other words, tthey all go to zero at the extremes and therefore ``look like'' the lowest energy ($E=\frac{1}{2}$) solution $a_0e^{-\frac{x^2}{2}}$
+
+This suggests we attempt another solution separating out this factor.  Let's guess $y = z(x)e^{-x^2}{2}$, where again $E y(x) = -\frac{1}{2}y''(x) + \frac{1}{2}x^2y(x)$.
+
+\begin{itemize}
+\item Replacing $z(x)e^{-x^2}{2}$ in for $y$ in this $E$-based diff eq, we get the diff eq $z''-2xz'+(2E-1)z = 0$
+\item Now, find a recursion by substituting $z(x) = \sum_{n=0}^{\infty} a_nx^n$ in for $z$, churning through to get $a_{n+2}=\frac{2n+1-2E}{(n+1)(n+2)}a_n$.
+\item A-ha: The neat thing for using $n+\frac{1}{2}$ is that at some point, the numerator will be zero, and thus, all successive same-parity terms will be zero!
+\item So, for $E_1 = 1+\frac{1}{2}$, $a_0=a_2=a_4= ... = 0, a_1$ is arbitrary, 
+ and  $a_3 = \frac{(2)(1) + 1 - (2)(\frac{3}{2})}{(1+1)(1+2)}a_1 = 0 = a_5 = a_7 = ...$
+ \item Therefore, for $E=\frac{3}{2}, y(x) = z(x)e^{-\frac{x^2}{2}} = a_1xe^{-\frac{x^2}{2}}$
+ \item Continiung in this way, $E_2 = 2 + \frac{1}{2}$ yields $y(x) = a_0[1-2x^2]e^{-\frac{x^2}{2}}$ by plugging into the recursion (and terminating at $0 = a_4$)
+\end{itemize}
+
+The upshot of this is that we want to find our probability of the oscillator with energy $E_n = n+\frac{1}{2}$ existing near $x$.  The function $|y_n(x)|^2 = H_n(x)^2e^{-x^2}$ is that density, with $H_0(x)=a_0, H_1(x) = a1_x, H_2(x) = a_2[1-2x^2]$.  How to find the probabilty that the $E_0$ oscillator (centered at $x=0$) is outside ``classic bounds'' (turning points)?
+
+\begin{itemize}
+\item First, we know that the oscillator is at a turning point when the energy is all in one term, say, potential: $E_0 = \frac{1}{2} = \frac{1}{2}x^2 \Rightarrow x = \pm 1$.
+\item Seocnd, we have to fix $a_0$ such that $\int_{x=-\infty}^{x=\infty} |y_0(x)|^2 = 1$, or $\int_{x=-\infty}^{x=\infty} a_0e^{-\frac{x^2}{2}} = 1$, or $\frac{1}{a_0^2} = \int e^{-x}$.  
+\item With identity $\int_{x=-\infty}^{x=\infty} e^{-ax^2} = \sqrt{\frac{\pi}{a}}$  in hand, we see that $a_0 = \pi^{-\frac{1}{4}}$
+\item We also have the \textbf{complementary error function} $erfc(x) = \frac{2}{\sqrt{\pi}} \int_{t=x}^{t=\infty} e^{-t^2}dt$ available to us.  This basically says ``if $\mu = 0, \sigma = \frac{1}{\sqrt{2}}$, our Gaussian function roughly looks like $e^{-x^2}$, so what's the normal area outside of $[-x, x]$''?
+\item Since we're looking to see if $|x| > 1$, plugging in $erfc(1)$ to a numerical solver gives $p = .157299$
+\end{itemize}
+
+\begin{itemize}
+\item TODO
+\end{itemize}
 
 \end{document}
 
