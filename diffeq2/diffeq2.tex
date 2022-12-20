@@ -2286,9 +2286,86 @@ The upshot here is that, for $n=1, l=0$ the probabily density for where the elec
 \item If we switch this to spherical coordinates with Jacobian $\rho^2\sin(\phi)$, we end up with  $\iiint_{\mathbb{R}^3}\Phi(\vec{x}) d\vec{x} =  4\pi A\int_{\rho = r-\frac{\epsilon}{2}}^{\rho = r+\frac{\epsilon}{2}}$ for any given spherical slice of size $\epsilon$, so the probabilty of an electron at $r$ units away from origin is $4\pi Ae^{-2r}r^2$, which is maxized at critical points $r=0$ (local max) and $r=1$ (global max)
 \end{itemize}
 
+\subsection{Hydrogen Atom II}
+
+(Note: If we're doing cleanup, can substitute $\varphi$ for $\phi$, but whatevert)
+
+Last section we focused on the radial coordinate $\rho$.  In this section, we'll complete the d-orbital with angular coordinates $\theta$ (longitude) and $\phi$ (latitude).
 \begin{itemize}
-\item TODO
+\item We'll have to solve the untouched angular operator: $L^2(\Phi) =  \frac{1}{ \sin(\phi)}\frac{\delta}{\delta \phi}(\sin(\phi)\frac{\delta \Phi}{\delta \phi}) + \frac{1}{\sin^2(\phi)}(\frac{\delta^2\Phi}{\delta \theta^2}) $
+\item Last time, we just fixed a constant and swept into a $Y$ function like this : $L^2(Y(\theta, \phi)) = -l(l+1)Y(\theta, \phi)$.  
+\item So the method is separation of variables again: Assume $Y(\theta, \phi) = \Theta(\theta)\Phi(\phi)$.
+
+\item Subbing those in for $Y$, we churn to get 
+$\frac{L^2(Y(\theta, \phi))}{Y(\theta, \phi)} 
+= \frac{1}{\sin^2(\phi)} \{  \frac{\sin(\phi)}{\Phi(\phi)}  \frac{d}{d\phi}(\sin(\phi) \frac{d\Phi}{d \phi})  + \frac{1}{\Theta(\theta)} (\frac{d^2\Theta}{d\theta^2}) \} = -l(l+1)$
 \end{itemize}
+
+To find the dependence on $\theta:$
+\begin{itemize}
+\item Since the $\theta$ part and the $\phi$ part aren't mixed, there's a $\phi$-expression that equals const $-l(l+1)$ which also equals $\theta$-expression $\frac{\Theta''(\theta)}{\Theta(\theta)}$
+\item If that const $-l(l+1)$ is renamed $\kappa$, then the solution (using basic $e^r$ substitution)
+ 	is $\Theta = a_+e^{\sqrt{\kappa}\theta} +  a_-e^{-\sqrt{\kappa}\theta}$
+\item However, the $\theta$ (longitude) really shouldn't matter to the probability distribution of the electron, so with the constraint $\Theta(\theta + 2\pi) = \Theta(\theta)$, this means that $\sqrt{\kappa}\theta = im\theta, m \in \mathbb{Z} \Rightarrow \kappa = -m^2$.
+\item So $\Theta = a_+e^{im\theta} +  a_-e^{-im\theta}$
+\end{itemize}
+
+To find the dependence on $\phi:$
+
+
+\begin{itemize}
+\item We know from the last serction that $\frac{L^2(Y(\theta, \phi))}{Y(\theta, \phi)} 
+= \frac{1}{\sin^2(\phi)} \{  \frac{\sin(\phi)}{\Phi(\phi)}  \frac{d}{d\phi}(\sin(\phi) \frac{d\Phi}{d \phi})  + \frac{1}{\Theta(\theta)} (\frac{d^2\Theta}{d\theta^2}) \} 
+= \frac{1}{\sin^2(\phi)} \{  \frac{\sin(\phi)}{\Phi(\phi)}  \frac{d}{d\phi}(\sin(\phi) \frac{d\Phi}{d \phi})  -m^2 \}  $
+\item To simplify the term $\sin(\phi)\frac{d\Phi}{d\phi}$, method (after trial and error) is to substitute $x=\cos(\phi) \Rightarrow dx = -\sin(\phi)d\phi$
+\item $\sqrt{1-x^2}\frac{d\Phi}{dx}\frac{dx}{d\phi} = -\sqrt{1-x^2}\sqrt{1-x^2}\frac{d\Phi}{dx} = [x^2-1]\frac{d\Phi}{dx}$
+\item This leaves us $\frac{1}{\sin^2(\phi)} \{ 
+\frac{\sin(\phi)}{\Phi(\phi)}
+\frac{d}{d\phi} ([x^2-1] \frac{d\Phi}{dx}) - m^2\} = -l(l+1)$,which we can chain rule again to $([1-x^2]\Phi')' - \frac{m^2}{1-x^2}\Phi = -l(l+1)\Phi$
+\item To simplify, take $m=0$ for now (we'll come back to it later).  $\frac{d}{dx}([1-x^2]\frac{d\Phi}{dx}) = -l(l+1)\Phi$ can be solved with a series as $\Phi'' - x^2\Phi'' - 2x\Phi' + l(l+1)\Phi = 0$ starting with $\Phi(x) = \sum_{n=0}^{\infty}a_nx^n$ as usual.
+\item Sorting terms into each $x^n$, we see that $\frac{a_{n+2}}{a_n} = \frac{n(n+1)-l(l+1)}{(n+1)(n+2)}$
+\item \emph{The big a-ha}: Setting our constant to $l(l+1)$ earlier means that for the right choice of $l$, the recurrence above terminates, and $\Phi$ is therefore a finite polynomial.
+\item (Note that, separating the ever increasing $n$ part of the numerator from the $l$ part, the dominant part of this is bascially a harmonic series so it doesn't converge anywhere)
+\item The $l(l+1)$ will equal $n(n+1)$ for one $n$, and it will eliminate the rest of either the even chain of $a_n$ or the odd one.  Therefore, only one can be eliminated, and to make the recursion terminate, either $a_0 = 0$ or $a_1 = 0$.
+\item Working it out, 
+\begin{itemize}
+\item $a_1 = 0, l=0 \Rightarrow \Phi(x) = a_0$
+\item $a_0=0, l=1 \Rightarrow \Phi(x) = a_1x$
+\item $ a_1=0, l=2 \Rightarrow \Phi(x) = a_0[1-3x^2]$
+\item So I suppose the $\Phi$ depends on these $l$ and are different for each.
+\item This continued sequence $P_l(x)$ stemming from $m=0$ are called Legendre Polynomials. 
+\item For some reason, $P_l(x) \propto \frac{d^l}{dx^l}(x^2-1)^l$
+\item If $m \ne 0$, then we have the associated Legendre function $P_l^m(x) = (1-x^2)^{\frac{m}{2}}\frac{d^m}{dx^m}P_l(x)$ satisfying the earlier equatoion, so $\frac{d}{dx}([1-x^2]\frac{dP_l^m}{dx}) - \frac{m^2}{1-x^2}P_l^m = -l(l+1)P_l^m$
+\end{itemize}
+\end{itemize}
+
+Now that we have $R_{l,n}(\rho), \Phi_{l,m}(\phi), \Theta_m(\theta)$, we can put them together  to get $\Psi_{l,m,n} = R_{l,n}(\rho)\Phi_{l,m}(\phi)  \Theta_m(\theta)= R_{l,n}(\rho) P_l^m(cos(\phi)). [A_+e^{im\theta} + A_-e^{-im\theta}]$.  Let's solve it for $n=3, m=0, l=2$
+\begin{itemize}
+\item With $m=0$, the $[A_+e^{im\theta} + A_-e^{-im\theta}]$ becomes constant.
+\item With $l=2$, the $\phi$ piece becomes $P_2 = [1-3x^2] = [1-3\cos^2(\phi)]$
+\item With $l=2, n=3$, the $R(\rho)$-associatd recursion $a_{k+1} = \frac{2(1+k+l)-2n}{(k+1)(k+2(l+1))}a_k, k \geq 0$ becomes just $a_0$, so $R_{n=3,l=2}(\rho) = (\sum_{n=0}^{\infty}a_k\rho^k) \rho^2e^{-\rho} = a_0\rho^2e^{-\rho} \propto \rho^2e^{-\rho} $
+\end{itemize}
+
+So our final density, up to a constant of proportionality (that makes the whole space equal to 1) is $|\Psi_{n,m=0,l=2}|^2 \propto \rho^4e^{-2\rho}[3\cos^2(\phi)- 1]^2$
+\begin{itemize}
+\item This has four  variables, so we can only visualize slices of it, say of ``constant probability'' $c^2$, like $c^2 = \rho^4e^{-2\rho}[3\cos^2(\phi)- 1]^2$
+\item A slice of such constant probability would be described by now-depedent variables $\rho, \theta, \phi$, in spherical coordinates as $(\rho\cos(\theta)\sin(\phi), \rho\sin(\theta)\sin(\phi), \rho\cos(\phi))$ 
+\item Solving for $\cos(\phi)$ in $c^2 = \rho^4e^{-2\rho}[3\cos^2(\phi)- 1]^2$, we churn and find 
+$\frac{\frac{\pm|c|e^{\rho}}{\rho^2} + 1}
+{3} = \cos^2(\theta)$
+\item Therefore, $\sin^2(\theta) = 1-\cos^2(\theta) = \frac{\frac{2\mp|c|e^{\rho}}{\rho^2} }{3}$
+\item The slice $P = 
+(
+\pm \rho \cos(\theta)  \sqrt{  \frac{\frac{2\mp|c|e^{\rho}}{\rho^2} }{3}},
+\pm \rho \sin(\theta)   \sqrt{\frac{\frac{2\mp|c|e^{\rho}}{\rho^2} }{3}},
+\pm \rho\sqrt{ \frac{\frac{\pm|c|e^{\rho}}{\rho^2} + 1}{3})}$
+\item Rotating $\theta \in [0, 2\pi]$ produces the orbital.
+\item There are apparently four surfaces depending on the combo of $\pm$s we choose (I suppose $+, +, +$ would be the same as $-, -, -$ since $\theta$ will change the signs symmetrically)
+\item The d-electron orbital is built this way (top ball, top half-donut, bottom of the half-donut, bottom ball)
+\item So this visualization is just for a constant probability , and I guess we can't really know what it looks like in 3D truly (maybe a cloud with colors of density?)
+\end{itemize}
+
+
 
 \end{document}
 
