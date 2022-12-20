@@ -2125,7 +2125,7 @@ Main idea: Equation (example: Vibrating drumhead) is $t^2y''(t) + ty'(t) + (t^2 
 \item Substitute those generic $y$ expressions into your equation and create one big series.
 \item Rewrite each $a_n$ term to not contain $t$, possibly as a recurrence.
 \item Consider $t=0$ and see what terms are arbitrary and what are zero. Then Look at the rewritten $a_n$ terms, set them to zero and solve them to get two roots $r_1, r_2$.
-\item Set $r=r_1$ and solve the whole thing for one solution, and same for $r=r_2$.  if they're the same, look to \textbf{Airy's equation} to find a linearly independent partner.
+\item Set $r=r_1$ and solve the whole thing for one solution, and same for $r=r_2$.  if they're the same, look to \textbf{Abel's equation} to find a linearly independent partner.
 \item Write the general solution, usually a linearly independent combo of the instance solutions.
 \end{itemize}
 \end{itemize}
@@ -2167,9 +2167,9 @@ There's an exception here for a closed-form Bessel function.
 \item With the front term $t^{\frac{1}{2}}$, then $J_{\frac{1}{2}}(t) =  \frac{\sin(t)}{\sqrt{t}}$
 \end{itemize}
 
-Final case: If $\nu = 0$, we need the OTHER solution beyond case 1's series solution.  We'll use the Wronksian (with our known solution) with Airy's equation (for our $p_1$ in our initial diff eq):
+Final case: If $\nu = 0$, we need the OTHER solution beyond case 1's series solution.  We'll use the Wronksian (with our known solution) with Abel's equation (for our $p_1$ in our initial diff eq):
 \begin{itemize}
-\item The determinant can be found with Airy's equation: $W(t) = c \exp \{-\int p_1(t) dt\}$ for $t^2y''(t) + ty'(t) + t^2y(t) = 0$
+\item The determinant can be found with Abel's equation: $W(t) = c \exp \{-\int p_1(t) dt\}$ for $t^2y''(t) + ty'(t) + t^2y(t) = 0$
 \item This becomes $y''(t) + \frac{1}{t}y'(t) + y(t) = 0$, so $c \exp (-\int \frac{1}{t}) = c e^{-\ln(t)} = ct^{-1}$.  Choose $c=1$ to get $W(t) = \frac{1}{t}$
 \item Now let's find $N_0$, our unknown solution of the $\nu = 0$ equation. $\det \begin{pmatrix} J_0 & N_0 \\  J_0' & N_0' \\   \end{pmatrix} = J_0N_0' - N_0J_0' = \frac{1}{t}$.
 \item Rewrite as $N_0' - \frac{J_0'}{J_0}N_0 = \frac{1}{tJ_0}$.
@@ -2240,6 +2240,50 @@ The upshot of this is that we want to find our probability of the oscillator wit
 \item With identity $\int_{x=-\infty}^{x=\infty} e^{-ax^2} = \sqrt{\frac{\pi}{a}}$  in hand, we see that $a_0 = \pi^{-\frac{1}{4}}$
 \item We also have the \textbf{complementary error function} $erfc(x) = \frac{2}{\sqrt{\pi}} \int_{t=x}^{t=\infty} e^{-t^2}dt$ available to us.  This basically says ``if $\mu = 0, \sigma = \frac{1}{\sqrt{2}}$, our Gaussian function roughly looks like $e^{-x^2}$, so what's the normal area outside of $[-x, x]$''?
 \item Since we're looking to see if $|x| > 1$, plugging in $erfc(1)$ to a numerical solver gives $p = .157299$
+\end{itemize}
+
+\subsection{Hydrogen Atom I}
+
+Main ideas:
+
+$|\Phi(\rho, \theta, \omega)|^2$ measures the likelihood of finding an electron a certainn point away from the center of an atom, in spherical coordinates.  The potential energy between the electron and the proton goes down inversely with distance $\rho$ but doesn't depend on the angles.  Putting this into Schroeding'ers equation in Spherical coordinates, collapsing physical constants into $\rho_0$:
+
+
+\begin{itemize}
+\item $\nabla^2 \Phi + \frac{\rho_0}{\rho} \Phi = \frac{1}{\rho^2}\frac{\delta}{\delta \rho}(\rho^2 \frac{\delta \Phi}{\delta \rho}) + \frac{1}{\rho^2 \sin(\phi)}\frac{\delta}{\delta \phi}(\sin(\phi)\frac{\delta \Phi}{\delta \phi}) + \frac{1}{\rho^2\sin^2(\phi)}(\frac{\delta^2\Phi}{\delta \theta^2}) + \frac{\rho_0}{\rho}\Phi = \Phi$
+\item The trick is to separate into a part depending only on angles by creating an operator $L^2$: $\theta, \phi$: $L^2(\Phi) =  \frac{1}{ \sin(\phi)}\frac{\delta}{\delta \phi}(\sin(\phi)\frac{\delta \Phi}{\delta \phi}) + \frac{1}{\sin^2(\phi)}(\frac{\delta^2\Phi}{\delta \theta^2}) $
+\item So that $\frac{1}{\rho^2}\frac{\delta}{\delta \rho}(\rho^2 \frac{\delta \Phi}{\delta \rho}) + \frac{1}{\rho^2}L^2(\Phi) + \frac{\rho_0}{\rho}\Phi = \Phi$
+\item The main trick to solving: splitting $\Phi = R(\rho)Y(\theta, \phi)$
+\item Then, after cranking through, we get our first diff eq: $\rho^2R''(\rho) + 2\rho R'(\rho) + [(const.) + (\rho_0 - \rho)\rho]R(\rho) = 0$
+\item One weird note: This const, the ratio $\frac{L^2(Y(\theta, \phi))}{Y(\theta,\ phi)}$ is written as $-l(l+1)$ for ease of solving later.  But instead, we'll look at $\rho^2R''(\rho) + 2\rho R'(\rho) + [-l(l+1) + (\rho_0 - \rho)\rho]R(\rho) = 0$
+\end{itemize}
+
+Solving this equation:
+\begin{itemize}
+\item Note that as $\rho \rightarrow \infty$, then $\rho^2$ dominates, so this becomes $\rho^2R''(p) = \rho^2R(r)$.  The solutions are $R(\rho) = e^{\rho}$ or $R(\rho) = e^{-\rho}$.  Only the latter dies off as $\rho \rightarrow \infty$, which makes sense, since the probability $\Phi$ would decrease the further out one gets
+\item $\rho^2R''(\rho) + 2\rho R'(\rho) + [-l(l+1) + (\rho_0 - \rho)\rho]R(\rho) = 0$ can be rewritten with $R(\rho) = \rho^{\alpha}u(\rho)$ for some $\alpha$ of our choosing.  Substituting and churning, we find the coefficient of $u(\rho)$ to be $[\alpha(\alpha +1)-l(l+1)]\rho^{\alpha}  + (\rho_0 - \rho)\rho^{\alpha +1}$.  
+\item Choosing $\alpha = l$ reduces the whole equation to $\rho u''(\rho) + 2(l+1)u'(\rho) + (\rho_0 - \rho)u(\rho) = 0$
+\item Then, ``peel off the long term behavior'' $e^{-\rho}$ to state that $R(\rho) = z(\rho)e^{-\rho}\rho^l$, for some series $z(\rho)$, with long term behavior $e^{-\rho}$ and proposed simplifying factor $\rho^l$.
+\item Writing out $z(\rho) = \sum_{n=0}^{\infty}a_n\rho^n$ and plugging into $\rho u''(\rho) + 2(l+1)u'(\rho) + (\rho_0 - \rho)u(\rho) = 0$ yields a ratio $\frac{a_{n+1}}{a_n} = \frac{2(1+n+l) - \rho_0}{(n+1)(n+2(l+1))}$
+\item Note that if $\rho_0 = l = 0$, this is just $a_n = \frac{2^n}{(n+1)!}a_0$ after writing out terms, which becomes $\frac{e^{-2\rho} - 1}{2\rho}$, which diverges as $\rho \rightarrow \infty$
+\item However, if we can find some $p_0 = 2[1+N+l], N \in \mathbb{N}$, then we'll have a zero term at some $a_n$ and all $a_{n+2}$ after it will be zero as well.
+\end{itemize}
+
+Physically, there are a ton of physical constants wrapped up in $\rho_0$, so that $\rho_0^2 = -\frac{2m}{h^2}(\frac{q^2}{4\pi \epsilon_0})^2\frac{1}{E}$.  This, for each electron level $n \in \{1, 2 ...\}$ yields $E_n = -\frac{13.6 eV}{n^2}$ for the hydrogen spectrum.  Note that historically, $p_0 = 2(1+N+l) = 2n$, with the $n$ by convention.  For level $l$, we can have angular momentum $l$ as an integer $l \in [0, n-1]$
+
+\begin{itemize}
+\item Each temr is $a_{n+1} = \frac{2(1=n+l) -\rho_0}{(n+1)(n+2(l+1))}, n\geq 0$
+\item We solve for the $n, l$ integer pairs, where, $l < n$.  If $n=1, l=0$, there's only one term before the zero, so $R_{n=1, l=0}(\rho) = a_0\rho^0e^{-\rho}$.
+\item For $n=2, l=0, a_1 \Rightarrow p_0 = 4$, $a_0$ the constants of $z(\rho)$, $a_2= \frac{2(1+0+0)-4}{(1)(2)} \Rightarrow z(\rho) = a_0[1-\rho] \Rightarrow R_{n=2, l=0}(\rho) = a_0[1-\rho]e^{-\rho}\rho^0$
+\item Similar subbing yields $n=2, l=1 \Rightarrow z(\rho) = a_0 \Rightarrow R_{n=2, l=1}(\rho) = a_0\rho^1e^{-\rho}$
+\end{itemize}
+
+The upshot here is that, for $n=1, l=0$ the probabily density for where the electron is, $|\Phi(\vec{x})|^2$, is highest near $\rho = 0$.  However, it's certainly more likely to be NOT at the middle than at the middle:
+
+\begin{itemize}
+\item $R_{n=1, l=0} = a_0e^{-\rho}$  
+\item $|\Phi_{n=1, l=0}(\vec{x})|^2 = A e^{-2\rho}$, with $A$ a constant fixed by the condition that $\iiint_{\mathbb{R}^3}\Phi(\vec{x}) d\vec{x} = 1$
+\item If we switch this to spherical coordinates with Jacobian $\rho^2\sin(\phi)$, we end up with  $\iiint_{\mathbb{R}^3}\Phi(\vec{x}) d\vec{x} =  4\pi A\int_{\rho = r-\frac{\epsilon}{2}}^{\rho = r+\frac{\epsilon}{2}}$ for any given spherical slice of size $\epsilon$, so the probabilty of an electron at $r$ units away from origin is $4\pi Ae^{-2r}r^2$, which is maxized at critical points $r=0$ (local max) and $r=1$ (global max)
 \end{itemize}
 
 \begin{itemize}
