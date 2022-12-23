@@ -30,7 +30,7 @@
 Note: Latex reference: http://tug.ctan.org/info/undergradmath/undergradmath.pdf
 
 \section{Chapter 1: Basics}
-\subsection{Chapter 1: Nonlinear Equations}
+\subsection{Nonlinear Equations}
 
 
 
@@ -99,7 +99,7 @@ Note that there are systems where the ``solution particle'' neither reaches an e
 \item $z'(t) = xy-bz$
 \end{itemize}
 
-\subsection{Chapter 1.2: PDEs}
+\subsection{PDEs}
 
 Many methods of attack for PDEs
 
@@ -153,7 +153,7 @@ The Fourier transform changes the domain of $x$ to that of $\omega$.  It comes w
 
 
 \section{Chapter 2: Nonlinear Equations}
-\subsection{2.1: Lotka-Volterra I}
+\subsection{Lotka-Volterra I}
 
 
 Major ideas:
@@ -198,7 +198,7 @@ There are a few types of equilibria:
 
 \end{itemize}
 
-\subsection{2.2: Lotka-Volterra II}
+\subsection{Lotka-Volterra II}
 
 In the Bacteria-Phage system, we can't yet prove everything rotates around the \textbf{center}.  Let's do that.
 
@@ -231,7 +231,7 @@ Developing a \textbf{conserved quantity} will help to do that.
 \end{itemize}
 
 
-\subsection{2.3: Linearization}
+\subsection{Linearization}
 
 \textbf{Extended Example}: Suppose there's a limit to bacterial growth $M_b$, so we cap our population at $M_b$.
 \begin{itemize}
@@ -294,8 +294,6 @@ The original, uncapped bacteria system from before linearizes like $\frac{d}{dt}
 \item Then the eigenvalues are $\lambda = 1, -\alpha$ so the solution is $Ae^t$,  $Be^{-\alpha t}$ for $x(t), y(t)$ \textbf{Hartman-Grobman ensures this is the general solution}.
  \end{itemize}
 
-TODO: Start again here, 12/22.
-
 However, let's solve directly and see if we come to the same result. 
 \begin{itemize}
 \item $y'(t) = -\alpha y(t), y(0) = y_0 \Rightarrow y(t) = y_0 e^{-\alpha t}$
@@ -313,7 +311,7 @@ But how do we deform the phase plane so this looks linear?  (TODO 12/22/22 - why
 \item So near the equilibrium $(0,0)$, the equations  $y'(t) = -\alpha y(t), y(0) = y_0 \Rightarrow y(t) = y_0 e^{-\alpha t}$ linearized for $\delta x, \delta y$ must be similar to those for $u(x(t), y(t)), v(x(t), y(t))$
 \item This means we need $\frac{du}{dt} = u, \frac{dv}{dt} = -\alpha v$
 \item After doing the substitution, we see that $v = v_0e^{-\alpha t}$ exactly mimics $y(t) = y_0 e^{-\alpha t}$ for the phage solution.  So we take $v = y$.
-\item Therefore, we know that since $u = u_0e^t$ and $x(ty) = x_0 \exp(t + \frac{y_0}{\alpha}(e^{-\alpha t} - 1))$, that we need $u(x(t), y(t)) = u(x_0, y_0)e^t$
+\item Therefore, we know that since $u = u_0e^t$ and $x(t) = x_0 \exp(t + \frac{y_0}{\alpha}(e^{-\alpha t} - 1))$, that we need $u(x(t), y(t)) = u(x_0, y_0)e^t$
 \item And this is satisfied if we guess $u(x,y) = xe^{-\frac{y}{\alpha}}$ and work it out.
 \item TODO: So have we found our answers $u = u_0e^t, v=v_0e^{-\alpha t}$, as the linearization predicted?  (12/22/22)
 \item This function $\vec{h}(x,y) = (u, v) = \langle xe^{-\frac{y}{\alpha}}, y \rangle $ is invertible by $(x,y) = \langle ue^{\frac{v}{\alpha}} , v \rangle$, which is continuous.
@@ -328,10 +326,10 @@ Lasers create excited atoms, which then emit photos while transitioning to an un
 \begin{itemize}
 \item $n(t)$: number of photons in the laser; $r_g$: rate of photons gained (created by excited atoms transitioning to unexcited state); $r_l$: rate of photons lost (emitted)
 \item $\Rightarrow \frac{dn}{dt} = r_g - r_l$ by definition.
-\item We can assume we're losing a constant $k$ (kill?) portion of photons per unit time, so $ \frac{dn}{dt} = r_g - kn(t)$
+\item We can assume we're losing a constant $k$ (kill?) portion of photons per unit time, so $ \frac{dn}{dt} = r_g - kn(t)$, so $r_l$ is replaced by $kn(t)$.
 \item $e(t)$: number of excited atoms (that will maybe create photons).  Atoms are excited by external energy pump.
-\item Excited atoms radiate when meeting a photon (which survives the meeting)
-\item So we can use the same setup from the bacteria: with $I$ the constant of meeting (intersect?), $r_g = Ie(t)n(t) \Rightarrow n'(t) = Ie(t)n(t) - kn(t)$
+\item Excited atoms radiate (a new photon?) when meeting a photon (which survives the meeting)
+\item So we can use the same setup from the bacteria: with $I$ the constant of meeting (intersect?), $r_g = Ie(t)n(t) \Rightarrow n'(t) = Ie(t)n(t) - kn(t)$.  So $Ie(t)n(t)$ replaces $r_g$.
 \end{itemize}
 
 \textbf{Mini example: Assume no photons leave} (cap the end of the laser)
@@ -343,17 +341,17 @@ Lasers create excited atoms, which then emit photos while transitioning to an un
 \item $e+n$ is a conserved quantity,
 \item $e(t) + n(t) = e(0) + n(0),$
 \item $[e(t) + n(t)]' = 0$
-\item Then, if$ k=0,  n'(t) = Ie(t)n(t) - kn(t)$, and coupled with $e'(t) + n'(t) = 0$ above, we have $e'(t) = -Ie(t)n(t)$
+\item Then, if $k=0,  n'(t) = Ie(t)n(t) - kn(t)$, and coupled with $e'(t) + n'(t) = 0$ above, we have $e'(t) = -Ie(t)n(t)$
 \end{itemize}
 \end{itemize}
 
 \textbf{Extended example: Atoms spontaneously lose energy}.  This is actually what happens
 \begin{itemize}
-\item From quantum physics, we have a rate $s$ of atoms just (s)pontaneously losing energty.
+\item From quantum physics, we have a rate $s$ of atoms just (s)pontaneously losing energy.
 \item We also have an energy (p)ump that energizes atoms with quantity $p$.
 \item Then, our change in (e)xcited atoms is $e'(t) = p -s - Ie(n)(t)$
 \item So our \textbf{final laser equations} are $e'(t) = p -s - Ie(n)(t), n'(t) = Ie(t)n(t)-kn(t)$ 
-\item If we want to find the smallest $p$ guaranteeing $n \geq 1$ (there's at least one photo) at equilibrium ($e'(t) = n'(t) = 0$):
+\item If we want to find the smallest $p$ guaranteeing $n \geq 1$ (there's at least one photon) at equilibrium ($e'(t) = n'(t) = 0$):
 \begin{itemize}
 \item $n'(t) = 0 \Rightarrow Ien = kn \Rightarrow n(Ie-k) = 0$.  If $n \neq 0, \Rightarrow e = \frac{k}{I}$
 \item $e'(t) = 0 \Rightarrow Ien = p - se$
@@ -385,7 +383,7 @@ Lasers create excited atoms, which then emit photos while transitioning to an un
 \textbf{Look at the solutions}:
 \begin{itemize}
 \item It appears we have a counterclockwise swirl around $(1,1)$, and nearby solutions tend toward this equilibrium.
-\item Hartman-Grobman: rewrite our linearized solution in neighborhood of $(1,1)$ as $x(t) = 1 + \delta x(t), y(t) = 1 + \delta y(t)$
+\item Hartman-Grobman method: rewrite our linearized solution in neighborhood of $(1,1)$ as $x(t) = 1 + \delta x(t), y(t) = 1 + \delta y(t)$
 \item Using $x' = xy-x, y'=c[1-xy]+d[1-y]$ and $\frac{d}{dt}\begin{pmatrix} \delta x(t) \\ \delta y(t) \end{pmatrix} = A\begin{pmatrix} \delta x(t) \\ \delta y(t) \end{pmatrix}$, we can solve and write $A = \begin{pmatrix} 0 & 1 \\ -c & -c-d  \end{pmatrix} $
 \item Eigenvalues: $\lambda = \frac{1}{2}(-c -d \pm \sqrt{(c+d)^2 - 4c})$
 \begin{itemize}
@@ -406,7 +404,7 @@ We had some intuition that ``nearby'' solutions would fall into an equilibrium, 
 
 \begin{itemize}
 \item Suppose we turn the pump off ($p = 0$), and set spontaneous enervation equal to photon leak $s = k$.
-\item (TODO?) Somehow we can rescale to $\frac{dx}{dt} = Ie(t)n(t) - kn(t), \frac{dy}{dt} = -Ie(t)n(t) - kn(t)$ which (TODO??) gives us $\frac{dx}{dt} = xy-x, \frac{dy}{dt} = xy-y$
+\item  Somehow we can rescale to $\frac{dx}{dt} = Ie(t)n(t) - kn(t), \frac{dy}{dt} = -Ie(t)n(t) - kn(t)$ which  gives us $\frac{dx}{dt} = xy-x, \frac{dy}{dt} = xy-y$
 \item This means equilibria ($x' = y' = 0$) exist at $(0,0), (1,1)$
 \item If we're turning the pump off, we're looking at equilibrium (0,0).  Linearizing, we get $x' = -\delta x, y'=-\delta y$, so a matrix of $\begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}$
 \item With repeated non-imaginary (H-G applies!) eigenvalues $-1, -1$, we can see that both $e^{-t}, te^{-t}$ decay, and we get sucked into the origin.
@@ -417,7 +415,7 @@ But how do we prove this?  Let's find a conserved quantity $U'(x(t), y(t)) =  0$
 \item $U'(x(t), y(t)) =  \frac{\delta U}{\delta x}\frac{\delta x}{\delta t}  + \frac{\delta U}{\delta y}\frac{\delta y}{\delta t} = \frac{\delta U}{\delta x}x(y-1) + \frac{\delta U}{\delta y}y(x-1)$
 \item Setting $\frac{\delta U}{\delta x}x = -x+1, \frac{\delta U}{\delta y}y = y-1$ makes this zero
 \item Solving those two by separating variables and combining, we get $U = -x+y+\ln(|\frac{x}{y}|)$
-\item So if we're stabiling $f = (x-y)$ (why?), we see $(x-y)' = x'-y' = (xy-x) - (xy-y) = x-y = f \Rightarrow f = e^{-t}$
+\item So if we're stabilizing $f = (x-y)$ (why?), we see $(x-y)' = x'-y' = (xy-x) - (xy-y) = x-y = f \Rightarrow f = e^{-t}$
 \item With $x(0) = x_0, y(0) = y_0 \Rightarrow f(0) = x_0 - y_0, f = x(t) - y(t) =  (x_0 - y_0)e^{-t}$
 \item How to express $y(t)$ while eliminating $x(t)$, knowing $x(y) - y(t) = (x_0 - y_0)e^{-t}$ and $U(x,y) = y-x + \ln(|\frac{x}{y}|)$ is conserved?  \textbf{The trick: $U(x_0, y_0) = U(x,y)$} since \emph{it doesn't change}!
 \begin{itemize}
@@ -429,7 +427,7 @@ But how do we prove this?  Let's find a conserved quantity $U'(x(t), y(t)) =  0$
 \item Combine with above to get $x = \frac{x_0(x_0-y_0)e^{-t}f(t)}{x_0f(t) - y_0}$
 \end{itemize}
 \item So with equilibria $(0,0), (1,1)$, the direction field computer plot shows us attracted to $(0,0)$ (no laser action) pretty much anywhere left and down from $(1,1)$ in the $x,y$ phase plane.
-\item Apparently the linearized solutions near $0,0$ are $x_{lin} = x_0e^{-t}, y_{lin} = y_0e^{-t}$ (WHY?)
+\item Apparently the linearized solutions near $0,0$ are $x_{lin} = x_0e^{-t}, y_{lin} = y_0e^{-t}$ 
 \item Looking above, if $(x_0 - y_0) \approx 0$, then $f(t) \approx 1$, and $x, y \rightarrow x_{lin}, y_{lin}$
 \end{itemize}
 
@@ -469,23 +467,23 @@ Finally, we want to construct a function that
 \begin{itemize}
 \item Doesn't increase (derivative negative) on any pairs $x, y > 0$ (pulls down)
 \item Is near equal to  $u = \frac{c}{2}(x-1)^2 + \frac{1}{2}(y-1)^2$ near $(1,1)$. (the energy function for block-spring above)
-\item With $x' -= xy-x, y'=c-cxy + d-dy$, plus the identity near $z \approx 1$ of $\ln(z) \approx (z-1)-\frac{1}{2}(z-1)^2$...
+\item With $x' = xy-x, y'=c-cxy + d-dy$, plus the identity near $z \approx 1$ of $\ln(z) \approx (z-1)-\frac{1}{2}(z-1)^2$...
 \item You can find $U(x,y) = c(x-1)+(y-1) -c\ln(x)-\ln(y)$ that satisfies all of these
 \item It therefore shows that pumped laser solutions tend to equilibrium $(1,1)$ in the long term.
 \end{itemize}
 
-TODO: So this is enough to establish a convergence to an equilibrium?
+The Liupanov method: So this is enough to establish a convergence to an equilibrium?
 \begin{itemize}
 \item Find an equilibrium $(x_0, y_0)$
 \item Find an energy function $u$ that decreases for all pairs ($\delta x(t) \delta y(t))$ near the minimum.
 \item Find a Liapunov function $U$ function that decreases EVERYWHERE along $x(t), y(t)$ (in our domain, like $x,y > 0$)
 \item Ensure that $U = u$ in the neighborhood of the equilibrium.
-\item Then Liapunov's theorem somehow makes this work (TODO)?
+\item Then Liapunov's theorem somehow makes this work (energy decreases, meaning it circles the bottom of the bowl at equilibrium!)
 \end{itemize}
 
 \end{itemize}
 
-\subsection{2.7: Dog chasing a duck (Limit Cycles)}
+\subsection{Dog chasing a duck (Limit Cycles)}
 
 This is a pair of nonlinear equations to determine if a dog in the pond's interior catches a duck who skates along the border.
 \begin{itemize}
@@ -498,7 +496,7 @@ This is a pair of nonlinear equations to determine if a dog in the pond's interi
 \item $\phi$: Angle between $\vec{r_H}$ and $\vec{l}$.  
 \item Duck always swims at  speed $r_p\theta'(t)$, and dog swims at $k > 0$ times this, or $kr_p\theta'(t)$.
 \end{itemize}
-\item Therefore $\vec{r_H} = \langle r_p \cos(\theta), r_p \sin(\theta) \rangle$. It's just the polar coordinates.
+\item Therefore $\vec{r_H} = \langle r_p \cos(\theta), r_p \sin(\theta) \rangle$. It's just the polar coordinates version.
 \item Doing some geometry gets you $\vec{l} = R \langle \cos(\theta + \phi, \sin(\theta + \phi) \rangle$
 \item We can establish $\vec{T} = \vec{r_H} - \vec{l}$ and dog's speed squared $\|T'(t)\|^2 =( \vec{r_H}' - \vec{l}')\cdot ( \vec{r_H}' - \vec{l}') = \|\vec{r_H}'\|^2 + \|\vec{l}'\|^2 - 2\vec{r_H}'\vec{l}'$
 \item Naturally, this  $\|T'\|^2$ is also equal to the constant $(kr_p\theta')^2$.  Our diff equations will fall out of these.
@@ -517,7 +515,7 @@ We propose that there are some solutions here for the \textbf{pursuit equations}
 \item If $k < 1$, then solving $ \frac{d\rho}{d\theta} = 0 = -k + \sin(\phi) \Rightarrow \sin(\phi) = k \Rightarrow \phi = \sin^{-1}(k)$ and $\rho = \cos(\phi) = \cos(\sin^{-1}(k)) = \sqrt{1-k^2}$
 \begin{itemize}
 \item Quick proof of $ \cos(\sin^{-1}(k)) = \sqrt{1-k^2}$:
-\item  $\cos^2(\sin^{-1}(k)) +  \sin^2(\sin^{-1}(k)) = 1 \Rightarrow  \cos(\sin^{-1}(k)) = 1 -  \sin^2(\sin^{-1}(k))$
+\item  $\cos^2(\sin^{-1}(k)) +  \sin^2(\sin^{-1}(k)) = 1 \Rightarrow  \cos^2(\sin^{-1}(k)) = 1 -  \sin^2(\sin^{-1}(k))$
 \item $= 1-k^2 \Rightarrow  \cos(\sin^{-1}(k)) = \sqrt{1-k^2}$
 \end{itemize}
 
@@ -538,7 +536,7 @@ We propose that there are some solutions here for the \textbf{pursuit equations}
 
 \subsection{Poincare-Bendixson Theorem}
 
-Limit cycles in the real world: a chemical reaction in perpetual osciallation!
+Limit cycles in the real world: a chemical reaction in perpetual oscillation!
 
 Key concept - \textbf{trapping region}: a region in phase plane on some region $D$, with differential solutions touching every point, where the direction field sees every boundary arrow point IN.  This means:
 \begin{itemize}
@@ -574,8 +572,8 @@ Linearizing the solution around $(a, 1+a^2)$
 \item $x = a + \delta x, y = 1 + a^2 + \delta y \Rightarrow \frac{dx}{dt} = \frac{d[\delta x]}{dt}, \frac{dy}{dt} = \frac{d[\delta y]}{dt}$
 \item Call $f =  \frac{d[\delta x]}{dt} = 5a - x - \frac{4xy}{1+x^2}$, 
 \item Approximate $f(x + \delta x, y + \delta y) \approx f(x,y) + \frac{\delta f}{\delta x}\delta x +  \frac{\delta f}{\delta y}\delta y$
-\item $f(x,y)(a, 1+a^2)= 5a - x - \frac{4xy}{1+x^2}(a, 1+a^2) = 5a - a - 4(a\frac{1+a^2}{1+a^2}) = 0$
-\item $\frac{\delta f}{\delta x}\delta x (a, 1+a^2) = (-1 - \frac{(1+x^2)(4y-2x4xy}{(1+x^2)^2})\delta x (a, 1+a^2)) =(-1 - 4 - \frac{8a^2}{1+a^2})\delta x  = \frac{-5 + 3a^2}{1+a^2}\delta x $
+\item $f(x,y)(a, 1+a^2)= (5a - x - \frac{4xy}{1+x^2})(a, 1+a^2) = 5a - a - 4(a\frac{1+a^2}{1+a^2}) = 0$
+\item $\frac{\delta f}{\delta x}\delta x (a, 1+a^2) = (-1 - \frac{(1+x^2)(4y-2x4xy}{(1+x^2)^2})\delta x (a, 1+a^2) =(-1 - 4 - \frac{8a^2}{1+a^2})\delta x  = \frac{-5 + 3a^2}{1+a^2}\delta x $
 \item $\frac{\delta f}{\delta y}\delta y (a, 1+a^2) = \frac{-4x}{1+x^2}\delta y (a, 1+a^2)) =\frac{-4a}{1+a^2}\delta y $
 \item Call $g =  \frac{d[\delta y]}{dt} = x - \frac{xy}{1+x^2}$
 \item Approximate $g(x + \delta x, y + \delta y) \approx g(x,y) + \frac{\delta g}{\delta x}\delta x +  \frac{\delta g}{\delta y}\delta y$
@@ -588,7 +586,7 @@ Linearizing the solution around $(a, 1+a^2)$
 
 We want to \textbf{build the trapping region}.   
 \begin{itemize}
-\item Remember, $\frac{dx}{dt} = 10 - x - \frac{4xy}{1+x^2}, \frac{dy}{dt} = x(1 - \frac{y}{1+x^2})$ subbing in 2 for $a$)
+\item Remember, $\frac{dx}{dt} = 10 - x - \frac{4xy}{1+x^2}, \frac{dy}{dt} = x(1 - \frac{y}{1+x^2})$ (subbing in 2 for $a$)
 \item On the left, if $x = 0$ we see $\frac{dx}{dt} = 10, \frac{dy}{dt}  = 0$.  So we're pointing right (into the first quadrant region)
 \item On the bottom, if $y = 0$, we're pointing at $\langle 10 -x , x \rangle$ (into the region).
 \item On the right, for some $x = b$, $10 - b - \frac{4b}{1+b^2}y$ will make sure we point left.
@@ -689,8 +687,8 @@ How do equilibria change as we change $\rho$?
 
 Can we create a trapping region?
 \begin{itemize}
-\item The hint: The solutions have to pass through every ellipsoid of form $R^2 = \rho x^2 + ]sigma y^2 + \sigma (z-2p)^2$
-\item What we need to prove: At every point on the boundary, the direction field points ``in'', or more specificlally, \emph{the angle between inward normal and direction field is acute}.
+\item The hint: The solutions have to pass through every ellipsoid of form $R^2 = \rho x^2 + \sigma y^2 + \sigma (z-2p)^2$
+\item What we need to prove: At every point on the boundary, the direction field points ``in'', or more specifically, \emph{the angle between inward normal and direction field is acute}.
 \item This also means that the gradient $\nabla g$ of the level set $R^2 = \rho x^2 + \sigma y^2 + \sigma (z-2r\rho)^2$ is the normal. This is $\langle 2\rho, 2\sigma, 2(z-2\rho)\rangle$
 \item So $-\nabla g \cdot \langle \frac{dx}{dt},\frac{dy}{dt},\frac{dz}{dt} \rangle > 0 \Rightarrow ... \Rightarrow 2 \rho\sigma x^2+2\sigma y^2 + 2\sigma z^2-4\rho\sigma z > 0$
 \item Use $R^2 - \rho x^2 -\sigma (z-2p)^2  =  \sigma y^2 \Rightarrow \rho\sigma x^2+2\sigma y^2 + 2\sigma z^2-4\rho\sigma z > 0$
@@ -728,7 +726,7 @@ Beginning to solve this:
 = u_{tt} - u_{xt} + u_{tx} - u_{xx} = u_{tt} - u_{xx}$
 \item This means the solution is either $u_+ = u_{t} + u_{x}$ or $u_- = u_{t} - u_{x}$.  Note - we don't solve these simultaneously, since that just gives us $u(x,t) = 0$.
 \item These can be written as, e.g. $0 = u_t + u_x = \langle 1, 1 \rangle \cdot \langle u_x, u_t  \rangle =  \langle 1, 1 \rangle \cdot \nabla u$
-\item TRICK: This is a directional derviative along $\langle 1, 1 \rangle$.  Introducing a variable like $s$ (accelerant along $\langle 1,1 \rangle $?) below does nothing interesting:
+\item TRICK: This is a directional derviative along $\langle 1, 1 \rangle$.  Introducing a variable like $s$ (time (s)hift of (1, 1)) below changes nothing, actually:
 \begin{itemize}
 \item $\frac{d}{ds}[u(x+sb, t+sc)] = \frac{\delta u}{\delta x}(x+sb,t+sc)b +  \frac{\delta u}{\delta t}(x+sb,t+sc)c = \langle b, c\rangle \cdot \nabla u(x+sb, t+sc)$
 \item So if we set $b = c =1$, we see that $\frac{d}{ds}[u(x+s, t+s)] = \langle 1, 1\rangle \cdot \nabla u(x+s, t+s)$  
@@ -739,14 +737,13 @@ Beginning to solve this:
 \item Note: We can't have one solution satisfy both conditions $u_+ = g(x), (u_+)_t = 0$, since then $g'(x) = 0$ which only works if $g$ is a constant.
 \item Also, $u_{tt} - u_{xx} = 0$ is a linear PDE, in that solutons $u_1(x,t), u_2(x,t)$ see that $\frac{\delta^2}{\delta t^2}[c_1u_1(x,t) + c_2u_2(x,t)] - \frac{\delta^2}{\delta x^2}[c_1u_1(x,t) + c_2u_2(x,t)] = 0$.  Multiply by a constant or add solutions together and it's still zero.
 \item  If we set $t=0$, we get  $u(x,t) = c_+g(x+t)+c_-g(x-t) \Rightarrow u(x,0) = c_+g(x+0) + c_-(x-0) = (c_+ + c_-)g(x) = u(x,0)$ ,so $(c_+ + c_-) = 1$
-\item Differentiating by $t$, $u_t(x,t) = c_+g'(x+t) - c_-g'(x-t)$ so $u_t(x,0) = (c_+ - c_-)g'(x) \Rightarrow (c_+ - c_-) = 0$.  So $c_+ = c_- = \frac{1}{2}$, and \textbf{our solution with initial shape $g(x)$ with $g'(x) = u_t(x, 0) = 0$} is $u = \frac{1}{2}g(x+t) - \frac{1}{2}g(x-t)$
+\item Differentiating by $t$, $u_t(x,t) = c_+g'(x+t) - c_-g'(x-t)$ so $u_t(x,0) = (c_+ - c_-)g'(x) \Rightarrow (c_+ - c_-) = 0$.  So $c_+ = c_- = \frac{1}{2}$, and \textbf{our solution with initial shape $g(x)$ with $g'(x) = u_t(x, 0) = 0$} is \fbox{$u = \frac{1}{2}g(x+t) - \frac{1}{2}g(x-t)$}
 \item \textbf{This no-initial-velocity wave function translates} into ``my displacement at time 3, say, is the average of the initial displacements 3 to my left and 3 to my right'' (as those urges meet at ``me'' 3 seconds from the start).  Conceptually, along the fixed initial curve $g(x)$, each point  sends out two sensors, one left, one right, and averages the initial values at those points to find itself at time $t$. So the top of a hill will start dipping down, becoming two hills pushing out, for example.
 \end{itemize}
 
-With inverted conditions $u(x, 0) = 0, u_t(x,0) = f(x)$, we can use the fact that $u(x,t)$ solving the wave equation implies $u_t$ solves it as well!
+With another set of initial conditions $u(x, 0) = 0, u_t(x,0) = f(x)$, we can use the fact that $u(x,t)$ solving the wave equation implies $u_t$ solves it as well! (  $\frac{\delta^2u}{\delta t^2} - \frac{\delta^2u}{\delta x^2} = 0 \Rightarrow \frac{\delta}{\delta t}[\frac{\delta^2u}{\delta t^2} - \frac{\delta^2u}{\delta x^2}] = 0 \Rightarrow  \frac{\delta^2u_t}{\delta t^2} - \frac{\delta^2u_t}{\delta x^2}  = 0$.)
 
 \begin{itemize}
-\item  $\frac{\delta^2u}{\delta t^2} - \frac{\delta^2u}{\delta x^2} = 0 \Rightarrow \frac{\delta}{\delta t}[\frac{\delta^2u}{\delta t^2} - \frac{\delta^2u}{\delta x^2}] = 0 \Rightarrow  \frac{\delta^2u_t}{\delta t^2} - \frac{\delta^2u_t}{\delta x^2}  = 0$.
 \item Therefore, $u_t(x,0) = f(x)$ admits the same solution $u_t(x,t) = \frac{1}{2} [f(x+t) - f(x-t)]$
 \item Since $u(x,t) - u(x,0)  = \int  \frac{1}{2} [f(x+t) - f(x-t)]dt$, and $u(x,0) =  0$ by assumption in this setup, 
 $u(x,t) = \int_{s=0}^{s=t} [f(x+s) - f(x-s)]ds$, which is $\frac{1}{2} \int f(s)$ from $x-t$ to $x+t$  = $\frac{1}{2}\int_{s=x-t}^{s=x+t} f(s)ds$
@@ -772,7 +769,7 @@ Looking at \textbf{boundary conditions}, or constraints on spatial edges of a PD
 \item A fixed boundary (setting $u(0, t) = 0, t \geq 0$) will cause an inverted pulse backwards.  
 \end{itemize}
 
-We set up a function $\tilde{u}(x,t) = \{ u(x,t), x \leq 0; = -u(-x, t), x \geq 0\}$ using \textbf{extension by odd reflection}.  So an inverted ghost rope exists to the right of the origin.
+\textbf{Scenario 1:  fixed boundary case}: We set up a function $\tilde{u}(x,t) = \{ u(x,t), x \leq 0; = -u(-x, t), x \geq 0\}$ using \textbf{extension by odd reflection}.  So an inverted ghost rope exists to the right of the origin.
 
 \emph{Note}: This seems to be more about cleverly encoding a boundary behavior (we will invert our wave) with this ghost rope than proving we'll have that behavior with math.
 
@@ -873,7 +870,7 @@ Combining these, $u(x,t) =  \int_{s'=0}^{t}I(x-s', t-s')ds'$, and $I(x,t) =  \in
 \item So $u(x,t) =  \int_{s'=0}^{t}  \int_{s=0}^{t}f(x+s-s', t-s-s')dsds'$
 \item Change of variables, \fbox{ $y= x+s-s', w = s' + s \Rightarrow u(x,t) = \frac{1}{2} \int_{w=0}^t \int_{y=x-w}^{y=x+w} f(y, t-w)dydw$}
 \begin{itemize}
-\item TODO: The $\frac{1}{2}$ term apparently comes from the Jacobian (TODO) $\| \frac{\delta(s', s)}{\delta (w,y)}\|$
+\item  The $\frac{1}{2}$ term apparently comes from the Jacobian  $\| \frac{\delta(s', s)}{\delta (w,y)}\|$
 \end{itemize}
 \item This together means that the \emph{points that can influence $u(x,t)$} in the $xt-$plane are a triangle with $(x,t)$ as the top, reaching down to $t=0$, slope 1.  So the ``wave speed'' in this setup is 1.
 \end{itemize}
@@ -893,7 +890,7 @@ Major setup for 3D compression waves:
 \item Setting $\hat{n} = \hat{i}$ or any other basis vector, $g(\hat{i} \cdot \vec{x} \pm) = g(x \pm t)$, which means if the other dims are zero, then $u_{tt} = u_{xx}$ (reduce to 1D case).  That checks out (necessary, not sufficient)
 \item $\frac{\delta}{\delta t}[g(\hat{n} \cdot \vec{x} \pm t)] = \pm g'(\hat{n} \cdot \vec{x} \pm t)$, same for $g'$' and $\frac{\delta^2}{\delta t^2}$
 \item $\frac{\delta^2}{\delta x^2}[g(\hat{n} \cdot \vec{x} \pm t)] = \hat{n}_x^2g''(\hat{n} \cdot \vec{x} \pm t)$, same for $y, z$
-\item Since $[\hat{n}_x^2 + hat{n}_y^2 + hat{n}_z^2 = 1], u_{tt} = u_{xx} + u_{yy} + u_{zz}$ works out.
+\item Since $[\hat{n}_x^2 + \hat{n}_y^2 + \hat{n}_z^2 = 1], u_{tt} = u_{xx} + u_{yy} + u_{zz}$ works out.
 \item This can also be written $u_{tt} - \nabla^2u$
 \end{itemize}
 \end{itemize}
@@ -935,7 +932,7 @@ What if we don't have spherical symmetry?
 \item However, we can \emph{average} $u$ over all points $r$ away: $U(r,t;P) = \frac{1}{4\pi r^2} \iint_{S(\vec{P}, r} u(\vec{x}, t) d\sigma(\vec{x}$, with $S$ being the r-sphere around P
 \item Getting the r-partials requires writing each $\vec{x}$ as some $\vec{P} + r\hat{n}$ over all directions, and using the divergence theorem.
 \item LOTS OF ALGEBGRA IN HERE to get $U_{tt} - U_{rr} - \frac{2}{r}U_r = F(r,t)$ with a dependence on $r,t. \vec{P}$.  This $F$ is an even function, and it approaches $u(x,t)$ as $r$ approaches zero.
-\item Our equation ens up being $u(\vec{P}, t) = \frac{1}{4\pi} \iiint_{B(\vec{P}, t)} \frac{f(\vec{y}, t - \| \vec{y} - \vec{P} \|)}{ \| \vec{y} - \vec{P} \|} d\vec{y}$
+\item Our equation ends up being $u(\vec{P}, t) = \frac{1}{4\pi} \iiint_{B(\vec{P}, t)} \frac{f(\vec{y}, t - \| \vec{y} - \vec{P} \|)}{ \| \vec{y} - \vec{P} \|} d\vec{y}$
 \item Like the other case, we see that we points in space affecting $U$ are a ``4D cone'' with vertex at $(\vec{P}, t)$
 \item Also, if we consider that $f$ doesn't depend on $z$, we can flatten this spherical integral to a 2D one by looking at columns of $z$ over the disc of radius $t$
 \item This ends up being $u(\vec{P}, t) = \frac{1}{2\pi} \iint_{B_2(\vec{P}, t)} f(\vec{y}) \ln(\sqrt { (\frac{t}{\| \vec{y} - \vec{P} \|})^2 - 1}   + \frac{t}{\| \vec{y} - \vec{P} \|}  )d\vec{y} $
@@ -960,7 +957,8 @@ Solving for $u$ by guessing that there's a split solution $u(x,y,t) = S(x,y)T(t)
 \item  $u_{tt} = u_{xx}+ u_{yy}$.
 \item So $S(x,y)T''(t) = \frac{d^2S(x,y)}{dx^2}T(t) + \frac{d^2S(x,y)}{dy^2}T(t)$
 \item $\Rightarrow \frac{T''(t)}{T(t)} = \frac{\nabla^2 S(x,y)}{S(x,y)}$ 
-\item \textbf{Big A-ha}: left hand side is a function of \emph{t}, and right hand of \emph{x,y}.  If they are to be equal, they must both be consta
+\item \textbf{Big A-ha}: left hand side is a function of \emph{t}, and right hand of \emph{x,y}.  If they are to be equal, they must both be (the same) constant.
+
 \end{itemize}
 
 
@@ -980,7 +978,7 @@ To solve for $X, Y$:
  \item So, for some $j$, $\frac{X''(x)}{X(x)} = -j^2 \Rightarrow X(x) = C \cos(jx) + D \sin(jx)$ by the $T$ solution above.
  \item However, $X(x) = 0$  and $X \neq 0$ (not a constant function) forces us to conclude $C = 0 \Rightarrow X(x) = D\sin(jx)$.
  \item Also, the boundary condition $X(w) = 0$ also means for every $j = \frac{n \pi}{w}$, $n \in \mathbb{N}$, $X(x) = D \sin(\frac{\pi n}{w} x)$
- \item Following this identical logic for $Y$ over length $l$, y $q = \frac{m  \pi}{l}$,$Y(y) = F \sin(\frac{\pi m}{l} x)$
+ \item Following this identical logic for $Y$ over length $l$, $q = \frac{m  \pi}{l}$,$Y(y) = F \sin(\frac{\pi m}{l} x)$
  \item Considering that $-k^2 = -j^2 - q^2$, this means $k = \sqrt{(\frac{\pi n}{w} x)^2+ (\frac{\pi m}{l} x)^2}$
  \item Then, $u =T(t)X(x)Y(y)$
  \item $ \Rightarrow u = (A_{mn} \cos (\sqrt{(\frac{\pi n}{w} x)^2+ (\frac{\pi m}{l} x)^2}) + B_{mn} \sin (\sqrt{(\frac{\pi n}{w} x)^2+ (\frac{\pi m}{l} x)^2}))(\sin(\frac{\pi n}{w} x))(\sin(\frac{\pi m}{l} x))$
@@ -990,7 +988,7 @@ To solve for $X, Y$:
 Turning to a \textbf{circular membrane} with radius $r_0$, displacement described by $z = u(r, \theta, t)$:
 \begin{itemize}
 \item Boundary condition is then Dirichlet condition $u(r_0, \theta, t) = 0$ 
-\item $u_{tt} = \nabla^2 u = \Rightarrow u_{tt} = u_rr + \frac{1}{r} u_r  +\frac{1}{r^2}u_{\theta \theta}$
+\item $u_{tt} = \nabla^2 u \Rightarrow u_{tt} = u_rr + \frac{1}{r} u_r  +\frac{1}{r^2}u_{\theta \theta}$
 \item (Note: I suppose this magic (forgotten from vector calculus) is because $u_{tt} = u_{xx} + u_{yy}$, and we're converting between $x,y$ and $r, \theta$)
 \item $T(t) = A \sin(kt) + B \cos(kt)$ by identical logic to the rectangular drum, where $\frac{T''(t)}{T(t)}$ also was a constant.
 \item Assuming similarly that  $S(r,\theta) = R(r)\Theta(\theta)$, you end up with $R(r)\Theta(\theta) [\frac{R''}{R} + \frac{R'}{rR} + \frac{1}{r^2}\frac{\Theta''}{\Theta} + k^2] = 0$
@@ -1010,6 +1008,7 @@ Notes to self:
 \item Need more symbolic comfort with how integration works.
 \end{itemize}
 
+TODO: Ended here on 12/23/22
 \subsection{Fundamental Solutions}
 
 Main idea: The fundamental solution for the problem seems to:
