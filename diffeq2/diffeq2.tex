@@ -44,51 +44,51 @@ The two types of problems in this course are:
 
 \textbf{Linear} equations have solutions like $y_1,y_2$ that can be combined using any $c \in \mathbb{R}$ like $y_1 + cy_2$.
 
-\textbf{Example}: Bacteria in a dish with a lot of food, no deaths
+\textbf{Linear Example}: Bacteria in a dish with a lot of food, no deaths
 \begin{itemize}
 \item $b'(t) = r_bb(t), r_b > 0. r_b$ would be the rate of growth.
-\item This is linear. Reason 1: $\frac{d}{dt}(y_1 +cy_2) = y_1' +cy_2' = r_b(y_1 +c_y2)$ since $y' = r_by(t)$, and same for y2.
+\item This is linear. Reason 1: $\frac{d}{dt}(y_1 +cy_2) = y_1' +cy_2' = r_b(y_1 +c_y2)$ since $y' = r_by(t)$, and same for $y_2$.
 \item Also, this works because the solution is $b(t) = b(0)e^{r_b t}$, so $b_1(t) + cb_2(t) = b_1(0)e^{r_b t} +cb_2(0)e^{r_b t} = (b_1(0) + cb_2(0))e^{r_bt}$
 \end{itemize}
 
-\textbf{Example}: \textbf{Logistic} equation: Bacteria in a dish with a lot of food, limited by carrying capacity $M$.
+\textbf{Nonlinear Example}: \textbf{Logistic} equation: Bacteria in a dish with a lot of food, limited by carrying capacity $M$.
 \begin{itemize}
 \item $b'(t) = r_bb(t)[M-b(t)]$.
-\item This is nonlinear. Reason: $\frac{d}{dt}(y_1' +cy_2') = y_1'+cy_2' = r_b[y_1 + cy_2][M-y_1-cy_2] = My_1+Mcy_2-y_1^2-2cy_1y_2 -cy_1^2y_2^2$
+\item This is nonlinear. Reason: $\frac{d}{dt}(y_1 +cy_2) = y_1'+cy_2' = r_b[y_1 + cy_2][M-y_1-cy_2] = My_1+Mcy_2-y_1^2-2cy_1y_2 -cy_1^2y_2^2$
 \item $\neq My_1 - y_1^2 + Mcy_2-c^2y_2^2$ because of the extra $-2cy_1y_2$ term.
 \end{itemize}
 
-Sidebar: Note that this equation $b' = r_bb[M-b]$ is \emph{separable}, so it can be solved.
+Sidebar: Note that this equation $b' = r_bb[M-b]$ is \emph{separable}, so it can be solved, and the solution clearly can't be combined linearly.
 \begin{itemize}
 \item $\frac{db}{dt} = rb[M-b]$
 \item $\frac{db}{b(M-b)} = r dt$
 \item $\frac{1}{M }(\frac{1}{b} + \frac{1}{M-b}) db = r dt$ after partial fractions work
 \item $(\ln(b)-\ln(M-b)) = Mrt + C \Rightarrow \ln(\frac{b}{M-b}) = Mrt + C$
 \item $\frac{b}{M-b} = e^{Mrt}e^{C}$
-\item Initial conditions $b=b(0), t=0 \Rightarrow \frac{b}{M-b} = \frac{b(0)}{M-b(0)} e^{Mrt}$
+\item Initial conditions $b=b(t=0) \Rightarrow \frac{b}{M-b} = \frac{b(0)}{M-b(0)} e^{Mrt}$
 \item  $b(1+\frac{b(0)}{M-b(0)} e^{Mrt}) = M \frac{b(0)}{M-b(0)} e^{Mrt}$
 \item  $b(M-b(0)+b(0)e^{Mrt}) = M b(0) e^{Mrt}$
 \item $b = \frac{Mb(0)e^{Mrt}}{M+b(0)[e^{Mrt} -1]}$
 \end{itemize}
 
 
-This logistic solution will taper off to M at some point. Note that $\lim_{t \rightarrow \infty} b(t) = M$ since the non-exponential terms stop mattering.  Also $b(t) = M$ sticks as a constant solution or \textbf{equilibrium} immediately.  \emph{These equilibria tell us what matters - the long-term behavior of solutions!}
+This logistic solution will taper off to M at some point. Note that $\lim_{t \rightarrow \infty} b(t) = M$ since the non-exponential terms stop mattering.  Also $b(t) = M$ sticks as a constant solution or \textbf{equilibrium} immediately ($\frac{db}{dt} = 0$).  \emph{These equilibria tell us what matters - the long-term behavior of solutions!}
 
 Another \textbf{Example}: Lotka-Volterra equation pairs: Bacteria (b) and bacteria-killing phages (p), with kill rate $k$.
 \begin{itemize}
 \item The ``product'' $k b(t)p(t)$ measures the interactions and kills resulting from this.
-\item $b'(t) = r_b b(t) - k p(t) b(t)$, or the normal growht rate minus kill rate
-\item $p'(t) = kp(t)b(t)$ since its population grows as it kills bacteria.
+\item $b'(t) = r_b b(t) - k p(t) b(t)$, or the normal growth rate minus kill rate
+\item $p'(t) = kp(t)b(t)$ since phage population grows as it kills bacteria.
 \item Equilibria include $b = 0, p = 0$ and $b = 0, p > 0$, since these are \emph{constant} solutions, or places where $b'(t) = 0, p'(t) = 0$.
 \end{itemize}
 
-\textbf{Direction fields}, with vector pointing towards $\langle b'(t), p'(t) \rangle$ (TODO - I think) let us follow the arrows to determine the curve over time.  In this case, the bacteria will always go extinct.
+\textbf{Direction fields}, with vector pointing along $\langle b'(t), p'(t) \rangle$ (one unit of $t$ moves $b$ and $p$ in ratio $\frac{p'(t)}{b'(t)}$ there) let us follow the arrows to determine the curve over time.  In this case, the bacteria will always go extinct.
 
-\ 
+
 However, if we add a new death rate term $-d_pp(t)$ so $p'(t) = -d_pp(t) + kp(t)b(t)$:
 \begin{itemize}
 \item We get an equilibrium at $b = \frac{d_p}{k}, p = \frac{r_b}{k}$. (Since $0 = b'(t) = rb - kpb, (\Rightarrow pk = r), 0 = p'(t)  -dp + kpb,(\Rightarrow bk = d)$)
-\item But otherwise the solutions swirl around this point.  This is called a \textbf{cycle}.  TODO What is a \textbf{limit cycle}?
+\item But otherwise the solutions swirl around this point.  This is called a \textbf{cycle}.  What is a \textbf{limit cycle}?
 \end{itemize}
 
 Note that there are systems where the ``solution particle'' neither reaches an equilibrium or cycles around one point.  The \textbf{Lorenz system} famously has this owl-eye shaped double attractor (an example of \textbf{strange sets}) where initially close particles diverge unpredictably if the constants $\rho, \sigma, b$ are chosen right:
@@ -99,23 +99,19 @@ Note that there are systems where the ``solution particle'' neither reaches an e
 \item $z'(t) = xy-bz$
 \end{itemize}
 
-\begin{itemize}
-\item TODO
-\end{itemize}
-
 \subsection{Chapter 1.2: PDEs}
 
 Many methods of attack for PDEs
 
 \begin{itemize}
 \item Separation of variables
-\item Power series (Note: did we actually touch on this?)
+\item Power series 
 \item Fourier Transform
 \end{itemize}
 
 \textbf{Example}: Standing wave, where one end of a rope is fixed.  
 \begin{itemize}
-\item Vertical displacement from a line of rope: $u(x,t)$ depends on where ($x$) and when ($t$t).
+\item Vertical displacement from a line of rope: $u(x,t)$ depends on where ($x$) and when ($t$).
 \item Rope's \textbf{wave equation} is $u_{tt} = v^2u_{xx}$, where $v$ is the ``constant wave speed'', and the others are the space, time partials.
 \item Note that $u = \cos(vt)\sin(x)$ and $u = \sin(vt)cos(x)$ both work.
 \item If you guess the solution has split variables like $u = X(x)Y(y)T(t)$, then, upon substitution and division by $X(x)Y(y)T(t)$, $\frac{\delta^2 u}{\delta t^2} = v^2 [\frac{\delta^2 u}{\delta x^2} + \frac{\delta^2 u}{\delta y^2}]$ yields $\frac{T''(t)}{T(t)} = v^2 [\frac{X''(x)}{X(x)} + \frac{Y''(y)}{Y(y)} ]$
@@ -124,6 +120,8 @@ Many methods of attack for PDEs
 \item The wave equation is similar in 3D: $u_{tt} = v^2[u_{xx}+u_{yy}+u_{zz}]$, or using the Laplacian, $u_{tt} = v^2\nabla^2 u$.  Here, $u$ measures not displacement but expansion/compression of air at $(x,y,z)$, time $t$.
 \end{itemize}
 
+\emph{Note: This section seems to elide the details of the Fourier transform, simply for a sampling of PDE methods.  More justifications of the facts to follow later.}
+\\
 
 Using Fourier transforms helps turn difficult PDEs into an easier problem like an ODE.  \emph{Fourier transforms work best} when 
 \begin{itemize}
@@ -132,25 +130,26 @@ Using Fourier transforms helps turn difficult PDEs into an easier problem like a
 \end{itemize}
  
 The Fourier transform changes the domain of $x$ to that of $\omega$.  It comes with the (highly simplified) rule (see Vector Calculus course): $F[\frac{\delta f}{\delta x}] = i \omega F[f]$.  
-\textbf{Example}: Drunkard's walk.
+
+\textbf{Fourier Example}: Drunkard's walk.
 \begin{itemize}
 \item One dimensional: moves left or right in a random way.  Starts at $x=0, t=0$.
 \item $u(x,t)$ is probability of being at point $x$ at time $t$.  Naturally, $\int_{x=-\infty}^{x=\infty} u(x,t)dx = 1$.
-\item Also, it obeys the 1-dD diffusion equation $\frac{\delta u}{\delta t} = \frac{\delta ^2 u}{\delta x^2}$
-\item The Fourier transform doesn't affect $t$ at all.
+\item Also, it obeys the 1-D diffusion equation $\frac{\delta u}{\delta t} = \frac{\delta ^2 u}{\delta x^2}$
+\item The Fourier transform doesn't affect $t$ at all.  (I think what this means is that $F[u_t]$ is the same as $\frac{d}{dt}F[u]$)
 \item So by taking Fourier transform of both sides of diffusion equation we get 
 \begin{itemize}
 \item $F(u_t)=  \frac{\delta}{\delta t} F(u) $ since $F$ doesn't care about $t$.
 \item $\frac{\delta ^2 u}{\delta x^2} = i\omega F(\frac{\delta u}{\delta x}) = -\omega^2 F(u)$
 \item So $  \frac{\delta}{\delta t} F(u)  = -\omega^2 F(u)$
-\item This is solvable as $F(u) = ce^{-\omega^2 t}$.  Take it on faith that $c = \frac{1}{2\pi}$ for now. TODO
+\item $x$ has dropped out, then, and this is solvable as ODE $F(u) = ce^{-\omega^2 t}$.  Take it on faith that $c = \frac{1}{2\pi}$ for now (there are identities later that are used for solving the Gauss integral, for example)
 \item Known fact: $F[Ae^-{\frac{ax^2}{2}}] = \sqrt{\frac{1}{2 \pi a}} Ae^{\frac{-\omega^2}{2a}}$
-\item This means $t = \frac{1}{2a}$ and $a = \frac{1}{2t}$
 \item $F(u)  = 	\frac{1}{2\pi}e^{-\omega ^2 t}, F[Ae^-{\frac{ax^2}{2}}] = \sqrt{\frac{1}{2 \pi a}} Ae^{\frac{-\omega^2}{2a}}$ so $u  = Ae^{\frac{-ax^2}{2}}$
 \item Solving, you get $A = \sqrt{\frac{1}{4\pi t}}, a=\frac{1}{2t}$, so $u(x,t) = \sqrt{\frac{1}{4\pi t}} e^{-\frac{x^2}{4t}}$
 \end{itemize}
 
 \end{itemize}
+
 
 
 \section{Chapter 2: Nonlinear Equations}
@@ -159,10 +158,10 @@ The Fourier transform changes the domain of $x$ to that of $\omega$.  It comes w
 
 Major ideas:
 \begin{itemize}
-\item \textbf{phase plane}: TODO
-\item \textbf{nullcline}: TODO
-\item \textbf{direction field}: TODO
-\item \textbf{equilibria}: TODO
+\item \textbf{phase plane}: A two-dimensional visual space of something like $b(t)$ plotted against $p(t)$, with $t$ unshown.
+\item \textbf{direction field}: The gradient vector $\langle b'(t), p'(t) \rangle$ at every point of the phase plane.
+\item \textbf{nullcline}: A line at which either $b'(t) = 0$ or $p'(t) = 0$
+\item \textbf{equilibria}: A (center) equilibrium point where $b'(t) = 0, p'(t) = 0$ or some other larger (stable or unstable) cycle.
 \end{itemize}
  
 \textbf{Example}: Bacteria vs. phages (again)
@@ -173,8 +172,7 @@ Major ideas:
 \begin{itemize}
 \item $b'(t) = r_b b(t) - kb(t)p(t)$
 \item $p'(t) = -d_p p(t) + kb(t)p(t)$
-\item \emph{The product of p and b makes our equations nonlinear} (WHY?)
-\item I guess, very generally, $b_1p_1 = k, b_2p_2 = k,$ but $(b_1+b_2)(p_1+p_2) = b_1p_1 + b_2p_2 + b_1p_2+b_2p_1 = 2k + b_1p_2+b_2p_1 \neq 2k$, so the last two ``mixed'' terms mean you can't just add solutions $(b_1, p_1)$ and  $(b_2, p_2)$.
+\item \emph{The product of p and b makes our equations nonlinear}.  Very generally, $b_1p_1 = k, b_2p_2 = k,$ but $(b_1+b_2)(p_1+p_2) = b_1p_1 + b_2p_2 + b_1p_2+b_2p_1 = 2k + b_1p_2+b_2p_1 \neq 2k$, so the last two ``mixed'' terms mean you can't just add solutions $(b_1, p_1)$ and  $(b_2, p_2)$.
 \end{itemize}
 \end{itemize}
 
@@ -184,9 +182,9 @@ General thoughts on this solution:
 \item If we add a unit tangent vector at every point $(B, P)$ aligned with $(b'(t), p'(t)) = ( r_bB - kBP, -d_p P + kBP)$, we can follow the arrows to see the solution over time.
 \item The above is called a \textbf{direction field}
 \item This is sometimes hard to sketch analytically, so we can look to the \textbf{nullclines}: places where one of the components of the direction field is zero.
-\item In this case, $r_bB - kBP = (r_b-kP)B = 0$ when $P = 0$ or $P = \frac{r_b}{k}$, and $-d_p P + kBP = (kB-d_p)P = 0$ when $P=0$ or $B = \frac{d_p}{k}$.
+\item In this case,  (rate of change of bacteria population) $b'(t) = r_bB - kBP = (r_b-kP)B = 0$when $B = 0$  (no bacteria) or $P = \frac{r_b}{k}$ (right amount of phages), and $-d_p P + kBP = (kB-d_p)P = 0$ when $P=0$ (no phages) or $B = \frac{d_p}{k}$ (right amount of bacteria).
 \item The \textbf{upshot of nullclines} (since we don't care about $P, B \leq 0$): The lines $B = \frac{d_p}{k}, P = \frac{r_b}{k}$ \emph{divide the plane into pieces where the components of this (continuous) function pair can't change sign}.  
-\item For instance, $B > \frac{d_p}{k}, P <  \frac{r_b}{k}$  means $r_b b - kbp > 0, -d_p p+ kdp > 0$, so both populations are growing here.  This helps to sketch the curve.
+\item For instance, $B > \frac{d_p}{k}, P <  \frac{r_b}{k}$  means $b'(t) = r_b b - kbp > 0, p'(t) = -d_p p+ kdp > 0$, so both populations are growing here.  This helps to sketch the curve.
 \item The curve looks like a counterclockwise whirlpool around the $(B, P) = ( \frac{d_p}{k}, \frac{r_b}{k})$.  (bacteria grow with low but growing phages; bacteria decrease as phages overwhelm; both decrease as phages starve; bacteria start coming back)
 \item The center point is a (constant \textbf{equilibrium}) solution, and other solutions swirl around it but don't get attracted or repelled.
 \end{itemize}
@@ -195,7 +193,7 @@ There are a few types of equilibria:
 \begin{itemize}
 \item This one is a \textbf{center} around which solutions circle.
 \item A \textbf{stable equilibrum} would see small upsets come back to an unchanging state.
-\item An \textbf{unstable equilibrum} would see small upsets create wildly divergent paths.
+\item An \textbf{unstable equilibrum} would see small upsets create wildly divergent paths (like the Lorenz attractor).
 
 
 \end{itemize}
@@ -204,15 +202,18 @@ There are a few types of equilibria:
 
 In the Bacteria-Phage system, we can't yet prove everything rotates around the \textbf{center}.  Let's do that.
 
-Developing a \textbf{conserved quantity} will help to do that.  \textbf{Example}: Block on a horizontal spring with mass $m$, spring constant $k_s$:
+Developing a \textbf{conserved quantity} will help to do that. 
+\\
+
+\textbf{Example}: Block on a horizontal spring with mass $m$, spring constant $k_s$:
 \begin{itemize}
 \item $x(t)$: Displacement from rest position.
 \item $v(t) = \frac{dx}{dt}$: Horizontal velocity
-\item $\frac{dv}{dt} = -\frac{k_s}{m}x(t)$ by Hooke's law, I think.
+\item $\frac{dv}{dt} = -\frac{k_s}{m}x(t)$ by Hooke's law.
 \item Suppose there's some Energy function $E(x,v)$.  By chain rule $\frac{d}{dt}E(x(t), v(t)) = \frac{dE}{dx}\frac{dx}{dt} +  \frac{dE}{dv}\frac{dv}{dt}$
 \item $=  \frac{dE}{dx}v - \frac{k_s}{m} \frac{dE}{dv}x$.  If we set E as conserved, as in $E'(t) = 0$, then $\frac{dE}{dx}v = \frac{k_s}{m} \frac{dE}{dv}x$
-\item We can eyeball and see that $E = \frac{1}{2}k_sx^2 +  \frac{1}{2}mv^2$ solves this equation, or we can assume $E(x,v) = F(x) + G(v) \Rightarrow 0 = E'(t) = F'(x)v - \frac{k_s}{m}G'(v)x = 0$ from the above equations and guess from there.
-\item This means in the xv phase space, that there's a fixed E such that the particle follows the ellipse $E = \frac{1}{2}k_sx^2 +  \frac{1}{2}mv^2$ in phase space around the solution point (0,0).
+\item We can eyeball and see that $E = \frac{1}{2}k_sx^2 +  \frac{1}{2}mv^2$ solves this equation, or we can assume (additively separable method?) $E(x,v) = F(x) + G(v) \Rightarrow 0 = E'(t) = F'(x)v - \frac{k_s}{m}G'(v)x = 0$ from the above equations and guess from there.
+\item Upshot: $E = \frac{1}{2}k_sx^2+ \frac{1}{2}mv^2$ doesn't change over time, so this means for every point in the xv phase space, that there's a fixed E such that the particle follows the ellipse $E = \frac{1}{2}k_sx^2 +  \frac{1}{2}mv^2$ in phase space around the solution point (0,0) (which has $E=0$).
 \end{itemize}
 
 \textbf{Extended Example}: Continuing on finding a conserved quantity for Bacteria / Phage:
@@ -222,25 +223,25 @@ Developing a \textbf{conserved quantity} will help to do that.  \textbf{Example}
 \item A hint suggests finding $U$ such that $\frac{\delta U}{\delta b} = -\frac{d_p}{b} + k, \frac{\delta U}{\delta p} = -\frac{r_b}{p} + k$ to make terms cancel.
 \item Integrating these gives us $U$ as both $-d_p\ln(b)+kb+Q(p)$ and $-r_b\ln(p)+kp+R(b)$ so $U = -d_p\ln(b)-r_b\ln(p)+kb+kp$.  This weird curve consistutes a level set in pb-space upon which a solution sits.
 \item The spring example has an elliptic paraboloid solution.  There's an absolute minimum ($E = 0$ at $(0,0)$) but level sets become closed loops away from it.
-\item For the Lotka example, there is a critical point ($\nabla U = \vec{0}$) when $\nabla U(b,p) = (\frac{\delta U}{\delta b}, \frac{\delta U}{\delta p}) = (k-\frac{d_p}{b}, k - \frac{r_b}{p})$, which is $(0, 0)$ at our known center $(\frac{d_p}{k}, \frac{r_b}{k})$
-\item Showing that we always increase gong away from the point $(\frac{d_p}{k}, \frac{r_b}{k})$ should guarantee us closed level sets.
+\item For the Lotka example, there is a critical point ($\nabla U = \vec{0}$) when $\nabla U(b,p) = (\frac{\delta U}{\delta b}, \frac{\delta U}{\delta p}) = (k-\frac{d_p}{b}, k - \frac{r_b}{p})= (0, 0)$, which is at our known center $(\frac{d_p}{k}, \frac{r_b}{k})$
+\item Showing that we always increase going away from the point $(\frac{d_p}{k}, \frac{r_b}{k})$ should guarantee us closed level sets (because they can't change energy and have nowhere else to go?).
 \item One method: Assume we're picking a unit vector $\vec{v} = \langle \hat{v_b}, \hat{v_p} \rangle$ so that our line from our center is $\vec{v} = \langle \frac{d_p}{k}+t{v_b}, \frac{r_b}{k}+t{v_b} \rangle$.  $U=F(b) + G(p)$ in this case, so sub the $b$ part into $F$ to get $F (\frac{d_p}{k} +t\hat{v_b}) = d_p[1-\ln(\frac{d_p}{k} + t\hat{v_b})]+kt\vec{v_b}$.  Taking derivative of that w.r.t $t$ shows it is always positive.  Same goes for the G(p) portion of U.
-\item Another (DF) method: Note that $\nabla U = (k - \frac{d_p}{b}, k - \frac{r_b}{p})$'s grad (second derivative) is always positive.  So derivative always has positive curvature (maybe using that term wrong), and we'll always increase around this point.
+\item Another (DF) method: Note that $\nabla U = (k - \frac{d_p}{b}, k - \frac{r_b}{p})$'s grad (second derivative) is always positive.  So derivative itself always has positive slope, and we'll always increase around this point.
 \item Also, we know that the particle travels around the level set (loop) and doesn't reverse course, because then, $b'(t) = p'(t) = 0$, and we only have that at the center point (nullcline intersection).
 \end{itemize}
 
 
 \subsection{2.3: Linearization}
 
-\textbf{Extended Example}: Suppose there's a limit to bacterial growth, so we cap our population at $M_b$.
+\textbf{Extended Example}: Suppose there's a limit to bacterial growth $M_b$, so we cap our population at $M_b$.
 \begin{itemize}
-\item If $b(t) << M_b$, things should be similar.  If $b(t)$ is nearly $M_b$, then growth should approach 0.  So, this implies $\frac{db}{dt} = r_bb(t) \rightarrow \frac{db}{dt} = r_bb(t) (1-\frac{b(t)}{M_b})$.  Note: This isn't the only possibility but we'll use it.
+\item If $b(t) << M_b$, things should be similar.  If $b(t)$ is nearly $M_b$, then growth should approach 0.  So, this implies $\frac{db}{dt} = r_bb(t)$ can be updated to $\frac{db}{dt} = r_bb(t) (1-\frac{b(t)}{M_b})$.  Note: This isn't the only possibility but we'll use it.
 \item This updates our Lotka-Volterra model to something more complicated:
 \begin{itemize}
 \item $b'(t) = r_bb(t) (1-\frac{b(t)}{M_b})- kb(t)p(t)$
 \item $p'(t) = -d_p p(t) + kb(t)p(t)$
 \end{itemize}
-\item Other than $b=0, p=0$, the meaningful nullclines are solved by setting $b'(t) = 0$ (yielding $r_b(1-\frac{b}{M_b})-kp = 0$) and $p'(t) = 0$ (yielding $b = \frac{d_p}{k}$)
+\item Other than $b=0, p=0$, the meaningful nullclines are solved by setting $b'(t) = 0$ (yielding $r_b(1-\frac{2b}{M_b})-kp = 0$) and $p'(t) = 0$ (again yielding $b = \frac{d_p}{k}$) (Note: Updated $b$ to $2b$ in this, may be wrong)
 \item Note: We'll clean up through some MAGIC non-dimensionalization (how to derive?) to simplify:
 \begin{itemize}
 \item $x(t) = \frac{1}{M_b}b(\frac{t}{r_b}), y(t) = \frac{k}{r_b}(\frac{t}{r_b}), \alpha = \frac{d_p}{r_b}, \beta = \frac{kM_b}{r_b}$
@@ -258,10 +259,10 @@ This is similar to the block-spring example, if a damping term $-\frac{\gamma}{m
 \item From Diff Eq I, the solution is $exp(tA)$ (matrix exponential), making x(t) a linear combination of $e^{\lambda t}$ or possibly $te^{\lambda t}$ terms, with the eigenvalues as $\lambda$s.
 \item The eigenvalues in this case, using the quadratic formula, could be:
 \begin{itemize}
-\item Two real, distinct, negative roots. So, these $e^{\lambda t}$ terms decay, and x(t) levels off.
+\item Two real, distinct, negative roots. So, these $e^{\lambda t}$ terms decay, $x'(t) \rightarrow 0$, and x(t) levels off.
 \item Two distinct complex roots with real part $-\frac{\gamma}{2m} < 0$.  This ends up being some sines and cosines multiplied by $e^{-\frac{\gamma t}{2m}}$, which decays too.
 \item Finally, if we have a repeated negative real eigenvalue, we have solution $x(t) = Ae^{-\frac{\gamma t}{2m}} + Bte^{-\frac{\gamma t}{2m}} $, also decaying.
-\item So any disturbance in the spring will oscillate and come to rest at $x(t) = v(t) = 0$ quickly.
+\item So in these three cases (others remain) any disturbance in the spring will oscillate and come to rest at $x(t) = v(t) = 0$ quickly.
 \end{itemize}
 
 So with linear systems $\vec{x}'(t) = A\vec{x}(t)$, the eigenvalues determine what happens around the equilibrium point.  However, the \textbf{bacteria-phage model is non-linear}.  Here is \textbf{how we linearize} for nearby solutions in a nonlinear system:
@@ -273,9 +274,9 @@ So with linear systems $\vec{x}'(t) = A\vec{x}(t)$, the eigenvalues determine wh
 \item Finding the eigenvalues here yields the same situation as the block-spring example: decays in all situations.
 \end{itemize}
 
-It turns out through the \textbf{Hartman-Grobman Theorem} that $\vec{x}'(t) = \vec{F}(\vec{x}(t))$, for some continuously differential vector field $F$, if we linearize near equilibrium $x_0$, then what falls out of this $A$ approach works if the eigenbalues \emph{aren't all purely imaginary}.
+It turns out through the \textbf{Hartman-Grobman Theorem} that, for some continuously differential vector field $F$, the behavior of $\vec{x}'(t) = \vec{F}(\vec{x}(t))$ near equilibrium $x_0$, is the same as the behavior of its linearization through matrix $A$; this theorem works if and only if the eigenvalues of $A$ that \emph{aren't all purely imaginary}. 
 
-It turns out the uncapped bacteria system from before looks like $\frac{d}{dt} \begin{pmatrix} \delta x(t) \\ \delta y(t) \end{pmatrix} =  \begin{pmatrix} 0 & -1 \\ \alpha & 0 \end{pmatrix}  \begin{pmatrix} \delta x(t) \\ \delta y(t)\end{pmatrix}$ , with characteristic equation $\lambda ^2 + \alpha = 0, \alpha > 0$.  This means both values are imaginary, and we had to use the conserved quantity appraoach! 
+The original, uncapped bacteria system from before linearizes like $\frac{d}{dt} \begin{pmatrix} \delta x(t) \\ \delta y(t) \end{pmatrix} =  \begin{pmatrix} 0 & -1 \\ \alpha & 0 \end{pmatrix}  \begin{pmatrix} \delta x(t) \\ \delta y(t)\end{pmatrix}$ , with characteristic equation $\lambda ^2 + \alpha = 0, \alpha > 0$.  This means both values are imaginary, Hartman-Grobman wouldn't work, and we had to use something creative like the conserved quantity approach! 
 
 \end{itemize}
 
@@ -283,20 +284,22 @@ It turns out the uncapped bacteria system from before looks like $\frac{d}{dt} \
 
 \textbf{Extended Example}: Consider a phage that dies off quicky:
 \begin{itemize}
-\item $\frac{db}{dt} = r_bb(t)-k_bb(t)p(t), \frac{dp}{dt} = -r_pp(t) = 0 \cdot b(t)p(t)$, where $k_p$ is the zero (phages don't increase), and $k_b$ is still the kill factor for the bacteria.
+\item $\frac{db}{dt} = r_bb(t)-k_bb(t)p(t), \frac{dp}{dt} = -r_pp(t) + 0 \cdot b(t)p(t)$, where $k_p$ is the zero (phages don't increase, I guess $-r_p$ replaces $d_p$), and $k_b$ is still the kill factor for the bacteria.
 \item In this base, $b(t) = p(t) = 0$ is the only equilibrium.
 \item Non-dimensionalize as $x(t) = b(\frac{t}{r_b}), y(t) = \frac{k_b}{r_b}p(\frac{t}{r_b}), \alpha = \frac{r_p}{r_b}$
 \item This makes the equations $x'(t) = x(t) - x(t)y(t), y'(t) = -\alpha y(t)$, and the nullclines therefore $x(t) = 0, y(t) = 1, y(t) = 0$
-\item Looking at this six-section dierection field, we see that solutions exactly on the y-axis are attracted to equilibrium $(0,0)$, and other are repelled.
+\item Looking at this six-section direction field, we see that solutions exactly on the y-axis are attracted to equilibrium $(0,0)$, and other are repelled.
 \item This makes sense since if the bacteria is 0, the phage die and approach $(0,0)$, otherwise the bacteria multiply and win (so it's a \emph{saddle point})
-\item The way to tell: linearize the equations.  $\frac{d}{dt} \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} \approx \begin{pmatrix} 1 & 0 \\ 0 & -\alpha \end{pmatrix}  \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} $ since, if $x(t), y(t) << 1,  x(y)t(t) = 0$.  
-\item Then the eigenvalues are $\lambda = 1, -\alpha$ so the solution is $Ae^t$,  $Be^{-\alpha t}$ for $x(t), y(t)$ (TODO respectively?) \textbf{Hartman-Grobman ensures this is the general solution}.
+\item The way to tell: linearize the equations.  $\frac{d}{dt} \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} \approx \begin{pmatrix} 1 & 0 \\ 0 & -\alpha \end{pmatrix}  \begin{pmatrix} x(t) \\ y(t) \end{pmatrix} $ since, if $x(t), y(t) << 1,  x(y)y(t) = 0$.  
+\item Then the eigenvalues are $\lambda = 1, -\alpha$ so the solution is $Ae^t$,  $Be^{-\alpha t}$ for $x(t), y(t)$ \textbf{Hartman-Grobman ensures this is the general solution}.
  \end{itemize}
+
+TODO: Start again here, 12/22.
 
 However, let's solve directly and see if we come to the same result. 
 \begin{itemize}
 \item $y'(t) = -\alpha y(t), y(0) = y_0 \Rightarrow y(t) = y_0 e^{-\alpha t}$
-\item With this in hand, $\frac{dx}{dt} = x(t) -= x(y)y(t) = x(t)[1-y_0e^{-\alpha t}]] , x(0) = x_0$ separates out to 
+\item With this in hand, $\frac{dx}{dt} = x(t) - x(y)y(t) = x(t)[1-y_0e^{-\alpha t}] , x(0) = x_0$ separates out to 
 \begin{itemize}
 \item $\frac{dx}{x} = [1-y_0e^{-\alpha t}]dt $
 \item $\ln(x) = [t + \frac{y_0}{\alpha}e^{-\alpha t}] + C $
@@ -305,13 +308,14 @@ However, let's solve directly and see if we come to the same result.
 \item $\Rightarrow x(t) = x_0 e^t \exp(\frac{y_0}{\alpha}(e^{-\alpha t} - 1))$
 \end{itemize}
 
-But how do we deform the phase plane so this looks linear?  We need some mapping $\vec{h}(x,y) = \langle u(x,y), v(x,y) \rangle$ that is continuous and invertible (so we don't ``damage'' the phase plane).  This is called a \textbf{homeomorphism}.
+But how do we deform the phase plane so this looks linear?  (TODO 12/22/22 - why do we need to do this?) We need some mapping $\vec{h}(x,y) = \langle u(x,y), v(x,y) \rangle$ that is continuous and invertible (so we don't ``damage'' the phase plane).  This is called a \textbf{homeomorphism}.
 \begin{itemize}
-\item So near the equilibrium $(0,0)$, the equations  $y'(t) = -\alpha y(t), y(0) = y_0 \Rightarrow y(t) = y_0 e^{-\alpha t}$ linearized for $\delta x, \delta y$ must be similar to those for $u(x(t), y(t), v(x(t), y(t))$
+\item So near the equilibrium $(0,0)$, the equations  $y'(t) = -\alpha y(t), y(0) = y_0 \Rightarrow y(t) = y_0 e^{-\alpha t}$ linearized for $\delta x, \delta y$ must be similar to those for $u(x(t), y(t)), v(x(t), y(t))$
 \item This means we need $\frac{du}{dt} = u, \frac{dv}{dt} = -\alpha v$
 \item After doing the substitution, we see that $v = v_0e^{-\alpha t}$ exactly mimics $y(t) = y_0 e^{-\alpha t}$ for the phage solution.  So we take $v = y$.
-\item Therefore, we know that since $u = u_0e^t$ and $x(ty) = x_0 \exp(t + \frac{y_0}{\alpha}(e^{-\alpha t} - 1))$, that we need $u(x(t), y(t) = u(x_0, y_0)e^t$
-\item And this is satisfied if we guess $u(x,y) = xe^{-y}{\alpha}$ and work it out.
+\item Therefore, we know that since $u = u_0e^t$ and $x(ty) = x_0 \exp(t + \frac{y_0}{\alpha}(e^{-\alpha t} - 1))$, that we need $u(x(t), y(t)) = u(x_0, y_0)e^t$
+\item And this is satisfied if we guess $u(x,y) = xe^{-\frac{y}{\alpha}}$ and work it out.
+\item TODO: So have we found our answers $u = u_0e^t, v=v_0e^{-\alpha t}$, as the linearization predicted?  (12/22/22)
 \item This function $\vec{h}(x,y) = (u, v) = \langle xe^{-\frac{y}{\alpha}}, y \rangle $ is invertible by $(x,y) = \langle ue^{\frac{v}{\alpha}} , v \rangle$, which is continuous.
 \end{itemize}
 
