@@ -59,7 +59,7 @@ However, though these characters reportedly watched this sleep-mode drama play o
 \subsection{Statement} 
 Suppose we have a continuous screen of length $l$, height $h$, containing an axis-aligned rectangle of length $j$ and height $k$ centered at point $(x, y)$.
 
-Suppose this rectangle is launched at direction $\langle 1, m\rangle$ \footnote {Think of this as slope $m$} and ``bounces'' according to billiard rules \footnote{Glancing off a horizontal boundary, our trajectory goes from $\langle 1, m \rangle$ to $\langle 1, -m \rangle$, with $\langle \pm 1, m \rangle$ to $\langle \mp 1, m \rangle$ for a horizontal one}.
+Suppose this rectangle is launched at direction $\langle 1, m\rangle$ \footnote {Think of this as slope $m$} and ``bounces'' according to billiard rules \footnote{Glancing off a top/bottom boundary, our trajectory goes from $\langle 1, m \rangle$ to $\langle 1, -m \rangle$, with $\langle \pm 1, m \rangle$ to $\langle \mp 1, m \rangle$ for a left/right one}.
 
 Given $l, h, j, k, m \in \mathbb{R}$, can we tell whether the rectangle ever bounce perfectly into a corner?  
 
@@ -84,7 +84,7 @@ Suppose we have maximally open (reasonable) conditions, with $x \in [\frac{j}{2}
 
 Some clowns \footnote {J. H. Wang, N. H. Talbert, L. F. Waldman} have come along demanding a version of the setup respecting the discrete (pixellated) nature of digital screens.  Very well.
 
-For each of problem 1, 2, and 3, how does the answer change if the screen comprises square pixels of length $p \in \mathbb{N}$ \footnote{If $p$ is not a whole number, this can be normalized}, where $p | j, k, h, l$, and ``meeting a corner" means a corner of the small (continuous) rectangle meets a wall within length $p$ of the corner point?
+For each of problem 1, 2, and 3, how does the answer change if the screen comprises square pixels of length \footnote{If $p$ is not a whole number, this can be normalized} $p \in \mathbb{N}$ , where $p | j, k, h, l$, and ``meeting a corner" means a corner of the small (continuous) rectangle meets a wall within length $p$ of the corner point?
 
 
 

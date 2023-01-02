@@ -59,7 +59,7 @@ However, though these characters reportedly watched this sleep-mode drama play o
 \subsection{Statement} 
 Suppose we have a continuous screen of length $l$, height $h$, containing an axis-aligned rectangle of length $j$ and height $k$ centered at point $(x, y)$.
 
-Suppose this rectangle is launched at direction $\langle 1, m\rangle$ \footnote {Think of this as slope $m$} and ``bounces'' according to billiard rules \footnote{Glancing off a horizontal boundary, our trajectory goes from $\langle 1, m \rangle$ to $\langle 1, -m \rangle$, with $\langle \pm 1, m \rangle$ to $\langle \mp 1, m \rangle$ for a horizontal one}.
+Suppose this rectangle is launched at direction $\langle 1, m\rangle$ \footnote {Think of this as slope $m$} and ``bounces'' according to billiard rules \footnote{Glancing off a top/bottom boundary, our trajectory goes from $\langle 1, m \rangle$ to $\langle 1, -m \rangle$, with $\langle \pm 1, m \rangle$ to $\langle \mp 1, m \rangle$ for a left/right one}.
 
 Given $l, h, j, k, m \in \mathbb{R}$, can we tell whether the rectangle ever bounce perfectly into a corner?  
 
@@ -84,12 +84,13 @@ Suppose we have maximally open (reasonable) conditions, with $x \in [\frac{j}{2}
 
 Some clowns \footnote {J. H. Wang, N. H. Talbert, L. F. Waldman} have come along demanding a version of the setup respecting the discrete (pixellated) nature of digital screens.  Very well.
 
-For each of problem 1, 2, and 3, how does the answer change if the screen comprises square pixels of length $p \in \mathbb{N}$ \footnote{If $p$ is not a whole number, this can be normalized}, where $p | j, k, h, l$, and ``meeting a corner" means a corner of the small (continuous) rectangle meets a wall within length $p$ of the corner point?
+For each of problem 1, 2, and 3, how does the answer change if the screen comprises square pixels of length \footnote{If $p$ is not a whole number, this can be normalized} $p \in \mathbb{N}$ , where $p | j, k, h, l$, and ``meeting a corner" means a corner of the small (continuous) rectangle meets a wall within length $p$ of the corner point?
+
 
 
 \section{Solutions}
 
-Note: If our initial slope is zero $m = \langle 1, 0 \rangle$ or ``infinite'' ($m = \langle 0, 1 \rangle$, actually disallowed in our setup), the solution is obvious: if we're axis-aligned at the outset, we'll be in a corner shortly, otherwise we never will be.
+Note: If our initial slope is zero $m = \langle 1, 0 \rangle$ or ``infinite'' ($m = \langle 0, 1 \rangle$, actually disallowed in our setup), the solution is obvious: if we're appropriately axis-aligned at the outset, we'll be in a corner shortly, otherwise we never will be.
 
 Note also that, for the sake of simplicity, we can treat $m$ as always positive (the box going up and to the right). If not, inverting the problem ($m \rightarrow -m, y = h - y)$ will work equivalently. The box initially moving leftwards (disallowed in the problem setup) reduces to our setup by the same sort of flip.
 
@@ -97,13 +98,14 @@ Note also that, for the sake of simplicity, we can treat $m$ as always positive 
 
 The key insight here is that though the point bounces ``within a box'' until meeting $(0,0), (0, h), (l, 0), $ or $(l, h)$ (as in Figure 2), we can instead look at the path of the point in an unconstrained space, seeing if we hit a point of the form $(a \cdot l, b \cdot h)$ with $a,b \in \mathbb{N}$.
 
-On meeting the point $(0, \frac{2}{3})$, we can either consider what happens if we reflect ``back'' into our original box as in the left side of Figure 3, or, equivalently, if we pass ``through'' to a mirrored box on the right side of Figure 3. We quickly see that:
+On meeting the point $(1, \frac{2}{3})$, we can either consider what happens if we reflect ``back'' into our original box as in the left side of Figure 3, or, equivalently, if we pass ``through'' to a mirrored box on the right side of Figure 3. We quickly see that:
 
 \begin{itemize} 
 \item If the left-hand side meets a corner, the mirror-image on the right-hand side will meet a corner as well.
 \item Likewise for the converse: the right meeting a corner means the left hand will as well.
 \item If the left-hand side does \emph{not} meet a corner, the right-hand side cannot.
 \item Likewise for the converse.
+\item Therefore the conditions are equivalent.
 \end{itemize}
 
 \begin{figure}[!htb]
@@ -131,11 +133,11 @@ Therefore, composing these two, we can cast the path of the smaller rectangle as
 
 \begin{align}
 a \cdot m \cdot l = b \cdot h \\
-\frac{b}{a} = \frac{m \cdot l}{h} \\ 
+\Rightarrow \frac{b}{a} = \frac{m \cdot l}{h} \\ 
 \Rightarrow \frac{m \cdot l}{h} \in \mathbb{Q} 
 \end{align}
 
-We see that we reach a corner \textbf{if and only if} $\frac{m \cdot l}{h}$ is a rational number (quotient of integers).  Note that neither $m$, $h$ or $l$ can be zero from the setup, so this won't be zero or undefined.
+We see that we reach a corner \textbf{if and only if} $\frac{m \cdot l}{h}$ is a rational number (quotient of integers).  Note that neither $m$, $h$ nor $l$ can be zero from the setup, so this won't be zero or undefined.
 
 
 
@@ -143,7 +145,7 @@ We see that we reach a corner \textbf{if and only if} $\frac{m \cdot l}{h}$ is a
 
 The key insight here is that instead of each ``frame'' extending from $(0, 0)$ to $(l, h)$, with the box's center ($x, y)$ constrained to the rectangle defined by $[\frac{j}{2}, l - \frac{j}{2}], \times [\frac{k}{2}, h - \frac{k}{2}]$, we can instead treat the \emph{center} of that $[\frac{j}{2}, l - \frac{j}{2}], \times [\frac{k}{2}, h - \frac{k}{2}]$ box as a point like in problem 1. 
 
-It is then clear that we can use problem 1's main insight to the center point as opposed to the small rectangle: that the small rectangle, say, $\frac{j}{2}$ left of the right border of one frame will take an trajectory eqjuivalent to that of a rectangle $\frac{j}{2}$ right of the left border of the adjoining right frame.
+It is then clear that we can apply problem 1's main insight to the center point as opposed to the small rectangle: that the small rectangle, say, $\frac{j}{2}$ left of the right border of one frame will take an trajectory eqjuivalent to that of a rectangle $\frac{j}{2}$ right of the left border of the adjoining right frame.
 
 So, restate the problem as $j, k = 0; l \rightarrow l - j; h \rightarrow h - k;  x \rightarrow x - \frac{j}{2}; y \rightarrow y - \frac{k}{2}$ and solve as in problem 1.
 
@@ -167,7 +169,7 @@ It's clear that there are many non-solutions here. Consider, on a grid $h = l = 
 \caption{$(x, y) = (\frac{1}{2}, 0), m = 1$ bounces forever}
 \end{figure}
 
-First, find the intercept with the next x boundary as in Figure 8.
+First, find the intercept with the first right boundary as in Figure 8.
 
 \begin{figure}[!htb]
 \centering
@@ -189,14 +191,14 @@ There are four (not entirely separate) cases here:
 
 \begin{itemize}
 \item $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are both integers. In this case, we can use Euler's algorithm to find the greatest common denominator of $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$, as well as $b$, $a$. If that GCD equals one, the algorithm will give us $b$ and $a$. Otherwise, there is no solution (we never hit a corner).
-\item $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are rational but there is at least one non-integer among them. In this case, multiply out the denominators by the necessary factor $d$ to make them integers, and reduce to the first case looking for GCD $d$. If our GCD is $d$ or divides $d$, we will hit a corner, otherwise we will bounce infinitely. Note that Figure 7's scenario ($y^* = \frac{3}{2}, m = h = l = 1$) reduces to $1 = b \cdot \frac{2}{3} - a  \cdot \frac{2}{3} \Rightarrow 3 = 2a-2b$, which has no integer solution pair.
+\item $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are rational but there is at least one non-integer among them. In this case, multiply out the denominators by the necessary factor $d$ to make them integers, and reduce to the previous case looking for GCD $d$. If our GCD is $d$ or divides $d$, we will hit a corner, otherwise we will bounce infinitely. Note that Figure 7's scenario ($y^* = \frac{3}{2}, m = h = l = 1$) reduces to $1 = b \cdot \frac{2}{3} - a  \cdot \frac{2}{3} \Rightarrow 3 = 2a-2b$, which has no integer solution pair.
 \item Exactly one of $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ is irrational. Then there is clearly no solution without $a$ or $b$ equaling zero (which we've eliminated).
 \item Both $\frac{h}{y^*}, \frac{m \cdot l}{y^*}$ are irrational. This reduces to:
 \begin{align}
 \frac{y^*}{h} = b - a\frac{m \cdot l}{h} \\
 -\frac{y^*}{h} = a\frac{m \cdot l}{h} \mod 1 
 \end{align}
-Though we look close to a solution, this rearranging hasn't gotten us much farther since we can't multiply by $\frac{h}{m \cdot l}$ while retaining modulus 1. For example, try corner-bouncer $y^* = 1+\sqrt{2}, l = 1, h = \frac{1}{2} + \sqrt{2}, m = \sqrt{2}$, yielding $a = 1, b = 2$; equation (8) is satisfied but multiplying by $\frac{h}{m \cdot l}$ doesn't work. The best we can hope for is that $-y^*$ and $m \cdot l$ have an obvious relationship.
+Though we look close to a solution, this rearranging hasn't gotten us much farther since we can't multiply by $\frac{h}{m \cdot l}$ while retaining modulus 1. For example, try corner-bouncer $y^* = \frac{1}{2}, l = 1, h = \frac{1}{2} + \sqrt{2}, m = \sqrt{2}$, yielding $a = 1, b = 1$; equation (8) is satisfied but multiplying by $\frac{h}{m \cdot l}$ doesn't work. The best we can hope for in the general case is that $-y^*$ and $m \cdot l$ have an obvious relationship.
 
 \end{itemize}
 
