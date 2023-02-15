@@ -159,7 +159,8 @@ $(x_1 - x_0) = P_{[0,1]}$.
 (6) Following the equalities all the way back to 1, $\det(X_n)$ is then $P[0,n]$.
 
 \section{Proof of $P_{[0,n]} = S_{[0,n]}$}
- 
+
+\subsection{Example: $P{[0,1]} = S{[0,1]} \Rightarrow P{[0,2]} = S{[0,2]}$}
 We've already established that $P_{[0,1]} = S_{[0,1]}$.  To see that $P_{[0,2]} = S_{[0,2]}$, write it out:
 
 \begin{align}
@@ -178,9 +179,11 @@ P_{[0,2]}  \\
 
 Note that line (3) follows from line (2) by base case, line (8) is the set of even permutations of $\{2,1,0\}$, line (9) the odds, and line (10) becomes zero.
 
+\subsection{Graph Intuition}
+
 Rather than handle these $2^{\begin{pmatrix}n\\2\end{pmatrix}}$ terms by hand each time algebraically, we'll treat these factors $(x_j - x_i)$ as a \emph{graph}.
 
-The $2^{\begin{pmatrix}n\\2\end{pmatrix}} = 2^{\begin{pmatrix}3\\2\end{pmatrix}} = 8$ terms expanded on lines (8) - (10) are actually the 8 possible choices of multiplication through the three factors $(x_2 - x_1)(x_2-x_0)(x_1-x_0)$.  This can be mapped to every possible instance of a complete directed graph (also known as a ``tournament'') on $n$ nodes, with the edge ``pointing'' from the selected term towards the omitted term in $(x_j - x_i)$.
+The $2^{\begin{pmatrix}n\\2\end{pmatrix}} = 2^{\begin{pmatrix}3\\2\end{pmatrix}} = 8$ terms expanded on lines (8) - (10) are actually the 8 terms resulting from multiplication of the three factors $(x_2 - x_1)(x_2-x_0)(x_1-x_0)$.  This can be mapped to every possible instance of a complete directed graph (also known as a ``tournament'') on 3 nodes, with the edge ``pointing'' from the selected term towards the omitted term in $(x_j - x_i)$.
 
 For example, the term $x_2^2x_1^1x_0$, produced by multiplying the left term of the three factors of $(x_2-x_1)(x_2-x_0)(x_1-x_0)$, corresponds to graph 1a.  Note we use capital $X_1$ to mean that term was selected in $(X_1 - x_2)$ for example.
 
@@ -234,7 +237,7 @@ For example, the term $x_2^2x_1^1x_0$, produced by multiplying the left term of 
 \label{fig:test}
 \end{figure}
 
-The term $x_2^1x_1^1x_0^1$, from multiplying the right, left, and right terms of the above product respectively, corresponds to 1b.  And inverted each of these to left, right, left, produces the inverted cycle and algebraic inverse $-x_2^1x_1^1x_0^1$ in 1c.
+The term $x_2^1x_1^1x_0^1$, from multiplying the right, left, and right terms of the above product respectively, corresponds to 1b.  And the inverted sequence left, right, left, produces the inverted cycle and algebraic inverse $-x_2^1x_1^1x_0^1$ in 1c.
 
 This should give a flavor of the proof.
 \subsection{P-S Equivalence Lemma Proof layout}
@@ -243,30 +246,71 @@ Here is a layout of the proof that $P_I=S_I$.
 
 First, we prove a set of lemmas:
 \begin{itemize}
-\item (1) Lemma: The set of terms in an expanded $\prod(x_j - x_i)$ can be mapped 1:1 to the set of all possible directed complete graphs.
+\item (1) Lemma: The set of terms in an expanded $P_{[0,n]} =\prod_{0 \leq i < j \leq n}(x_j - x_i)$ can be mapped 1:1 to the set of all possible directed complete graphs.
 \item (2) Lemma :All directed complete graphs are either acyclic or contain a 3-cycle.
-\item (3) Lemma: Acyclic graphs correspond through the above bijection with terms of the form $sgn(\sigma) x_{\sigma(n-1)}^{n-1} x_{\sigma(n-2)}^{n-2} ... x_{\sigma(0)}^{0}$.
-\item (4) Lemma: Cyclic tournaments have a ``critical'' 3-cycle and pair 1:1 with an otherwise identical graph with that 3-cycle inverted.
+\item (3) Lemma: Acyclic graphs correspond through the above bijection with terms of the form $sgn(\sigma) x_{\sigma(n)}^nx_{\sigma(n-1)}^{n-1}  ... x_{\sigma(0)}^{0}$ for some permutation $\sigma$ on $[0,n]$.
+\item (4) Lemma: Cyclic tournaments with a 3-cycle can be uniquely paired 1:1 with an otherwise identical graph with that 3-cycle inverted.
 \end{itemize}
 
 Through these lemmas, we can start with a base case equality $P_{[0,2]} = S_{[0,2]}$ and show:
 \begin{itemize}
-\item (5) Adding an additional node $x_n$ to an acyclic graph $G$ of $n-1$ maps through this bijection to  multiplying $\prod(x_n-x_i)$ by $P_[0,n-1]$
-\item (6) Adding an additional node $x_n$ to an acyclic graph $G$ of $n-1$ maps through this bijection to  generating $S_[0,n]$.
-\item Therefore, $P_{[0,n]} = S_{[0,n]}$
+\item (5) This bijection maps all possibilities of adding an additional node $x_n$ to an acyclic graph $G$ of $n-1$ nodes to multiplying $\prod_{0 \leq i < n}(x_n-x_i)$ by $P_{[0,n-1]}$
+\item (6) This bijection maps all possibilities of adding an additional node $x_n$ to an acyclic graph $G$ of $n-1$ nodes to $S_{[0,n]}$.
+\item (7) Therefore, $P_{[0,n]} = S_{[0,n]}$
 \end{itemize}
 
 \subsection{Lemma 1}
 
-Every possible complete directed graph of vertex size $n$ $G = (E,V)$ consists exactly of edges $(i \rightarrow j)$ with $i, j \in [v_0, v_n-1], i < j$.  If $(i \rightarrow j) \in E$, then consider $(X_i - x_j)$ in the expansion of $P_{[0, n-1]}$; otherwise if $(j \rightarrow i) \in E$, then consider $(x_i - X_j)$ in the expansion of $P_{[0, n-1]}$.  Conversely, if $(X_i - x_j)$ is in a term, take $(i \rightarrow j)$ for an edge in the graph, otherwise $(j \rightarrow i)$.  As in Figure 1, this isomorphism should be clear.
+Every possible complete directed graph  $G = (E,V)$ of vertex size $n$  consists exactly of edges $(i \rightarrow j)$ with $i, j \in [v_0, v_n-1], i < j$.  If $(i \rightarrow j) \in E$, then consider $(X_i - x_j)$ in the expansion of $P_{[0, n-1]}$; otherwise if $(j \rightarrow i) \in E$, then consider $(x_i - X_j)$ in the expansion of $P_{[0, n-1]}$.  Conversely, if $(X_i - x_j)$ is in a term of $P_{[0, n-1]}$, take $(i \rightarrow j)$ for an edge in the graph, otherwise $(j \rightarrow i)$.  As in Figure 1, this isomorphism should be clear.
 
 \subsection{Lemma 2}
 
-If a graph contains no cycles, we are done.
+If the graph contains no cycles, or a cycle of length 3, we are done.
 
-If a graph contains a cycle $(v_i \rightarrow v_{i+1} \rightarrow  ...  \rightarrow v_{i+m-1} \rightarrow  v_i)$ ($i's$ not necessarily sequential) of length $m > 3$, we can split it into two possible cycles: $A = (v_i \rightarrow  v_{i+1} \rightarrow v_{i+2} \rightarrow  v_i)$ and $B = (v_{i+2} \rightarrow  v_{i+3} \rightarrow  ... \rightarrow v_{i} \rightarrow v_{i+2} )$.  Depending on the direciton of edge $(v_{i}, v_{i+2})$, exactly one of $A$ or $B$ must be a cycle of smaller length.  Proceed inductively down to a cycle of length 3.
+If a graph contains some cycle $(v_0 \rightarrow v_{1} \rightarrow  ...  \rightarrow v_{m-1} \rightarrow  v_0)$ of length $m > 3$, we can split it into two possible cycles: $A = (v_0 \rightarrow  v_{1} \rightarrow v_{2} \rightarrow  v_0)$ and $B = (v_{2} \rightarrow  v_{3} \rightarrow  ... \rightarrow v_{0} \rightarrow v_{2} )$.  Depending on the direction of edge $(v_{0}, v_{2})$, exactly one of $A$ or $B$ must be a cycle of smaller length.  If $A$ is a cycle, we are done.  Else use $B$ and reapply recursively, eventually down to a cycle of length 3.
 
+\subsection{Lemma 3}
 
+Another way of saying ``every acyclic tournament maps through some $\sigma$ to$sgn(\sigma) x_{\sigma(n)}^nx_{\sigma(n-1)}^{n-1}  ... x_{\sigma(0)}^{0}$ is ``No acyclic tournament has nodes of equal degree''.  For example, an acyclic tournament on a set of nodes indexed $[0, 3]$ necessarily looks like the following:
+
+  \begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}] 
+\node[main] (4) {$x_3$}; 
+\node[main] (3) [right of=4] {$x_2$}; 
+\node[main] (2) [right of=3] {$x_1$}; 
+\node[main] (1) [right of=2] {$x_0$}; 
+\draw[->] (4) -- (3); 
+\draw[->] (4) to [out = 90, in = 90, looseness=.25] (2);
+\draw[->] (4) to [out = 90, in = 90, looseness=.5] (1);
+\draw[->] (3) to [out = 270, in = 270, looseness=.25] (1);
+\draw[->] (3) -- (2);
+\draw[->] (2) -- (1);
+\end{tikzpicture}
+
+Every node has a unique out degree, ranging from $n-1$ to 0.  (Note: This graph corresponds to the term $x_3^3x_2^2x_1^1x_0^0$).  As every edge ``goes right'', it's clear that there can be no cycle (or particularly, 3-cycle) here.
+
+For the converse, consider the statement that ``no acyclic tournament has a subgraph (removing vertices) with two or more vertices of equal degree''.  If this is true then certainly the graph has to have the above form out outdegrees.  To see this:
+
+\begin{itemize}
+\item If the graph is of the form $sgn(\sigma) x_{\sigma(n)}^nx_{\sigma(n-1)}^{n-1}  ... x_{\sigma(0)}^{0}$ for some $n$ and some $\sigma$, we are done.
+\item Suppose then it has two vertices with duplicate outdegrees, but has no cycles. Eliminate vertices, starting from $x_n$, then $x_{n-1}$, down to $x_2$ just until a subgraph is of the form with all unique outdegrees, which we'll call $y_{m} ... y_0$, with $y_m$ of outdegree $m$ and $y_0$ of outdegree 0.  Call $y_0$ for now $y^-$.
+\item Add the last removed vertex $y^*$ and its edges back.  $y^*$ must have the same outdegree as some other vertex, otherwise we have a contradiction.
+\item Step: If $(y^- \rightarrow y^*)$ is in the graph, then necessarily there is a cycle $(y^- \rightarrow y^* \rightarrow $ some $y_j \rightarrow y^-)$, so we have a contradiction.
+\item Else $(y^* \rightarrow y^-)$ is in the graph, so the outdegree of $y^*$ can't be 0.  Remove $y^-$, reducing all vertices by outdegree 1, creating a new $y^- \neq y^*$ with minimum degree, and go back to (Step).
+\end{itemize}
+
+From this, we can conclude that an acylic directed tournament has vertices of all unique degrees, and thus, up to vertex labeling (permutation), has the form $sgn(\sigma) x_{\sigma(n)}^nx_{\sigma(n-1)}^{n-1}  ... x_{\sigma(0)}^{0}$  for some $\sigma$.
+
+\subsection{Lemma 4}
+
+Suppose, for a graph $G$ we fix an ordering of vertices like $\{x_n, x_{n-1}, x_{n-2}... x_0\}$.  Suppose $(x_a, x_b, x_c)$ is the 3-cycle with highest lexicographic order ($x_n > x_{n-1} > ...$), with edges pointing either direction.  Then, the graph $G'$, with the same edges, except the direction of cycle  $(x_a, x_b, x_c)$ reversed:
+\begin{itemize}
+\item (1) Is a dual to $G$.
+\item (2) Has a representation through the main bijection which is an inverse to that of G.
+\end{itemize}
+
+(1) is clear because each uniquely determines the other; the order of vertices is the same, thus the ``first'' cycle is the same, and the order need only be reversed.
+\\
+(2) Inverting $(X_1 - x_2)(X_2-x_3)(X_3-x_1) = X_1X_2X_3$ yields $(x_1 - X_2)(x_2-X_3)(x_3-X_1) = -X_1X_2X_3$, for any choice of $x_1, x_2, x_3$
 
 
 
