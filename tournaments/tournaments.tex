@@ -33,7 +33,7 @@ style=alphabetic,
 %SetFonts% 
 
 
-\title{Vandermone Determinants via Graph Tournaments}
+\title{Vandermonde Determinants via Graph Tournaments}
 \author{Dave Fetterman}
 \affil{Obviously Unemployed}
 \date{2/16/23}
@@ -181,26 +181,26 @@ P_{[0,2]}  \\
 = (x_2-x_1)(x_2-x_0)P_{[0,1]} \\
 = (x_2-x_1)(x_2-x_0)S_{[0,1]} \\
 = x_2^2(x_1^1x_0^0 - x_0^1x_1^0) \\
-+ x_2x_0(x_1^1x_0^0 - x_0^1x_1^0) \\
+- x_2x_0(x_1^1x_0^0 - x_0^1x_1^0) \\
 - x_2x_1 (x_1^1x_0^0 - x_0^1x_1^0) \\
-+ x_1x_2(x_1^1x_0^0 - x_0^1x_1^0)  \\
++ x_1x_0(x_1^1x_0^0 - x_0^1x_1^0)  \\
 = x_2^2x_1^1x_0^0  + x_1^2x_0^1x_2^0 + x_0^2x_2^1x_1^0   \\
  - x_2^2x_0^1x_1^0 - x_1^2x_2^1x_0^0 - x_0^2x_1^1x_2^0 \\
 + x_0^1x_1^1x_2^1 - x_0^1x_1^1x_2^1 \\
 = S_{[0,2]}
 \end{align}
 
-Note that line (3) follows from line (2) by base case, line (8) is the set of even permutations of $\{2,1,0\}$, line (9) the odds, and line (10) becomes zero by combining terms with the same exponents and opposite signs (or opposite $sgn(\sigma)$, if you like).
+Note that line (3) follows from line (2) by base case, line (8) is the set of even (subscript) permutations of $\{2,1,0\}$, line (9) the odds, and line (10) becomes zero by combining terms with the same exponents and opposite signs (or opposite $sgn(\sigma)$, if you like).
 
 \subsection{Graph Intuition}
 
 In the general case, the difficulty is really line (10) - how do we do all the cancellations?
 
-Rather than handle these $2^{\begin{pmatrix}n\\2\end{pmatrix}}$ terms by hand each time algebraically, through an isomorphism, we'll translate these factors $(x_j - x_i)$ as a set of $\begin{pmatrix} n\\2\end{pmatrix}$ \emph{graphs}.
+Rather than handle these $2^{n \choose 2}$ terms by hand each time algebraically, through an isomorphism, we'll translate these factors $(x_j - x_i)$ as a set of ${n \choose 2}$ \emph{graphs}.
 
-The $2^{\begin{pmatrix}n\\2\end{pmatrix}} = 2^{\begin{pmatrix}3\\2\end{pmatrix}} = 8$ terms expanded on lines (8) - (10) are clearly the 8 terms resulting from multiplication of the three factors $(x_2 - x_1)(x_2-x_0)(x_1-x_0)$.  Each such algebraic term is isomorphic to one of the complete\footnote{edges between every vertex} directed\footnote{an edge points toward one of its vertices} graphs (also known as ``tournaments'') in the set on 3 nodes, with the edge ``pointing'' from the selected term towards the omitted term in $(x_j - x_i)$.
+The $2^{n \choose 2} = 2^{3 \choose 2} = 8$ terms expanded on lines (8) - (10) are clearly the 8 terms resulting from multiplication of the three factors $(x_2 - x_1)(x_2-x_0)(x_1-x_0)$.  Each such algebraic term is isomorphic to one of the complete\footnote{edges between every vertex} directed\footnote{an edge points toward one of its vertices} graphs (also known as ``tournaments'') in the set on 3 vertices, with the edge ``pointing'' from the selected term towards the omitted term in $(x_j - x_i)$.
 
-For example, the term $x_2^2x_1^1x_0$, produced by multiplying the three left terms of the three factors of $(x_2-x_1)(x_2-x_0)(x_1-x_0)$, corresponds to graph 1a.  
+For example, the term $x_2^2x_1^1x_0$, produced by multiplying the three left terms of the three factors of $(\mathbf{x_2}-x_1)(\mathbf{x_2}-x_0)(\mathbf{x_1}-x_0)$, corresponds to graph 1a.  
 
 \begin{figure}
 \centering
@@ -253,7 +253,9 @@ For example, the term $x_2^2x_1^1x_0$, produced by multiplying the three left te
 
 The term $x_2^1x_1^1x_0^1$, from multiplying the right, left, and right terms of the above product corresponds to 1b.  And, in 1c, the inverted product sequence left, right, left, produces the inverted graph cycle and notably, the algebraic inverse $-x_2^1x_1^1x_0^1$ in the product expansion (sum).
 
-This should give a flavor of the proof: \emph{To find the expansion of $P_I$ and show it equals $S_I$, we show each of the $2^{\begin{pmatrix}n \\ 2\end{pmatrix}}$ graphs produced when expanding $P_I$ are isomorphic to a term in the sum like $-x_1^2x_2^1x_0^0$, where each exponent represents the ``out degree'' of a vertex $x_i$ in the graph. If any of the exponents in the term corresponding to a graph are equal, we show the term drops out in the final cancellation, and through the same isomoprhism, we are left with $S_I$.}
+This should give a flavor of the proof: 
+\\
+\emph{To find the expansion of $P_I$ and show it equals $S_I$, we show each of the $2^{n \choose 2}$ graphs produced when expanding $P_I$ are isomorphic to a term in the sum like $-x_1^2x_2^1x_0^0$, where each exponent represents the ``out degree'' of a vertex $x_i$ in the graph. If any of the exponents in the term corresponding to a graph are equal, we show the term drops out in the final cancellation, and through the same isomoprhism, we are left with $S_I$.}
 
 \subsection{P-S Equivalence Lemma Proof layout}
 
@@ -269,9 +271,9 @@ First, we prove a set of lemmas:
 
 Through these lemmas, we can start with a base case equality $P_{[0,2]} = S_{[0,2]}$ and show:
 \begin{itemize}
-\item The isomorphism equates the set of edge configurations in of adding an additional node $x_n$ to an acyclic graph $G$ of $n$ nodes with the algebraic action of multiplying $\prod_{0 \leq i \leq n-1}(x_n-x_i)$ by $P_{[0,n-1]}$. 
-\item (6) This isomorphism maps all possibilities of adding an additional node $x_n$ to an acyclic graph $G$ of $n$ nodes to $S_{[0,n]}$.  In particular, all terms corresponding to graphs with cycles cancel, and only those corresponding to acyclic tournaments remain in the sum.   
-\item (7) Because $P_{[0,n]}$ and $S_{[0,n]}$ map to the same set of graphs \emph{through the same bijection (isomorphism)}, this shows the \textbf{P-S equivalency lemma}, and the inductive step of the Vandermonde Determinant Proof.
+\item (5) The isomorphism equates the set of edge configurations possible from adding an additional vertex $x_n$ to an acyclic graph $G$ of $n$ vertices with the algebraic action of multiplying $\prod_{0 \leq i \leq n-1}(x_n-x_i)$ by $P_{[0,n-1]}$. 
+\item (6) This isomorphism maps all possibilities of adding an additional vertex $x_n$ to an acyclic graph $G$ of $n$ vertices to $S_{[0,n]}$.  In particular, all terms corresponding to graphs with cycles cancel, and only those corresponding to acyclic tournaments remain in the sum.   
+\item (7) Because $P_{[0,n]}$ and $S_{[0,n]}$ map to the same set of graphs \emph{through the same isomorphism}, this shows the \textbf{P-S equivalency lemma}, and the inductive step of the Vandermonde Determinant Proof (section 2.1.2).
 \end{itemize}
 
 \subsection{Lemma 1}
@@ -281,7 +283,7 @@ Through these lemmas, we can start with a base case equality $P_{[0,2]} = S_{[0,
 Every possible complete directed graph  $G = (E,V)$ of vertex size $n$  consists exactly of edges $(i, j)$\footnote{of some direction} with $i, j \in [v_0, v_n-1], i < j$.  If $(i \rightarrow j) \in E$, then consider $(\mathbf{x_i} - x_j)$ in the expansion of $P_{[0, n-1]}$; otherwise if $(j \rightarrow i) \in E$, then consider $(x_i - \mathbf{x_j})$ in the expansion of $P_{[0, n-1]}$.  Conversely, if $(\mathbf{x_i} - x_j)$ is in a term of $P_{[0, n-1]}$, take $(i \rightarrow j)$ for an edge in the graph, otherwise $(j \rightarrow i)$.  As in Figure 1, this isomorphism should be straightforward.
 \footnote{Or consider pulling out $Q = P_{[0,n]}/(x_i - x_j)$.  Then $(x_i - x_j)Q = x_iQ - x_jQ$, two graph sets with different ``selections'' for edge $(i,j)$}
 
-\emph{Note: We call this bijective correspondence between an algebraic term in the expansion of $P_{[0,n]}$ and a tournament on $n+1$ nodes ``the isomorphism'' throughout the paper. When we say a graph ``pairs with an algebraic form'' or a algebraic term ``has a corresponding graph'', it's meant to be through this bijection.}
+\emph{Note: We call this bijective correspondence between an algebraic term in the expansion of $P_{[0,n]}$ and a tournament on $n+1$ vertices ``the isomorphism'' throughout the paper. When we say a graph ``pairs with an algebraic form'' or a algebraic term ``has a corresponding graph'', it's meant to be through this bijection.}
 
 \subsection{Lemma 2}
 
@@ -296,7 +298,7 @@ If a graph contains some cycle through vertices $(v_0 \rightarrow v_{1} \rightar
 \emph{Acyclic tournaments correspond through the isomorphism with terms of the form $sgn(\sigma) x_{\sigma(n)}^nx_{\sigma(n-1)}^{n-1}  ... x_{\sigma(0)}^{0}$ for some permutation $\sigma$ on $[0,n]$.}
 
 
-Another way of saying ``every acyclic tournament maps through some $\sigma$ to$sgn(\sigma) x_{\sigma(n)}^nx_{\sigma(n-1)}^{n-1}  ... x_{\sigma(0)}^{0}$ is ``No acyclic tournament has nodes of equal outdegree''.  For example, an acyclic tournament on a set of nodes indexed $[0, 3]$ necessarily looks like the following:
+Another way of saying ``every acyclic tournament maps through some $\sigma$ to$sgn(\sigma) x_{\sigma(n)}^nx_{\sigma(n-1)}^{n-1}  ... x_{\sigma(0)}^{0}$ is ``No acyclic tournament has vertices of equal outdegree''.  For example, an acyclic tournament on a set of vertices indexed $[0, 3]$ necessarily looks like the following:
 
 \begin{figure}
   \begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}] 
@@ -311,21 +313,21 @@ Another way of saying ``every acyclic tournament maps through some $\sigma$ to$s
 \draw[->] (3) -- (2);
 \draw[->] (2) -- (1);
 \end{tikzpicture}
-\caption{An acyclic tournament on 4 nodes}
+\caption{An acyclic tournament on 4 vertices}
 \label{fig:test2}
 \end{figure}
 
 
 Every vertex here $x_i$ has a unique outdegree $k \in [0,n-1]$, which, through the isomorphism, we see as the exponent of $x_i$ in the graph's algebraic form.  The above graph corresponds to the term $x_3^3x_2^2x_1^1x_0^0$.  As every edge here ``points right'', it's clear that there can be no cycle (or particularly, 3-cycle).
 
-For the converse, consider the statement that ``no acyclic tournament has a subgraph\footnote{Meaning a copy of the original graph with some vertices and all their adjacent edges removed} with two or more vertices of equal degree''.  If this is true then certainly the graph has to have the above form out outdegrees.  To see this:
+For the converse, consider the statement that ``no acyclic tournament has a subgraph\footnote{Meaning a copy of the original graph with some vertices and all their adjacent edges removed} with two or more vertices of equal degree''.  If this is true then certainly the graph has to have the above form of outdegrees.  To see this:
 
 \begin{itemize}
 \item If the graph is of the form $sgn(\sigma) x_{\sigma(n)}^nx_{\sigma(n-1)}^{n-1}  ... x_{\sigma(0)}^{0}$ for some $n$ and some $\sigma$, we are done.
-\item Suppose then it has two vertices with duplicate outdegrees, but has no cycles. Eliminate vertices, starting from $x_n$, then $x_{n-1}$, down to $x_2$ just until a subgraph is of the form with all unique outdegrees, which we'll call\footnote{Note: the set of $y$ are the same as the set of $x$, just with some other indexing} $y_{m} ... y_0$ with $y_m$ of outdegree $m$ and $y_0$ of outdegree 0.  Call $y_0$ for now $y^-$.
+\item Suppose then it has two vertices with duplicate outdegrees, but has no cycles. Eliminate vertices, starting from $x_n$, then $x_{n-1}$, down to $x_2$ just until a subgraph is of the form with all unique outdegrees, which we'll call\footnote{Note: the set of $y$ are the same as the set of $x$, just with some other indexing} $y_{m} ... y_0$ with $y_m$ of outdegree $m$ and $y_0$ of outdegree 0.  Call $y_0$, for now, $y^-$.
 \item Add the last removed vertex $y^*$ and its edges back.  $y^*$ must have the same outdegree as some other vertex, otherwise we have a contradiction.
-\item Step: If $(y^- \rightarrow y^*)$ is in the graph, then necessarily there is a cycle $(y^- \rightarrow y^* \rightarrow $ some $y_j \rightarrow y^-)$, so we have a contradiction.
-\item Else $(y^* \rightarrow y^-)$ is in the graph, so the outdegree of $y^*$ can't be 0.  Remove $y^-$, reducing all vertices by outdegree 1, creating a new $y^- \neq y^*$ with minimum degree, and go back to (Step).
+\item Loop:: If $(y^- \rightarrow y^*)$ is in the graph, then necessarily there is a cycle $(y^- \rightarrow y^* \rightarrow $ some $y_j \rightarrow y^-)$, so we have a contradiction.
+\item Else $(y^* \rightarrow y^-)$ is in the graph, so the outdegree of $y^*$ can't be 0.  Remove $y^-$, reducing all vertices by outdegree 1, creating a new $y^- \neq y^*$ with minimum degree, and go back to (Loop).
 \end{itemize}
 
 From this, we can conclude that an acylic directed tournament has vertices of all unique degrees, and thus, up to vertex labeling (permutation), has the algebraic form $sgn(\sigma) x_{\sigma(n)}^nx_{\sigma(n-1)}^{n-1}  ... x_{\sigma(0)}^{0}$  for some $\sigma$.
@@ -428,7 +430,7 @@ Suppose, for a graph $G$ we fix an ordering of vertices like $\{x_n, x_{n-1}, x_
 \draw[->] (5) -- (2); 
 \draw[->] (5) -- (1); 
 \end{tikzpicture}
-  \caption{G: adding $x_n$ to a tournament of 4 nodes $\simeq x^4y_{n-1}^3y_{n-2}^2y_{1}^1y_0^0$}  \label{fig:sub1}
+  \caption{G: adding $x_n$ to a tournament of 4 vertices $\simeq x^4y_{n-1}^3y_{n-2}^2y_{1}^1y_0^0$}  \label{fig:sub1}
 \end{subfigure}
 \begin{subfigure}{.9\textwidth}
   \centering
@@ -452,15 +454,15 @@ Suppose, for a graph $G$ we fix an ordering of vertices like $\{x_n, x_{n-1}, x_
 \draw[->] (5) -- (2); 
 \draw[->] (5) -- (1); 
 \end{tikzpicture}
-  \caption{G: adding $x_n$ to a tournament of 4 nodes:  $\simeq y_{n-2}^4y_{n-1}^3x^2y_{1}^1y_0^0$}
+  \caption{G: adding $x_n$ to a tournament of 4 vertices:  $\simeq y_{n-2}^4y_{n-1}^3x^2y_{1}^1y_0^0$}
   \label{fig:sub1}
 \end{subfigure}
-\caption{Adding $x_n$ to an existing tournament on 4 nodes}
+\caption{Adding $x_n$ to an existing tournament on 4 vertices}
 \label{fig:test3}
 \end{figure}
 
 
-\emph{The isomorphism equates the set of edge configurations in of adding an additional node $x_n$ to an acyclic graph $G$ of $n$ nodes with the algebraic action of multiplying $\prod_{0 \leq i \leq n-1}(x_n-x_i)$ by $P_{[0,n-1]}$. }
+\emph{The isomorphism equates the set of edge configurations in of adding an additional vertex $x_n$ to an acyclic graph $G$ of $n$ vertices with the algebraic action of multiplying $\prod_{0 \leq i \leq n-1}(x_n-x_i)$ by $P_{[0,n-1]}$. }
 
 By inductive assumption, suppose an acyclic tournament graph $G = (E, V)$ on a permutation of the vertices $y_{n-1}, y_{n-2}, ... y_0 \in V$ is constructed such that $(y_i \rightarrow y_j) \in E$ iff $i > j$.
 
@@ -474,20 +476,20 @@ The above graph would correspond to the term $(\mathbf{x_n}-y_{n-1})(\mathbf{x_n
 
 \subsection{Step 6}
 
-\emph{This bijection maps all possibilities of adding an additional node $x_n$ to an acyclic graph $G$ of $n$ nodes to $S_{[0,n]}$.}
+\emph{This bijection maps all possibilities of adding an additional vertex $x_n$ to an acyclic graph $G$ of $n$ vertices to $S_{[0,n]}$.}
 
 Looking at Figures 3a and 3b, notice that, when adding $x_n$, if at any point there are edges $(x_n \rightarrow y_{j}), (y_{i} \rightarrow x_n), i < j$, then we necessarily have a cycle in the graph.  By Lemma 4, these each are mapped 1:1 to another graph, which has an inverted ``first cycle'' and is an algebraic inverse.  Thus, each pair of these contributes $0$ to an expanded $P_{[0,n]}$.
 
-So the only configurations of $x_n$'s edges that do not create a cycle are those that point ``out'' from $x_n$ and then shift permanently to pointing ``in'' to $x_n$ as we descend from $y_{n-1}, y_{n-2} ... y_0$, like Figures 4a and 4b. By Lemma 3, in the algebraic representation these correspond exactly to $sgn(\sigma) y_{n-1}^{n}y_{n-2}^{n-1}...y_{k}^{k+1}x_n^ky_{k-2}^{k-1}...y_0^0$. 
+So the only configurations of $x_n$'s edges that do not create a cycle are those like $\{(y_{n-1} \rightarrow x_n), (y_{n-2} \rightarrow x_n) ... (y_i \rightarrow x_n), (x_n \rightarrow y_{i-1}), ...,(x_n \rightarrow y_0) \}$, where all ``ins'' to $x_n$ precede all ``outs'' from it, like Figures 4a and 4b. By Lemma 3, in the algebraic representation these correspond exactly to $sgn(\sigma) y_{n-1}^{n}y_{n-2}^{n-1}...y_{k}^{k+1}x_n^ky_{k-2}^{k-1}...y_0^0$. 
 
-Notice that the sum, over all permutations $\sigma \in Sym([0,n])$, is exactly $S_{[0,n]}$. 
+Notice that the sum of these terms, over all permutations $\sigma \in Sym([0,n])$, is exactly $S_{[0,n]}$. 
 
 
 \subsection{Step 7: Wrapping up}
 
 We assumed $P_{[0, n-1]} = S_{[0, n-1]}$.
 
-Expanding $P_{[0,n]}$ algebraically is difficult.  Instead, we mapped it through the graph-algebraic isomorphism to a set of graphs.  Separating cyclic and acyclic graphs, we saw, through the same isomorphism back, that cyclic graphs cancel on the algebraic side, and acyclic graphs remained, leaving the sum of every permutation of  
+Expanding $P_{[0,n]}$ algebraically is difficult.  Instead, we mapped it through the graph-algebraic isomorphism to a set of graphs.  Separating cyclic and acyclic graphs, we saw, through the same isomorphism, that cyclic graphs cancel on the algebraic side, and acyclic graphs remained, leaving the sum of every permutation of  
 \\
 $sgn(\sigma) x_{\sigma(n)}^{n} x_{\sigma(n-1)}^{n-1} x_{\sigma(n-2)}^{n-2} ... x_{\sigma(0)}^{0}, \sigma \in Sym([0,n])$.
 
@@ -495,7 +497,7 @@ This is $S_{[0,n]}$.
 
 Having proved the \textbf{The P-S Equivalence Lemma}, we finish the inductive step of the Vandermonde Determinant Proof (chapter 2).
 
-\section{Example of adding $x$ to a tournament of 4 nodes} 
+\section{Example of adding $x$ to a tournament of 4 vertices} 
 
 Algebraically resolving $P_{[0,n]} = \prod_{0 \leq i, j, \leq n, j < j} (x_i - x_j)$ gets increasingly unwieldy to show, so we'll conclude with an example of adding all possibilities of $x$ with directed edges to a single existing acyclic tournament\footnote{When doing handwork like this, using $a,b,c$ feels more natural than $x_0, x_1, x_2...$}  with order $d > c > b > a$, with representation $d^3c^2b^1a^0$.
 \\
@@ -519,14 +521,14 @@ Algebraically resolving $P_{[0,n]} = \prod_{0 \leq i, j, \leq n, j < j} (x_i - x
 \end{tikzpicture}
 \\
 
-The tournament represented by $q=x^4d^3c^2b^1a^0$
+The tournament represented by $g=x^4d^3c^2b^1a^0$
 
-The chart maps all $2^4$ terms $t$ in $p=(x-a)(x-b)(x-c)(x-d)$ multiplied by existing tournament representation $q=d^3c^2b^1a^0$, with the ``product'' $t \cdot q$ representing one of the $2^4$ possible 5-node graphs.
+The chart maps all $2^4$ \emph{terms} $t$ in $p=(x-a)(x-b)(x-c)(x-d)$ multiplied by existing tournament representation $g=d^3c^2b^1a^0$, with the ``product'' $t \cdot g$ representing one of the $2^4$ possible 5-vertex graphs.
 
 These products either:
 \begin{itemize}
 \item Are isomorphic to an acyclic graph, so are of the form $sgn(\sigma)  \sigma(x)^{4} \sigma(d)^{3} \sigma(c)^{2} \sigma(b)^{1} \sigma(a)^0$
-\item Are isomorphic to a graph with a cycle in $\{(x, d, c), (x,c,b), (x,b,a)\}$.  If so, they have a uniquely matching pair $t^*$ and graph $q^*$ when flipping their first cycle.
+\item Are isomorphic to a graph with a cycle in $\{(x, d, c), (x,c,b), (x,b,a)\}$.  If so, they have a uniquely matching pair $t^*$ and graph $g^*$ when flipping their first cycle.
 \end{itemize}
 
 
@@ -534,7 +536,7 @@ These products either:
 \begin{center}
 \begin{tabular}{||c c c c||} 
  \hline
-t & $t \cdot q$ & Matching factor $t^*$ $\cdot$ Matching $q^*$ & First cycle \\ [0.5ex] 
+t & $t \cdot g$ & Matching factor $t^*$ $\cdot$ Matching $g^*$ & First cycle \\ [0.5ex] 
  \hline\hline
  $x^4$ & $x^4d^3c^2b^1a^0$ none & none \\ 
  \hline
@@ -581,7 +583,7 @@ t & $t \cdot q$ & Matching factor $t^*$ $\cdot$ Matching $q^*$ & First cycle \\ 
 \end{tabular}
 \end{center}
 
-This sum, $x^4d^3c^2b^1a^0-x^3d^4c^2b^1a^0+x^2d^4c^3b^1a^0-xd^4c^3b^2a^0+d^4c^3b^2a^1$, when added to the tables of all the other initial settings of $q$, produces $S_{[0,4]}$.
+This sum, $x^4d^3c^2b^1a^0-x^3d^4c^2b^1a^0+x^2d^4c^3b^1a^0-xd^4c^3b^2a^0+d^4c^3b^2a^1$, when added to the tables of all the other initial settings of $g$, produces $S_{[0,4]}$.
 
 
 \begin{thebibliography}{9}
