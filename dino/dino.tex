@@ -7,6 +7,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{authblk}
+\usepackage{framed}
 \usepackage[
 backend=biber,
 style=alphabetic,
@@ -83,25 +84,56 @@ The maximum score individual score is 9 (since your opponent's 10 cannot be beat
 
 Intuitively, your hand has a certain amount of ``power'' that you deploy to beat an opponent; spending the minimum amount of ``power'' to win preserves better cards for later.  
 
-Imagine on the first turn of a 10 card deck $\{1, 2, ... 10\}$, players $(P_1, P_2)$ play respective cards $(9, 10)$.  This means:
+Imagine on the first turn of a 10 card deck $\{1, 2, ... 10\}$, players $(P_A, P_B)$ play respective cards $(9, 10)$.  This means:
 \begin{itemize}
-\item $P_2$ takes a one-point lead.
-\item 10 is preserved for $P_1$.  They will necessarily win one hand in the future.
-\item The powerful card 9 is lost for $P_1$.
+\item $P_B$ takes a one-point lead.
+\item 10 is preserved for $P_A$.  They will necessarily win one hand in the future.
+\item The powerful card 9 is lost for $P_A$.
 \end{itemize}
 
 Alternatively, imagine the first move is $(1,10)$.  This means:
 
 \begin{itemize}
-\item $P_2$ takes a one-point lead.
-\item 10 is preserved for $P_1$.  They will necessarily win one hand in the future.
-\item 1 is lost for $P_1$, the worst card in the hand.
-\item Each card of $P_1$'s hand beats at least one card in $P_2$'s hand.
+\item $P_B$ takes a one-point lead.
+\item 10 is preserved for $P_A$.  They will necessarily win one hand in the future.
+\item 1 is lost for $P_A$, the worst card in the hand.
+\item Each card of $P_A$'s hand beats at least one card in $P_B$'s hand.
 \end{itemize}
 
 The second scenario \emph{seems} better \footnote{In this paper, we measure goodness by expected tricks taken by the hand.}.  But how much better?  And how can one strategically strive to lose bad cards and win ``by just enough'' to take tricks?  This is the focus of the paper.
 
 \subsection{A reduced example}
+
+Throughout, we'll use the following conventions:
+\begin{itemize}
+\item $P_A$'s available options are listed in bold down the left column of the payoff matrix (Fig 2a, 2b).
+\item $P_B$'s available options are listed in bold across the top row.
+\item A trick has a payoff of $1$ if $P_A$ wins, and $-1$ if $P_B$ wins.  $P_A$ is trying to get the total score as high above zero as possible, $P_B$ below.
+\item For these payoff matrices $M$, the cell at row $i$, column $j$ is the value of that trick, plus the expected value of the remaining game.
+\end{itemize}
+
+
+This is easy to see in Fig 2a, where the hands are identical.  There are only four games of $(P_A, P_B)$ move pairs:
+\begin{itemize}
+\item $(1,1)$ means the first trick payoff is zero, and the rest of the game (necessarily $(3,3)$) is determined, also of payoff zero.
+\item $(3,3)$ follows similarly.
+\item $(3,1)$ means the first trick payoff is 1, and the rest of the game (necessarily $(1,3)$) pays off -1, for a total of zero.
+\item $(1,3)$ follows in reverse, with another time game.
+\end{itemize}
+
+It's clear that \emph{any strategy} is equivalent in this very boring small game.  \emph{$P_A$ could even announce his moves before $P_B$ selects a card, and the result of the game is still determined.}  The expected value of the game is zero.
+
+Observe in figure 2b that starting sets of $P_A: \{1,5\}, P_B: \{3,4\}$, while not identical, also yield this result; the choices don't matter in the end.
+
+But some uneven sets of cards, like in Fig 2c, are different.
+\begin{itemize}
+\item If $P_A$ is able to play his 2 against a 1 (on either first or second trick), he wins both tricks for a score of 2.
+\item If $P_A$ plays his 2 against a 3, this trick score is -1, but guaranteed to balance by the imminent (or recently played) $(4,1)$ trick, for a total of zero.
+\end{itemize}
+
+This is more like \emph{Rock-Scissors-Paper}: knowing your opponent's choice wins you the game.  However, like RSP, the existence of better choices does not mean that there exists a perfect-information strategy that benefits one player.
+
+How can we quantify the goodness of one hand versus another?  We introduce a metric for this particular game \footnote{which should not be conflated with a \emph{dominant} Nash strategy} called the \emph{Dominance Score} and use this to compute the expected value of more complicated (larger) games.
 
 \begin{figure}
 \centering
@@ -144,42 +176,32 @@ $
 \label{fig:2x2}
 \end{figure}
 
-Throughout, we'll use the following conventions:
-\begin{itemize}
-\item $P_1$'s available options are listed in bold down the left column of the payoff matrix (Fig 2a, 2b).
-\item $P_2$'s available options are listed in bold across the top row.
-\item A trick has a payoff of $1$ if $P_1$ wins, and $-1$ if $P_2$ wins.  $P_1$ is trying to get the total score as high above zero as possible, $P_2$ below.
-\item For these payoff matrices $M$, the cell at row $i$, column $j$ is the value of that trick, plus the expected value of the remaining game.
-\end{itemize}
-
-This is easy to see in Fig 2a, where the hands are identical.  There are only four games of $(P_1, P_2)$ move pairs:
-\begin{itemize}
-\item $(1,1)$ means the first trick payoff is zero, and the rest of the game (necessarily $(3,3)$) is determined, also of payoff zero.
-\item $(3,3)$ follows similarly.
-\item $(3,1)$ means the first trick payoff is 1, and the rest of the game (necessarily $(1,3)$) pays off -1, for a total of zero.
-\item $(1,3)$ follows in reverse, with another time game.
-\end{itemize}
-
-It's clear that \emph{any strategy} is equivalent in this very boring small game.  \emph{$P_1$ could even announce his moves before $P_2$ selects a card, and the result of the game is still determined.}  The expected value of the game is zero.
-
-Observe in figure 2b that starting sets of $P_1: \{1,5\}, P_2: \{3,4\}$, while not identical, also yield this result; the choices don't matter in the end.
-
-But some uneven sets of cards, like in Fig 2c, are different.
-\begin{itemize}
-\item If $P_1$ is able to play his 2 against a 1 (on either first or second trick), he wins both tricks for a score of 2.
-\item If $P_1$ plays his 2 against a 3, this trick score is -1, but guaranteed to balance by the imminent (or recently played) $(4,1)$ trick, for a total of zero.
-\end{itemize}
-
-This is more like \emph{Rock-Scissors-Paper}: knowing your opponent's choice wins you the game.  However, like RSP, the existence of better choices does not mean that there exists a perfect-information strategy that benefits one player.
-
-How can we quantify the goodness of one hand versus another?  We introduce a metric for this particular game \footnote{which should not be conflated with a \emph{dominant} Nash strategy} called the \emph{Dominance Score} and use this to compute the expected value of more complicated (larger) games.
 
 \section{Dominance Score}
+
+The dominance score of two equal-sized sets (hands) $A = \{a_1, a_2, ... a_n\}, B =  \{a_1, a_2, ... a_n\}$ is  \fbox{D(A,B) = $\sum_{i=1}^n \sum_{j=1}^n T(a_i, b_j)$}, where	
+
+\[   
+T(a,b) = 
+     \begin{cases}
+       1 & a > b\\
+       0 & a = b \\
+       -1 & a < b \\ 
+     \end{cases}
+\]
+
+This is just adding up all possible wins for $A$ and subtracting all possible wins for $B$, ignoring ties.  For example, if $A = \{2, 3,6\}, B = \{1,3,5\}$, then $D(A,B) = [T(2,1) + T(3,1) + T(6,1) + T(6,3) + T(6,5)] + [T(2,3) + T(2,5) + T(3,5)] = 5 - 3 = 2$.
+
+
 \begin{itemize}
-\item For each pair
-\item Draw the bipartite graph for [2,3,4] vs. [1,2,3]
+\item The identical hands in figure 2a necessarily have a dominance score of zero.
+\item Figure 2b's pair of a hand with the 2nd- and 3rd-highest cards versus one with the lowest and highest rank, also has a dominance score of zero.
+\item Figure 2c has a dominance score of two, so it's not surprising that the expected value of the game is in player A's favor (+2).
 \end{itemize}
 
+
+\begin{figure}
+\centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
     \node (1) at (0,0) {2};
@@ -201,16 +223,47 @@ How can we quantify the goodness of one hand versus another?  We introduce a met
 \draw[->] (3) -- (6); 
 
 \end{tikzpicture}
+\label{fig:bipartite}
+\caption{Dominance graph of $\{2,3,6\}$ vs. $\{1,3,5\}$}
+\end{figure}
 
-\section{Dominance in Dino Matrices}
+Another way to visualize hand $A$ against hand $B$ is a bipartite graph like Figure 3, counting ``right-pointing'' edges as +1, and ``left-pointing'' edges as -1.  This shows that D($\{2,3,6\}$, $\{1,3,5\}) = 2$.
+
+
+\section{Main Theorem and Proof Layout}
+
+The main theorem we wish to prove states:
+
+\begin{framed}
+Given rational players, an optimal score is achieved in Dinosaur War by playing options with uniform randomness.
+\end{framed}
+
+The steps to proving this are:
 
 \begin{itemize}
-\item 1. The payout matrix always sums to the graph's domination score on every row and column
-\item for first row play $V_1$, all $(V_[2,n], H_[1,n])$ pairs are represented n-1 times, all with a weight of /(n-1), by inductive hypothesis
-\item This is $(n-1)$ times the domination score of the bipartite graph without $V_1$.
-\item the first row $(V_1, H_[1,n])$ repped once.
-\item therefore, the complete bipartite graph is repped exactly once in weight.
+\item Lemma 1: Across every row and column of the payoff matrix determined by hands $A, B$, elements sum to the graph's domination score $D(A,B)$.
+\item Lemma 2: A payoff matrix of such a form of width $n$ has a Nash equilibrium of $p(a_i) = \frac{1}{n}, p(b_j) = \frac{1}{n}$ for all $i, j \in [1,n]$.
+\item Corollary: The expected value of the game $A, B$ is then $\frac{D(A,B)}{n}$.
+\item Corollary: There are no equilibria with a higher expected value in the game.
 \end{itemize}
+
+Finally, we write some code to compute our payoff matrix for a game of $[1,10]$ vs. $[1,10]$.
+
+\subsection{Lemma 1: Rows and Columns sum to Domination Score}
+
+\emph{Across every row and column of the payoff matrix determined by hands $A, B$, elements sum to the graph's domination score $D(A,B)$.}
+
+We prove this inductively.
+
+\emph{Base case, n=1}: We see in Figure 4a that $D$ is equal to function $H$ at $n=1$: a 1 if player $A$'s single card outranks $B$'s, a 0 for a tie, and a $-1$ if $B$'s outranks.  With a single element and therefore single row and column, the Lemma is clearly true.
+
+%\emph{Base case, n=2}: We see in Figure 4a that $D$ is equal to function $H$ at $n=1$: a 1 if player $A$'s single card outranks $B$'s, a 0 for a tie, and a $-1$ if $B$'s outranks.
+
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  
 
 $ \left[\begin{array}{cc}
                         &  \mathbf{5}\\ 
@@ -218,12 +271,26 @@ $ \left[\begin{array}{cc}
                       \end{array}\right] 
 $
 
+  \caption{1x1 base case}
+\label{fig:basecase_1x1}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+
 $ \left[\begin{array}{ccc}
                         & \mathbf{3} & \mathbf{5}\\ 
                        \mathbf{3} & 1 & 0\\
                         \mathbf{6} & 0 & 1\\
                       \end{array}\right] 
 $
+  \caption{1x1 base case}
+\label{fig:basecase_1x1}
+\end{subfigure}
+\caption{Base cases}
+\label{fig:base}
+\end{figure}
+
+
 
 \begin{figure}
 \centering
@@ -397,7 +464,14 @@ $
 \end{figure}
 
 
-\section{Nash equilibria in an even strategy}
+
+TODO
+
+\subsection{Lemma 2: Uniform Nash Equilibrium}
+
+\emph{ A payoff matrix of such a form of width $n$ has a Nash equilibrium of $p(a_i) = \frac{1}{n}, p(b_j) = \frac{1}{n}$ for all $i, j \in [1,n]$.}
+
+TODO: 
 \begin{itemize}
 \item 2. On such a matrix, there is a nash equilibrium of all evens, where deviating doesn't improve prospects.
 \item presume all weights are even
@@ -407,12 +481,27 @@ $
 \item if it's 123 vs.  789, you can obvously choose whatever probabilities you like.
 \end{itemize}
 
-\section{Considerations and Examples}
+\subsubsection{Corollary: Expected payoff of the game}
+
+\emph{ The expected value of the game $A, B$ is then $\frac{D(A,B)}{n}$.}
+
+TODO
+
+\subsubsection{Other Equilibiria}
+
+\emph{There are no equilibria with a higher expected value in the game.}
 \begin{itemize}
 \item 3. Some theorem - nash equilibria all have the same value on a two-person zero-sum game.
 \item Minimax theorem, von Neumann, 1928 TODO    
 \item Corollary of Maximin: All nash equilibira have saem value - minimax (or maximin)
 \item 4. Therefore, even is an optimal strategy.
+
+TODO
+
+
+
+
+\section{Considerations and Examples}
 \item Note: Not THE optimal strategy.
 \item  5. Of course, knowing or guessing the opponent's actual move is an advantage.S
 \item Show the table for 10 v 10
