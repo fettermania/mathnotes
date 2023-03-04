@@ -257,7 +257,16 @@ We prove this inductively.
 
 \emph{Base case, n=1}: We see in Figure 4a that $D$ is equal to function $H$ at $n=1$: a 1 if player $A$'s single card outranks $B$'s, a 0 for a tie, and a $-1$ if $B$'s outranks.  With a single element and therefore single row and column, the Lemma is clearly true.
 
-%\emph{Base case, n=2}: We see in Figure 4a that $D$ is equal to function $H$ at $n=1$: a 1 if player $A$'s single card outranks $B$'s, a 0 for a tie, and a $-1$ if $B$'s outranks.
+For the \emph{inductive case}, consider the arrays figure 5a and figure 5b.  In each, the vertical axis is the set of moves $A$ for player $P_A$, and the horizontal the move set $B$ for player $P_B$.
+
+In Figure 5a, the element $(i,j)$ represents  the game continuations should the plays be $(a_i, b_j)$ (so, excluding cards $a_i$ and $b_j$). 
+
+Without loss of generality, consider row $a_1 = 2$ in Figure 5a (the subgames) and in figure 
+\begin{itemize}
+\item
+\end{itemize}
+
+\emph{(Bonus) base case, n=2}: To see how this extends to 
 
 \begin{figure}
 \centering
@@ -283,7 +292,7 @@ $ \left[\begin{array}{ccc}
                         \mathbf{6} & 0 & 1\\
                       \end{array}\right] 
 $
-  \caption{1x1 base case}
+  \caption{2x2 base case}
 \label{fig:basecase_1x1}
 \end{subfigure}
 \caption{Base cases}
@@ -509,7 +518,23 @@ TODO
 
 \section{10 v. 10 payoffs}
 
-TODO: Write the code
+\setcounter{MaxMatrixCols}{20}
+
+$\begin{bmatrix}
+& \mathbf{1} & \mathbf{2}  & \mathbf{3} & \mathbf{4} & \mathbf{5} & \mathbf{6}  &\mathbf{7}  & \mathbf{8} &\mathbf{9}  & \mathbf{10} \\  
+\mathbf{1} & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 \\
+\mathbf{2} & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 \\
+\mathbf{3} & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 \\
+\mathbf{4} & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 \\
+\mathbf{5} & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 \\
+\mathbf{6} & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 \\
+\mathbf{7} & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 \\
+\mathbf{8} & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 \\
+\mathbf{9} & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 \\
+\mathbf{10} & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 \\
+\end{bmatrix}
+$
+
 
 \section{Pieceyard}
 
