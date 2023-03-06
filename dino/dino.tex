@@ -43,7 +43,7 @@ style=alphabetic,
 
 \begin{abstract}
 
-We present a modified version of the simple game \emph{War} with an equal deck set, no replacement, and dealer choice, invented in large part and played by my preschool children.  Unlike  \emph{War}, there are choices that must be made by the players.  But like  \emph{War}, the outcome of the game, when played by rational agents, remains 100 percent chance.  This new game, \emph{Dinosaur War}, resembles something more akin to \emph{Rock-Scissors-Paper}; knowing an opponent's guess can guarantee a win, but like  \emph{Rock-Scissors-Paper}, we show a Nash Equilibirum occurs if both players randomize their guesses uniformly across their options.  This result is intuitive but non-obvious.
+We present a modified version of the simple game \emph{War} with an equal deck set, no replacement, and dealer choice, invented in large part and played by my preschool children.  Unlike  \emph{War}, there are choices that must be made by the players.  But like  \emph{War}, the outcome of the game, when played by rational agents, remains 100 percent chance.  This new game, \emph{Dinosaur War}, resembles something more akin to \emph{Rock-Scissors-Paper}\footnote{Fine, you call it ``Rock Paper Scissors''.  Save the pedantry for the math part.}; knowing an opponent's guess can guarantee a win, but like  \emph{Rock-Scissors-Paper}, we show a Nash Equilibirum occurs if both players randomize their guesses uniformly across their options.  This result is intuitive but non-obvious.
 
 Therefore:
 \begin{itemize}
@@ -230,43 +230,7 @@ This is just adding up all possible wins for $A$ and subtracting all possible wi
 Another way to visualize hand $A$ against hand $B$ is a bipartite graph like Figure 3, counting ``right-pointing'' edges as +1, and ``left-pointing'' edges as -1.  This shows that D($\{2,3,6\}$, $\{1,3,5\}) = 2$.
 
 
-\section{Main Theorem and Proof Layout}
 
-The main theorem we wish to prove states:
-
-\begin{framed}
-Given rational players, an optimal score is achieved in Dinosaur War by playing options with uniform randomness.
-\end{framed}
-
-The steps to proving this are:
-
-\begin{itemize}
-\item Lemma 1: Across every row and column of the payoff matrix determined by hands $A, B$, elements sum to the graph's domination score $D(A,B)$.
-\item Lemma 2: A payoff matrix of such a form of width $n$ has a Nash equilibrium of $p(a_i) = \frac{1}{n}, p(b_j) = \frac{1}{n}$ for all $i, j \in [1,n]$.
-\item Corollary: The expected value of the game $A, B$ is then $\frac{D(A,B)}{n}$.
-\item Corollary: There are no equilibria with a higher expected value in the game.
-\end{itemize}
-
-Finally, we write some code to compute our payoff matrix for a game of $[1,10]$ vs. $[1,10]$.
-
-\subsection{Lemma 1: Rows and Columns sum to Domination Score}
-
-\emph{Across every row and column of the payoff matrix determined by hands $A, B$, elements sum to the graph's domination score $D(A,B)$.}
-
-We prove this inductively.
-
-\emph{Base case, n=1}: We see in Figure 4a that $D$ is equal to function $H$ at $n=1$: a 1 if player $A$'s single card outranks $B$'s, a 0 for a tie, and a $-1$ if $B$'s outranks.  With a single element and therefore single row and column, the Lemma is clearly true.
-
-For the \emph{inductive case}, consider the arrays figure 5a and figure 5b.  In each, the vertical axis is the set of moves $A$ for player $P_A$, and the horizontal the move set $B$ for player $P_B$.
-
-In Figure 5a, the element $(i,j)$ represents  the game continuations should the plays be $(a_i, b_j)$ (so, excluding cards $a_i$ and $b_j$). 
-
-Without loss of generality, consider row $a_1 = 2$ in Figure 5a (the subgames) and in figure 
-\begin{itemize}
-\item
-\end{itemize}
-
-\emph{(Bonus) base case, n=2}: To see how this extends to 
 
 \begin{figure}
 \centering
@@ -386,8 +350,140 @@ $
 \label{fig:236135}
 \end{figure}
 
+\section{Main Theorem and Proof Layout}
+
+The main theorem we wish to prove states:
+
+\begin{framed}
+Given rational players, an optimal score is achieved in Dinosaur War by playing options with uniform randomness.
+\end{framed}
+
+The steps to proving this are.
+
+\begin{itemize}
+\item Lemma 1: Across every row and column of the payoff matrix determined by hands $A, B$, elements sum to the graph's domination score $D(A,B)$.
+\item Lemma 2: A payoff matrix of such a form of width $n$ has a Nash equilibrium\cite{2} of $p(a_i) = \frac{1}{n}, p(b_j) = \frac{1}{n}$ for all $i, j \in [1,n]$.
+\item Lemma 3: The expected value of the game $A, B$ is then $\frac{D(A,B)}{n}$.
+\end{itemize}
+
+We will do this \emph{inductively} and \emph{simultaneously}, in that, if $Lemma 1, 2, and 3$ are true for boards of size $n-1$ and below, then we can prove them for a board of size $n$.
+
+Additionally: There are no equilibria with a higher expected value in the game, since according to Von Neumann's Minimax theorem\cite{3}, all Nash equilibria have the same value.  So though there may be other equally good strategies (duplicate cards in a hand allows the strategy to play \emph{one} versus the \emph{other}  with some variation; also see the fait accompli games of Figure 2a, 2b), there are none more optimal than a uniform strategy.
 
 
+Finally, we write some code to compute our payoff matrix for a game of $[1,10]$ vs. $[1,10]$.
+
+\section{Lemmas: Base case}
+
+\subsubsection{Base cases} 
+\emph{Base case, n=1}: We see in Figure 4a that $D$ is equal to function $H$ at $n=1$: a 1 if player $A$'s single card outranks $B$'s, a 0 for a tie, and a $-1$ if $B$'s outranks.  With a single element and therefore single row and column, the Lemma 1 is clearly true.  There is only one total strategy in the game, so Lemma 2 is true.  And Lemma 3 is equivalent to Lemma 1 when $n=1$.
+
+\emph{(Bonus) base case, n=2}: To see how this extends to a 2x2 matrix, consider Fig. 4b displaying the payoff matrix built from hands $A = (a_1, a_2) = (3, 6); B = (b_1,b_2) = (3,5)$.
+
+\begin{itemize}
+\item The upper-left element is $H(a_1, b_1) + D(\{a_2\}, \{b_2\}) = H(a_1, b_1) + H(a_2, b_2)$
+\item The upper-right element is $H(a_1, b_2) + D(\{a_2\}, \{b_1\}) = H(a_1, b_2)  + H(a_2, b_1)$
+\item The lower-left element is $H(a_2, b_1) + D(\{a_1\}, \{b_2\}) = H(a_2, b_1) + H(a_1, b_2)$
+\item The lower-right element is $H(a_2, b_2) + D(\{a_1\}, \{b_1\}) = H(a_2, b_2) + H(a_1, b_1)$
+\end{itemize}
+
+It is clear that summing the top row, bottom row, left column, or right column yields $H(a_1, b_1)  + H(a_1, b_2)  + H(a_2, b_1) +  H(a_2, b_2) = D(A,B)$.  
+
+At the 2x2 size, it should be clear that:
+\begin{itemize}
+\item The upper left and lower right values are necessarily equal, as are the upper right and lower left.  There are four possible game sequences (completely determined by the first move), and those starting with , say, $(3,3)$ in figure 5b need to end with $(6,5)$, equivalent to $[(6,5), (3,3)]$.
+\item Because of this identity, the rows and columns all sum to the same value. (proving Lemma 1 at $n=2$)
+\item The equlibrium strategy is playing each strategy with probability $\frac{1}{2}$, as the players are essentially playing a game of Matching Pennies\cite{1}  (showing Lemma 2).
+\item Therefore, the expected payoff is the average of a(ny) row or column (showing Lemma 3).
+\end{itemize}
+
+\section{Inductive case}
+
+For the \emph{inductive case}, consider the arrays figure 5a and figure 5b.  In each, the vertical axis is the set of moves $A$ for player $P_A$, and the horizontal the move set $B$ for player $P_B$.
+
+In Figure 5a, the element $(i,j)$ represents  the game continuations (or subgames) should the plays be $(a_i, b_j)$ (so, excluding cards $a_i$ and $b_j$). 
+In Figure 5b, the element  $(i,j)$ is of the form (``immediate payoff from move $(a_i, b_j)$'' and ``expected payoff of remaining subgame'').  So, the upper right element of 5b is $(\mathit{1} + .5 = 1.5)$; the italicized 1 represents that card 2 beats card 1.  .5 points is the expected payoff of the subgame $\{3,6\}$ vs. $\{3,5\}$, totaling 1.5. 
+
+\subsection{Inductive case for Lemma 1}
+
+In 5a, the subgame at $(i, j)$ is the full game $(A - \{a_i\}, B-\{b_j\})$.  This is ``the rest of the game'' with cards $a_i, b_j$ already used up.  By inductive hypothesis, the payoff of the game at $(0,0)$ is $D(A-\{a_i\}, B-\{b_j\})$, which is the sum of $H(a_m, b_n)$ for all combinations of $m, n$ except all those where $m=i$ or $n=j$.  
+
+Without loss of generality, consider row $a_1$ ($P_A$ plays card 2) in Figure 5a (the subgames) and in figure 5b.  Note that for $i=1$, summing across all expected subgame payoffs $\frac{D(A-\{a_1\}, B-\{b_j\})}{n-1}$ counts each pair $H(a_i, b_j), i \neq 0$ exactly $n-1$ times.  $a_i$ is always in the subsequent game, and $b_j$ is in every subgame except those in column $j$, for a total of $n-1$.  So, with each $D$ term fully expanded, the sum includes $n-1$ terms $H\frac{(a_i, b_j)}{n-1}, i \neq 1$.  These correspond to the numbers on the right side of the addition sign in figure 5b.
+
+And, the immediate payoffs of playing $a_1$ (rank 2 in this case) are just $H(a_1, b_1), H(a_1, b_2)... H(a_1, b_n)$, corresponding to the (italicized) number on the left side of the addition sign in 5b.  Of course, summing the immediate payoffs ($\sum_{i=2}^n\sum_{j=1}^n H(a_i, b_j)$) and the subgame payoffs  ($\sum_{j=1}^n H(a_1 b_j)$) is the definition of $D(A,B)$.  This proves Lemma 1.
+
+This logic holds equivalently for any row $i \neq 1$ or any column.
+
+\subsection{Lemma 2}
+
+Consider a payoff matrix where each row and each column sum to an equal value (in our case, this is always $D(A,B)$).
+
+A Nash equilibrium occurs for players $P_A, P_B$ when any deviation of $P_A$ from the equilibrium benefits $P_B$, assuming $P_A$ announces his strategy (and same for $P_B, P_A$).
+
+Assume both strategies are uniform: $p(a_1) = p(a_2) = .... = \frac{1}{n} = p(b_1) = p(b_2) = ... p(b_n)$.  Then the payoff of any given row $i$ would be, by Lemma 1, $P_{row}(i) = \sum_{j=1}^n M_{i,j} = n \cdot \frac{1}{n} D(A,B) = D(A,B)$; the same follows for columns.  The sum of all payoffs across the matrix is then $n \cdot D(A,B)$.
+
+If $P_A$ shifts his strategy to a different distribution $p(a_1), p(a_2), ..., p(a_n)$, note that the sum of all payoffs $n\cdot D(A,B)$ does not change, since this is simply reallocating the probabilities, which sum to unity, over different rows each of expected value $D(A,B)$. 
+
+\begin{itemize}
+\item Case 1: If this reallocation sees each column still summing to $D(A,B)$, then the equilibrium condition (and the same expected payoff) is maintained.  
+\item Case 2: If, however, a column $j$ sums to a value greater than $D(A,B)$, then $p(b_j) = 1, p(b_k) (k \neq j) = 0$ increases $P_B$'s payoff.  As a zero-sum game, this decreases $P_A$'s payoff, and $P_A$ would not choose it.  Note that if Case 1 does not hold, there \emph{must} be a column like $j$, since the sum across all columns remains $n \cdot D(A,B)$, and since we're not in Case 1, they are not all equal (in other words, they can't all be less than or equal to $D(A,B)$, or the sum wouldn't be $n \cdot D(A,B)$.
+\end{itemize}
+
+
+With Lemma 2 proven, Lemma 3 follows quickly.  Each $M_{i,j}$ occurs with probablity $\frac{1}{n^2}$, and the matrix entries sum to $n \cdot D(A,B)$.
+
+
+
+
+\section{Considerations and Examples}
+
+Computing the expected value of the matrices in Figure 5a recursively gets computationally expensive, but with this formula in hand, the code \footnote{\url{https://github.com/fettermania/mathnotes/tree/main/dino/clj/dino/src/dino/core.clj}} becomes very simple: just apply Lemmas 1-3, and the 10 v. 10 game payoffs are easily generated:
+
+\section{10 v. 10 payoffs}
+
+\setcounter{MaxMatrixCols}{20}
+
+$\begin{bmatrix}
+& \mathbf{1} & \mathbf{2}  & \mathbf{3} & \mathbf{4} & \mathbf{5} & \mathbf{6}  &\mathbf{7}  & \mathbf{8} &\mathbf{9}  & \mathbf{10} \\  
+\mathbf{1} & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 \\
+\mathbf{2} & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 \\
+\mathbf{3} & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 \\
+\mathbf{4} & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 \\
+\mathbf{5} & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 \\
+\mathbf{6} & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 \\
+\mathbf{7} & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 \\
+\mathbf{8} & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 \\
+\mathbf{9} & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 \\
+\mathbf{10} & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 \\
+\end{bmatrix}
+$
+
+Note that:
+
+\begin{itemize}
+\item The matrix is obviously symmetric.
+\item Winning the first trick is neither a net positive nor negative.
+\item Winning by exactly ($n/2$) is neutral; winning a trick by less than that yields a net positive value (for player $P_A$), and more than that, a negative value.
+\end{itemize}
+
+Though the double-uniform strategy is optimal, and no other perfect information strategies outperform it (Lemma 2), certainly, like \emph{Rock-Scissors-Paper}, having an inkling of what the opponent will do can yield advantage.  
+
+Note again that there are cases where the choice of move truly does not matter, (like fig 2a and 2c), or, in some version of the game, where duplicate cards could render the probabilities choice between them irrelevant (as long as the sum remains $\frac{2}{n}$.
+
+This paper has only dealt with the expected value of the game, not the chance of winning, though my intuition is that this would follow similarly\footnote{Though this is not a proof!}.
+
+
+\begin{thebibliography}{9}
+\bibitem{1} Wikipedia: \url{https://en.wikipedia.org/wiki/Matching_pennies}
+\bibitem{2} Wikipedia: \url{https://en.wikipedia.org/wiki/Nash_equilibrium}
+\bibitem{3} Wikipedia: \url{https://en.wikipedia.org/wiki/Minimax_theorem}
+\end{thebibliography}
+
+
+\end{document}
+
+% == Boneyard: Extra exmaple of a payoff matrix in 3x3. ==
+\begin{comment}
 
 \begin{figure}
 \centering
@@ -471,79 +567,6 @@ $
 \caption{$\{2,3,6\}$ vs. $\{1,3,6\}$}
 \label{fig:236136}
 \end{figure}
+\end{comment}
 
-
-
-TODO
-
-\subsection{Lemma 2: Uniform Nash Equilibrium}
-
-\emph{ A payoff matrix of such a form of width $n$ has a Nash equilibrium of $p(a_i) = \frac{1}{n}, p(b_j) = \frac{1}{n}$ for all $i, j \in [1,n]$.}
-
-TODO: 
-\begin{itemize}
-\item 2. On such a matrix, there is a nash equilibrium of all evens, where deviating doesn't improve prospects.
-\item presume all weights are even
-\item shifting epsilon from one of the rows can't increase your score as row player, if the col player doesn't move.
-\item If this changes the weighted sum of a column, then player 2 can improve his EV.
-\item If this changes no columns, then the two rows are identical.
-\item if it's 123 vs.  789, you can obvously choose whatever probabilities you like.
-\end{itemize}
-
-\subsubsection{Corollary: Expected payoff of the game}
-
-\emph{ The expected value of the game $A, B$ is then $\frac{D(A,B)}{n}$.}
-
-TODO
-
-\subsubsection{Other Equilibiria}
-
-\emph{There are no equilibria with a higher expected value in the game.}
-\begin{itemize}
-\item 3. Some theorem - nash equilibria all have the same value on a two-person zero-sum game.
-\item Minimax theorem, von Neumann, 1928 TODO    
-\item Corollary of Maximin: All nash equilibira have saem value - minimax (or maximin)
-\item 4. Therefore, even is an optimal strategy.
-
-TODO
-
-
-
-
-\section{Considerations and Examples}
-\item Note: Not THE optimal strategy.
-\item  5. Of course, knowing or guessing the opponent's actual move is an advantage.S
-\item Show the table for 10 v 10
-\end{itemize}
-
-\section{10 v. 10 payoffs}
-
-\setcounter{MaxMatrixCols}{20}
-
-$\begin{bmatrix}
-& \mathbf{1} & \mathbf{2}  & \mathbf{3} & \mathbf{4} & \mathbf{5} & \mathbf{6}  &\mathbf{7}  & \mathbf{8} &\mathbf{9}  & \mathbf{10} \\  
-\mathbf{1} & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 \\
-\mathbf{2} & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 \\
-\mathbf{3} & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 \\
-\mathbf{4} & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 \\
-\mathbf{5} & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 & 0 \\
-\mathbf{6} & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 & -2/9 \\
-\mathbf{7} & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 & -4/9 \\
-\mathbf{8} & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 & -2/3 \\
-\mathbf{9} & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 & -8/9 \\
-\mathbf{10} & -8/9 & -2/3 & -4/9 & -2/9 & 0 & 2/9 & 4/9 & 2/3 & 8/9 & 0 \\
-\end{bmatrix}
-$
-
-
-\section{Pieceyard}
-
-
-\begin{thebibliography}{9}
-\bibitem{1}
-Wikipedia: \url{https://en.wikipedia.org/wiki/Minimax_theorem}
-\end{thebibliography}
-
-
-\end{document}
 
