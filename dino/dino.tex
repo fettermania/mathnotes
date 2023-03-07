@@ -63,12 +63,12 @@ Therefore:
 \caption{Dinosaur Cards}
 \end{figure}
 
-Children's games need to be simple. The game \emph{Memory} has seen innumerable rebranded recreations, not least because the mechanic is approachable (and nominally educational) but because it can be sold repeatedly, with cartoon characters, animals, or whatever to engage a short attention span. A set of\emph{Memory} comes with matched pairs of cards with identical backs. Once the main mechanic is exhausted, the enterprising child will find some other game to create with this set. Here is that game, \emph{Dinosaur War}, created with the cards like those in Figure 1.
+Children's games need to be simple. The game \emph{Memory} has seen innumerable rebranded recreations, because the mechanic is approachable (and nominally educational) and it can be sold repeatedly, with cartoon characters, animals, or whatever to engage a short attention span. A set of \emph{Memory} comes with matched pairs of cards with identical backs. Once the main mechanic is exhausted, the enterprising child will find some other game to create with this set. Here is that game, \emph{Dinosaur War}, created with the cards like those in Figure 1.
 
 \subsection{Rules of Dinosaur War}
 
 \begin{itemize} 
-\item Players establish a ranking of cards, preferably under the direction of an opinionated child. Those might be the commonly-accepted Ace-to-2 of a deck of playing cards, or ``Baryonyx beats Mosasaurus beats T-Rex... beats Apatosaurus'' in Figure 1.
+\item Players establish a ranking of cards, preferably under the direction of an opinionated child. Those might be ``Baryonyx beats Mosasaurus beats T-Rex... beats Apatosaurus'' in Figure 1, or the commonly-accepted Ace-to-2 if using a deck of playing cards.
 \item Two players each get an identical deck of these cards. Cards were unique in this set but need not be. Players conceal their hand (though the content of the hands is well-known to those tracking it).
 \item At each turn:
 \begin{itemize}
@@ -88,8 +88,8 @@ Intuitively, your hand has a certain amount of ``power'' that you deploy to beat
 Imagine on the first turn of a 10 card deck game with hands $A=B=\{1, 2, ... 10\}$, players $(P_A, P_B)$ play respective cards $(9, 10)$. This means:
 \begin{itemize}
 \item $P_B$ takes a one-point lead.
-\item 10 is preserved for $P_A$. They will necessarily win one hand in the future.
-\item The powerful card 9 is lost for $P_A$.
+\item The 10 card is preserved for $P_A$. They will necessarily win one hand in the future.
+\item The powerful 9 card is lost for $P_A$.
 \end{itemize}
 
 Alternatively, imagine the first move is $(1,10)$. This means:
@@ -122,19 +122,19 @@ This is easy to see in Fig 2a, where the hands are identical. There are only fou
 \item $(1,3)$ follows in reverse, with another time game.
 \end{itemize}
 
-It's clear that \emph{any strategy} is equivalent in this very boring small game. $P_A$ could even announce his moves before $P_B$ selects a card, and the result of the game is still determined. The expected value of the game is zero.
+It's clear that \emph{any strategy} is equivalent in this very boring small game. $P_A$ could even announce his moves before $P_B$ selects a card, and the result of the game is still determined. The expected (and only possible )value of this game is zero.
 
 Observe in figure 2b that starting sets $A =\{1,5\}, B= \{3,4\}$, while not identical, also yield this result; the choices don't matter in the end.
 
 But for some uneven sets of cards, like in Fig 2c, things are different.
 \begin{itemize}
-\item If $P_A$ is able to play his 2 against a 1 (on either first or second trick), he wins both tricks for a score of 2.
-\item If $P_A$ plays his 2 against a 3, this trick score is -1, but guaranteed to balance by the imminent (or recently played) $(4,1)$ trick, for a total of 0.
+\item If $P_A$ is able to play their 2 against a 1 (on either first or second trick), they win both tricks for a score of 2.
+\item If $P_A$ plays their 2 against a 3, this trick score is -1, but guaranteed to balance by the imminent (or recently played) $(4,1)$ trick, for a total of 0.
 \end{itemize}
 
-This is more like \emph{Rock-Scissors-Paper}: knowing your opponent's choice wins you the game. However, like RSP, the existence of better choices does not mean that there exists a perfect-information strategy that benefits one player.
+This is more like \emph{Rock-Scissors-Paper}: knowing your opponent's choice wins you the game. And, like RSP, the mere existence of better choices does not mean that there exists a perfect-information strategy with a nonzero expected value.
 
-How can we quantify the goodness of one hand versus another? We introduce a metric for this particular game called the \emph{Dominance Score}\footnote{which should not be conflated with a \emph{dominant} Nash strategy}  and use this to compute the expected value of more complicated (larger) games.
+How can we quantify the goodness of one hand versus another? We introduce a metric for this particular game called the \emph{Dominance Score}\footnote{This should not be conflated with a \emph{dominant} Nash strategy.}  and use this to compute the expected value of more complicated (larger) games.
 
 \begin{figure}
 \centering
@@ -180,7 +180,7 @@ $
 
 \section{Dominance Score}
 
-The dominance score of two equal-sized sets (hands) $A = \{a_1, a_2, ... a_n\}, B = \{a_1, a_2, ... a_n\}$ is \fbox{D(A,B) = $\sum_{i=1}^n \sum_{j=1}^n T(a_i, b_j)$}, where	
+The dominance score of two equal-sized sets (hands) $A = \{a_1, a_2, ... a_n\}, B = \{a_1, a_2, ... a_n\}$ is defined as \fbox{D(A,B) = $\sum_{i=1}^n \sum_{j=1}^n T(a_i, b_j)$}, where	
 
 \[  
 T(a,b) = 
@@ -191,7 +191,7 @@ T(a,b) =
    \end{cases}
 \]
 
-This is just adding up all possible wins for $A$ and subtracting all possible wins for $B$, ignoring ties. For example, if $A = \{2, 3,6\}, B = \{1,3,5\}$, then $D(A,B) = [T(2,1) + T(3,1) + T(6,1) + T(6,3) + T(6,5)] + [T(3,3)] +  [T(2,3) + T(2,5) + T(3,5)] = 5 + 0 - 3 = 2$.
+This is just adding up all possible winning tricks for $A$ and subtracting all possible winning tricks for $B$, ignoring ties. For example, if $A = \{2, 3,6\}, B = \{1,3,5\}$, then $D(A,B) = [T(2,1) + T(3,1) + T(6,1) + T(6,3) + T(6,5)] + [T(3,3)] +  [T(2,3) + T(2,5) + T(3,5)] = 5 + 0 - 3 = 2$.
 
 
 \begin{itemize}
@@ -243,17 +243,17 @@ Given rational players, an optimal strategy in Dinosaur War is playing all optio
 The steps to proving this are.
 
 \begin{itemize}
-\item Lemma 1: Across every row and column of the payoff matrix $M$ determined by hands $A, B$, the entries sum to the graph's domination score $D(A,B)$.
+\item Lemma 1: Across every row and column of the payoff matrix $M$ determined by hands $A$ and $B$, the entries sum to the graph's domination score $D(A,B)$.
 \item Lemma 2: A payoff matrix of such a form of width $n$ has a Nash equilibrium\cite{2} of $p(a_i) = \frac{1}{n}, p(b_j) = \frac{1}{n}$ for all $i, j \in [1,n]$.
 \item Lemma 3: The expected value of the game $A, B$ is then $\frac{D(A,B)}{n}$.
 \end{itemize}
 
 We will do this \emph{inductively} and \emph{simultaneously}, in that, if Lemma 1, 2, and 3 are true for boards of size $n-1$ and below, then we can prove them for a board of size $n$.
 
-Additionally: There are no equilibria with a higher expected value in the game, since according to Von Neumann's Minimax theorem\cite{3}, all Nash equilibria have the same value. So though there may be other equally good strategies (duplicate cards in a hand allows the strategy to play \emph{one} versus the \emph{other} with some variation; also see the fait accompli games of Figure 2a, 2b), there are none more optimal than a uniform strategy.
+Additionally: There are no equilibria with a higher expected value in the game, since according to Von Neumann's Minimax theorem\cite{3}, all Nash equilibria of a zero-sum game have the same value. So though there may be other equally good strategies (duplicate cards in a hand allows the strategy to play \emph{one} versus the \emph{other} with some variation; also see the fait accompli games of Figure 2a, 2b), there are none more optimal than a uniform strategy.
 
 
-Finally, we compute our payoff matrix for a fuller game of $[1,10]$ vs. $[1,10]$.
+Finally, we compute our payoff matrix for a larger game of card sets $A = B = [1,10]$.
 
 \section{Lemmas: Base case}
 
@@ -277,7 +277,7 @@ At the 2x2 size, it should be clear that:
 \begin{itemize}
 \item The upper left and lower right values are necessarily equal, as are the upper right and lower left. There are four possible game sequences (completely determined by the first move), and those starting with, say, $(3,3)$ in figure 5b need to end with $(6,5)$, equivalent to $[(6,5), (3,3)]$.
 \item Because of this identity, the rows and columns all sum to the same value. (proving Lemma 1 at $n=2$)
-\item The equilibrium strategy of this zero sum game is playing each option with probability $\frac{1}{2}$, as the players are essentially playing a game of Matching Pennies\cite{1} (showing Lemma 2).
+\item An equilibrium strategy of this zero sum game is playing each option with probability $\frac{1}{2}$, as the players are essentially playing a game of Matching Pennies\cite{1} (showing Lemma 2).
 \item Therefore, the expected payoff is the average of a(ny) row or column (showing Lemma 3).
 \end{itemize}
 
@@ -413,17 +413,17 @@ In Figure 5b, the element $(i,j)$ is of the form (``immediate payoff from move $
 
 \subsection{Inductive case for Lemma 1}
 
-In 5a, the subgame at $(i, j)$ is the full game $(A - \{a_i\}, B-\{b_j\})$. This is ``the rest of the game'' with cards $a_i, b_j$ already used up. By inductive hypothesis, the payoff of the game at $(0,0)$ is $D(A-\{a_i\}, B-\{b_j\})$, which is the sum of $T(a_m, b_n)$ for all combinations of $m, n$ except all those where $m=i$ or $n=j$. 
+In 5a, the subgame at $(i, j)$ is the full game $(A - \{a_i\}, B-\{b_j\})$. This is ``the rest of the game'' with cards $a_i, b_j$ already used up. By inductive hypothesis, the payoff of the game at matrix entry $(1,1)$ is $D(A-\{a_i\}, B-\{b_j\})$, which is the sum of $T(a_m, b_n)$ for all combinations of $m, n$ except all those where $m=i$ or $n=j$. 
 
 Without loss of generality, consider row $a_1$ ($P_A$ plays card 2) in Figure 5a (the subgames) and in figure 5b. Note that for $i=1$, summing across all expected subgame payoffs $\frac{D(A-\{a_1\}, B-\{b_j\})}{n-1}$ counts each pair $T(a_i, b_j), i \neq 1$ exactly $n-1$ times. $a_i, i \neq 1$ is always in each subgame, and $b_j$ is in every subgame except those in column $j$, for a total of $n-1$. So, with each $D$ term fully expanded, the sum includes $n-1$ terms $\frac{T(a_i, b_j)}{n-1}, i \neq 1$. These correspond to the numbers on the right side of the addition sign in figure 5b.
 
-And, the immediate payoffs of playing $a_1$ (card 2 in this case) are just $T(a_1, b_1), T(a_1, b_2)... T(a_1, b_n)$, corresponding to the (italicized) number on the left side of the addition sign in 5b. Of course, summing the immediate payoffs ($\sum_{i=2}^n\sum_{j=1}^n T(a_i, b_j)$) and the subgame payoffs ($\sum_{j=1}^n T(a_1 b_j)$) is the definition of $D(A,B)$. This proves Lemma 1.
+The immediate payoffs of playing $a_1$ (card 2 in this case) are just $T(a_1, b_1), T(a_1, b_2)... T(a_1, b_n)$, corresponding to the (italicized) number on the left side of the addition sign in 5b. Of course, summing the immediate payoffs ($\sum_{i=2}^n\sum_{j=1}^n T(a_i, b_j)$) and the subgame payoffs ($\sum_{j=1}^n T(a_1 b_j)$) is the definition of $D(A,B)$. This proves Lemma 1.
 
 This logic holds equivalently for any other row or any column.
 
 \subsection{Lemma 2}
 
-Consider a payoff matrix where each row and each column sum to an equal value (in our case, this is always $D(A,B)$).
+Consider a payoff matrix where each row and each column sum to the same value (in our case, this is always $D(A,B)$).
 
 A Nash equilibrium occurs for players $P_A, P_B$ when any deviation of $P_A$ from the equilibrium benefits $P_B$, assuming $P_A$ announces his strategy (and same for $P_B, P_A$).
 
@@ -433,7 +433,7 @@ If $P_A$ shifts his strategy to a different distribution $p(a_1), p(a_2), ..., p
 
 \begin{itemize}
 \item Case 1: If this reallocation sees each column $j$'s expected payoff $\sum_{i=1}^n M_{i,j} p(a_i)$  still summing to $D(A,B)$, then the equilibrium condition (and the same expected payoff) is maintained. 
-\item Case 2: If, however, a column $j$ sums to a value greater than $D(A,B)$, then $p(b_j) = 1, p(b_k) (k \neq j) = 0$ increases $P_B$'s payoff. As a zero-sum game, this decreases $P_A$'s payoff, and $P_A$ would not choose it. Note that if Case 1 does not hold, there \emph{must} be a column like $j$, since the sum across all columns remains $n \cdot D(A,B)$. In other words, if we're not in Case 1, they can't all be less than or equal to $D(A,B)$, or the sum wouldn't be $n \cdot D(A,B)$, so at least one column has a payoff greater than $D(A,B)$
+\item Case 2: If, however, a column $j$ sums to a value greater than $D(A,B)$, then $p(b_j) = 1; p(b_k) = 0$ for $(k \neq j)$ increases $P_B$'s payoff. As a zero-sum game, this decreases $P_A$'s payoff, and $P_A$ would not choose it. Note that if Case 1 does not hold, there \emph{must} be a column like $j$, since the sum across all columns remains $n \cdot D(A,B)$. In other words, if we're not in Case 1, column sums can't all be less than or equal to $D(A,B)$, or the sum wouldn't be $n \cdot D(A,B)$, so at least one column has a payoff greater than $D(A,B)$.
 \end{itemize}
 
 
@@ -444,10 +444,17 @@ With Lemma 2 proven, Lemma 3 follows quickly. Each $M_{i,j}$ occurs with probabl
 
 \section{Considerations and Examples}
 
-Computing the expected value of the matrices in Figure 5a recursively gets computationally expensive, but with this formula in hand, the code \footnote{\url{https://github.com/fettermania/mathnotes/tree/main/dino/clj/dino/src/dino/core.clj}} becomes very simple: just apply Lemmas 1-3, and the 10 v. 10 game payoffs are easily generated:
+Computing the expected value of the matrices in Figure 5a recursively gets computationally expensive, but with this formula in hand, the code \footnote{\url{https://github.com/fettermania/mathnotes/tree/main/dino/clj/dino/src/dino/core.clj}} becomes very simple: just apply Lemmas 1-3, and the 10 v. 10 game payoffs are easily generated (Figure 6).
 
-\section{10 v. 10 payoffs}
+Note that:
 
+\begin{itemize}
+\item The matrix is obviously symmetric.
+\item Winning the first trick is neither a net positive nor negative.
+\item Winning by exactly ($n/2$) rank spots is neutral; winning a trick by less than that yields a net positive value (for player $P_A$), and more than that, a negative value.
+\end{itemize}
+\begin{figure}
+\centering
 \setcounter{MaxMatrixCols}{20}
 
 $\begin{bmatrix}
@@ -465,19 +472,17 @@ $\begin{bmatrix}
 \end{bmatrix}
 $
 
-Note that:
+\caption{$A = B = [1,10]$ payoff matrix}
+\label{fig:236135}
+\end{figure}
 
-\begin{itemize}
-\item The matrix is obviously symmetric.
-\item Winning the first trick is neither a net positive nor negative.
-\item Winning by exactly ($n/2$) rank spots is neutral; winning a trick by less than that yields a net positive value (for player $P_A$), and more than that, a negative value.
-\end{itemize}
 
 Though the double-uniform strategy is optimal, and no other perfect information strategies outperform it (Lemma 2), certainly, like \emph{Rock-Scissors-Paper}, having an inkling of what the opponent will do can yield advantage. 
 
 Note again that there are cases where the choice of move truly does not matter, (like fig 2a and 2c), or, in some version of the game, where $k$ duplicate cards could render the choice between them irrelevant (as long as the sum of the probabilities remains $\frac{k}{n}$.
 
 This paper has only dealt with the expected value of the game, not the chance of winning, though my intuition is that this would follow similarly\footnote{Though this is not a proof!}.
+
 
 
 \begin{thebibliography}{9}
