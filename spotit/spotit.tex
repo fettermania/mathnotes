@@ -40,14 +40,239 @@ Main plan:
 \item Modeling with a graph.  Tiling $C_n$ with $C_g$'s.
 \item Set up the problem - s and g determine everything, what combos work?
 \item The Candidate Theorem: What combos CAN work?
-\item Showing combos with 3.
+\item Showing combos with 3.  TODO: Build completr here.
 \item Complete graph of setup  g = s - 1.  Introduce: round robin squares.  Show s = 5, g=4
 \item Complete graphs of setup g = s.  Show s = 3, g = 3.
-\item TODO: Chopping s 
+\item Rotator types.  Maybe this will prove $s=kg$ and $s=kg+1$?
+\item Proving g=4,s=5 cannot work. (Need to prove that the graph has to have four independent sets)
 \item Notes on nonuniform g sizes (removal, inception, the actual game of Spot It)
 \end{itemize}
 
 \end{abstract}
+
+\section{The game and the problem}
+\emph{The children's game spot it has a simple mechanic at the cost of card construction: each card of 8 symbols shares exactly one with every other card.}
+
+\emph{constructing a deck like this, where each symbol occurs exactly $g$ times along $n$ cards, can be reformulated as constructing a partition of of complete graph $K_n$ by graphs $K_g$}
+
+\begin{figure}[!htb]
+\centering
+\begin{subfigure}{.2\textwidth}
+ \centering
+\includegraphics[scale=.2]{cards}
+\caption{Four cards in the game}
+\label{fig:cards}
+\end{subfigure}
+
+\begin{subfigure}{.2\textwidth}
+ \centering
+\includegraphics[scale=.2]{cards-graph}
+\caption{Four cards in the game with links}
+\label{fig:gf-mult}
+\end{subfigure}
+
+\begin{subfigure}{.2\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{scope}[every node/.style={circle,thick,draw}]
+\node (0) at (0, 1)  {0}; 
+\node (1) at (1, 1) {1}; 
+\node (2) at  (0, 0) {2}; 
+\node (3) at  (1, 0) {3}; 
+
+\draw[thick, red] (1) -- (2); 
+\draw[thick, red] (1) -- (3); 
+\draw[thick, red] (2) -- (3); 
+
+\draw[thick, blue] (0) -- (1); 
+\draw[thick, green] (0) -- (3); 
+\draw[thick, purple] (0) -- (2); 
+\end{scope}
+\end{tikzpicture}
+\caption{Four cards graph}
+\label{fig:cards-links}
+\end{subfigure}
+\end{figure}
+
+TODO: Fig: 4-node graph
+
+Note: singletons would be self-edges
+
+
+
+\section{The candidates}
+
+\emph{We look to satisfy all constraints with $s$ slots, $g$ occurrences per color.  If $s$ is uniform across cards and all symbols occur in groups of $g$, these two variables determine the number of cards (nodes) $n$ and the number of symbols (colors) $m$.  They also restrict the possible combinations to those where $g | s$ or $g | s-1$}
+
+
+
+Fig: example s=6, g=3
+
+Fig: example s=7, g=3
+
+
+
+
+
+\section{Constructing $g = s-1$ over a field}
+
+\emph{We find that if $g$ is a prime power, we can explicitly construct a graph of any size that satisfies our game.}
+
+
+
+Fig: 5x5 with green
+
+Fig: 4x4 field table
+
+
+
+Todo proof: 
+
+
+\begin{itemize}
+\item Assume $g_yg_{x_1} + c = g_y^*g^{x_1} +c^*$, and $g_yg_{x_2} + c = g_y^*g^{x_2} +c^*$ for $g_{x_1} \neq g_{x_2}$
+\item Subtract the two to get $g_y(g_{x_1} - g_{x_2}) = g_y^*(g_{x_1} - g_{x_2})$
+\item The field $\mathcal{F}$ requires the nonzero $(g_{x_1} - g_{x_2}) \in \mathcal{F}$ to have an inverse.  
+\item Multiplying both sides by that inverse, we have $g_y = g_y^*$
+\end{itemize}
+
+This is most obvious for primes, but can be constructed from, say, $GF(4):$
+
+\begin{figure}[!htb]
+\centering
+\begin{subfigure}{.5\textwidth}
+ \centering
+ \begin{tabular}{c | c c c c}
+     + & 0 & 1 & B & D \\
+\hline
+     0 & 0 & 1 & B & D \\
+     1 & 1 & 0 & D & B \\
+     B & B & D & 0 & 1 \\
+     D & D & B & 1  & 0 \\
+     \end{tabular}
+ \caption{Addition table GF(4)}
+\label{fig:gf-add}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+ \centering
+\begin{tabular}{c | c c c c}
+     $\cdot$ & 0 & 1 & B & D \\
+\hline
+     0 & 0 & 0 & 0 & 0 \\
+     1 & 0 & 1 & B & D \\
+     B & 0 & B & D & 1 \\
+     D & 0 & D & 1 & B \\
+\end{tabular}
+ \caption{Multiplication table GF(4)}
+\label{fig:gf-mult}
+\end{subfigure}
+\end{figure}
+
+
+
+
+
+
+\section{Constructing $g=s$ from $g=s-1$}
+\emph{With the previous construction in hand, we can easily construct a $g=s$ graph with the same restrictions on $g$.}
+
+
+
+TODO Fig: augment 5x5 to with 5+1
+
+
+
+\section{Alternative: Constructing $g=s$ with perfect difference sets}
+\emph{Though it will be shown equivalent to the last construction, we can use another concept to build these graphs: perfect difference sets.  Notably, these are proven to exist for $g=p^k$ by Singer. TODO Cite}
+
+
+
+
+TODO Fig: n=31 finite difference
+
+
+
+\section{Interlude: Graph Equivalence up to relabeling}
+
+\emph{proving all $g=s$ graph colorings are the same up to relabeling.  This means that the  graphs constructed in sections X and Y are the same.}
+
+
+
+
+Fig: 5 nodes each with four neighbors
+
+
+
+\section{Constructing $g=s-1$ from the previous}
+
+\emph{Removing one clique and all edges should suffice.}
+
+Todo: are these all the same, looking at complement.color graph $g-1$ cliques left behind?
+
+
+
+\section{Considering wider $g | s$ and $g | s-1$: inception.}
+
+
+\emph{Figure: s=4, g=3 has 9 nodes.  S=g=9 has 9-cliques which could be broken down }
+
+
+
+
+\section{Considering wider $g|s$: the schoolgirl problem}
+
+Link: \url{https://en.m.wikipedia.org/wiki/Kirkman\%27s_schoolgirl_problem}
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}
+\begin{scope}[every node/.style={circle,thick,draw}]
+\node (0) at (5.0, 0.0)  {0}; 
+\node (1) at (4.57, 2.03) {1}; 
+\node (2) at  (3.35, 3.72) {2}; 
+\node (3) at  (1.55, 4.76) {3}; 
+\node (4) at  (-0.52, 4.97) {4}; 
+\node (5) at  (-2.5, 4.33) {5}; 
+\node (6) at  (-4.05, 2.94) {6}; 
+\node (7) at  (-4.89, 1.04) {7}; 
+\node (8) at  (-4.89, -1.04) {8}; 
+\node (9) at  (-4.05, -2.94) {9}; 
+\node (10) at  (-2.5, -4.33) {10}; 
+\node (11) at  (-0.52, -4.97) {11}; 
+\node (12) at  (1.55, -4.76) {12}; 
+\node (13) at  (3.35, -3.72) {13}; 
+\node (14) at  (4.57, -2.03) {14}; 
+  
+\draw[thick, black] (0) -- (1); 
+\draw[thick, black] (1) -- (4); 
+\draw[thick, black] (0) -- (4); 
+
+\draw[thick, brown] (0) -- (2); 
+\draw[thick, brown] (2) -- (8); 
+\draw[thick, brown] (0) -- (8); 
+
+\draw[thick, red] (0) -- (5); 
+\draw[thick, red] (5) -- (10); 
+\draw[thick, red] (0) -- (10); 
+\end{scope}
+,
+\end{tikzpicture}
+\label{fig:s7g3}
+\caption{s=7, g=3, n=15, m=35, node 0 adjacencies.  Rule: (i, i+5, i+10) x 3, (i, i+1, i+4) and (i, i+2, i+8)}
+\end{figure}
+
+
+\section{Nonuniform g: deletion and partial inception}
+
+
+
+\section{Another option question}
+
+\emph{Can it be true that  $g | s(s-1)$  but not true that $g | s$ or $g | s-1$?}|
+
+
+\section{THIS IS THE END}
+
 
 \section{The Game}
 
@@ -110,7 +335,7 @@ Since $n = (g-1)s + 1 = 2s + 1$ or $n \equiv 1 \mod 2$, then $n = 2(3k) + 1 = 6k
 
 \section{Some examples with $g=3$}
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
@@ -160,56 +385,35 @@ Since $n = (g-1)s + 1 = 2s + 1$ or $n \equiv 1 \mod 2$, then $n = 2(3k) + 1 = 6k
 \end{figure}
 
 
-\begin{figure}
-\centering
-\begin{tikzpicture}
-\begin{scope}[every node/.style={circle,thick,draw}]
-\node (0) at (5.0, 0.0)  {0}; 
-\node (1) at (4.57, 2.03) {1}; 
-\node (2) at  (3.35, 3.72) {2}; 
-\node (3) at  (1.55, 4.76) {3}; 
-\node (4) at  (-0.52, 4.97) {4}; 
-\node (5) at  (-2.5, 4.33) {5}; 
-\node (6) at  (-4.05, 2.94) {6}; 
-\node (7) at  (-4.89, 1.04) {7}; 
-\node (8) at  (-4.89, -1.04) {8}; 
-\node (9) at  (-4.05, -2.94) {9}; 
-\node (10) at  (-2.5, -4.33) {10}; 
-\node (11) at  (-0.52, -4.97) {11}; 
-\node (12) at  (1.55, -4.76) {12}; 
-\node (13) at  (3.35, -3.72) {13}; 
-\node (14) at  (4.57, -2.03) {14}; 
-  
-\draw[thick, black] (0) -- (1); 
-\draw[thick, black] (1) -- (4); 
-\draw[thick, black] (0) -- (4); 
-
-\draw[thick, brown] (0) -- (2); 
-\draw[thick, brown] (2) -- (8); 
-\draw[thick, brown] (0) -- (8); 
-
-\draw[thick, red] (0) -- (5); 
-\draw[thick, red] (5) -- (10); 
-\draw[thick, red] (0) -- (10); 
-\end{scope}
-,
-\end{tikzpicture}
-\label{fig:bipartite}
-\caption{s=7, g=3, n=15, m=35, node 0 adjacencies.  Rule: (i, i+5, i+10) x 3, (i, i+1, i+4) and (i, i+2, i+8)}
-\end{figure}
 
 \begin{itemize}
 
 \item Rule: $g=3, s=3, n=7, m=7: (0,1,3)$
-\item Rule: $g=3, s=4, n = 9, m = 12: (0,1,2) \cdot 3; (0,3,6) \cdot 3, (0,5,7) \cdot 3$
-\item Rule: Another example: g=3, s=6, n=13, m=26.  3-graphs are at $(i, i+2, i+8)$ and $(i, i+1, i+4)$, addition being $\mod 13$..  NOTE: Is this a subset of s=6, g=6?
+\item Rule: $g=3, s=4, n = 9, m = 12: (0,3,6) \cdot 3, (0,1,2) \cdot 3, (0,4,8) \cdot 3, (0, 5,7) \cdot 3$ (this is 3 separate $K_3$, then circuit inc 0, inc1, inc 2)
+\item Rule: Another example:$ g=3, s=6, n=13, m=26$.  3-graphs are at $(i, i+2, i+8)$ and $(i, i+1, i+4)$, addition being $\mod 13$..  NOTE: Is this a subset of $s=6, g=6$?
 \item Rule: $g=3, s=7, n=15, m=35, (i, i+5, i+10) \cdot 3, (i, i+1, i+4), (i, i+2, i+8)$
 \item Rule: $g=3, s=9, n=19, m=57: (0,1,6), (0,2,10), (0,3,7)$
 \item Rule: $g=3, s=10, n=21, m=70: (0,7,14) \cdot 3, (0,2,10), (0,1,5), (0,3,9)$
+\item Rule: $s=g=4, n=m=13: (0, 1, 3, 9)$
+\item Rule: $(0,1,4,14,16) on s=g=5, n=21$
+\item Rule: $s=g=6, n=m=31: (0, 1, 3, 8, 12, 18)$
+\item NONE on $s=7=g$
+\item Rule: $s=g=8, n=m=57 - (0,1, 3, 13, 32, 36, 43, 52)$
+\item Rule: $s=g=9, n=m=73 - (0,1, 3, 7, 15, 31, 36, 54, 63)$  ; NOTE - these are all $2^{n-1}$ for a bit	
+\item Rule: $s=g=10, n=m=91 - (0, 1, 3, 9, 27, 49, 56, 61, 77, 81)$
+\item NONE on $s=g=11$
+\item Rule: $g=s=12, m=n=133 - (0 1, 3, 12, 20, 34, 38, 81, 88, 94, 104, 109)$
+\item NOTE All (g, s=g+1) don't seem to work with the rotators
+\item TODO Build something for the 2-rotators
 \end{itemize}
 
+
+
+
+
+
 \section{Generating $g = s-1$, $g \in \mathbb{P}$}
-\begin{figure}
+\begin{figure}[!htb]
 \begin{subfigure}{.25\textwidth}
 \begin{tabular}{||c c c c||} 
  \hline
@@ -278,7 +482,7 @@ $G_0$  & $G_1$ & $G_2$ & $G_3$ \\ [0.5ex]
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
@@ -339,7 +543,7 @@ $G_0$  & $G_1$ & $G_2$ & $G_3$ \\ [0.5ex]
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
@@ -418,7 +622,7 @@ TODO Proof
 
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
@@ -563,7 +767,7 @@ Note: Can drop from$s=4, g=4, n=13, m=13$ to $s=4, g=3, n=9, m=12$ by dropping l
 \begin{comment}
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
@@ -617,7 +821,7 @@ Note: Can drop from$s=4, g=4, n=13, m=13$ to $s=4, g=3, n=9, m=12$ by dropping l
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
@@ -666,7 +870,7 @@ Note: Can drop from$s=4, g=4, n=13, m=13$ to $s=4, g=3, n=9, m=12$ by dropping l
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
@@ -718,7 +922,7 @@ Note: Can drop from$s=4, g=4, n=13, m=13$ to $s=4, g=3, n=9, m=12$ by dropping l
 
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
@@ -762,7 +966,7 @@ Note: Can drop from$s=4, g=4, n=13, m=13$ to $s=4, g=3, n=9, m=12$ by dropping l
 \caption{$s=4, g=4, n=13, m=13$: adding to original cliques - 3,3 adds to each original}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
@@ -817,7 +1021,7 @@ Note: Can drop from$s=4, g=4, n=13, m=13$ to $s=4, g=3, n=9, m=12$ by dropping l
 
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \includegraphics[scale=.3]{cards}
 \caption{Dinosaur Cards}
@@ -896,7 +1100,7 @@ This is more like \emph{Rock-Scissors-Paper}: knowing your opponent's choice win
 
 How can we quantify the goodness of one hand versus another? We introduce a metric for this particular game called the \emph{Dominance Score}\footnote{This should not be conflated with a \emph{dominant} Nash strategy.}  and use this to compute the expected value of more complicated (larger) games.
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{subfigure}{.5\textwidth}
  \centering
@@ -961,7 +1165,7 @@ This is just adding up all possible winning tricks for $A$ and subtracting all p
 \end{itemize}
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
@@ -1043,7 +1247,7 @@ At the 2x2 size, it should be clear that:
 
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{subfigure}{.5\textwidth}
  \centering
@@ -1079,7 +1283,7 @@ $
 
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{subfigure}{.5\textwidth}
  \centering
@@ -1213,7 +1417,7 @@ Note that:
 \item Winning the first trick is neither a net positive nor negative.
 \item Winning by exactly ($n/2$) rank spots is neutral; winning a trick by less than that yields a net positive value (for player $P_A$), and more than that, a negative value.
 \end{itemize}
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \setcounter{MaxMatrixCols}{20}
 
@@ -1262,7 +1466,7 @@ This paper has only dealt with the expected value of the game, not the chance of
 % == Boneyard: Extra exmaple of a payoff matrix in 3x3. ==
 \begin{comment}
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering
 \begin{subfigure}{.5\textwidth}
  \centering
