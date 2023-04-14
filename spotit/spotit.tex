@@ -305,17 +305,17 @@ s \geq g \Rightarrow m \geq n
 \node (7) at (0.695,-3.939) {7};
 \node (8) at (3.064,-2.571) {8};
   
-\draw[thick, black] (0) -- (1); 
-\draw[thick, black] (1) -- (2); 
-\draw[thick, black] (0) -- (2); 
+\draw[thick, blue] (0) -- (1); 
+\draw[thick, blue] (1) -- (2); 
+\draw[thick, blue] (0) -- (2); 
 
-\draw[thick, black] (3) -- (4); 
-\draw[thick, black] (4) -- (5); 
-\draw[thick, black] (3) -- (5); 
+\draw[thick, blue] (3) -- (4); 
+\draw[thick, blue] (4) -- (5); 
+\draw[thick, blue] (3) -- (5); 
 
-\draw[thick, black] (6) -- (7); 
-\draw[thick, black] (7) -- (8); 
-\draw[thick, black] (6) -- (8); 
+\draw[thick, blue] (6) -- (7); 
+\draw[thick, blue] (7) -- (8); 
+\draw[thick, blue] (6) -- (8); 
 
 \draw[thick, brown] (0) -- (4); 
 \draw[thick, brown] (0) -- (8); 
@@ -342,17 +342,17 @@ s \geq g \Rightarrow m \geq n
 \draw[thick, red] (2) -- (4); 
 
 
-\draw[thick, blue] (0) -- (3); 
-\draw[thick, blue] (0) -- (6); 
-\draw[thick, blue] (3) -- (6); 
+\draw[thick, black] (0) -- (3); 
+\draw[thick, black] (0) -- (6); 
+\draw[thick, black] (3) -- (6); 
 
-\draw[thick, blue] (1) -- (4); 
-\draw[thick, blue] (1) -- (7); 
-\draw[thick, blue] (4) -- (7); 
+\draw[thick, black] (1) -- (4); 
+\draw[thick, black] (1) -- (7); 
+\draw[thick, black] (4) -- (7); 
 
-\draw[thick, blue] (2) -- (5); 
-\draw[thick, blue] (2) -- (8); 
-\draw[thick, blue] (5) -- (8); 
+\draw[thick, black] (2) -- (5); 
+\draw[thick, black] (2) -- (8); 
+\draw[thick, black] (5) -- (8); 
 
 
 \end{scope}
@@ -369,11 +369,75 @@ Cliques: $(n_i, n_{i+3}, n_{i+6}), (n_i, n_{i+1}, n_{i+2}), (n_i, n_{i+4}, n_{i+
 
 \section{Constructing $g = s-1$ over a field}
 
-Though we presented a few legitimate examples of complete graphs tiled by uniformly sized complete subgraphs in Fig.~\ref{fig:s3g3} and Fig.~\ref{fig:s4g3}, these are not easy to find by hand once $s$ becomes much larger.  The whole problem of graph partitioning admits many algorithms, most approximations\cite{3}, though usually over an arbitrary graph instead of a relatively simple complete graph.
+Though we presented a few legitimate examples of complete graphs tiled by uniformly sized complete subgraphs in Fig.~\ref{fig:s3g3} and Fig.~\ref{fig:s4g3}, these are not easy to find by hand once $s$ becomes much larger.  The whole problem of graph partitioning admits many algorithms, most approximations\cite{3}, though usually over an arbitrary graph instead of a relatively simple complete graph, and many referring to separating actual \emph{nodes} into partitions, rather than edges.
 
-We can, however, systematically find a graph partition (edge coloring) 
+We can, however, systematically find an edge partition if $g$ is a prime power.
 
-\emph{We find that if $g$ is a prime power, we can explicitly construct a graph of any size that satisfies our game.}
+\begin{framed}
+\textbf{g=s-1 construction}: If $g$ is a prime power $p^k$, we can explicitly construct a graph that satisfies our game with $g = s-1$.
+\end{framed}
+
+
+As the combination of $s, g$ determine the shape of the graph entirely, $g = s-1$ implies:
+\begin{itemize}
+\item The graph has $n = s(g-1) + 1 = (g+1)(g-1) + 1 = g^2$ nodes.
+\item Those nodes can be grouped into $g$ groups of size $g$.
+\item There are $m = (\frac{s}{g}) n = (\frac{s}{g}) g ^2 = sg = (g+1)g$ colors in the graph.
+\end{itemize}
+
+
+We can start with the easiest way to see this: $g = p, p \in \mathbb{P}$.
+
+Construct the multiplication table for the finite field on $p=3$, as in Fig. ~\ref{fig:gf3-tables}.
+
+
+\begin{figure}[!htb]
+\centering
+\begin{subfigure}{.3\textwidth}
+ \centering
+ \begin{tabular}{c | c c c}
+      + & 0 & 1 & 2 \\
+\hline
+     0 & 0 & 1 & 2 \\
+     1 & 1 & 2 & 0 \\
+     2 & 2 & 1 & 0 \\
+     \end{tabular}
+ \caption{Addition table GF(3)}
+\label{fig:gf3-add}
+\end{subfigure}
+\begin{subfigure}{.3\textwidth}
+ \centering
+\begin{tabular}{c | c c c}
+     $\cdot$ & 0 & 1 & 2 \\
+\hline
+     0 & 0 & 0 & 0  \\
+     1 & 0 & 1 & 2  \\
+     2 & 0 & 2 & 1  \\
+
+\end{tabular}
+\caption{Multiplication table GF(3)}
+\label{fig:gf3-mult}
+\end{subfigure}
+\caption{Field tables for GF(3)}
+\label{fig:gf3-tables}
+\end{figure}
+
+\begin{framed}
+To construct the $m = g(g-1)$ colors (symbol cliques) in the graph:
+\begin{itemize}
+  \item Construct a finite field $\mathcal{GF(g)}$, which is of size $g$.
+  \item Divide the $g^2$ nodes into $g$ groups $(G_0, G_1, G_2 ... G_{g-1})$, where $[0...g-1] \in \mathcal{F}$, of $g$ nodes each $((G_{0,0}, G_{0,1}...G_{0,g-1}) ...G_{g-1,0}, G_{g-1,1}...G_{g-1,g-1})$
+  \item For all $c \in [0,g-1]$: 
+  \begin{itemize}
+    \item For all $y \in [0,g-1]$:   
+    \begin{itemize}
+       \item Set $C_{c,y}$ to the empty set.
+       \item For all $x \in [0,g-1]$, add $G_{x, G_x \cdot G_y + c}$ to clique $C_{c, y}$, where $+$ and $\cdot$ refer to addition and multiplication rules for $\mathcal{F}$.
+     \end{itemize}
+  \end{itemize}
+  \item The $g$  cliques formed from the node groups  $(G_0, G_1, G_2 ... G_{g-1})$, plus the $g^2$ cliques like $C_c, y$ form the $(g+1)g$ cliques or ``colors''.
+\end{itemize}
+\end{framed}
 
 
 
@@ -447,19 +511,69 @@ We can, however, systematically find a graph partition (edge coloring)
 \end{scope}
 
 \end{tikzpicture}
-\label{fig:bipartite}
+\label{fig:k9}
 \caption{whole $K_9$: $s=4, g=3, n=9, m=12$}
 
 \end{figure}
 
 
+For an example, compare identical graphs Fig.~\ref{fig:k9} (generated from the algorithm) and Fig.~\ref{fig:s4g3}.  The mapping between node $(i,j)$ in Fig. ~\ref{fig:k9} and node $k$ in Fig. ~\ref{fig:s4g3} is $(i,j) \rightarrow k=i+3j$, with inverse $k \rightarrow (k \mod 3, \lfloor k / 3 \rfloor)$.
 
+\begin{enumerate}
+\item Cliques of form $G_i: G_0, G_1, G_2$: these are the triangles in black.  These correspond to nodes $n \mod i$ in Fig. ~\ref{fig:s4g3}; for example $G_0 = \{0, 3, 6\}$.
+\item Cliques of form $C_{j, 0}: C_{0,0}, C_{1, 0}, C_{2,0}$: these are the triangles in blue.  Fig. ~\ref{fig:s4g3} sees these connect between nodes with the same $n \mod i$ in Fig. ~\ref{fig:s4g3}; for example $C_{1,0} = \{1, 4, 7\}$.
+\item Cliques of form $C_{j, 1}: C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in brown.  Fig. ~\ref{fig:s4g3} sees these connect between nodes that ``advance one'' with each hop between black cliques in  ~\ref{fig:s4g3}; for example $C_{0,1} = \{0, 4, 8\}$.
+\item Cliques of form $C_{j, 2}: C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in red.  Fig. ~\ref{fig:s4g3} sees these connect between nodes that ``go back one'' with each hop between black cliques in  ~\ref{fig:s4g3}; for example $C_{0,1} = \{0, 5, 7\}$.
+\end{enumerate}
+
+
+
+
+
+
+
+
+% 413: BEGIN
+\begin{comment}
+——
+
+
+
+If g=s, and therefore m=n=g^2-g+1, consider any clique.
+
+
+
+A node n_i in this clique (call it “green”) is adjacent to g-1 unique other colors or cliques, same as another node n_j.
+
+
+
+No color can be shared between these color adjacency sets; consider if n_i and n_j were both adjacent to red, they would have both a red and green edge between them.
+
+
+
+Therefore, n_i is adjacent to g(g-1) colors, plus the original clique.  So in the graph where colors are nodes with edges between adjacent Colors, we have a complete graph.  This, up to relabeling, there is only one way to partition a complete graph into complete subgraphs when s=g, so all such colorings are identical.
+
+
+% 413: END
+\end{comment}
+
+Every node is connected to every other node once in Fig. ~\ref{fig:k9}, since for nodes $x,y$ and $z,w$:
+\begin{itemize}
+\item $x = z$ and and they're in the same ``black'' clique $G_x$.
+\item $y=w$ and they're in a ``blue'' clique $C_{0,y}$
+\item There is some ``increment'' $a$ where starting from node $x,y$, $z-x$ ``hops'' away lands you at node $w$, like the brown ($a=1$) or red ($a=2\equiv -1 \mod 3 $) cliques.
+\end{itemize}
+
+
+The last statement is deliberately informal.  For prime numbers, it's clear that every increment in $[1, p-1]$ traverses a different, non-overlapping path $a, 2a, 3a ... (a-1)p$.
+
+The leap comes in realizing that these are not additive increments, but journeys through a field's multiplication table; the brown groups correspond to walking through the second row of Fig.~\ref{fig:g3-mult} and adding each to either $c=0, 1, or 2$; the reds correspond to the third.  The blues (0 ``increment'') are actually a walk through the top row!
 
 This is most obvious for primes, but can be constructed from, say, $GF(4):$
 
 \begin{figure}[!htb]
 \centering
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.3\textwidth}
  \centering
  \begin{tabular}{c | c c c c}
      + & 0 & 1 & B & D \\
@@ -472,7 +586,7 @@ This is most obvious for primes, but can be constructed from, say, $GF(4):$
  \caption{Addition table GF(4)}
 \label{fig:gf-add}
 \end{subfigure}
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.3\textwidth}
  \centering
 \begin{tabular}{c | c c c c}
      $\cdot$ & 0 & 1 & B & D \\
@@ -487,7 +601,75 @@ This is most obvious for primes, but can be constructed from, say, $GF(4):$
 \end{subfigure}
 \end{figure}
 
+Unlike a prime-order finite field, the addition table is not cyclic, so in a sense, our indices for $G_{0,i}$ say are not $i \in [0, 3]$ but $i \in \{0,1,B,D\}$!  This is why the phrase ``where $[0...g-1] \in \mathcal{F}$'' is important in the algorithm.
 
+Here are the resulting tables for $s=5, g=4$.  For example, in Fig.~\ref{fig:g4-0}, consider the third row as saying ``clique $C_{0,B}$ contains nodes $G_{0,0}, G_{1,B}, G_{B,D}, G_{D,1}$''.
+
+\begin{figure}[!htb]
+\centering
+ \begin{tabular}{c c | c c c c}
+     c & y & 0 & 1 & B & D \\
+\hline
+     0 & 0 & 0 & 0 & 0 & 0 \\
+     0 & 1 & 0 & 1 & B & D \\
+     0 & B & 0 & B & D & 1 \\
+     0 & D & 0 & D & 1 & B \\
+     \end{tabular}
+\caption{Groups $G_{0,i}$}
+\label{fig:gf4-0}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+
+ \begin{tabular}{c c | c c c c}
+     c & y & 0 & 1 & B & D \\
+\hline
+     1 & 0 & 1 & 1 & 1 & 1 \\
+     1 & 1 & 1 & 0 & D & B \\
+     1 & B & 1 & D & B & 0 \\
+     1 & D & 0 & B & 0 & D \\
+     \end{tabular}
+\caption{Groups $G_{1,i}$}
+\label{fig:gf4-1}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+ \begin{tabular}{c c | c c c c}
+     c & y & 0 & 1 & B & D \\
+\hline
+     B & 0 & B & D & 0 & 1 \\
+     B & 1 & B & 0 & 1 & D \\
+     B & B & B & 1 & D & 0 \\
+     B & D & B & B & B & B \\
+     \end{tabular}
+\caption{Groups $G_{B,i}$}
+\label{fig:gf4-B}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+ \begin{tabular}{c c | c c c c}
+     c & y & 0 & 1 & B & D \\
+\hline
+     D & 0 & D & D & D & D \\
+     D & 1 & D & B & 1 & 0 \\
+     D & B & D & 1  & 0 & B \\
+     D & D & D & 0 & B & 1 \\
+     \end{tabular}
+\caption{Groups $G_{D,i}$}
+\label{fig:gf4-D}
+\end{figure}
+
+(Of course, once the multiplication is defined, feel free to substitute 2 for $B$ and 3 for $D$.)
+
+
+Including groups like $G_B = \{G_{0,B}, G_{1,B}, G_{2,B}, G_{3,B}\}$, we see that there are no repeated edges, and all edges are accounted for. 
+
+
+
+In general, to prove that we have no edges overlapping, we need to assert that for every pair of elements, say, $(B, D)$, and every pair of columsn, say 2 and 4, that B and D appear in the same row in positions 2 and 4 exactly once.  There must be a row with columns with the difference $D-B$ once in the multiplciation talbe; then, it's a matter of finding the unique $c$ that causes the exact match.  As to duplicates, consider two columns $x_1$ and $x_2$ that have a repeated value pair in some table, once on row $g_y$, once on $g_y^*$:
 
 \begin{itemize}
 \item Assume $g_yg_{x_1} + c = g_y^*g_{x_1} +c^*$, and $g_yg_{x_2} + c = g_y^*g_{x_2} +c^*$ for $g_{x_1} \neq g_{x_2}$
@@ -497,76 +679,79 @@ This is most obvious for primes, but can be constructed from, say, $GF(4):$
 \end{itemize}
 
 
-
 \section{Constructing $g=s$ from $g=s-1$}
-\emph{With the previous construction in hand, we can easily construct a $g=s$ graph with the same restrictions on $g$.}
 
+With the previous construction ($g=s-1$) in hand, we can easily construct a $g=s$ graph with the same restrictions on $g$.
+\begin{itemize}
+\item Create node $n_y$ for $y \in 0, [g-1]$
+\item Add $n_y$ to all cliques $C_{c, y}$
+\item Create node $n_g$.   Add this to every $G_i$.
+\item Create clique of $n_y, y \in [0, g]$
+\end{itemize}
+
+
+
+Note you can create s=g=8 this way 
 
 
 \begin{figure}[!htb]
 \begin{subfigure}{.25\textwidth}
-\begin{tabular}{||c c c c||} 
+\begin{tabular}{|| c c || c c c c || } 
  \hline
-$G_0$  & $G_1$ & $G_2$ & $G_3$ \\ [0.5ex] 
+c & y & $G_0$  & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
  \hline\hline
- 0 & 0 & 0 & 0 \\ 
+     0 & 0 & 0 & 0 & 0 & 0 \\
+     0 & 1 & 0 & 1 & B & D \\
+     0 & B & 0 & B & D & 1 \\
+     0 & D & 0 & D & 1 & B \\
  \hline
- 1 & 1 & 1 & 1 \\
- \hline
- 2 & 2 & 2  & 2 \\
- \hline
- 3 & 3  & 3 & 3 \\
- \hline
-\end{tabular}
-\caption{$I_0$}
+ \end{tabular}
+\caption{Groups $G_{0,i}$}
+\label{fig:gf4-0}
 \end{subfigure}
 \begin{subfigure}{.25\textwidth}
-\begin{tabular}{||c c c c||} 
+\begin{tabular}{|| c c || c c c c || } 
  \hline
-$G_0$  & $G_1$ & $G_2$ & $G_3$ \\ [0.5ex] 
+c & y & $G_0$  & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
  \hline\hline
- 0 & 1 &  2 & 3 \\ 
- \hline
- \cellcolor{green} 1 & \cellcolor{green}  2 &  \cellcolor{green} 3 &  \cellcolor{green} 0 \\
- \hline
- 2 & 3 & 0  & 1 \\
- \hline
- 3 & 0  & 1 & 2 \\
- \hline
-\end{tabular}
-\caption{$I_1$}
+     1 & 0 & 1 & 1 & 1 & 1 \\
+     1 & 1 & 1 & 0 & D & B \\
+     1 & B & 1 & D & B & 0 \\
+     1 & D & 0 & B & 0 & D \\
+     \hline
+     
+     \end{tabular}
+\caption{Groups $G_{1,i}$}
 \end{subfigure}
 \begin{subfigure}{.25\textwidth}
-\begin{tabular}{||c c c c||} 
+\begin{tabular}{|| c c || c c c c || } 
  \hline
-$G_0$  & $G_1$ & $G_2$ & $G_3$ \\ [0.5ex] 
+c & y & $G_0$  & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
  \hline\hline
- 0 & 2 & 3 & 1 \\ 
- \hline
- 1 & 3 & 0 & 2 \\
- \hline
- 2 & 0 & 1  & 3 \\
- \hline
- 3 & 1  & 2 & 0 \\
- \hline
-\end{tabular}
-\caption{$I_2$}
+     B & 0 & B & D & 0 & 1 \\
+     \cellcolor{green}B &  \cellcolor{green}1 & \cellcolor{green} B &  \cellcolor{green}0 &  \cellcolor{green}1 & \cellcolor{green} D \\
+     B & B & B & 1 & D & 0 \\
+     B & D & B & B & B & B \\
+     \hline
+    
+     \end{tabular}
+\caption{Groups $G_{B,i}$}
+\label{fig:gf4-B}
 \end{subfigure}
 \begin{subfigure}{.25\textwidth}
-\begin{tabular}{||c c c c||} 
+\begin{tabular}{|| c c || c c c c || } 
  \hline
-$G_0$  & $G_1$ & $G_2$ & $G_3$ \\ [0.5ex] 
+c & y & $G_0$  & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
  \hline\hline
- 0 & 3 & 1 & 2 \\ 
- \hline
- 1 & 0 & 2 & 3 \\
- \hline
- 2 & 1 & 3  & 0 \\
- \hline
- 3 & 2  & 0 & 1 \\
- \hline
-\end{tabular}
-\caption{$I_3$}
+     D & 0 & D & D & D & D \\
+     D & 1 & D & B & 1 & 0 \\
+     D & B & D & 1  & 0 & B \\
+     D & D & D & 0 & B & 1 \\
+     \hline
+     
+     \end{tabular}
+\caption{Groups $G_{D,i}$}
+\label{fig:gf4-D}
 \end{subfigure}
 \caption{s=5, g=4 adjacency tables}
 \end{figure}
@@ -577,37 +762,64 @@ $G_0$  & $G_1$ & $G_2$ & $G_3$ \\ [0.5ex]
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
 \node (0) at (0,0)  {0,0}; 
-\node (1)[fill=green] at (1,0)  {0,1}; 
-\node (2) at (.5,-1)  {0,2}; 
+\node (1) at (1,0)  {0,1}; 
+\node (2)[fill=green] at (0,1)  {0,B}; 
+\node (3) at (1,1)  {0,D}; 
 
 \draw[thick, black] (0) -- (1); 
+\draw[thick, black] (0) -- (2); 
+\draw[thick, black] (0) -- (3); 
 \draw[thick, black] (1) -- (2); 
-\draw[thick, black] (2) -- (0); 
+\draw[thick, black] (1) -- (3); 
+\draw[thick, black] (2) -- (3); 
 
-\node (4) at (3,0)  {1,0}; 
+\node (4)[fill=green] at (3,0)  {1,0}; 
 \node (5) at (4,0)  {1,1}; 
-\node (6)[fill=green] at (3.5,-1)  {1,2}; 
+\node (6) at (3,1)  {1,B}; 
+\node (7) at (4,1)  {1,D}; 
 
 \draw[thick, black] (4) -- (5); 
+\draw[thick, black] (4) -- (6); 
+\draw[thick, black] (4) -- (7); 
 \draw[thick, black] (5) -- (6); 
-\draw[thick, black] (6) -- (4); 
+\draw[thick, black] (5) -- (7); 
+\draw[thick, black] (6) -- (7); 
 
-\node (8)[fill=green] at (6,0)  {2,0}; 
-\node (9) at (7,0)  {2,1}; 
-\node (10) at (6.5,-1)  {2,2}; 
+\node (8) at (6,0)  {B,0}; 
+\node (9)[fill=green] at (7,0)  {B,1}; 
+\node (10) at (6,1)  {B,B}; 
+\node (11) at (7,1)  {B,D}; 
 
 \draw[thick, black] (8) -- (9); 
+\draw[thick, black] (8) -- (10); 
+\draw[thick, black] (8) -- (11); 
 \draw[thick, black] (9) -- (10); 
-\draw[thick, black] (10) -- (8); 
+\draw[thick, black] (9) -- (11); 
+\draw[thick, black] (10) -- (11); 
+
+
+\node (12) at (9,0)  {D,0}; 
+\node (13) at (10,0)  {D,1}; 
+\node (14) at (9,1)  {D,B}; 
+\node (15)[fill=green] at (10,1)  {D,D}; 
+
+\draw[thick, black] (12) -- (13); 
+\draw[thick, black] (12) -- (14); 
+\draw[thick, black] (12) -- (15); 
+\draw[thick, black] (13) -- (14); 
+\draw[thick, black] (13) -- (15); 
+\draw[thick, black] (14) -- (15); 
+
 
 \node (16) at (1,-3)  {$I_0^*$}; 
 \node (17)[fill=green] at (3,-3)  {$I_1^*$}; 
-\node (18) at (5,-3)  {$I_2^*$}; 
-\node (20) at (7, -3) {$X$}; 
+\node (18) at (5,-3)  {$I_B^*$}; 
+\node (19) at (7,-3)  {$I_D^*$}; 
+\node (20) at (9, -3) {$X$}; 
 
 \end{scope}
 \end{tikzpicture}
-\caption{s=4, g=4 from s=4, g=3}
+\caption{s=5, g=5 from s=5, g=4}
 \end{figure}
 
 
