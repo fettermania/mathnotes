@@ -29,21 +29,21 @@ style=alphabetic,
 \affil[1]{Obviously Unemployed}
 \affil[2]{Surprisingly Employed}
 
-\date{4/13/23}
+\date{4/16/23}
 \begin{document}
 \maketitle
 
 \begin{abstract}
 
-The card game ``Spot It'' supports a unique mechanic: every card of the deck has eight different symbols, and shares exactly one symbol of some kind with every other card. The obvious game play (``spot the match') works for children as young as two; the intricacies of deck construction astound these children of forty-two. In hypothetically constructing our own deck, we run across interesting problems in graph theory, number theory, and abstract algebra. Some are solved, some remain unsolved. Until now. Not really. We just prove hard things are hard.
+The card game ``Spot It'' supports a unique mechanic: every card of the deck has eight different symbols, and shares exactly one symbol of some kind with every other card. The obvious game play (``spot the match') works for children as young as two; the intricacies of deck construction astound these children of forty-two. In hypothetically constructing our own deck, we run across interesting problems in graph theory, number theory, and abstract algebra \footnote{There are also representations in projective geometry, but they're left alone.}. Some are solved, some remain unsolved. Until now.\footnote{Not really. We're just putting unsolved problems into new boxes} 
 \\
 
-Notably, starting with $g=p^k, p \in \mathbb{P}, k \in \mathbb{N}$ and $n = g^2+g+1$, we prove the following four constructions are equivalent:
+Notably, starting with $g=p^k+1, p \in \mathbb{P}, k \in \mathbb{N}$ and $n = g^2+g+1$, we prove the following four constructions are equivalent:
 \\
 \begin{enumerate}
-\item (The Children's Game) A deck of $n$ ``Spot It'' Cards with $s=g+1$ symbol slots, where each of $m = n$ symbols occurs exactly $g+1$ times,
+\item (The Children's Game) A deck of $n$ ``Spot It'' Cards with $s=g$ symbol slots, where each of $m = n$ symbols occurs exactly $g$ times,
 \item (Graph Theory) An edge partition of the complete graph $K_n$ into complete subgraphs $K_g$,
-\item (Abstract Algebra) A finite (Galois) field of order $g$, and
+\item (Abstract Algebra) A finite (Galois) field of order $g-1$, and
 \item (Number Theory) A Perfect Difference Set\cite{1} on $n$ elements.
 \end{enumerate} 
   
@@ -638,9 +638,9 @@ Here are the resulting tables for $s=5, g=4$. For example, in Fig.~\ref{fig:g4-0
 
 Including groups like $G_B = \{G_{0,B}, G_{1,B}, G_{2,B}, G_{3,B}\}$, we see that there are no repeated edges, and all edges are accounted for. 
 
+In general, to prove that this table exactly represents the ``color'' of every edge, we need to assert that for every pair of elements, say, $(B, 1)$, and every pair of columns, say $0$ and $B$, (see Fig.~\ref{fig:gf4-B}) that B and 1 appear in the same row in columns  0 and B exactly once. 
 
-
-In general, to prove that we have no edges overlapping, we need to assert that for every pair of elements, say, $(B, D)$, and every pair of columsn, say 2 and 4, that B and D appear in the same row in positions 2 and 4 exactly once. There must be a row with columns with the difference $D-B$ once in the multiplciation talbe; then, it's a matter of finding the unique $c$ that causes the exact match. As to duplicates, consider two columns $x_1$ and $x_2$ that have a repeated value pair in some table, once on row $g_y$, once on $g_y^*$:
+To ensure there are no duplicates, consider two columns $x_1$ and $x_2$ that have a repeated value pair in some table, once on row $g_y$, once on $g_y^*$:
 
 \begin{itemize}
 \item Assume $g_yg_{x_1} + c = g_y^*g_{x_1} +c^*$, and $g_yg_{x_2} + c = g_y^*g_{x_2} +c^*$ for $g_{x_1} \neq g_{x_2}$
@@ -649,21 +649,37 @@ In general, to prove that we have no edges overlapping, we need to assert that f
 \item Multiplying both sides by that inverse, we have $g_y = g_y^*$
 \end{itemize}
 
-
-\section{Constructing $g=s$ from $g=s-1$}
-
-With the previous construction ($g=s-1$) in hand, we can easily construct a $g=s$ graph with the same restrictions on $g$.
+Similar field-based arguments can be made to ensure that every pair is represented.  Since everything we're dealing with is finite, however, we can also use a pigeonhole approach:
 \begin{itemize}
-\item Create node $n_y$ for $y \in 0, [g-1]$
-\item Add $n_y$ to all cliques $C_{c, y}$
-\item Create node $n_g$.  Add this to every $G_i$.
-\item Create clique of $n_y, y \in [0, g]$
+\item For any pair of columns, there are $g^2$ pairs of values to account for.
+\item Across the tables above, there are $g^2$ rows (combinations of $c$ and $y$ that generate the cliques).
+\item From the previous arugment, no two rows can be duplicated.
+\item Therefore, by the pigeonhole principle, every combination is represented, and therefore, between any two $G_*$ cliques, every node has an edge with every other.
 \end{itemize}
 
 
+\section{Constructing $g=s$ from $g=s-1$}
 
-Note you can create s=g=8 this way 
+With the previous construction ($g=s-1$) in hand, we can easily construct a $g=s$ graph (adding one to $g$, keeping $s$ the same), with the same restrictions on $g$.  See Fig. ~\ref{fig:s5g5} for a visual on this.
 
+\begin{itemize}
+\item Create node $n_y$ for $y \in \mathcal{F}$
+\item Add $n_y$ to all cliques $C_{c, y}$.  For a given $y$, these cliques share no nodes.
+\item Create node $n^*$.  Add this to every $G_i$ clique.
+\item Create clique of all $n_y, y \in [0, g]$ plus $n^*$.
+\end{itemize}
+
+We see then that:
+
+\begin{itemize}
+\item Every new node $n_y$ gets added to the new ``n'' clique plus $s-1$ cliques, all of size $s$.
+\item $n^*$ is added to $s-1$  cliques plus the bottom clique.
+\item Every $G$-style clique gets $n^*$ added to it.
+\item Every $C_{c,y}$ clique adds node $n_y$.
+\item So, the new partition is one where $g=s$, built on the previous where $g=s-1$.
+\end{itemize}
+
+Note that you can create $s=g=8$ this way, with $n=m=57$.  The Spot It card deck comes with 55 cards with $s=8$ ``slots'', so our suspicion is that two cards were simply dropped from the set.
 
 \begin{figure}[!htb]
 \begin{subfigure}{.25\textwidth}
@@ -672,7 +688,7 @@ Note you can create s=g=8 this way
 c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
  \hline\hline
    0 & 0 & 0 & 0 & 0 & 0 \\
-   0 & 1 & 0 & 1 & B & D \\
+   0 & 1 &  0 &  1 &  B & D \\
    0 & B & 0 & B & D & 1 \\
    0 & D & 0 & D & 1 & B \\
  \hline
@@ -699,8 +715,8 @@ c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex]
  \hline
 c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
  \hline\hline
-   B & 0 & B & D & 0 & 1 \\
-   \cellcolor{green}B & \cellcolor{green}1 & \cellcolor{green} B & \cellcolor{green}0 & \cellcolor{green}1 & \cellcolor{green} D \\
+   \cellcolor{yellow}B & \cellcolor{yellow}0 & \cellcolor{yellow}B & \cellcolor{yellow}D & \cellcolor{yellow}0 & \cellcolor{yellow}1 \\
+   \cellcolor{cyan}B & \cellcolor{cyan}1 & \cellcolor{cyan} B & \cellcolor{cyan}0 & \cellcolor{cyan}1 & \cellcolor{cyan} D \\
    B & B & B & 1 & D & 0 \\
    B & D & B & B & B & B \\
    \hline
@@ -732,40 +748,40 @@ c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex]
 \centering
 \begin{tikzpicture}
 \begin{scope}[every node/.style={circle,thick,draw}]
-\node (0) at (0,0) {0,0}; 
+\node (0)at (0,0) {0,0}; 
 \node (1) at (1,0) {0,1}; 
-\node (2)[fill=green] at (0,1) {0,B}; 
+\node (2) [fill=green]  at (0,1) {0,B}; 
 \node (3) at (1,1) {0,D}; 
 
 
-\node (4)[fill=green] at (3,0) {1,0}; 
-\node (5) at (4,0) {1,1}; 
+\node (4)[fill=cyan] at (3,0) {1,0}; 
+\node (5)  at (4,0) {1,1}; 
 \node (6) at (3,1) {1,B}; 
-\node (7) at (4,1) {1,D}; 
+\node (7)[fill=yellow] at (4,1) {1,D}; 
 
-\node (8) at (6,0) {B,0}; 
-\node (9)[fill=green] at (7,0) {B,1}; 
-\node (10) at (6,1) {B,B}; 
-\node (11) at (7,1) {B,D}; 
+\node (8)[fill=yellow]   at (6,0) {B,0}; 
+\node (9)[fill=cyan] at (7,0) {B,1}; 
+\node (10)  at (6,1) {B,B}; 
+\node (11)at (7,1) {B,D}; 
 
 
 
 \node (12) at (9,0) {D,0}; 
-\node (13) at (10,0) {D,1}; 
+\node (13)[fill=yellow] at (10,0) {D,1}; 
 \node (14) at (9,1) {D,B}; 
-\node (15)[fill=green] at (10,1) {D,D}; 
+\node (15)[fill=cyan] at (10,1) {D,D}; 
 
 
-\node (16) at (1,-3) {$I_0^*$}; 
-\node (17)[fill=green] at (3,-3) {$I_1^*$}; 
-\node (18) at (5,-3) {$I_B^*$}; 
-\node (19) at (7,-3) {$I_D^*$}; 
-\node (20) at (9, -3) {$X$}; 
+\node (16)[fill=yellow]  at (1,-3) {$n_0$}; 
+\node (17)[fill=cyan] at (3,-3) {$n_1$}; 
+\node (18) at (5,-3) {$n_B$}; 
+\node (19) at (7,-3) {$n_D$}; 
+\node (20) at (9, -3) {$n^*$}; 
 
 
 \end{scope}
 \end{tikzpicture}
-\caption{s=5, g=5 from s=5, g=4 with no edges. The green is an example $I_1$ clique.}
+\caption{s=5, g=5 from s=5, g=4 with no edges. The blue is the $C_{B,1}$ clique newly adding in $n_1$. The yellow is the $C_{0,1}$ clique newly adding in $n_0$.  Node $0,B$ is in both.}
 \label{fig:s5g5}
 \end{figure}
 
@@ -774,12 +790,38 @@ c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex]
 \section{Alternative: Constructing $g=s$ with perfect difference sets}
 \emph{Though it will be shown equivalent to the last construction, we can use another concept to build these graphs when $g=s$: perfect difference sets. Notably, these are proven to exist for $g=p^k-1$ by Singer\cite{1}}
 
-\begin{itemize}
-\item If $g=s$, then $n=g^2-g+1$ by the Graph Representation Theorem and $n=m$ by the Candidate Theorem. Thus, we're looking for a PDS of size $g^2-g$.
-\end{itemize}
+Searching for complete graph partitions by brute force is difficult.  Even a graph of size 7 like Fig.~\ref{fig:s3g3} requires sorting through putting 21 distinct objects into 7 distinct bins\footnote{$(21!)/((3!)^7)$, though with some symmetries}, and the numbers get worse from there.  
 
+There is some hope that a partition or coloring, should it exist, would exhibit some regularity; after all, every node has an equal configuration of edges and adjacent nodes in a complete graph.
 
+Additionally, when $g=s$, we've seen that $n = m$, so finding a unique complete subgraph $K_g$ for each node which, in total, partition the complete graph, seems like a good strategy.
 
+Looking at  Fig.~\ref{fig:s3g3}, we see that every node at index $i$ can be mapped to a $K_3$ (color) whose vertices are $i$, $i+1$, and $i+3$, with addition being modulo 7.  (Take a look at node 0's black triangle $(0, 1, 3)$.  After this, node $i$ needs to find an adjacency with node $i+2$, $i+4$, $i+5$, and $i+6$, or remapped over modulo 7, $i+2$, $i-3$, $i-2$, and $i-1$.  However, we can find these latter four by simply repeating triangles $(j, j+1, j+3)$ over the rest of the graph; in particular, the triangles at (i-1, i, i+2) (here, blue if $i=0$) and $(i-3, i-2, i)$ (yellow) take care of $i$'s six adjancies.
+
+This works because among the $n=7$ nodes in this graph $g=s=3$, we found a complete graph $K_3$(in this case among nodes $\{0, 1, 3\}$) such that every chord length in $[1, \frac{n-1}{2}]\mod n$ is represented exactly once.  Thinking of creating adjacencies for node 0, this means that connections to $\{1, 3\}$ will be taken care of by the associated triangle, that a $2$-chord exists by virtue of the triangle, and that $\{-1, -2, -3\}$ will be symmetrically connected \emph{to} 0 by the same means.
+
+So, if for a given $n$, we can find a set $a_i \in [1,n-1]$ of size $g-1$ such that $\bigcup_{i > j} (a_i - a_j \mod n) = [1, \frac{n-1}{2}]$, then this can be repeated for every node to cover the graph.
+
+That such a set exists is not obvious.  However, through some basic search algorithms at \url{https://github.com/fettermania/mathnotes/tree/main/spotit/code}, we can sniff out a few of them:
+
+\begin{figure}[!htb]
+ \begin{tabular}{c c | c }
+   g,s & n & 0 adjacencies \\
+\hline
+   3 & 7 & \{1, 3\} \\
+   4 & 13 & \{1, 3, 9\} \\
+   5 & 21 & \{1,4,14,16\}  \\
+   6 & 31 & \{1, 3, 8, 12, 18\} \\
+   8 & 57 & \{1, 3, 13, 32, 36, 43, 52\} \\
+   9 & 73 & \{1, 3, 7, 15, 31, 36, 54, 63\} \\
+   10 & 91 & \{1, 3, 9, 27, 49, 56, 61, 77, 81\} \\
+   12 & 133 &  \{1, 3, 12, 20, 34, 38, 81, 88, 94, 104, 109\} \\
+   \end{tabular}
+ \caption{Perfect Difference Sets up to $g=s=12$}
+\label{fig:perfect-diffs}
+\end{figure}
+
+Here is an example of 0's adjacencies for $s=g=6$: 
 
 \begin{figure}[!htb]
 \centering
@@ -848,7 +890,16 @@ c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex]
 \end{figure}
 
 
+It turns out that in the 1930s, James Singer found that these configurations, termed \emph{perfect difference sets}, exist for $g^*=p^k, p \in \mathbb{P}, k \in \mathbb{N}$ and, setting $g=g^*+12$, and $n=g^2+g+1$\cite{1}. This result was not connected to graph edge partitioning in his paper.   The existence for some of the other types of $g$ have been disproven, but this appears to be the main theorem in the area.
 
+
+\begin{framed}
+\textbf{Singer's Theorem on Perfect Difference Sets}: If $g=s$, then $n=g^2-g+1$ by the Graph Representation Theorem and $n=m$ by the Candidate Theorem. Thus, we're looking for a PDS over $n=g^2-g+1$.  This has been proven to exist if $g =p^k, p \in \mathbb{P}, k \in \mathbb{N}$.  
+\end{framed}
+
+Singer's proof relies also on finding a finite field $\mathcal{F}$ of size g.  There are some deterministic, non-brute-force methods of doing this\cite{4} though they seem quite intricate.
+
+This limitation to prime powers, just like the partitions for $g=s$ found in section 3, explains the row omissions in the brute force search table in Fig,.~\ref{fig:perfect-diffs}.  So, if $g=p^k$ a perfect difference set representation exists , and a section 3 representation also exists. 
 
 \section{Interlude: Graph Equivalence up to relabeling}
 
@@ -900,7 +951,7 @@ c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex]
 
 \end{scope}
 \end{tikzpicture}
-\caption{s=5, g=5 from s=5, g=4 with no edges. The green is an example $I_1$ clique.}
+\caption{s=5, g=5 from s=5, g=4 with no edges. The blue $n_j$ is an arbitrary clique, and $C_{j,*}$ are the $g-1$ cliques (colors) adjacent to each node.}
 \label{fig:equivalence}
 \end{figure}
 
@@ -918,11 +969,9 @@ No color can be shared between these color adjacency sets (like $C_{4,0}$ and $C
 Therefore, this blue clique shares a with all of the other $g(g-1)$ colors.  Because blue was an arbitrary selection, every color is adjacent to every other color on some single node.
 So the graph \emph{where colors are nodes with edges between adjacent colors} is complete. This, up to relabeling, there is only one way to partition a complete graph into complete subgraphs when $g=s$.
 
-\textyf{An important consequence}: Because $g=s$ in both the cycle generation in section 3 as well as the PDS generation in section 5, these are, up to isomorphism, the same coloring.
+\textbf{An important consequence}: Because $g=s$ in both the cycle generation in section 3 as well as the PDS generation in section 5, these are, up to isomorphism, the same coloring.
 
-
-
-\section{Constructing $g=s-1$ from the previous}
+\section{Constructing a $g=s-1$ partition from a $g=s$ partition}
 
 Suppose we have constructed $g=s$ by Perfect Difference Sets or (as we have shown, ultimately identically) by the method shown in Fig.~\ref{label:s5g5}. Consider removing the $I_* \cup X$ clique and all associated edges. This changes us into a partition in which:
  
@@ -933,31 +982,39 @@ Suppose we have constructed $g=s$ by Perfect Difference Sets or (as we have show
 \item $s$ remains the same.
 \end{enumerate}
 
-This matches the configuration of $g=s-1$. Though every graph constructed through this method 
-
-\emph{Removing one clique and all edges should suffice.}
-
-Todo: are these all the same, looking at complement.color graph $g-1$ cliques left behind?
-
-
+This matches the configuration of $g=s-1$. Though every graph constructed through this method seems like it would be isomorphic (in particular, to graphs constructed using the method in section 4), we can't categorically rule out other constructions. 
 
 \section{Considering wider $g | s$ and $g | s-1$: Inception}
 
-Rule: $g=3, s=4, n=9, m=12$
+It seems we have reached the limit of possibllities when $g=s$.  In such a graph, when $g-1 = p^k$:
+\begin{itemize}
+\item We can create a game of Spot It with $s$ symbols, each of which appear $g$ times (section 1)
+\item We can always construct $g=s-1$ through a finite field $GF(g-1)$ (section 3), and augment with another clique to form $g=s$ (section 4).
+\item We can always find a perfect difference set modulo $n = (g+1)^2+g+1$ and construct a graph partition where $g=s$ (section 5).
+\item These partitions, and any where $g=s$, are isomorphic (section 6).
+\item We can always reduce to a partition where $g=s-1$ by removing a clique and associated edges. (section 7)
+\end{itemize}
 
-Note that since $81 = 3^4, 3 \in \mathbb{P}$, $K_{81}$ can be partitioned into 9-cliques (complete graphs of size $K_9$). Because we can recursively construct $K_9$s from the rule below (or ``incept'' the graph), we can turn the graph $n=81, s=10, g=9, m=90$ into one of $n=81, s=40, g=3, m=1080$, in which every node still has a uniform number of attached colors, and every color has the same number of node members. This graph has not been attempted.
+However, these only cover the equality cases of $g=s-1$ and $g=s$.  Section 2 showed that we possibly could accommodate $g | s$ and $g | s-1$ more generally.
 
-\emph{Figure: s=4, g=3 has 9 nodes. S=g=9 has 9-cliques which could be broken down }
+Despite repeated attempts, there don't seem to be many surefire constructions (or reductions) from the above methods for slices like $g^* = kg, k > 1$.  Conversely, proving such constructions are \emph{impossible} also seems difficult.
 
-Note: You can take the s=7, g=3, n=15, m=35 and change the n, n+5, n+10 triangles into unique colors for s=8, m=45, n=15 and g in {2,3} for example. 
+However, ``inception'' is one very minor method of generating such a partition.  
+
+\begin{framed}
+\textbf{Inception}: If $K_n$ can be partitioned into complete subgraphs $K_g$ and $K_g$ can be partitioned into complete subgraphs $K_h$, then $K_n$ can be partitioned into complete subgraphs of size $K_h$. 
+\end{framed}
+
+Of course, by the equivalencies above, this means we can make Spot It Games of highly varied $g$ and $s$, even if well outside practical possibility.
+
+For example: We can partition of $K_{81}$ $(s=10, g=9, n=81,m=90)$ into groups of $K_9$, and, like in figure Fig.~\ref{fig:s4g3}), we can split those into $(s^*=4, g^*=3, n=9,m=12)$.   This gives us a new partition of configuration $(s=40,g=3,n=81,m=1080)$, in which every node still has a uniform number of attached colors, and every color has the same number of node members. This graph has not been attempted.
+
+Say $s=g$ instead, just for another example.  This certainly works for turning $s=9, g=9, n=73, m=73$ into $s=36,g=3,n=73,m=876$ as well, or even any other configuration where $g \notin \{s, s-1 \}$ as below.
+
+\emph{(Note that an even more trivial example would be turning every edge into a $K_2$ complete graph.)}
 
 
 \section{Considering wider $g|s$: Kirkman's schoolgirl problem}
-
-NOTE: We have the rotator of size $g$ iff $g | s-1$, since $gk = s - 1 \Rightarrow s = gk+1 \Rightarrow m = \frac{gk+1}{s}(sg-s+1).$ This means ( I think ) that there are $k(sg-s+1)$ cliques, or $k$ rooted at each node, plus $\frac{sg-s+1}{g}$ other rotator cliques, being $s - \frac{s-1}g$ of size $g$ that are like the island triangles
-
-
-
 
 
 \begin{figure}[!htb]
@@ -995,13 +1052,12 @@ NOTE: We have the rotator of size $g$ iff $g | s-1$, since $gk = s - 1 \Rightarr
 ,
 \end{tikzpicture}
 \label{fig:s7g3}
-\caption{s=7, g=3, n=15, m=35, node 0 adjacencies. Rule: (i, i+5, i+10) x 3, (i, i+1, i+4) and (i, i+2, i+8)}
+\caption{s=7, g=3, n=15, m=35, node 0 adjacencies. $i \in [0, 4): (i, i+5, i+10); \forall i: (i, i+1, i+4), (i, i+2, i+8)$, all $\mod 15$}
 \end{figure}
 
+Apparently some versions of this problem were studied even in the nineteenth century.   Kirkman's schoolgirl problem\cite{5} asks: \emph{Can fifteen girls walk in groups of three to school for seven days, such that each pair walks together exactly once?}.  With colors representing walking groups, $s=7, g=3, n=15$, we have something isomorphic to a Spot It deck construction.  
 
-ANOTHER ONE
-
-
+Through ad-hoc tinkering, we can find the graph in Fig.~\ref{fig:s7g3}, showing the adjacencies for a single node.  These are repeated ``round the horn'', with the exception that the red triangle only appears five times instead of 15.
 
 \begin{figure}[!htb]
 \centering
@@ -1084,53 +1140,48 @@ ANOTHER ONE
 \end{scope}
 ,
 \end{tikzpicture}
-\label{fig:node5}
+\label{fig:s10g5}
 \caption{Perfect Difference Set on s=10, g=5, n=41, m=82: (0 1 4 11 29), (0 2 8 17 22)}
 \end{figure}
 
+These are apparently instances of a \emph{Steiner Triple System} $S(t, k, n)$\cite{6}, where we look for groups of $k$ among $n$ total elements, which cover exactly once every set of size $t$.  If $t=2$ (edges in the graph, pairs of girls), and $k=3$ (subgroups $K_3$, walking trios) among $n$, we have an instance of a Kirkman problem (and Spot It game); in fact, Kirkman problems are those where $t=2, k=3$.
+
+The followups to this problem are varied (including links to projective and affine geometry) and many unsolved ($t \geq 6$).  Much progress has been made on $STS(t=2,k=3,n)$ but results seem spotty for $k>3$.
+
+By some backtracking and brute force searching using our code \url{https://github.com/fettermania/mathnotes/tree/main/spotit/code}, we can find a few ad-hoc solutions on our own, even without the problem fully solved:
 
 
 
+\begin{figure}[!htb]
+\centering
+ \centering
+ \begin{tabular}{c c | c c c}
+   s & g & adjacencies $\forall i$ & adjacencies $i \in [0, g-1]$ \\
+\hline
+   6 & 3 & \{\{0 1, 4\}, \{0, 2, 7\}\} & \{\}\\
+   7 & 3 & \{\{0 1 3\}, \{0, 4, 10\}\} & \{\{0, 5, 10\}\} \\
+   9 & 3 & \{\{0,1,6\}, \{0,2,10\}, \{0,3,7\} & \{\} \\
+   10 & 3 & \{\{0,2,10\}, \{0,1,5\}, \{0,3,9\}\} & \{\{0, 7, 14\}\} \\
+   10 & 5 & \{\{0, 1, 4, 11, 29\}, \{0, 2, 8, 17, 22\}\} & \{\} \\
+   \end{tabular}
+ \caption{Ad Hoc Steiner Solutions }
+\label{fig:ad-hoc-steiner}
+\end{figure}
+
+The adjacencies for node 0 in $s=10, g=5$ are shown in Fig. ~\ref{fig:s10g5}, obtained through computational means.
 
 \section{Nonuniform g: deletion and partial inception}
 
+All of our solutions were concerned with a Spot It deck in which every symbol appears exactly $g$ times.  The commercial deck has $s=8$ on all cards, but contains $n=55$ cards instead of $s(g-1) +1 = 8(7) = 57$ cards, assuming $g=8$.  The most likely explanation is that two cards were simply deleted.  Deletion from a deck created with the methods above yields a deck in which $s$ remains constant but $g$ can vary.  This could also occur if we replaced \emph{some} of the complete subgraphs $K_g$ with ``incepted'' graphs  (section 8).  It's also likely that we could greedily construct a deck with consistent $s$ if we were unconcerned if $g$ were uniform across colors.
 
+\section{Open questions}
 
-\section{Another question}
-
-\emph{Can it be true that $g | s(s-1)$ but not true that $g | s$ or $g | s-1$?}|
-
-
-\section{THIS IS THE END}
-
-
-
-\section{Boneyard: Some examples with $g=3$}
-
+In addition to the many open questions in Steiner Systems\cite{6}, which would include the whether any $g | s$ or $g | s-1$ has a solution, we have other questions about our systems:
 
 \begin{itemize}
-
-\item Rule: $g=3, s=3, n=7, m=7: (0,1,3)$
-\item Rule: $g=3, s=4, n = 9, m = 12: (0,3,6) \cdot 3, (0,1,2) \cdot 3, (0,4,8) \cdot 3, (0, 5,7) \cdot 3$ (this is 3 separate $K_3$, then circuit inc 0, inc1, inc 2)
-\item Rule: Another example:$ g=3, s=6, n=13, m=26$. 3-graphs are at $(i, i+2, i+8)$ and $(i, i+1, i+4)$, addition being $\mod 13$.. NOTE: Is this a subset of $s=6, g=6$?
-\item Rule: $g=3, s=7, n=15, m=35, (i, i+5, i+10) \cdot 3, (i, i+1, i+4), (i, i+2, i+8)$
-\item Rule: $g=3, s=9, n=19, m=57: (0,1,6), (0,2,10), (0,3,7)$
-\item Rule: $g=3, s=10, n=21, m=70: (0,7,14) \cdot 3, (0,2,10), (0,1,5), (0,3,9)$
-\item Rule: $s=g=4, n=m=13: (0, 1, 3, 9)$
-\item Rule: $(0,1,4,14,16) on s=g=5, n=21$
-\item Rule: $s=g=6, n=m=31: (0, 1, 3, 8, 12, 18)$
-\item NONE on $s=7=g$
-\item Rule: $s=g=8, n=m=57 - (0,1, 3, 13, 32, 36, 43, 52)$
-\item Rule: $s=g=9, n=m=73 - (0,1, 3, 7, 15, 31, 36, 54, 63)$ ; NOTE - these are all $2^{n-1}$ for a bit	
-\item Rule: $s=g=10, n=m=91 - (0, 1, 3, 9, 27, 49, 56, 61, 77, 81)$
-\item NONE on $s=g=11$
-\item Rule: $g=s=12, m=n=133 - (0 1, 3, 12, 20, 34, 38, 81, 88, 94, 104, 109)$
-\item NOTE All (g, s=g+1) don't seem to work with the rotators
-\item TODO Build something for the 2-rotators
+\item For an it be true that $g | s(s-1)$ but not true that $g | s$ or $g | s-1$ (e.g. $g=6, s=9$)?
+\item Are all constructions where $g=s-1$ isomorphic?
 \end{itemize}
-
-
-
 
 
 
@@ -1140,269 +1191,9 @@ ANOTHER ONE
 \bibitem{3} Wikipedia: {https://en.wikipedia.org/wiki/Graph\_partition}
 \bibitem{4} Adleman, Leonard M. and Lenstra, Hendrik W. ``FINDING IRREDUCIBLE POLYNOMIALS OVER FINITE FIELDS'' \url{https://www.math.leidenuniv.nl/~hwl/PUBLICATIONS/1986a/art.pdf}
 \bibitem{5} Wikipedia: \url{https://en.m.wikipedia.org/wiki/Kirkman\%27s_schoolgirl_problem}
+\bibitem{6} Wikipedia: \url{https://en.wikipedia.org/wiki/Steiner_system}
 \end{thebibliography}
 
-
-% ======= BONEYARD =======
-% ======= BONEYARD =======
-% ======= BONEYARD =======
-% ======= BONEYARD =======
-% ======= BONEYARD =======
-% ======= BONEYARD =======
-% DF NOTE: These are leftovers from the Dino Paper work, easy to pick up and use if needed.
-
-\begin{comment}
-
-
-\begin{figure}[!htb]
-\centering
-\begin{tikzpicture}
-\begin{scope}[every node/.style={circle,thick,draw}]
-\node (0) at (1,0) {0,0}; 
-\node (1) at (-.5, .866) {0,1}; 
-\node (2) at (-.5, -.866) {0,2}; 
-
-\draw[thick, black] (0) -- (1); 
-\draw[thick, black] (1) -- (2); 
-\draw[thick, black] (0) -- (2); 
-
-\node (3) at (-1,5) {1,0}; 
-\node (4) at (-2.5, 5.866) {1,1}; 
-\node (5) at (-2.5, 4.134) {1,2}; 
-
-\draw[thick, red] (3) -- (4); 
-\draw[thick, red] (4) -- (5); 
-\draw[thick, red] (3) -- (5); 
-
-\node (6) at (4,2.5) {2,0}; 
-\node (7) at (2.5, 3.366) {2,1}; 
-\node (8) at (2.5, 1.634) {2,2}; 
-
-\draw[thick, brown] (6) -- (7); 
-\draw[thick, brown] (7) -- (8); 
-\draw[thick, brown] (6) -- (8); 
-
-\draw[thick, orange] (0) -- (3); 
-\draw[thick, orange] (3) -- (6); 
-\draw[thick, orange] (0) -- (6); 
-
-
-\draw[thick, yellow] (1) -- (4); 
-\draw[thick, yellow] (4) -- (7); 
-\draw[thick, yellow] (1) -- (7); 
-
-
-\draw[thick, green] (2) -- (5); 
-\draw[thick, green] (5) -- (8); 
-\draw[thick, green] (2) -- (8); 
-
-
-
-
-
-\end{scope}
-
-\end{tikzpicture}
-\label{fig:bipartite}
-\caption{complete graphs with increment 0}
-\end{figure}
-
-
-\begin{figure}[!htb]
-\centering
-\begin{tikzpicture}
-\begin{scope}[every node/.style={circle,thick,draw}]
-\node (0) at (1,0) {0,0}; 
-\node (1) at (-.5, .866) {0,1}; 
-\node (2) at (-.5, -.866) {0,2}; 
-
-\draw[thick, black] (0) -- (1); 
-\draw[thick, black] (1) -- (2); 
-\draw[thick, black] (0) -- (2); 
-
-\node (3) at (-1,5) {1,0}; 
-\node (4) at (-2.5, 5.866) {1,1}; 
-\node (5) at (-2.5, 4.134) {1,2}; 
-
-\draw[thick, red] (3) -- (4); 
-\draw[thick, red] (4) -- (5); 
-\draw[thick, red] (3) -- (5); 
-
-\node (6) at (4,2.5) {2,0}; 
-\node (7) at (2.5, 3.366) {2,1}; 
-\node (8) at (2.5, 1.634) {2,2}; 
-
-\draw[thick, brown] (6) -- (7); 
-\draw[thick, brown] (7) -- (8); 
-\draw[thick, brown] (6) -- (8); 
-
-\draw[thick, blue] (0) -- (4); 
-\draw[thick, blue] (4) -- (8); 
-\draw[thick, blue] (0) -- (8); 
-
-
-\draw[thick, purple] (1) -- (5); 
-\draw[thick, purple] (5) -- (6); 
-\draw[thick, purple] (1) -- (6); 
-
-
-\draw[thick, gray] (2) -- (3); 
-\draw[thick, gray] (3) -- (6); 
-\draw[thick, gray] (2) -- (6); 
-\end{scope}
-
-\end{tikzpicture}
-\label{fig:bipartite}
-\caption{complete graphs with increment 1}
-\end{figure}
-
-
-\begin{figure}[!htb]
-\centering
-\begin{tikzpicture}
-\begin{scope}[every node/.style={circle,thick,draw}]
-\node (0) at (1,0) {0,0}; 
-\node (1) at (-.5, .866) {0,1}; 
-\node (2) at (-.5, -.866) {0,2}; 
-
-\draw[thick, black] (0) -- (1); 
-\draw[thick, black] (1) -- (2); 
-\draw[thick, black] (0) -- (2); 
-
-\node (3) at (-1,5) {1,0}; 
-\node (4) at (-2.5, 5.866) {1,1}; 
-\node (5) at (-2.5, 4.134) {1,2}; 
-
-\draw[thick, red] (3) -- (4); 
-\draw[thick, red] (4) -- (5); 
-\draw[thick, red] (3) -- (5); 
-
-\node (6) at (4,2.5) {2,0}; 
-\node (7) at (2.5, 3.366) {2,1}; 
-\node (8) at (2.5, 1.634) {2,2}; 
-
-\draw[thick, brown] (6) -- (7); 
-\draw[thick, brown] (7) -- (8); 
-\draw[thick, brown] (6) -- (8); 
-
-\draw[thick, violet] (0) -- (5); 
-\draw[thick, violet] (5) -- (7); 
-\draw[thick, violet] (0) -- (7); 
-
-
-\draw[thick, olive] (1) -- (3); 
-\draw[thick, olive] (3) -- (8); 
-\draw[thick, olive] (1) -- (8); 
-
-
-\draw[thick, teal] (2) -- (4); 
-\draw[thick, teal] (4) -- (6); 
-\draw[thick, teal] (2) -- (6); 
-
-
-\end{scope}
-
-\end{tikzpicture}
-\label{fig:bipartite}
-\caption{complete graphs with increment 2}
-\end{figure}
-
-
-
-\begin{figure}[!htb]
-\centering
-\begin{tikzpicture}
-\begin{scope}[every node/.style={circle,thick,draw}]
-\node (0) at (1,0) {0,0}; 
-\node (1) at (-.5, .866) {0,1}; 
-\node (2) at (-.5, -.866) {0,2}; 
-
-\draw[thick, black] (0) -- (1); 
-\draw[thick, black] (1) -- (2); 
-\draw[thick, black] (0) -- (2); 
-
-\node (3) at (-1,5) {1,0}; 
-\node (4) at (-2.5, 5.866) {1,1}; 
-\node (5) at (-2.5, 4.134) {1,2}; 
-
-\draw[thick, red] (3) -- (4); 
-\draw[thick, red] (4) -- (5); 
-\draw[thick, red] (3) -- (5); 
-
-\node (6) at (4,2.5) {2,0}; 
-\node (7) at (2.5, 3.366) {2,1}; 
-\node (8) at (2.5, 1.634) {2,2}; 
-
-\draw[thick, brown] (6) -- (7); 
-\draw[thick, brown] (7) -- (8); 
-\draw[thick, brown] (6) -- (8); 
-
-
-\node (9) at (-1.5, 2.5) {3,0};
-\node (10) at (-.5, 2.5) {3,1};
-\node (11) at (.5, 2.5) {3,2};
-\node (12) at (1.50, 2.5) {3,3};
-
-\draw[thick, black] (12) -- (0); 
-\draw[thick, black] (12) -- (1); 
-\draw[thick, black] (12) -- (2); 
-
-\end{scope}
-\end{tikzpicture}
-\label{fig:bipartite}
-\caption{$s=4, g=4, n=13, m=13$: adding to original cliques - 3,3 adds to each original}
-\end{figure}
-
-\begin{figure}[!htb]
-\centering
-\begin{tikzpicture}
-\begin{scope}[every node/.style={circle,thick,draw}]
-\node (0) at (1,0) {0,0}; 
-\node (1) at (-.5, .866) {0,1}; 
-\node (2) at (-.5, -.866) {0,2}; 
-
-\draw[thick, black] (0) -- (1); 
-\draw[thick, black] (1) -- (2); 
-\draw[thick, black] (0) -- (2); 
-
-\node (3) at (-1,5) {1,0}; 
-\node (4) at (-2.5, 5.866) {1,1}; 
-\node (5) at (-2.5, 4.134) {1,2}; 
-
-\draw[thick, red] (3) -- (4); 
-\draw[thick, red] (4) -- (5); 
-\draw[thick, red] (3) -- (5); 
-
-\node (6) at (4,2.5) {2,0}; 
-\node (7) at (2.5, 3.366) {2,1}; 
-\node (8) at (2.5, 1.634) {2,2}; 
-
-\draw[thick, brown] (6) -- (7); 
-\draw[thick, brown] (7) -- (8); 
-\draw[thick, brown] (6) -- (8); 
-
-
-\node (9) at (-1.5, 2.5) {3,0};
-\node (10) at (-.5, 2.5) {3,1};
-\node (11) at (.5, 2.5) {3,2};
-\node (12) at (1.50, 2.5) {3,3};
-
-\draw[thick, blue] (0) -- (5); 
-\draw[thick, blue] (5) -- (7); 
-\draw[thick, blue] (0) -- (7); 
-
-
-\draw[thick, blue] (11) -- (0); 
-\draw[thick, blue] (11) -- (5); 
-\draw[thick, blue] (11) -- (7); 
-
-
-\end{scope}
-\end{tikzpicture}
-\label{fig:bipartite}
-\caption{adding to increment cliques - 3,2 adds to all 2 increment cliques}
-\end{figure}
-\end{comment} 
 
 \end{document}
 
