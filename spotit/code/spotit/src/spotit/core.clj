@@ -1,12 +1,9 @@
-(ns snipe.core
+(ns spotit.core
   (:gen-class))
 
 (require '[clojure.math.combinatorics :as combinatorics])
 
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println "Hello, World!"))
+; Sectikon: Various utilities
 
 (defn remove-ix [s ix]
   (concat (take ix s)
@@ -92,6 +89,9 @@
  (empty? (filter (complement zero?) s)))
 
 
+
+; Spot it: Old section - is there a PDS on K_n?
+
 (defn self-3-cartesian [l]
   (for [e1 '((0 1 2))
   e2 l e3 l]
@@ -134,6 +134,7 @@
 
 
 
+; Old section - is there a PDS on K_5?
 
 
 (defn self-5-cartesian [l]
@@ -233,6 +234,9 @@
            not-found coll)))
 
 
+; Spot it: Redone - can we backtrack search our way to a PDS?
+
+
 (defn backtracker [accum elts fn-legit fn-done]
   ;(when (= 4 (count accum)) (println accum))
   ;(println "BT called with accum " accum " elts " elts)
@@ -249,8 +253,12 @@
         	   ;; if not legit, try next
         	   (backtracker accum (rest elts) fn-legit fn-done)
         	 			)))
-#_(
 
+; Spot it: uncomment these to try various combos.  Note that 999907 etc.
+; means "do not exclude anything based on modulus"
+; Note also that we havne't found any PDS's with an excluded modulus
+
+#_(
 
 
 ; Expected - g-1 is prime
@@ -268,8 +276,8 @@
 (backtracker 
 		'(0 1)
 		(range 3 20)
-		(fn [x] (and (= 0 (first x)) (candidate? x 21 999) ))
-		(fn [x] (and (candidate? x 21 999) (= 5 (count x))))
+		(fn [x] (and (= 0 (first x)) (candidate? x 21 99907) ))
+		(fn [x] (and (candidate? x 21 99907) (= 5 (count x))))
 		)
 
 ; Expected - g-1 is prime
@@ -322,8 +330,8 @@
 	(backtracker 
 			'(0 1)
 			(range 3 110)
-			(fn [x] (and (= 0 (first x)) (candidate? x 111 999) ))
-			(fn [x] (and (candidate? x 111 999) (= 11 (count x))))
+			(fn [x] (and (= 0 (first x)) (candidate? x 111 99907) ))
+			(fn [x] (and (candidate? x 111 99907) (= 11 (count x))))
 			)
 
 ; WAITING g=s=12, m=n=133 - (0 1 3 12 20 34 38 81 88 94 104 109)
@@ -392,71 +400,106 @@
 
 )
 
+; Spot it section: Strategy for finding two coexisting cliques is to generate all candidates 
+; then check cartesian pairs.  Simpler than backtracking but explodes quickly.
 
-; (def sets-2-of-13 (subsets 2 (range 1 13)))
-; (def candidates-3-6 (filter #(candidate? % 13 9999)  (map (partial cons 0)  sets-2-of-13)))
-; ; Looking fof s=3, g=6, n=13, m=26 3-clique pair
-; (take 1 
-;  			(filter (fn [x] 
-;  					(all-distinct? 
-;  					  (crunch-all 
-;  					  	  (flatten 
-;  					  	    (map #(all-diffs  % 13) x)) 13)))
-;  					(cartesian candidates-3-6 candidates-3-6)))
-
-; (def sets-2-of-15 (subsets 2 (range 1 15)))
-; (def candidates-3-7 (filter #(candidate? % 13 5)  (map (partial cons 0)  sets-2-of-15)))
-; ; Looking fof s=3, g=7, n=15, m=21 3-clique pair
-; (take 1 
-;  			(filter (fn [x] 
-;  					(all-distinct? 
-;  					  (crunch-all 
-;  					  	  (flatten 
-;  					  	    (map #(all-diffs  % 15) x)) 15)))
-;  					(cartesian candidates-3-7 candidates-3-7)))
-; ; ((0 1 3) (0 4 10))
+#_(
+	(def sets-2-of-13 (subsets 2 (range 1 13)))
+	(def candidates-3-6 (filter #(candidate? % 13 9999)  (map (partial cons 0)  sets-2-of-13)))
+	; Looking fof s=6, g=3, n=13, m=26 3-clique pair
+	(take 1 
+	 			(filter (fn [x] 
+	 					(all-distinct? 
+	 					  (crunch-all 
+	 					  	  (flatten 
+	 					  	    (map #(all-diffs  % 13) x)) 13)))
+	 					(cartesian candidates-3-6 candidates-3-6)))
+	;(((0 1 4) (0 2 7)))
 
 
-
-; (def sets-3-of-25 (subsets 3 (range 1 25)))
-; (def candidates-4-8 (filter #(candidate? % 25 9999)  (map (partial cons 0)  sets-3-of-25)))
-; ; Looking fof s=8, g=4, n=25, m=50 4-clique pair
-; (take 1 
-;  			(filter (fn [x] 
-;  					(all-distinct? 
-;  					  (crunch-all 
-;  					  	  (flatten 
-;  					  	    (map #(all-diffs  % 25) x)) 25)))
-;  					(cartesian candidates-4-8 candidates-4-8)))
-
-; ; () ;; nione so far
+	(def sets-2-of-15 (subsets 2 (range 1 15)))
+	(def candidates-3-7 (filter #(candidate? % 13 5)  (map (partial cons 0)  sets-2-of-15)))
+	; Looking fof s=3, g=7, n=15, m=21 3-clique pair
+	(take 1 
+	 			(filter (fn [x] 
+	 					(all-distinct? 
+	 					  (crunch-all 
+	 					  	  (flatten 
+	 					  	    (map #(all-diffs  % 15) x)) 15)))
+	 					(cartesian candidates-3-7 candidates-3-7)))
+	; ((0 1 3) (0 4 10))
 
 
 
-; (def sets-4-of-41 (subsets 4 (range 1 41)))
-;  (def candidates-5-10 (filter #(candidate? % 41 9999)  (map (partial cons 0)  sets-4-of-41)))
-; ; Looking for s=10, g=5, n=41, m=82 5-clique pair
-; (take 1 
-;  			(filter (fn [x] 
-;  					(all-distinct? 
-;  					  (crunch-all 
-;  					  	  (flatten 
-;  					  	    (map #(all-diffs  % 41) x)) 41)))
-;  					(cartesian candidates-5-10 candidates-5-10)))
+	(def sets-3-of-25 (subsets 3 (range 1 25)))
+	(def candidates-4-8 (filter #(candidate? % 25 9999)  (map (partial cons 0)  sets-3-of-25)))
+	; Looking fof s=8, g=4, n=25, m=50 4-clique pair
+	(take 1 
+	 			(filter (fn [x] 
+	 					(all-distinct? 
+	 					  (crunch-all 
+	 					  	  (flatten 
+	 					  	    (map #(all-diffs  % 25) x)) 25)))
+	 					(cartesian candidates-4-8 candidates-4-8)))
 
-; ; (((0 1 4 11 29) (0 2 8 17 22)))
-  
+	; () ;; nione so far
 
-; (def sets-4-of-45 (subsets 4 (range 1 45)))
-;  (def candidates-5-11 (filter #(candidate? % 45 9)  (map (partial cons 0)  sets-4-of-45)))
-; ; Looking for s=11, g=5, n=45, m=99 5-clique pairs
-; (take 1 
-;  			(filter (fn [x] 
-;  					(all-distinct? 
-;  					  (crunch-all 
-;  					  	  (flatten 
-;  					  	    (map #(all-diffs  % 45) x)) 45)))
-;  					(cartesian candidates-5-11 candidates-5-11)))
+
+
+	(def sets-4-of-41 (subsets 4 (range 1 41)))
+	 (def candidates-5-10 (filter #(candidate? % 41 9999)  (map (partial cons 0)  sets-4-of-41)))
+	; Looking for s=10, g=5, n=41, m=82 5-clique pair
+	(take 1 
+	 			(filter (fn [x] 
+	 					(all-distinct? 
+	 					  (crunch-all 
+	 					  	  (flatten 
+	 					  	    (map #(all-diffs  % 41) x)) 41)))
+	 					(cartesian candidates-5-10 candidates-5-10)))
+
+	; (((0 1 4 11 29) (0 2 8 17 22)))
+	  
+
+	(def sets-4-of-45 (subsets 4 (range 1 45)))
+	 (def candidates-5-11 (filter #(candidate? % 45 9)  (map (partial cons 0)  sets-4-of-45)))
+	; Looking for s=11, g=5, n=45, m=99 5-clique pairs
+	(take 1 
+	 			(filter (fn [x] 
+	 					(all-distinct? 
+	 					  (crunch-all 
+	 					  	  (flatten 
+	 					  	    (map #(all-diffs  % 45) x)) 45)))
+	 					(cartesian candidates-5-11 candidates-5-11)))
+
+
+	(def sets-5-of-61 (subsets 5 (range 1 61)))
+	 (def candidates-6-12 (filter #(candidate? % 61 9999)  (map (partial cons 0)  sets-5-of-61)))
+	; Looking for s=12, g=6, n=61, m=122 5-clique pairs
+	(take 1 
+	 			(filter (fn [x] 
+	 					(all-distinct? 
+	 					  (crunch-all 
+	 					  	  (flatten 
+	 					  	    (map #(all-diffs  % 61) x)) 61)))
+	 					(cartesian candidates-6-12 candidates-6-12)))
+	; TODO t-- big
+
+
+	; TODO - too big for even the subsets
+	(def sets-6-of-85 (subsets 6 (range 1 85)))
+	 (def candidates-7-14 (filter #(candidate? % 85 9999)  (map (partial cons 0)  sets-6-of-85)))
+	; Looking for s=14, g=7, n=85, m=170 5-clique pairs
+	(take 1 
+	 			(filter (fn [x] 
+	 					(all-distinct? 
+	 					  (crunch-all 
+	 					  	  (flatten 
+	 					  	    (map #(all-diffs  % 85) x)) 85)))
+	 					(cartesian candidates-7-14 candidates-7-14)))
+	; TODO - too big
+
+
+)
 
 
 

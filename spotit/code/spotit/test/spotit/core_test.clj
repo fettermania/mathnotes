@@ -1,6 +1,6 @@
-(ns snipe.core-test
+(ns spotit.core-test
   (:require [clojure.test :refer :all]
-            [snipe.core :refer :all]))
+            [spotit.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
