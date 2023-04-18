@@ -35,7 +35,7 @@ style=alphabetic,
 
 \begin{abstract}
 
-The kids' card game ``Spot It'' supports a unique mechanic: every card of the 55-card deck has eight different symbols, and shares exactly one symbol of some kind with every other card. Intuitively, this seems impossible. The obvious game play (``spot the match'') works for children as young as two; the intricacies of deck construction astound these children of forty-two. In constructing our own deck, we run across interesting problems in graph theory, number theory, and abstract algebra \footnote{There are also representations in projective geometry, but let's save some domains for everyone else.}. Some are solved, some unsolved, but they span a wide range of domains perhaps not obviously connected.
+The kids' card game ``Spot It'' supports a unique mechanic: every card of the 55-card deck has eight different symbols, and shares exactly one symbol of some kind with every other card. Intuitively, this seems impossible. The obvious game play (``spot the match'') works for children as young as two; the intricacies of deck construction astound these children of forty-two. In constructing our own deck, we run across interesting problems in graph theory, number theory, and abstract algebra \footnote{There are also representations in projective geometry, but let's save some domains for everyone else.}. Some are solved, some unsolved, but they span a wide range of domains not obviously connected.
 \\
 
 Notably, starting with symbols which each occur $g$ times, $g=p^k+1, p \in \mathbb{P}, k \in \mathbb{N}$, and deck size $n = g^2-g+1$, we prove the following four constructions are surprisingly equivalent\footnote{or, at least, one can derive any from the other}:
@@ -199,7 +199,7 @@ Since $m$ and $n$ are determined from $s$ and $g$, we'll start by looking at pos
 
 \section{The Candidate Theorem: $g | s(s-1), g \leq s$}
 
-Suppose that that every symbol $s$ has exactly $g$ cards containing it \footnote{for example, all $s=7$ symbols in Fig.~\ref{fig:s7g3} correspond to cliques of size $g=3$}. Then 
+Suppose that that every card has $s$ symbols, and any symbols hzx exactly $g$ cards containing it \footnote{for example, all cards contain $s=4$ symbols in Fig.~\ref{fig:s4g3}, which each appear on $g=3$ cards}. Then 
 
 \begin{framed}
 \begin{enumerate}
@@ -231,7 +231,7 @@ m = \frac{{(sg - s + 1)(sg-s) \choose 2}}{{g \choose 2}} = \frac{(sg-s+1)(sg-s)}
 s \geq g \Rightarrow m \geq n
 \end{align}
 \item This is just a combination of (1) and (2). But for example, a tiling of triangles ($g=3$) means that either $s \equiv 0 \mod 3$ (see Fig.~\ref{fig:s3g3})
- or $s \equiv 1 \mod 3$ (see Fig, ~\ref{fig:s4g3}). 
+ or $s \equiv 1 \mod 3$ (see Fig.~\ref{fig:s4g3}). 
 \end{enumerate}
 
 
@@ -281,8 +281,8 @@ s \geq g \Rightarrow m \geq n
 
 \end{scope}
 \end{tikzpicture}
-\label{fig:s3g3}
 \caption{s=3, g=3, n=7, m=7. Cliques of form $(n_i, n_{i+1}, n_{i+3}), \forall i$}
+\label{fig:s3g3}
 \end{figure}
 
 
@@ -358,9 +358,9 @@ s \geq g \Rightarrow m \geq n
 
 
 \end{tikzpicture}
-\label{fig:s4g3}
 \caption{s=4, g=3, n=9, m=12. \\
 Cliques: $(n_i, n_{i+3}, n_{i+6}), (n_i, n_{i+1}, n_{i+2}), (n_i, n_{i+4}, n_{i+8}) \forall i, (n_i, n_{i+5}, n_{i+7}), i \equiv 0 \mod 5 $}
+\label{fig:s4g3}
 \end{figure}
 
 
@@ -511,23 +511,23 @@ To construct the $m = g(g-1)$ colors (symbol cliques) in the graph:
 \end{scope}
 
 \end{tikzpicture}
-\label{fig:k9}
 \caption{whole $K_9$: $s=4, g=3, n=9, m=12$}
+\label{fig:k9}
 
 \end{figure}
 
 
-For an example, compare identical graphs Fig.~\ref{fig:k9} (generated from the algorithm) and Fig.~\ref{fig:s4g3}. The mapping between node $(i,j)$ in Fig. ~\ref{fig:k9} and node $k$ in Fig. ~\ref{fig:s4g3} is $(i,j) \rightarrow k=i+3j$, with inverse $k \rightarrow (k \mod 3, \lfloor k / 3 \rfloor)$.
+For an example, compare identical graphs Fig.~\ref{fig:k9} (generated from the algorithm) and Fig.~\ref{fig:s4g3}. The mapping between node $(i,j)$ in Fig.~\ref{fig:k9} and node $k$ in Fig.~\ref{fig:s4g3} is $(i,j) \rightarrow k=i+3j$, with inverse $k \rightarrow (k \mod 3, \lfloor k / 3 \rfloor)$.
 
 \begin{enumerate}
-\item Cliques of form $G_i: G_0, G_1, G_2$: these are the triangles in black. These correspond to nodes $i \mod n$ in Fig. ~\ref{fig:s4g3}; for example $G_0 = \{0, 3, 6\}$.
-\item Cliques of form $C_{j, 0}: C_{0,0}, C_{1, 0}, C_{2,0}$: these are the triangles in blue. Fig. ~\ref{fig:s4g3} sees these connect between nodes with the same $i \mod n$ in Fig. ~\ref{fig:s4g3}; for example $C_{1,0} = \{1, 4, 7\}$.
-\item Cliques of form $C_{j, 1}: C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in brown. Fig. ~\ref{fig:s4g3} sees these connect between nodes that ``advance one'' with each hop between black cliques in ~\ref{fig:s4g3}; for example $C_{0,1} = \{0, 4, 8\}$.
-\item Cliques of form $C_{j, 2}: C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in red. Fig. ~\ref{fig:s4g3} sees these connect between nodes that ``go back one'' with each hop between black cliques in ~\ref{fig:s4g3}; for example $C_{0,1} = \{0, 5, 7\}$.
+\item Cliques of form $G_i: G_0, G_1, G_2$: these are the triangles in black. These correspond to nodes $i \mod n$ in Fig.~\ref{fig:s4g3}; for example $G_0 = \{0, 3, 6\}$.
+\item Cliques of form $C_{j, 0}: C_{0,0}, C_{1, 0}, C_{2,0}$: these are the triangles in blue. Fig.~\ref{fig:s4g3} sees these connect between nodes with the same $i \mod n$ in Fig.~\ref{fig:s4g3}; for example $C_{1,0} = \{1, 4, 7\}$.
+\item Cliques of form $C_{j, 1}: C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in brown. Fig.~\ref{fig:s4g3} sees these connect between nodes that ``advance one'' with each hop between black cliques in ~\ref{fig:s4g3}; for example $C_{0,1} = \{0, 4, 8\}$.
+\item Cliques of form $C_{j, 2}: C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in red. Fig.~\ref{fig:s4g3} sees these connect between nodes that ``go back one'' with each hop between black cliques in ~\ref{fig:s4g3}; for example $C_{0,1} = \{0, 5, 7\}$.
 \end{enumerate}
 
 
-Every node is connected to every other node once in Fig. ~\ref{fig:k9}, since for nodes $x,y$ and $z,w$:
+Every node is connected to every other node once in Fig.~\ref{fig:k9}, since for nodes $x,y$ and $z,w$:
 \begin{itemize}
 \item If $x = z$, they're in the same ``black'' clique $G_x$.
 \item If $y=w$, they're in a ``blue'' clique $C_{0,y}$
@@ -573,71 +573,79 @@ This is most obvious for primes, but can be constructed from, say, $GF(4):$
 
 Unlike a prime-order finite field, the addition table is not cyclic, so in a sense, our indices for $G_{0,i}$ say are not $i \in [0, 3]$ but $i \in \{0,1,B,D\}$! This is why the phrase ``where $[0...g-1] \in \mathcal{F}$'' is important in the algorithm.
 
-Here are the resulting tables for $s=5, g=4$. For example, in Fig.~\ref{fig:g4-0}, consider the third row as saying ``clique $C_{0,B}$ contains nodes $G_{0,0}, G_{1,B}, G_{B,D}, G_{D,1}$''.
 
 \begin{figure}[!htb]
-\centering
- \begin{tabular}{c c | c c c c}
-  c & y & 0 & 1 & B & D \\
-\hline
+\begin{subfigure}{.25\textwidth}
+\begin{tabular}{|| c c || c c c c || } 
+ \hline
+c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
+ \hline\hline
   0 & 0 & 0 & 0 & 0 & 0 \\
   0 & 1 & 0 & 1 & B & D \\
   0 & B & 0 & B & D & 1 \\
   0 & D & 0 & D & 1 & B \\
-  \end{tabular}
-\caption{Groups $G_{0,i}$}
-\label{fig:gf4-0}
-\end{figure}
-
-\begin{figure}[!htb]
-\centering
-
- \begin{tabular}{c c | c c c c}
-  c & y & 0 & 1 & B & D \\
-\hline
+ \hline
+ \end{tabular}
+\caption{Cliques $C_{0,i}$}
+\label{fig:cliques4-0}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+\begin{tabular}{|| c c || c c c c || } 
+ \hline
+c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
+ \hline\hline
   1 & 0 & 1 & 1 & 1 & 1 \\
   1 & 1 & 1 & 0 & D & B \\
   1 & B & 1 & D & B & 0 \\
   1 & D & 0 & B & 0 & D \\
+  \hline
+  
   \end{tabular}
-\caption{Groups $G_{1,i}$}
-\label{fig:gf4-1}
-\end{figure}
-
-\begin{figure}[!htb]
-\centering
- \begin{tabular}{c c | c c c c}
-  c & y & 0 & 1 & B & D \\
-\hline
-  B & 0 & B & D & 0 & 1 \\
-  B & 1 & B & 0 & 1 & D \\
+\caption{Cliques $C_{1,i}$}
+\label{fig:cliques4-1}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+\begin{tabular}{|| c c || c c c c || } 
+ \hline
+c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
+ \hline\hline
+  \cellcolor{yellow}B & \cellcolor{yellow}0 & \cellcolor{yellow}B & \cellcolor{yellow}D & \cellcolor{yellow}0 & \cellcolor{yellow}1 \\
+  \cellcolor{cyan}B & \cellcolor{cyan}1 & \cellcolor{cyan} B & \cellcolor{cyan}0 & \cellcolor{cyan}1 & \cellcolor{cyan} D \\
   B & B & B & 1 & D & 0 \\
   B & D & B & B & B & B \\
+  \hline
+ 
   \end{tabular}
-\caption{Groups $G_{B,i}$}
-\label{fig:gf4-B}
-\end{figure}
-
-\begin{figure}[!htb]
-\centering
- \begin{tabular}{c c | c c c c}
-  c & y & 0 & 1 & B & D \\
-\hline
+\caption{Cliques $C_{B,i}$}
+\label{fig:cliques4-B}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+\begin{tabular}{|| c c || c c c c || } 
+ \hline
+c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
+ \hline\hline
   D & 0 & D & D & D & D \\
   D & 1 & D & B & 1 & 0 \\
   D & B & D & 1 & 0 & B \\
   D & D & D & 0 & B & 1 \\
+  \hline
+  
   \end{tabular}
-\caption{Groups $G_{D,i}$}
-\label{fig:gf4-D}
+\caption{Cliques $C_{D,i}$}
+\label{fig:cliques4-D}
+\end{subfigure}
+\caption{s=5, g=4 adjacency tables}
 \end{figure}
+
+Here are the resulting tables for $s=5, g=4$. For example, in Fig.~\ref{fig:cliques4-0}, consider the third row as saying ``clique $C_{0,B}$ contains nodes $G_{0,0}, G_{1,B}, G_{B,D}, G_{D,1}$''.
+
 
 (Of course, once the multiplication is defined, feel free to substitute 2 for $B$ and 3 for $D$, in, say, a program.)
 
 
 Including the ``black'' cliques like $G_B = \{G_{0,B}, G_{1,B}, G_{2,B}, G_{3,B}\}$, we see that there are no repeated edges, and all edges are accounted for. 
 
-In general, to prove that this table exactly represents the ``color'' of every edge, we need to show that for every pair of elements, say, $(B, 1)$, and every pair of columns, say $0$ and $B$, (see the blue row in Fig.~\ref{fig:gf4-B}) that B and 1 appear in the same row in columns 0 and B exactly once. 
+In general, to prove that this table exactly represents the ``color'' of every edge, we need to show that for every pair of elements, say, $(B, 1)$, and every pair of columns, say $0$ and $B$, (see the blue row in Fig.~\ref{fig:cliques4-B}) that B and 1 appear in the same row in columns 0 and B exactly once. 
 
 To ensure there are no duplicates, consider two columns $x_1$ and $x_2$ that have a repeated value pair in some table, once on row $g_y$, once on $g_y^*$:
 
@@ -659,7 +667,7 @@ Similar field-based arguments can be made to ensure that every pair is represent
 
 \section{Constructing $g=s$ from $g=s-1$}
 
-With the previous construction ($g=s-1$) in hand, we can easily construct a $g=s$ graph (adding one to $g$, keeping $s$ the same), with the same restrictions on $g$. See Fig. ~\ref{fig:s5g5} for a visual on this.
+With the previous construction ($g=s-1$) in hand, we can easily construct a $g=s$ graph (adding one to $g$, keeping $s$ the same), with the same restrictions on $g$. See Fig.~\ref{fig:s5g5} for a visual on this.
 
 \begin{itemize}
 \item Create node $n_y$ for $y \in \mathcal{F}$
@@ -680,67 +688,6 @@ We see then that:
 
 \emph{Note that you can create $s=g=8$ this way, with $n=m=57$. The Spot It card deck comes with 55 cards with $s=8$ ``slots'', so our suspicion is that two cards were simply dropped from the set},.
 
-\begin{figure}[!htb]
-\begin{subfigure}{.25\textwidth}
-\begin{tabular}{|| c c || c c c c || } 
- \hline
-c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
- \hline\hline
-  0 & 0 & 0 & 0 & 0 & 0 \\
-  0 & 1 & 0 & 1 & B & D \\
-  0 & B & 0 & B & D & 1 \\
-  0 & D & 0 & D & 1 & B \\
- \hline
- \end{tabular}
-\caption{Groups $G_{0,i}$}
-\label{fig:gf4-0}
-\end{subfigure}
-\begin{subfigure}{.25\textwidth}
-\begin{tabular}{|| c c || c c c c || } 
- \hline
-c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
- \hline\hline
-  1 & 0 & 1 & 1 & 1 & 1 \\
-  1 & 1 & 1 & 0 & D & B \\
-  1 & B & 1 & D & B & 0 \\
-  1 & D & 0 & B & 0 & D \\
-  \hline
-  
-  \end{tabular}
-\caption{Groups $G_{1,i}$}
-\end{subfigure}
-\begin{subfigure}{.25\textwidth}
-\begin{tabular}{|| c c || c c c c || } 
- \hline
-c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
- \hline\hline
-  \cellcolor{yellow}B & \cellcolor{yellow}0 & \cellcolor{yellow}B & \cellcolor{yellow}D & \cellcolor{yellow}0 & \cellcolor{yellow}1 \\
-  \cellcolor{cyan}B & \cellcolor{cyan}1 & \cellcolor{cyan} B & \cellcolor{cyan}0 & \cellcolor{cyan}1 & \cellcolor{cyan} D \\
-  B & B & B & 1 & D & 0 \\
-  B & D & B & B & B & B \\
-  \hline
- 
-  \end{tabular}
-\caption{Groups $G_{B,i}$}
-\label{fig:gf4-B}
-\end{subfigure}
-\begin{subfigure}{.25\textwidth}
-\begin{tabular}{|| c c || c c c c || } 
- \hline
-c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
- \hline\hline
-  D & 0 & D & D & D & D \\
-  D & 1 & D & B & 1 & 0 \\
-  D & B & D & 1 & 0 & B \\
-  D & D & D & 0 & B & 1 \\
-  \hline
-  
-  \end{tabular}
-\caption{Groups $G_{D,i}$}
-\label{fig:gf4-D}
-\end{subfigure}
-\caption{s=5, g=4 adjacency tables}
-\end{figure}
 
 
 \begin{figure}[!htb]
@@ -780,7 +727,7 @@ c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex]
 
 \end{scope}
 \end{tikzpicture}
-\caption{s=5, g=5 from s=5, g=4 with no edges. The blue is the $C_{B,1}$ clique newly adding in $n_1$. The yellow is the $C_{0,1}$ clique newly adding in $n_0$. Node $0,B$ is in both.}
+\caption{s=5, g=5 created from s=5, g=4, no edges shown. The blue is the $C_{B,1}$ clique newly adding in $n_1$. The yellow is the $C_{0,1}$ clique newly adding in $n_0$. Node $0,B$ is in both.}
 \label{fig:s5g5}
 \end{figure}
 
@@ -884,8 +831,8 @@ Fig.~\ref{fig:s6g6} is an example of 0's adjacencies for $s=g=6$:
 \end{scope}
 ,
 \end{tikzpicture}
-\label{fig:s6g6}
 \caption{perfect difference set on g=6, s=6, n=m=31}
+\label{fig:s6g6}
 \end{figure}
 
 
@@ -972,7 +919,7 @@ So the graph \emph{where colors are nodes with edges between adjacent colors} is
 
 \section{Constructing a $g=s-1$ partition from a $g=s$ partition}
 
-Suppose we have constructed $g=s$ by Perfect Difference Sets or (as we have shown, ultimately identically) by the method shown in Fig.~\ref{label:s5g5}. Consider removing the $n_* \cup n^*$ clique and all associated edges. This changes us into a partition in which:
+Suppose we have constructed $g=s$ by Perfect Difference Sets or (as we have shown, ultimately identically) by the method shown in Fig.~\ref{fig:s5g5}. Consider removing the $n_* \cup n^*$ clique and all associated edges. This changes us into a partition in which:
  
 \begin{enumerate}
 \item We have one fewer clique.
@@ -1050,8 +997,8 @@ Say $s=g$ instead, just for another example. This certainly works for turning $s
 \end{scope}
 ,
 \end{tikzpicture}
-\label{fig:s7g3}
 \caption{s=7, g=3, n=15, m=35, node 0 adjacencies. $i \in [0, 4): (i, i+5, i+10); \forall i: (i, i+1, i+4), (i, i+2, i+8)$, all $\mod 15$}
+\label{fig:s7g3}
 \end{figure}
 
 Apparently some versions of this problem were studied even in the nineteenth century.  Kirkman's schoolgirl problem\cite{5} asks: \emph{Can fifteen girls walk in groups of three to school for seven days, such that each pair walks together exactly once?}. With colors representing walking groups, $s=7, g=3, n=15, m=35$, we have something isomorphic to a Spot It deck construction. 
@@ -1139,8 +1086,8 @@ Through ad-hoc tinkering, we can find the graph in Fig.~\ref{fig:s7g3}, showing 
 \end{scope}
 ,
 \end{tikzpicture}
-\label{fig:s10g5}
 \caption{Perfect Difference Set on s=10, g=5, n=41, m=82: (0 1 4 11 29), (0 2 8 17 22)}
+\label{fig:s10g5}
 \end{figure}
 
 These are apparently instances of a \emph{Steiner Triple System} $S(t, k, n)$\cite{6}, where we look for groups of $k$ among $n$ total elements, which cover exactly once every set of size $t$. If $t=2$ (edges in the graph, pairs of girls), and $k=3$ (subgroups $K_3$, walking trios) among $n$, we have an instance of a Kirkman problem (and Spot It game); in fact, Kirkman problems are those where $t=2, k=3$.
@@ -1154,7 +1101,7 @@ By some backtracking and brute force searching using our code \url{https://githu
 \begin{figure}[!htb]
 \centering
  \centering
- \begin{tabular}{c c | c c c}
+ \begin{tabular}{c c | c | c }
   s & g & adjacencies $\forall i$ & adjacencies $i \in [0, g-1]$ \\
 \hline
   6 & 3 & \{\{0 1, 4\}, \{0, 2, 7\}\} & \{\}\\
@@ -1167,7 +1114,7 @@ By some backtracking and brute force searching using our code \url{https://githu
 \label{fig:ad-hoc-steiner}
 \end{figure}
 
-The adjacencies for node 0 in $s=10, g=5$ are shown in Fig. ~\ref{fig:s10g5}, obtained through computational means.
+The adjacencies for node 0 in $s=10, g=5$ are shown in Fig.~\ref{fig:s10g5}, obtained through computational means.
 
 \section{Nonuniform g: deletion and partial inception}
 
