@@ -537,7 +537,7 @@ Every node is connected to every other node once in Fig.~\ref{fig:k9}, since for
 
 The last statement is deliberately informal. For prime numbers, it's clear that every increment in $[1, p-1]$ traverses a path $a, 2a, 3a ... (a-1)p$ where the nth member is unique among all other increment paths.
 
-The leap of insight comes in realizing that, in general, these cliques are not additive increments, but journeys through a field's \emph{multiplication table}. In the case of prime $g=p^1$, they just look similarly cyclical. The brown groups correspond to walking through the second row of Fig.~\ref{fig:g3-mult} and adding each to either $c=0, 1, or 2$; the reds correspond to the third. The blues (0 ``increment'') are actually a walk through the top row!
+The leap of insight comes in realizing that, in general, these cliques are not additive increments, but journeys through a field's \emph{multiplication table}. In the case of prime $g=p^1$, they just look similarly cyclical. The brown groups correspond to walking through the second row of Fig.~\ref{fig:gf3-mult} and adding each to either $c=0, 1, or 2$; the reds correspond to the third. The blues (0 ``increment'') are actually a walk through the top row!
 
 This is most obvious for primes, but can be constructed from, say, $GF(4):$
 
@@ -554,7 +554,7 @@ This is most obvious for primes, but can be constructed from, say, $GF(4):$
   D & D & B & 1 & 0 \\
   \end{tabular}
  \caption{Addition table GF(4)}
-\label{fig:gf-add}
+\label{fig:gf3-add}
 \end{subfigure}
 \begin{subfigure}{.3\textwidth}
  \centering
@@ -567,7 +567,7 @@ This is most obvious for primes, but can be constructed from, say, $GF(4):$
   D & 0 & D & 1 & B \\
 \end{tabular}
  \caption{Multiplication table GF(4)}
-\label{fig:gf-mult}
+\label{fig:gf3-mult}
 \end{subfigure}
 \end{figure}
 
@@ -845,7 +845,7 @@ It turns out that in the 1930s, James Singer found that these configurations, te
 
 Singer's proof relies also on finding a finite field $\mathcal{F}$ of size g. There are some deterministic, non-brute-force methods of doing this\cite{4}, though they seem quite intricate.
 
-This limitation to prime powers, just like the partitions for $g=s$ found in section 3, explains the row omissions in the brute force search table in Fig,.~\ref{fig:perfect-diffs}. So, if $g=p^k+1$ a perfect difference set representation exists , and a section 3 representation also exists. 
+This limitation to prime powers, just like the partitions for $g=s$ found in section 3, explains the row omissions in the brute force search table in Fig.~\ref{fig:perfect-diffs}. So, if $g=p^k+1$ a perfect difference set representation exists , and a section 3 representation also exists. 
 
 \section{Interlude: Graph Equivalence up to relabeling}
 
