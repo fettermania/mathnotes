@@ -38,7 +38,10 @@ style=alphabetic,
 The kids' card game ``Spot It'' supports a unique mechanic: every card of the 55-card deck has eight different symbols, and shares exactly one symbol of some kind with every other card. Intuitively, this seems impossible. The obvious game play (``spot the match'') works for children as young as two; the intricacies of deck construction astound these children of forty-two. In constructing our own deck, we run across interesting problems in graph theory, number theory, and abstract algebra \footnote{There are also representations in projective geometry, but let's save some domains for everyone else.}. Some are solved, some unsolved, but they span a wide range of domains not obviously connected.
 \\
 
-Notably, starting with symbols which each occur $g$ times, $g=p^k+1, p \in \mathbb{P}, k \in \mathbb{N}$, and deck size $n = g^2-g+1$, we prove the following four constructions are surprisingly equivalent\footnote{or, at least, one can derive any from the other}:
+\textbf{A deck of $n$ Spot It cards, each featuring $s$ symbols from a catalogue of $m$ total symbol choices can be constructed many ways, but only a few ways if every symbol occurs exactly $g$ times.  In that case, the choice of the $(s, g)$ pair both dictates $m$ and $n$ and is strongly restricted.}
+\\
+
+However, if $g$ is of the special form $g=p^k+1, p \in \mathbb{P}, k \in \mathbb{N}$, we can construct a deck, and beyond that, we can prove the following four constructions are surprisingly equivalent\footnote{or, at least, one can derive any from the other}:
 \\
 \begin{enumerate}
 \item (The Children's Game) A deck of $n$ ``Spot It'' Cards with $s=g$ symbol slots, where each of $m = n$ symbols occurs exactly $g$ times,
