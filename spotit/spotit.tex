@@ -35,13 +35,13 @@ style=alphabetic,
 
 \begin{abstract}
 
-The kids' card game ``Spot It'' supports a unique mechanic: every card of the 55-card deck has eight different symbols, and shares exactly one symbol of some kind with every other card. Intuitively, this seems impossible. The obvious game play (``spot the match'') works for children as young as two; the intricacies of deck construction astound these children of forty-two. In constructing our own deck, we run across interesting problems in graph theory, number theory, and abstract algebra \footnote{There are also representations in projective geometry, but let's save some domains for everyone else.}. Some are solved, some unsolved, but they span a wide range of domains not obviously connected.
+The kids' card game ``Spot It'' supports a unique mechanic: every card of the 55-card deck has eight different symbols, and shares exactly one symbol of some kind with every other card. Intuitively, this seems impossible. The obvious game play (``spot the match'') works for children as young as two; the intricacies of deck construction astound these children of forty-two. In constructing our own deck, we run across interesting problems in graph theory, number theory, and abstract algebra\footnote{There are also representations in projective geometry, but let's save some domains for everyone else.}. Some are solved, some unsolved, but they span a wide range of domains not obviously connected.
 \\
 
-\textbf{A deck of $n$ Spot It cards, each featuring $s$ symbols from a catalogue of $m$ total symbol choices can be constructed many ways, but only a few ways if every symbol occurs exactly $g$ times.  In that case, the choice of the $(s, g)$ pair both dictates $m$ and $n$ and is strongly restricted.}
+\textbf{A deck of $n$ Spot It cards, each featuring $s$ symbols from a catalogue of $m$ total symbol choices can be constructed many ways, but only a few ways if every symbol occurs exactly $g$ times. In that case, the choice of the $(s, g)$ pair both dictates $m$ and $n$ and is strongly restricted.}
 \\
 
-However, if $g$ is of the special form $g=p^k+1, p \in \mathbb{P}, k \in \mathbb{N}$, we can construct a deck, and beyond that, we can prove the following four constructions are surprisingly equivalent\footnote{or, at least, one can derive any from the other}:
+However, if $g$ is then of the special form $g=p^k+1, p \in \mathbb{P}, k \in \mathbb{N}$, we can construct a deck with uniform $g$, and beyond that, we can prove the following four constructions are surprisingly equivalent\footnote{Or, at least, one can derive any from another}:
 \\
 \begin{enumerate}
 \item (The Children's Game) A deck of $n$ ``Spot It'' Cards with $s=g$ symbol slots, where each of $m = n$ symbols occurs exactly $g$ times,
@@ -56,7 +56,7 @@ We then examine other configurations of $s$ and $g$, as well as comment on other
 
 \section{The Game and the Problem Statement}
 
-Introduced to us by Ari Steinberg, ``Spot It'' is a children's game of 55 cards as shown in Figure~\ref{fig:cards}, featuring eight colorful symbols on each. Though gameplay comes with a few variants in its tiny rulebook, the primary mechanic when presented two cards is simply \emph{spot single the common symbol first}. The game is simple enough for a two- or three-year old to grasp (and win!), but this poses the question: \emph{just how did they construct such a deck?}\footnote{Note: There have been some other investigations into ``Spot It''\cite{2}, but for the purposes of enjoyment, everything in this paper was researched without reference to \ (Spot It) work.}
+Introduced to us by Ari Steinberg, ``Spot It'' is a children's game of 55 cards as shown in Figure~\ref{fig:cards}, featuring eight colorful symbols on each. Though gameplay comes with a few variants in its tiny rulebook, the primary mechanic when presented two cards is \emph{spot the single common symbol first}. The game is simple enough for a two- or three-year old to grasp (and win!), but the question emerges: \emph{just how did they construct such a deck?}\footnote{Note: There have been some other investigations into ``Spot It''\cite{2}, but for the purposes of enjoyment, everything in this paper was researched without reference to \ (Spot It) work.}
 
 \begin{figure}[!htb]
 \centering
@@ -95,7 +95,7 @@ Introduced to us by Ari Steinberg, ``Spot It'' is a children's game of 55 cards 
 
 \end{figure}
 
-Naturally, there are trivial constructions: every symbol occurs only twice, or once, or the count of symbols is so varied that a deck can be constructed almost greedily. However, the Spot It game has uniformly 8 symbol ``slots'' on each card, which each appear 8 times \footnote{As we will see later, there should be 57 cards for this to be true; it's likely two cards were removed} across the different cards. 
+Naturally, there are trivial constructions: every symbol occurs only twice, or once, or the count of symbols is so varied that a deck can be constructed almost greedily. However, the Spot It game has uniformly 8 symbol ``slots'' on each card, which each appear 8 times\footnote{As we will see later, there should be 57 cards for this to be true; it's likely two cards were removed} across the different cards. 
 
 This is what we examine in this paper:
 
@@ -103,7 +103,7 @@ This is what we examine in this paper:
 \textbf{The Core Question:} For what choices of $g$ and $s$ can we construct a ``Spot It'' deck where each of the $s$ symbols on each card appears exactly $g$ times throughout the deck?
 \end{framed}
 
-\subsection{Reframing as a graph}
+\subsection{Reframing as a graph problem}
 Noticing that every card has a relationship to every other card (notably, the identity of the single symbol shared between them) as in Fig.~\ref{fig:cards-links}, we take our first step by reconstructing this problem as an undirected graph as in Fig.~\ref{fig:cards-graph}. 
 
 
@@ -171,11 +171,11 @@ Noticing that every card has a relationship to every other card (notably, the id
 
 
 \begin{framed}
-\textbf{The Graph Representation:} A deck of Spot It Cards each with $s$ symbol slots, where each symbol appears $g$ times can be represented by a graph $G$:
+\textbf{The Graph Representation:} A deck of Spot It Cards each with $s$ symbol slots, where each symbol appears $g$ times, can be represented by a graph $G$:
 \begin{enumerate}
-\item With $n$ nodes, where $n = s(g-1) + 1$
-\item With $m$ unique edge colors, where $m$ denotes the number of unique symbols,
-\item Where all edges each of color $m_i$ form a complete subgraph on $g$ nodes, s, so $m = {n \choose 2} / {g \choose 2}$.
+\item With $n$ nodes, where $n = s(g-1) + 1$,
+\item With $m$ unique edge colors, where $m$ denotes the number of unique symbols, and
+\item Where all edges each of color $m_i$ form a complete subgraph on $g$ nodes, so $m = {n \choose 2} / {g \choose 2}$.
 \end{enumerate}
 \end{framed}
 
@@ -184,8 +184,8 @@ Noticing that every card has a relationship to every other card (notably, the id
 \emph{Proof}:
 \begin{enumerate}
 \item As in Fig.~\ref{fig:graph-theorem}, node $n_0$'s adjacencies are exactly $s$ monocolor cliques of size $g-1$ (excluding $n_0$ itself). In a complete graph, these adjacencies comprise the total node set, so $n = (g-1)s + 1$. Using any other node is equivalent.
-\item As in Fig.~\ref{fig:cards-links}, while card 1 and card 2 have the relationship ``clock'', node 1 and node 2 instead share an edge with the color red. This is the same relationship between nodes 2 and 3, and nodes 1 and 3. ``Drop'', ``knight'', and ``ghost'' would be colors purple, green, and blue, respectively. This works because every edge has exactly one color (corresponding 1:1 with a symbol) in this formulation, and every card pair has exactly one symbol shared.
-\item All cards with a given symbol (say, ``clock'') must link via the color red to all other nodes whose card has a clock; this is a complete subgraph. A complete graph $K_n$ has ${n \choose 2}$ edges. A monocolor clique of size $g$ is a complete graph as well, with ${g \choose 2}$ edges. $K_n$'s edges are exactly these equal-sized cliques, so there are therefore $m = \frac{{n \choose 2}}{{g \choose 2}}$ of them, corresponding to colors.
+\item As in Fig.~\ref{fig:cards-links}, while card 1 and card 2 have the relationship ``clock'', node 1 and node 2 instead share an edge with the color red. This is the same relationship between nodes 2 and 3, and nodes 1 and 3. ``Drop'', ``knight'', and ``ghost'' would be colors purple, green, and blue, respectively. This works because every edge has exactly one color (corresponding 1:1 with a symbol) in this formulation, and every card pair shares exactly one symbol.
+\item All cards with a given symbol (say, ``clock'') must link via a single color (here, red) to all other nodes whose card has that symbol; this is a complete subgraph. A complete graph $K_n$ has ${n \choose 2}$ edges. A monocolor clique of size $g$ is a complete graph as well, with ${g \choose 2}$ edges. $K_n$'s edges are exactly these equal-sized cliques, so there are therefore $m = \frac{{n \choose 2}}{{g \choose 2}}$ of them, corresponding to colors.
 \end{enumerate}
 
 And since every edge in our complete graph $K_n$ is in exactly one monocolor clique of size $K_g$, this becomes a crisp graph theory problem:
@@ -194,7 +194,7 @@ And since every edge in our complete graph $K_n$ is in exactly one monocolor cli
 \textbf{The Core Question in Graph Terms}: Given $s$ and $g$ as before, can we construct an edge partition (colloquially here, ``coloring'') of a complete graph on $n$ nodes $K_n$ into a set of complete subgraphs of size $g$ (denoted $K_g$)?
 \end{framed}
 
-\emph{Note: Our idiosyncratic term ``coloring'', which is really just a better visual for partitioning a graph into disjoint edge sets, should not be confused with the traditional ``edge coloring'', where no edges of the same color can meet at a node. Also, we sometimes sloppily use ``clique'', ``group'', and ``complete subgraph'' interchangeably to mean ``the entire set of nodes connected by one color of edge''}.
+\emph{Note: Our idiosyncratic term ``coloring'', which really just serves to better visualize partitioning a graph into disjoint edge sets, should not be confused with the traditional term ``edge coloring'', where no edges of the same color can meet at a node. Also, we sometimes sloppily use ``clique'', ``group'', and ``complete subgraph'' interchangeably to mean ``the entire set of nodes connected by one color of edge''}.
 
 \textbf{Though exhaustive research wasn't done, this graph problem does not appear to have a clear analytical solution out there.}\footnote{Or people who care about publishing it within the reach of lazy hobbyists, anyway!}
 
@@ -202,14 +202,14 @@ Since $m$ and $n$ are determined from $s$ and $g$, we'll start by looking at pos
 
 \section{The Candidate Theorem: $g | s(s-1), g \leq s$}
 
-Suppose that that every card has $s$ symbols, and any symbols hzx exactly $g$ cards containing it \footnote{for example, all cards contain $s=4$ symbols in Fig.~\ref{fig:s4g3}, which each appear on $g=3$ cards}. Then 
+Suppose that that every card has $s$ symbols, and any symbols hzx exactly $g$ cards containing it\footnote{for example, all cards contain $s=4$ symbols in Fig.~\ref{fig:s4g3}, which each appear on $g=3$ cards}. Then 
 
 \begin{framed}
 \begin{enumerate}
 \item $g | s(s-1)$.
 \item If $s >1 $ and $g > 1$ then $g \leq s$ 
-\item Corollary to (2): If $s >1 $ and $g > 1$, then $m = (\frac{s}{g})n$ and therefore $m \geq n$
-\item All nontrivial candidate configurations of $g, s$ are $g \leq s$, $g | s(s-1)$.
+\item If $s >1 $ and $g > 1$, then $m = (\frac{s}{g})n$ and therefore $m \geq n$
+\item All nontrivial candidate configurations of $g, s$ are then $g \leq s$, $g | s(s-1)$.
 \end{enumerate}
 \end{framed}
 
@@ -221,7 +221,7 @@ Suppose that that every card has $s$ symbols, and any symbols hzx exactly $g$ ca
  n = (g-1)s+1 \Rightarrow g(g-1) \big| (sg-s+1)(sg-s) = (sg-s+1)s(g-1)\\
 \Rightarrow g | s^2g - s^2 + s \Rightarrow g | (1-s)s \Rightarrow g | s(s-1) 
 \end{align}
-\item Any node $n_i$ is adjacent to $s$ monocolor cliques of size $g$. These cliques $C_1 ... C_s$, containing non-$n_i$ nodes if $g > 1$, comprise all nodes, and any other cliques can contain no more than one of each $K_i$. This means that clique of size $g$ greater than $s$ cannot be formed, since the only place to find nodes are these $C_1 ... C_s$. The other trivial case, $s=1$, means there is only one color in the whole graph. 
+\item Any node $n_i$ is adjacent to $s$ monocolor cliques of size $g$. These cliques $C_1 ... C_s$ (containing non-$n_i$ nodes if $g > 1$) comprise all nodes, and any other cliques can contain no more than one of each $C_i$. This means that clique of size $g$ greater than $s$ cannot be formed, since the only place to find nodes are these $C_1 ... C_s$. The other trivial case, $s=1$, means there is only one color in the whole graph. 
 \\
 
 This means we need not consider configurations like $g = 6, s=3$ even though $6 | 3(3-1)$.
@@ -372,7 +372,7 @@ Cliques: $(n_i, n_{i+3}, n_{i+6}), (n_i, n_{i+1}, n_{i+2}), (n_i, n_{i+4}, n_{i+
 
 Though we presented a few legitimate examples of complete graphs tiled by uniformly sized complete subgraphs in Fig.~\ref{fig:s3g3} and Fig.~\ref{fig:s4g3}, these are not easy to find by hand once $s$ becomes much larger. The whole problem of graph partitioning admits many algorithms, most approximations\cite{3}, though usually referring to separating actual \emph{nodes} into partitions, rather than edges, and usually over an arbitrary graph instead of a relatively simple complete graph.
 
-We can, however, systematically find an edge partition if $g$ is a prime power.
+We can, however, systematically construct an edge partition if $g$ is a prime power.
 
 \begin{framed}
 \textbf{g=s-1 construction}: If $g$ is a prime power $p^k$, we can explicitly construct a graph that satisfies our game with $g = s-1$.
@@ -386,10 +386,35 @@ As the combination of $s, g$ determine the shape of the graph entirely, $g = s-1
 \item There are $m = (\frac{s}{g}) n = (\frac{s}{g}) g ^2 = sg = (g+1)g$ colors in the graph.
 \end{itemize}
 
+\subsection{General Construction Algorithm}
+\emph{Algorithm Summary}: Our algorithm takes every constant $c \in \mathcal{F}$, and goes through the multiplication table of $\mathcal{F}$ row ($y$) by row.  To a clique $C_{c,y}$ specified by these two,  we add an element from $G_x$ for every column $x$ : The entry from $G_x$ indexed by the entry at $z = (x,y)$ in the table, plus the constant $c$.
+
+\begin{framed}
+\textbf{Construction Algorithm for $g=s-1$:}
+
+To construct the $m = g(g-1)$ colors (symbol cliques) in the graph:
+\begin{itemize}
+ \item Construct a finite field $\mathcal{F} = \mathcal{GF}(g) $, which is of size $g$.
+ \item Divide the $g^2$ nodes into $g$ cliques $(G_0, G_1, ... G_{g-1})$, where $[0...g-1] \in \mathcal{F}$, of $g$ nodes each $(G_{0,0}, G_{0,1}...G_{0,g-1}) ...(G_{g-1,0}, G_{g-1,1}...G_{g-1,g-1})$
+ \item For all $c \in [0,g-1]$: 
+ \begin{itemize}
+ \item For all $y \in [0,g-1]$: 
+ \begin{itemize}
+ \item Create clique $C_{c,y}$, initially the empty set.  $y$ is the row (specifying the multiplier) and $c$ is a constant (added to each result).
+ \item For all $x \in [0,g-1]$, set $z = G_x \cdot G_y + c$, where $+$ and $\cdot$ refer to addition and multiplication rules for $\mathcal{F}$, and add $G_{x, z}$ to clique $C_{c, y}$.
+ \end{itemize}
+ \end{itemize}
+ \item The cliques $(G_0, G_1, ... G_{g-1})$, plus the $g^2$ cliques like $C_{c, y}$ form the $(g+1)g$ cliques or ``colors''.
+\end{itemize}
+\end{framed}
+
+
+\subsection{Constructing with prime $g$}
 
 We can start with the easiest way to see this: $g = p, p \in \mathbb{P}$.
 
 Let's construct the operation tables for the finite field on $p=3$, as in Fig.~\ref{fig:gf3-tables}.
+
 
 
 \begin{figure}[!htb]
@@ -397,23 +422,23 @@ Let's construct the operation tables for the finite field on $p=3$, as in Fig.~\
 \begin{subfigure}{.3\textwidth}
  \centering
  \begin{tabular}{c | c c c}
-  + & 0 & 1 & 2 \\
+ + & 0 & 1 & 2 \\
 \hline
-  0 & 0 & 1 & 2 \\
-  1 & 1 & 2 & 0 \\
-  2 & 2 & 1 & 0 \\
-  \end{tabular}
+ 0 & 0 & 1 & 2 \\
+ 1 & 1 & 2 & 0 \\
+ 2 & 2 & 1 & 0 \\
+ \end{tabular}
  \caption{Addition table GF(3)}
 \label{fig:gf3-add}
 \end{subfigure}
 \begin{subfigure}{.3\textwidth}
  \centering
 \begin{tabular}{c | c c c}
-  $\cdot$ & 0 & 1 & 2 \\
+ $\cdot$ & 0 & 1 & 2 \\
 \hline
-  0 & 0 & 0 & 0 \\
-  1 & 0 & 1 & 2 \\
-  2 & 0 & 2 & 1 \\
+ 0 & 0 & 0 & 0 \\
+ 1 & 0 & 1 & 2 \\
+ 2 & 0 & 2 & 1 \\
 
 \end{tabular}
 \caption{Multiplication table GF(3)}
@@ -422,26 +447,6 @@ Let's construct the operation tables for the finite field on $p=3$, as in Fig.~\
 \caption{Field tables for GF(3)}
 \label{fig:gf3-tables}
 \end{figure}
-
-\begin{framed}
-\textbf{Construction Algorithm for $g=s-1$:}
-
-To construct the $m = g(g-1)$ colors (symbol cliques) in the graph:
-\begin{itemize}
- \item Construct a finite field $\mathcal{F} = \mathcal{GF}(g) $, which is of size $g$.
- \item Divide the $g^2$ nodes into $g$ groups $(G_0, G_1, G_2 ... G_{g-1})$, where $[0...g-1] \in \mathcal{F}$, of $g$ nodes each $((G_{0,0}, G_{0,1}...G_{0,g-1}) ...G_{g-1,0}, G_{g-1,1}...G_{g-1,g-1})$
- \item For all $c \in [0,g-1]$: 
- \begin{itemize}
- \item For all $y \in [0,g-1]$: 
- \begin{itemize}
-  \item Create clique $C_{c,y}$, initially the empty set.
-  \item For all $x \in [0,g-1]$, set $z = G_x \cdot G_y + c$, where $+$ and $\cdot$ refer to addition and multiplication rules for $\mathcal{F}$, and add $G_{x, z}$ to clique $C_{c, y}$.
-  \end{itemize}
- \end{itemize}
- \item The $g$ cliques formed from the node groups $(G_0, G_1, ... G_{g-1})$, plus the $g^2$ cliques like $C_c, y$ form the $(g+1)g$ cliques or ``colors''.
-\end{itemize}
-\end{framed}
-
 
 
 
@@ -519,63 +524,70 @@ To construct the $m = g(g-1)$ colors (symbol cliques) in the graph:
 
 \end{figure}
 
-
-For an example, compare identical graphs Fig.~\ref{fig:k9} (generated from the algorithm) and Fig.~\ref{fig:s4g3}. The mapping between node $(i,j)$ in Fig.~\ref{fig:k9} and node $k$ in Fig.~\ref{fig:s4g3} is $(i,j) \rightarrow k=i+3j$, with inverse $k \rightarrow (k \mod 3, \lfloor k / 3 \rfloor)$.
+Refer to Fig.~\ref{fig:k9}.
 
 \begin{enumerate}
-\item Cliques of form $G_i: G_0, G_1, G_2$: these are the triangles in black. These correspond to nodes $i \mod n$ in Fig.~\ref{fig:s4g3}; for example $G_0 = \{0, 3, 6\}$.
-\item Cliques of form $C_{j, 0}: C_{0,0}, C_{1, 0}, C_{2,0}$: these are the triangles in blue. Fig.~\ref{fig:s4g3} sees these connect between nodes with the same $i \mod n$ in Fig.~\ref{fig:s4g3}; for example $C_{1,0} = \{1, 4, 7\}$.
-\item Cliques of form $C_{j, 1}: C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in brown. Fig.~\ref{fig:s4g3} sees these connect between nodes that ``advance one'' with each hop between black cliques in ~\ref{fig:s4g3}; for example $C_{0,1} = \{0, 4, 8\}$.
-\item Cliques of form $C_{j, 2}: C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in red. Fig.~\ref{fig:s4g3} sees these connect between nodes that ``go back one'' with each hop between black cliques in ~\ref{fig:s4g3}; for example $C_{0,1} = \{0, 5, 7\}$.
+\item Cliques $G_0, G_1, G_2$: these are the triangles in black. 
+\item Cliques $C_{0,0}, C_{1, 0}, C_{2,0}$: these are the triangles in blue. These walk through the $0$ row in the multiplication table in Fig.~\ref{fig:gf3-mult}.
+\item Cliques $C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in brown.  These walk through the $1$ row in the multiplication table in Fig.~\ref{fig:gf3-mult}.
+\item Cliques $C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in red. These walk through the $2$ row in the multiplication table in Fig.~\ref{fig:gf3-mult}.
 \end{enumerate}
 
 
 Every node is connected to every other node once in Fig.~\ref{fig:k9}, since for nodes $x,y$ and $z,w$:
 \begin{itemize}
 \item If $x = z$, they're in the same ``black'' clique $G_x$.
-\item If $y=w$, they're in a ``blue'' clique $C_{0,y}$
-\item Else there is some ``increment'' $a$ where starting from node $x,y$, $z-x$ ``hops'' away lands at node $w$, like the brown ($a=1$) or red ($a=2\equiv -1 \mod 3 $) cliques.
+\item If $y=w$, they're in a ``blue'' clique $C_{c,0}$, where our multiplier $y$ is zero.  Every member of $C_{2,0}$, for example, is the 2 element of their $G_i$: $G_{0,2}, G_{1,2}, G_{2,2}$.
+\item Else there is some multiplier $a$ where starting from node ($x,y)$, going $z-x$ mutlipicative ``hops'' away lands us at node $w$.  These are like the brown ($a=1$) or red ($a=2\equiv -1 \mod 3 $) cliques.
 \end{itemize}
 
+Compare identical graphs Fig.~\ref{fig:k9} (generated from the algorithm) and Fig.~\ref{fig:s4g3}. The mapping between node $(i,j)$ in Fig.~\ref{fig:k9} and node $k$ in Fig.~\ref{fig:s4g3} is $(i,j) \rightarrow k=i+3j$, with inverse $k \rightarrow (k \mod 3, \lfloor k / 3 \rfloor)$.  In Fig.~\ref{fig:s4g3}:
+\begin{itemize}
+\item The black cliques are $\{G_0, G_3, G_6\}, \{G_1, G_4, G_7\}, \{G_2, G_5, G_8\}$, grouped by $i \mod n$.
+\item The blue cliques are $\{G_0, G_1, G_2\}, \{G_3, G_4, G_5\}, \{G_6, G_7, G_8\}$, a walk through the top row of Fig.\ref{fig:gf3-mult}.
+\item The brown cliques are $\{G_0, G_4, G_8\}, \{G_6, G_1, G_5\}, \{G_3, G_7, G_8\}$, a walk through the second row of Fig.\ref{fig:gf3-mult}.
+\item The red cliques are $\{G_0, G_7, G_5\}, \{G_3, G_1, G_8\}, \{G_6, G_4, G_2\}$, a walk through the third row of Fig.\ref{fig:gf3-mult}.
+\end{itemize}
 
-The last statement is deliberately informal. For prime numbers, it's clear that every increment in $[1, p-1]$ traverses a path $a, 2a, 3a ... (a-1)p$ where the nth member is unique among all other increment paths.
+\subsection{Constructing for g as prime power}
 
-The leap of insight comes in realizing that, in general, these cliques are not additive increments, but journeys through a field's \emph{multiplication table}. In the case of prime $g=p^1$, they just look similarly cyclical. The brown groups correspond to walking through the second row of Fig.~\ref{fig:gf3-mult} and adding each to either $c=0, 1, or 2$; the reds correspond to the third. The blues (0 ``increment'') are actually a walk through the top row!
+For prime numbers, it's clear that every increment in $[1, p-1]$ traverses a path $a, 2a, 3a ... (p-1)a$ where the nth member is unique among all other increment paths.
 
-This is most obvious for primes, but can be constructed from, say, $GF(4):$
+The leap of insight comes in realizing that, in general, these cliques are not additive increments, but journeys through a field's \emph{multiplication table}; for $g$ prime, these look additive, but for more complicated finite fields, we need to defer to the table.
+
+We can do this for prime-power fields like $GF(2^2=4)$: 
 
 \begin{figure}[!htb]
 \centering
 \begin{subfigure}{.3\textwidth}
  \centering
  \begin{tabular}{c | c c c c}
-  + & 0 & 1 & B & D \\
+ + & 0 & 1 & B & D \\
 \hline
-  0 & 0 & 1 & B & D \\
-  1 & 1 & 0 & D & B \\
-  B & B & D & 0 & 1 \\
-  D & D & B & 1 & 0 \\
-  \end{tabular}
+ 0 & 0 & 1 & B & D \\
+ 1 & 1 & 0 & D & B \\
+ B & B & D & 0 & 1 \\
+ D & D & B & 1 & 0 \\
+ \end{tabular}
  \caption{Addition table GF(4)}
-\label{fig:gf3-add}
+\label{fig:gf4-add}
 \end{subfigure}
 \begin{subfigure}{.3\textwidth}
  \centering
 \begin{tabular}{c | c c c c}
-  $\cdot$ & 0 & 1 & B & D \\
+ $\cdot$ & 0 & 1 & B & D \\
 \hline
-  0 & 0 & 0 & 0 & 0 \\
-  1 & 0 & 1 & B & D \\
-  B & 0 & B & D & 1 \\
-  D & 0 & D & 1 & B \\
+ 0 & 0 & 0 & 0 & 0 \\
+ 1 & 0 & 1 & B & D \\
+ B & 0 & B & D & 1 \\
+ D & 0 & D & 1 & B \\
 \end{tabular}
  \caption{Multiplication table GF(4)}
-\label{fig:gf3-mult}
+\label{fig:gf4-mult}
 \end{subfigure}
 \end{figure}
 
 Unlike a prime-order finite field, the addition table is not cyclic, so in a sense, our indices for $G_{0,i}$ say are not $i \in [0, 3]$ but $i \in \{0,1,B,D\}$! This is why the phrase ``where $[0...g-1] \in \mathcal{F}$'' is important in the algorithm.
-
 
 \begin{figure}[!htb]
 \begin{subfigure}{.25\textwidth}
@@ -583,10 +595,10 @@ Unlike a prime-order finite field, the addition table is not cyclic, so in a sen
  \hline
 c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
  \hline\hline
-  0 & 0 & 0 & 0 & 0 & 0 \\
-  0 & 1 & 0 & 1 & B & D \\
-  0 & B & 0 & B & D & 1 \\
-  0 & D & 0 & D & 1 & B \\
+ 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & 1 & B & D \\
+ 0 & B & 0 & B & D & 1 \\
+ 0 & D & 0 & D & 1 & B \\
  \hline
  \end{tabular}
 \caption{Cliques $C_{0,i}$}
@@ -597,13 +609,13 @@ c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex]
  \hline
 c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
  \hline\hline
-  1 & 0 & 1 & 1 & 1 & 1 \\
-  1 & 1 & 1 & 0 & D & B \\
-  1 & B & 1 & D & B & 0 \\
-  1 & D & 0 & B & 0 & D \\
-  \hline
-  
-  \end{tabular}
+ 1 & 0 & 1 & 1 & 1 & 1 \\
+ 1 & 1 & 1 & 0 & D & B \\
+ 1 & B & 1 & D & B & 0 \\
+ 1 & D & 0 & B & 0 & D \\
+ \hline
+ 
+ \end{tabular}
 \caption{Cliques $C_{1,i}$}
 \label{fig:cliques4-1}
 \end{subfigure}
@@ -612,13 +624,13 @@ c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex]
  \hline
 c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
  \hline\hline
-  \cellcolor{yellow}B & \cellcolor{yellow}0 & \cellcolor{yellow}B & \cellcolor{yellow}D & \cellcolor{yellow}0 & \cellcolor{yellow}1 \\
-  \cellcolor{cyan}B & \cellcolor{cyan}1 & \cellcolor{cyan} B & \cellcolor{cyan}0 & \cellcolor{cyan}1 & \cellcolor{cyan} D \\
-  B & B & B & 1 & D & 0 \\
-  B & D & B & B & B & B \\
-  \hline
+ \cellcolor{yellow}B & \cellcolor{yellow}0 & \cellcolor{yellow}B & \cellcolor{yellow}D & \cellcolor{yellow}0 & \cellcolor{yellow}1 \\
+ \cellcolor{cyan}B & \cellcolor{cyan}1 & \cellcolor{cyan} B & \cellcolor{cyan}0 & \cellcolor{cyan}1 & \cellcolor{cyan} D \\
+ B & B & B & 1 & D & 0 \\
+ B & D & B & B & B & B \\
+ \hline
  
-  \end{tabular}
+ \end{tabular}
 \caption{Cliques $C_{B,i}$}
 \label{fig:cliques4-B}
 \end{subfigure}
@@ -627,13 +639,13 @@ c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex]
  \hline
 c & y & $G_0$ & $G_1$ & $G_B$ & $G_D$ \\ [0.5ex] 
  \hline\hline
-  D & 0 & D & D & D & D \\
-  D & 1 & D & B & 1 & 0 \\
-  D & B & D & 1 & 0 & B \\
-  D & D & D & 0 & B & 1 \\
-  \hline
-  
-  \end{tabular}
+ D & 0 & D & D & D & D \\
+ D & 1 & D & B & 1 & 0 \\
+ D & B & D & 1 & 0 & B \\
+ D & D & D & 0 & B & 1 \\
+ \hline
+ 
+ \end{tabular}
 \caption{Cliques $C_{D,i}$}
 \label{fig:cliques4-D}
 \end{subfigure}
@@ -650,7 +662,8 @@ Including the ``black'' cliques like $G_B = \{G_{0,B}, G_{1,B}, G_{2,B}, G_{3,B}
 
 In general, to prove that this table exactly represents the ``color'' of every edge, we need to show that for every pair of elements, say, $(B, 1)$, and every pair of columns, say $0$ and $B$, (see the blue row in Fig.~\ref{fig:cliques4-B}) that B and 1 appear in the same row in columns 0 and B exactly once. 
 
-To ensure there are no duplicates, consider two columns $x_1$ and $x_2$ that have a repeated value pair in some table, once on row $g_y$, once on $g_y^*$:
+\emph{Proof}:
+To ensure there are no duplicates, consider two columns $x_1$ and $x_2$ that have a repeated value pair in some table, once on the table row beginning $(c, g_y)$, once on $(c^*, g_y^*)$:
 
 \begin{itemize}
 \item Assume $g_yg_{x_1} + c = g_y^*g_{x_1} +c^*$, and $g_yg_{x_2} + c = g_y^*g_{x_2} +c^*$ for $g_{x_1} \neq g_{x_2}$
@@ -708,7 +721,7 @@ We see then that:
 \node (6) at (3,1) {1,B}; 
 \node (7)[fill=yellow] at (4,1) {1,D}; 
 
-\node (8)[fill=yellow]  at (6,0) {B,0}; 
+\node (8)[fill=yellow] at (6,0) {B,0}; 
 \node (9)[fill=cyan] at (7,0) {B,1}; 
 \node (10) at (6,1) {B,B}; 
 \node (11)at (7,1) {B,D}; 
@@ -755,17 +768,17 @@ That such a set exists is not obvious. However, through some basic search algori
 
 \begin{figure}[!htb]
  \begin{tabular}{c c | c }
-  g,s & n & 0 adjacencies \\
+ g,s & n & 0 adjacencies \\
 \hline
-  3 & 7 & \{1, 3\} \\
-  4 & 13 & \{1, 3, 9\} \\
-  5 & 21 & \{1,4,14,16\} \\
-  6 & 31 & \{1, 3, 8, 12, 18\} \\
-  8 & 57 & \{1, 3, 13, 32, 36, 43, 52\} \\
-  9 & 73 & \{1, 3, 7, 15, 31, 36, 54, 63\} \\
-  10 & 91 & \{1, 3, 9, 27, 49, 56, 61, 77, 81\} \\
-  12 & 133 & \{1, 3, 12, 20, 34, 38, 81, 88, 94, 104, 109\} \\
-  \end{tabular}
+ 3 & 7 & \{1, 3\} \\
+ 4 & 13 & \{1, 3, 9\} \\
+ 5 & 21 & \{1,4,14,16\} \\
+ 6 & 31 & \{1, 3, 8, 12, 18\} \\
+ 8 & 57 & \{1, 3, 13, 32, 36, 43, 52\} \\
+ 9 & 73 & \{1, 3, 7, 15, 31, 36, 54, 63\} \\
+ 10 & 91 & \{1, 3, 9, 27, 49, 56, 61, 77, 81\} \\
+ 12 & 133 & \{1, 3, 12, 20, 34, 38, 81, 88, 94, 104, 109\} \\
+ \end{tabular}
  \caption{Perfect Difference Sets up to $g=s=12$}
 \label{fig:perfect-diffs}
 \end{figure}
@@ -839,7 +852,7 @@ Fig.~\ref{fig:s6g6} is an example of 0's adjacencies for $s=g=6$:
 \end{figure}
 
 
-It turns out that in the 1930s, James Singer found that these configurations, termed \emph{perfect difference sets}, exist for $g=p^k, p \in \mathbb{P}, k \in \mathbb{N}$ and, setting $n=g^2+g+1$\cite{1}. This result was not connected to graph edge partitioning in his paper.  The existence for some of the other types of $g$ have been disproven, but this appears to be the main theorem in the area.
+It turns out that in the 1930s, James Singer found that these configurations, termed \emph{perfect difference sets}, exist for $g=p^k, p \in \mathbb{P}, k \in \mathbb{N}$ and, setting $n=g^2+g+1$\cite{1}. This result was not connected to graph edge partitioning in his paper. The existence for some of the other types of $g$ have been disproven, but this appears to be the main theorem in the area.
 
 
 \begin{framed}
@@ -956,7 +969,7 @@ However, ``inception'' is one very minor method of generating such a partition.
 
 Of course, by the equivalencies above, this means we can make Spot It Games of highly varied $g$ and $s$, even if well outside practical possibility.
 
-For example: We can partition $K_{81}$ $(s=10, g=9, n=81,m=90)$ into groups of $K_9$, and, like in figure Fig.~\ref{fig:s4g3}, we can split those into $(s^*=4, g^*=3, n=9,m=12)$.  This gives us a new partition of configuration $(s=40,g=3,n=81,m=1080)$, in which every node still has a uniform number of attached colors, and every color has the same number of node members. This graph visualization has not been attempted.
+For example: We can partition $K_{81}$ $(s=10, g=9, n=81,m=90)$ into groups of $K_9$, and, like in figure Fig.~\ref{fig:s4g3}, we can split those into $(s^*=4, g^*=3, n=9,m=12)$. This gives us a new partition of configuration $(s=40,g=3,n=81,m=1080)$, in which every node still has a uniform number of attached colors, and every color has the same number of node members. This graph visualization has not been attempted.
 
 Say $s=g$ instead, just for another example. This certainly works for turning $s=9, g=9, n=73, m=73$ into $s=36,g=3,n=73,m=876$ as well, or even any other configuration where $g \notin \{s, s-1 \}$ as in section 9.
 
@@ -1004,7 +1017,7 @@ Say $s=g$ instead, just for another example. This certainly works for turning $s
 \label{fig:s7g3}
 \end{figure}
 
-Apparently some versions of this problem were studied even in the nineteenth century.  Kirkman's schoolgirl problem\cite{5} asks: \emph{Can fifteen girls walk in groups of three to school for seven days, such that each pair walks together exactly once?}. With colors representing walking groups, $s=7, g=3, n=15, m=35$, we have something isomorphic to a Spot It deck construction. 
+Apparently some versions of this problem were studied even in the nineteenth century. Kirkman's schoolgirl problem\cite{5} asks: \emph{Can fifteen girls walk in groups of three to school for seven days, such that each pair walks together exactly once?}. With colors representing walking groups, $s=7, g=3, n=15, m=35$, we have something isomorphic to a Spot It deck construction. 
 
 Through ad-hoc tinkering, we can find the graph in Fig.~\ref{fig:s7g3}, showing the adjacencies for a single node. These are repeated ``round the horn'', with the exception that the red triangle only appears five times instead of 15.
 
@@ -1105,14 +1118,14 @@ By some backtracking and brute force searching using our code \url{https://githu
 \centering
  \centering
  \begin{tabular}{c c | c | c }
-  s & g & adjacencies $\forall i$ & adjacencies $i \in [0, g-1]$ \\
+ s & g & adjacencies $\forall i$ & adjacencies $i \in [0, g-1]$ \\
 \hline
-  6 & 3 & \{\{0 1, 4\}, \{0, 2, 7\}\} & \{\}\\
-  7 & 3 & \{\{0 1 3\}, \{0, 4, 10\}\} & \{\{0, 5, 10\}\} \\
-  9 & 3 & \{\{0,1,6\}, \{0,2,10\}, \{0,3,7\} & \{\} \\
-  10 & 3 & \{\{0,2,10\}, \{0,1,5\}, \{0,3,9\}\} & \{\{0, 7, 14\}\} \\
-  10 & 5 & \{\{0, 1, 4, 11, 29\}, \{0, 2, 8, 17, 22\}\} & \{\} \\
-  \end{tabular}
+ 6 & 3 & \{\{0 1, 4\}, \{0, 2, 7\}\} & \{\}\\
+ 7 & 3 & \{\{0 1 3\}, \{0, 4, 10\}\} & \{\{0, 5, 10\}\} \\
+ 9 & 3 & \{\{0,1,6\}, \{0,2,10\}, \{0,3,7\} & \{\} \\
+ 10 & 3 & \{\{0,2,10\}, \{0,1,5\}, \{0,3,9\}\} & \{\{0, 7, 14\}\} \\
+ 10 & 5 & \{\{0, 1, 4, 11, 29\}, \{0, 2, 8, 17, 22\}\} & \{\} \\
+ \end{tabular}
  \caption{Ad Hoc Steiner Solutions }
 \label{fig:ad-hoc-steiner}
 \end{figure}
