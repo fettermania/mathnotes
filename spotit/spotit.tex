@@ -35,7 +35,7 @@ style=alphabetic,
 
 \begin{abstract}
 
-The kids' card game ``Spot It'' supports a unique mechanic: every card of the 55-card deck has eight different symbols, and shares exactly one symbol of some kind with every other card. Intuitively, this seems impossible. The obvious game play (``spot the match'') works for children as young as two; the intricacies of deck construction astound these children of forty-two. In constructing our own deck, we run across interesting problems in graph theory, number theory, and abstract algebra\footnote{There are also representations in projective geometry, but let's save some domains for everyone else.}. Some are solved, some unsolved, but they span a wide range of domains not obviously connected.
+The kids' card game Spot It supports a unique mechanic: every card of the 55-card deck has eight different symbols, and shares exactly one symbol of some kind with every other card. Intuitively, this seems impossible. The obvious game play (``spot the match'') works for children as young as two; the intricacies of deck construction astound these children of forty-two. In constructing our own deck, we run across interesting problems in graph theory, number theory, and abstract algebra\footnote{There are also representations in projective geometry, but let's save some domains for everyone else.}. Some are solved, some unsolved, but they span a wide range of domains not obviously connected.
 \\
 
 \textbf{A deck of $n$ Spot It cards, each featuring $s$ symbols from a catalogue of $m$ total symbol choices can be constructed many ways, but only a few ways if every symbol occurs exactly $g$ times. In that case, the choice of the $(s, g)$ pair both dictates $m$ and $n$ and is strongly restricted.}
@@ -44,19 +44,19 @@ The kids' card game ``Spot It'' supports a unique mechanic: every card of the 55
 However, if $g$ is then of the special form $g=p^k+1, p \in \mathbb{P}, k \in \mathbb{N}$, we can construct a deck with uniform $g$, and beyond that, we can prove the following four constructions are surprisingly equivalent\footnote{Or, at least, one can derive any from another}:
 \\
 \begin{enumerate}
-\item (The Children's Game) A deck of $n$ ``Spot It'' Cards with $s=g$ symbol slots, where each of $m = n$ symbols occurs exactly $g$ times,
+\item (The Children's Game) A deck of $n$ Spot It Cards with $s=g$ symbol slots, where each of $m = n$ symbols occurs exactly $g$ times,
 \item (Graph Theory) An edge partition of the complete graph $K_n$ into complete subgraphs $K_g$,
 \item (Abstract Algebra) A finite (Galois) field of order $g-1$, and
 \item (Number Theory) A Perfect Difference Set\cite{1} on $n$ elements.
 \end{enumerate} 
  
-We then examine other configurations of $s$ and $g$, as well as comment on other reasonable constructions of a ``Spot It'' deck.
+We then examine other configurations of $s$ and $g$, as well as comment on other reasonable constructions of a Spot It deck.
 
 \end{abstract}
 
 \section{The Game and the Problem Statement}
 
-Introduced to us by Ari Steinberg, ``Spot It'' is a children's game of 55 cards as shown in Figure~\ref{fig:cards}, featuring eight colorful symbols on each. Though gameplay comes with a few variants in its tiny rulebook, the primary mechanic when presented two cards is \emph{spot the single common symbol first}. The game is simple enough for a two- or three-year old to grasp (and win!), but the question emerges: \emph{just how did they construct such a deck?}\footnote{Note: There have been some other investigations into ``Spot It''\cite{2}, but for the purposes of enjoyment, everything in this paper was researched without reference to \ (Spot It) work.}
+Introduced to us by Ari Steinberg, Spot It is a children's game of 55 cards as shown in Figure~\ref{fig:cards}, featuring eight colorful symbols on each. Though gameplay comes with a few variants in its tiny rulebook, the primary mechanic when presented two cards is \emph{spot the single common symbol first}. The game is simple enough for a two- or three-year old to grasp (and win!), but the question emerges: \emph{just how did they construct such a deck?}\footnote{Note: There have been some other investigations into Spot It\cite{2}, but for the purposes of enjoyment, everything in this paper was researched without reference to Spot It work.}
 
 \begin{figure}[!htb]
 \centering
@@ -95,16 +95,16 @@ Introduced to us by Ari Steinberg, ``Spot It'' is a children's game of 55 cards 
 
 \end{figure}
 
-Naturally, there are trivial constructions: every symbol occurs only twice, or once, or the count of symbols is so varied that a deck can be constructed almost greedily. However, the Spot It game has uniformly 8 symbol ``slots'' on each card, which each appear 8 times\footnote{As we will see later, there should be 57 cards for this to be true; it's likely two cards were removed} across the different cards. 
+Naturally, there are trivial constructions: every symbol occurs only twice, or the count of symbols is so varied that a deck can be constructed almost greedily. However, the Spot It game has uniformly 8 symbol ``slots'' on each card, which each appear 8 times\footnote{As we will see later, there should be 57 cards for this to be true; it's likely two cards were removed.} across the different cards. 
 
 This is what we examine in this paper:
 
 \begin{framed}
-\textbf{The Core Question:} For what choices of $g$ and $s$ can we construct a ``Spot It'' deck where each of the $s$ symbols on each card appears exactly $g$ times throughout the deck?
+\textbf{The Core Question:} For what choices of $g$ and $s$ can we construct a Spot It deck where each card has space for $s$ symbols, and each symbol appears exactly $g$ times throughout the deck?
 \end{framed}
 
 \subsection{Reframing as a graph problem}
-Noticing that every card has a relationship to every other card (notably, the identity of the single symbol shared between them) as in Fig.~\ref{fig:cards-links}, we take our first step by reconstructing this problem as an undirected graph as in Fig.~\ref{fig:cards-graph}. 
+Noticing that every card has a relationship to every other card (notably, the identity of the single symbol shared between them) as in Fig.~\ref{fig:cards-links}, we take our first step by reconstructing this problem as an undirected graph as in Fig.~\ref{fig:cards-graph}. We can always represent a Spot It deck as a graph.
 
 
 \begin{figure}[!htb]
@@ -175,7 +175,7 @@ Noticing that every card has a relationship to every other card (notably, the id
 \begin{enumerate}
 \item With $n$ nodes, where $n = s(g-1) + 1$,
 \item With $m$ unique edge colors, where $m$ denotes the number of unique symbols, and
-\item Where all edges each of color $m_i$ form a complete subgraph on $g$ nodes, so $m = {n \choose 2} / {g \choose 2}$.
+\item Where all edges of any single color form a complete subgraph on $g$ nodes, so $m = {n \choose 2} / {g \choose 2}$.
 \end{enumerate}
 \end{framed}
 
@@ -184,8 +184,8 @@ Noticing that every card has a relationship to every other card (notably, the id
 \emph{Proof}:
 \begin{enumerate}
 \item As in Fig.~\ref{fig:graph-theorem}, node $n_0$'s adjacencies are exactly $s$ monocolor cliques of size $g-1$ (excluding $n_0$ itself). In a complete graph, these adjacencies comprise the total node set, so $n = (g-1)s + 1$. Using any other node is equivalent.
-\item As in Fig.~\ref{fig:cards-links}, while card 1 and card 2 have the relationship ``clock'', node 1 and node 2 instead share an edge with the color red. This is the same relationship between nodes 2 and 3, and nodes 1 and 3. ``Drop'', ``knight'', and ``ghost'' would be colors purple, green, and blue, respectively. This works because every edge has exactly one color (corresponding 1:1 with a symbol) in this formulation, and every card pair shares exactly one symbol.
-\item All cards with a given symbol (say, ``clock'') must link via a single color (here, red) to all other nodes whose card has that symbol; this is a complete subgraph. A complete graph $K_n$ has ${n \choose 2}$ edges. A monocolor clique of size $g$ is a complete graph as well, with ${g \choose 2}$ edges. $K_n$'s edges are exactly these equal-sized cliques, so there are therefore $m = \frac{{n \choose 2}}{{g \choose 2}}$ of them, corresponding to colors.
+\item As in Fig.~\ref{fig:cards-links}, while card 1 and card 2 have the relationship ``clock'', node 1 and node 2 share an edge with the color red. This is the same relationship between nodes 2 and 3, and nodes 1 and 3. ``Drop'', ``knight'', and ``ghost'' would be colors purple, green, and blue, respectively. This works because every edge has exactly one color in this formulation (corresponding 1:1 with a symbol), and every card pair shares exactly one symbol.
+\item All cards with a given symbol (say, ``clock'') must link via a single color (here, red) to all other nodes whose card has that symbol; this is a complete subgraph. A complete graph $K_n$ has ${n \choose 2}$ edges. A monocolor clique of size $g$ is a complete graph as well, with ${g \choose 2}$ edges. $K_n$'s edges are exactly these equal-sized cliques, so there are therefore $m = \frac{{n \choose 2}}{{g \choose 2}}$ of them, corresponding to ``colors''.
 \end{enumerate}
 
 And since every edge in our complete graph $K_n$ is in exactly one monocolor clique of size $K_g$, this becomes a crisp graph theory problem:
@@ -207,8 +207,8 @@ Suppose that that every card has $s$ symbols, and any symbols hzx exactly $g$ ca
 \begin{framed}
 \begin{enumerate}
 \item $g | s(s-1)$.
-\item If $s >1 $ and $g > 1$ then $g \leq s$ 
-\item If $s >1 $ and $g > 1$, then $m = (\frac{s}{g})n$ and therefore $m \geq n$
+\item If $s >1 $ and $g > 1$ then $g \leq s$.
+\item If $s >1 $ and $g > 1$, then $m = (\frac{s}{g})n$ and therefore $m \geq n$.
 \item All nontrivial candidate configurations of $g, s$ are then $g \leq s$, $g | s(s-1)$.
 \end{enumerate}
 \end{framed}
@@ -387,7 +387,7 @@ As the combination of $s, g$ determine the shape of the graph entirely, $g = s-1
 \end{itemize}
 
 \subsection{General Construction Algorithm}
-\emph{Algorithm Summary}: Our algorithm takes every constant $c \in \mathcal{F}$, and goes through the multiplication table of $\mathcal{F}$ row ($y$) by row.  To a clique $C_{c,y}$ specified by these two,  we add an element from $G_x$ for every column $x$ : The entry from $G_x$ indexed by the entry at $z = (x,y)$ in the table, plus the constant $c$.
+\emph{Algorithm Summary}: Our algorithm takes every constant $c \in \mathcal{F}$, and goes through the multiplication table of $\mathcal{F}$ row ($y$) by row. To a clique $C_{c,y}$ specified by these two, we add an element from $G_x$ for every column $x$ : The entry from $G_x$ indexed by the entry at $z = (x,y)$ in the table, plus the constant $c$.
 
 \begin{framed}
 \textbf{Construction Algorithm for $g=s-1$:}
@@ -395,12 +395,12 @@ As the combination of $s, g$ determine the shape of the graph entirely, $g = s-1
 To construct the $m = g(g-1)$ colors (symbol cliques) in the graph:
 \begin{itemize}
  \item Construct a finite field $\mathcal{F} = \mathcal{GF}(g) $, which is of size $g$.
- \item Divide the $g^2$ nodes into $g$ cliques $(G_0, G_1, ... G_{g-1})$, where $[0...g-1] \in \mathcal{F}$, of $g$ nodes each $(G_{0,0}, G_{0,1}...G_{0,g-1}) ...(G_{g-1,0}, G_{g-1,1}...G_{g-1,g-1})$
+ \item Divide the $g^2$ nodes into $g$ cliques $(G_0, G_1, ... G_{g-1})$, where indices $[0...g-1] \in \mathcal{F}$, of $g$ nodes each $((G_{0,0}, G_{0,1}...G_{0,g-1}) ...(G_{g-1,0}, G_{g-1,1}...G_{g-1,g-1}))$
  \item For all $c \in [0,g-1]$: 
  \begin{itemize}
  \item For all $y \in [0,g-1]$: 
  \begin{itemize}
- \item Create clique $C_{c,y}$, initially the empty set.  $y$ is the row (specifying the multiplier) and $c$ is a constant (added to each result).
+ \item Create clique $C_{c,y}$, initially the empty set. $y$ is the row (specifying the multiplier) and $c$ is a constant (added to each result).
  \item For all $x \in [0,g-1]$, set $z = G_x \cdot G_y + c$, where $+$ and $\cdot$ refer to addition and multiplication rules for $\mathcal{F}$, and add $G_{x, z}$ to clique $C_{c, y}$.
  \end{itemize}
  \end{itemize}
@@ -413,7 +413,7 @@ To construct the $m = g(g-1)$ colors (symbol cliques) in the graph:
 
 We can start with the easiest way to see this: $g = p, p \in \mathbb{P}$.
 
-Let's construct the operation tables for the finite field on $p=3$, as in Fig.~\ref{fig:gf3-tables}.
+Let's construct the operation tables for the finite field on $p=3$, as in Fig.~\ref{fig:gf3-tables}, and build an algorithm for constructing the graph from them.
 
 
 
@@ -529,7 +529,7 @@ Refer to Fig.~\ref{fig:k9}.
 \begin{enumerate}
 \item Cliques $G_0, G_1, G_2$: these are the triangles in black. 
 \item Cliques $C_{0,0}, C_{1, 0}, C_{2,0}$: these are the triangles in blue. These walk through the $0$ row in the multiplication table in Fig.~\ref{fig:gf3-mult}.
-\item Cliques $C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in brown.  These walk through the $1$ row in the multiplication table in Fig.~\ref{fig:gf3-mult}.
+\item Cliques $C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in brown. These walk through the $1$ row in the multiplication table in Fig.~\ref{fig:gf3-mult}.
 \item Cliques $C_{0,1}, C_{1, 1}, C_{2,1}$: these are the triangles in red. These walk through the $2$ row in the multiplication table in Fig.~\ref{fig:gf3-mult}.
 \end{enumerate}
 
@@ -537,11 +537,11 @@ Refer to Fig.~\ref{fig:k9}.
 Every node is connected to every other node once in Fig.~\ref{fig:k9}, since for nodes $x,y$ and $z,w$:
 \begin{itemize}
 \item If $x = z$, they're in the same ``black'' clique $G_x$.
-\item If $y=w$, they're in a ``blue'' clique $C_{c,0}$, where our multiplier $y$ is zero.  Every member of $C_{2,0}$, for example, is the 2 element of their $G_i$: $G_{0,2}, G_{1,2}, G_{2,2}$.
-\item Else there is some multiplier $a$ where starting from node ($x,y)$, going $z-x$ mutlipicative ``hops'' away lands us at node $w$.  These are like the brown ($a=1$) or red ($a=2\equiv -1 \mod 3 $) cliques.
+\item If $y=w$, they're in a ``blue'' clique $C_{c,0}$, where our multiplier $y$ is zero. Every member of $C_{2,0}$, for example, is the 2 element of their $G_i$: $G_{0,2}, G_{1,2}, G_{2,2}$.
+\item Else there is some multiplier $a$ where starting from node ($x,y)$, going $z-x$ mutlipicative ``hops'' away lands us at node $w$. These are like the brown ($a=1$) or red ($a=2\equiv -1 \mod 3 $) cliques.
 \end{itemize}
 
-Compare identical graphs Fig.~\ref{fig:k9} (generated from the algorithm) and Fig.~\ref{fig:s4g3}. The mapping between node $(i,j)$ in Fig.~\ref{fig:k9} and node $k$ in Fig.~\ref{fig:s4g3} is $(i,j) \rightarrow k=i+3j$, with inverse $k \rightarrow (k \mod 3, \lfloor k / 3 \rfloor)$.  In Fig.~\ref{fig:s4g3}:
+Compare identical graphs Fig.~\ref{fig:k9} (generated from the algorithm) and Fig.~\ref{fig:s4g3}. The mapping between node $(i,j)$ in Fig.~\ref{fig:k9} and node $k$ in Fig.~\ref{fig:s4g3} is $(i,j) \rightarrow k=i+3j$, with inverse $k \rightarrow (k \mod 3, \lfloor k / 3 \rfloor)$. In Fig.~\ref{fig:s4g3}:
 \begin{itemize}
 \item The black cliques are $\{G_0, G_3, G_6\}, \{G_1, G_4, G_7\}, \{G_2, G_5, G_8\}$, grouped by $i \mod n$.
 \item The blue cliques are $\{G_0, G_1, G_2\}, \{G_3, G_4, G_5\}, \{G_6, G_7, G_8\}$, a walk through the top row of Fig.\ref{fig:gf3-mult}.
@@ -656,7 +656,7 @@ Here are the resulting tables for $s=5, g=4$. For example, in Fig.~\ref{fig:cliq
 
 
 (Of course, once the multiplication is defined, feel free to substitute 2 for $B$ and 3 for $D$, in, say, a program.)
-
+ y
 
 Including the ``black'' cliques like $G_B = \{G_{0,B}, G_{1,B}, G_{2,B}, G_{3,B}\}$, we see that there are no repeated edges, and all edges are accounted for. 
 
@@ -749,20 +749,20 @@ We see then that:
 
 
 
-\section{Alternative: Constructing $g=s$ with perfect difference sets}
+\section{Another Approach: Constructing $g=s$ with perfect difference sets}
 \emph{Though it will be shown equivalent to the last construction, we can use another concept to build these graphs when $g=s$: perfect difference sets. Notably, these are proven to exist for $g=p^k-1$ by Singer\cite{1}}.
 
-Searching for complete graph partitions by brute force is difficult. Even a graph of size 7 like Fig.~\ref{fig:s3g3} requires sorting through putting 21 distinct objects into 7 distinct bins\footnote{$(21!)/((3!)^7)$, though with some symmetries}, and the numbers get worse from there. 
+Searching for complete graph partitions by brute force is difficult. Even a graph of size 7 like Fig.~\ref{fig:s3g3} requires sorting through putting 21 distinct objects into 7 distinct bins\footnote{$(21!)/((3!)^7) \approx 1.8 \times 10^{14}$, though with some symmetries}, and the numbers get worse from there. 
 
-There is some hope that a partition or coloring, should it exist, would exhibit some regularity; after all, every node has an equal configuration of edges and adjacent nodes in a complete graph.
+There is some hope that a partition or coloring, should it exist, would exhibit some regularity; after all, every node has a similar configuration of edges and adjacent nodes in a complete graph.
 
-Additionally, when $g=s$, we've seen that $n = m$, so finding a unique complete subgraph $K_g$ mapped 1:1 to each node which, in total, partition the complete graph, seems like a good strategy.
+Additionally, when $g=s$, we've seen that $n = m$, so seeking a unique complete subgraph $K_g$ mapped 1:1 to each node which, in total, partition the complete graph, seems like a good strategy.
 
-Looking at Fig.~\ref{fig:s3g3}, we see that every node at index $i$ can be mapped to a $K_3$ (color) whose vertices are $i$, $i+1$, and $i+3$, with addition being modulo 7. (Take a look at node 0's black triangle $(0, 1, 3)$. Beyond this, node $i$ needs to find adjacencies with node $i+2$, $i+4$, $i+5$, and $i+6$, or remapped over modulo 7, $i+2$, $i-3$, $i-2$, and $i-1$. However, we can find these latter four by simply repeating this triangle $(j, j+1, j+3)$ over the rest of the graph; in particular, the triangles at (i-1, i, i+2) (here, blue if $i=0$) and $(i-3, i-2, i)$ (yellow) take care of $i$'s six adjancies.
+Looking at Fig.~\ref{fig:s3g3}, we see that every node at index $i$ can be mapped to a $K_3$ (color) whose vertices are $i$, $i+1$, and $i+3$, with addition being modulo 7. (Take a look at node 0's black triangle $(0, 1, 3)$). This means that we've created ``chords'' of offset 1, 2, and 3 (counterclockwise from $i$) in the graph. If we can make sure node $i$ participates in exactly one chord of each offset in $[1,n-1]$, then we've ensured our partition represents every edge involving node 0 once. 
 
-This works because among the $n=7$ nodes in this graph $g=s=3$, we found a complete graph $K_3$(in this case among nodes $\{0, 1, 3\}$) such that every chord length in $[1, \frac{n-1}{2}]\mod n$ is represented exactly once. Thinking of creating adjacencies for node 0, this means that connections to $\{1, 3\}$ will be taken care of by the associated triangle, that a $2$-chord exists by virtue of the triangle, and that $\{-1, -2, -3\}$ will be symmetrically connected \emph{to} 0 by the same means.
+Node $i$ still needs to find adjacencies with nodes $i+2$, $i+4$, $i+5$, and $i+6$ (or remapped over modulo 7, $i+2$, $i-3$, $i-2$, and $i-1$). However, we can find these latter four by simply repeating this triangle $(j, j+1, j+3)$ over the rest of the graph; in particular, the triangles at $(i-1, i, i+2)$ (here, blue if $i=0$) and $(i-3, i-2, i)$ (yellow) take care of $i$'s six required adjacencies. Then, we repeat this recipe for all nodes.
 
-So, if for a given $n$, we can find a set $a_i \in [1,n-1]$ of size $g-1$ such that $\bigcup_{i > j} (a_i - a_j \mod n) = [1, \frac{n-1}{2}]$, then this can be repeated for every node to cover the graph.
+So, if for a given $n$, we can find a set $a_i \in [1,n-1]$ of size $g-1$ such that $\bigcup_{i \neq j} (a_i - a_j \mod n) = [1, n-1]$, then this can be repeated for every node to cover the graph.
 
 That such a set exists is not obvious. However, through some basic search algorithms at \url{https://github.com/fettermania/mathnotes/tree/main/spotit/code}, we can sniff out a few of them:
 
@@ -852,16 +852,16 @@ Fig.~\ref{fig:s6g6} is an example of 0's adjacencies for $s=g=6$:
 \end{figure}
 
 
-It turns out that in the 1930s, James Singer found that these configurations, termed \emph{perfect difference sets}, exist for $g=p^k, p \in \mathbb{P}, k \in \mathbb{N}$ and, setting $n=g^2+g+1$\cite{1}. This result was not connected to graph edge partitioning in his paper. The existence for some of the other types of $g$ have been disproven, but this appears to be the main theorem in the area.
+It turns out that in the 1930s, James Singer found that these configurations, termed \emph{perfect difference sets}, exist for $g=p^k, p \in \mathbb{P}, k \in \mathbb{N}$, making $n=g^2+g+1$\cite{1}. This result was not connected to graph edge partitioning in his paper. Though the existence for some of the other types of $g$ have been disproven, this appears to be the main theorem in the area.
 
 
 \begin{framed}
 \textbf{Singer's Theorem on Perfect Difference Sets}: If $g=s$, then $n=g^2-g+1$ by the Graph Representation Theorem and $n=m$ by the Candidate Theorem. Thus, we're looking for a PDS over $n=g^2-g+1$. This has been proven to exist if $g =p^k, p \in \mathbb{P}, k \in \mathbb{N}$. 
 \end{framed}
 
-Singer's proof relies also on finding a finite field $\mathcal{F}$ of size g. There are some deterministic, non-brute-force methods of doing this\cite{4}, though they seem quite intricate.
+Singer's proof relies also on finding a finite field $\mathcal{F}$ of size g. There are some deterministic, non-search-based methods of doing this\cite{4}, though they seem quite intricate.
 
-This limitation to prime powers, just like the partitions for $g=s$ found in section 3, explains the row omissions in the brute force search table in Fig.~\ref{fig:perfect-diffs}. So, if $g=p^k+1$ a perfect difference set representation exists , and a section 3 representation also exists. 
+This limitation to prime powers, just like the partitions for $g=s$ found in section 3, explains the row omissions in the brute force search table in Fig.~\ref{fig:perfect-diffs}. So, if $g=p^k+1$, a perfect difference set construction for an edge partition exists, and a field-based (section 3) construction also exists. 
 
 \section{Interlude: Graph Equivalence up to relabeling}
 
@@ -918,28 +918,31 @@ This limitation to prime powers, just like the partitions for $g=s$ found in sec
 \end{figure}
 
 \begin{framed}
-\textbf{g=s equivalence Theorem}: Any partition on a graph where $g = s$ is equivalent up to relabeling.
+\textbf{g=s equivalence Theorem}: On a complete graph where $g = s$, any edge partition is equivalent up to relabeling.
 \end{framed}
 
 \emph{Proof}:
 If $g=s$, and therefore $m=n=g^2-g+1$, consider any clique.
 
-A node like $n_0$ in this clique (call it the``blue'' clique at the bottom of Fig.~\ref{fig:equivalence}) is adjacent to $g-1$ unique other colors or cliques, represented as the cliques $C_i,0$.
+A node like $n_0$ in this clique (call it the``blue'' clique at the bottom of Fig.~\ref{fig:equivalence}) is adjacent to $g-1$ unique other colors or cliques, represented as the cliques $C_{i,0}$.
 
 No color can be shared between these color adjacency sets (like $C_{4,0}$ and $C_{3,3}$ here). Consider if $n_0$ and $n_3$ were both adjacent to yellow, they would have both a yellow and blue edge between them.
 
 Therefore, this blue clique shares a node with all of the other $g(g-1)$ color cliques. Because blue was an arbitrary selection, every color is adjacent to every other color on some single node.
-So the graph \emph{where colors are nodes with edges between adjacent colors} is a complete graph. This, up to relabeling, there is only one way to partition a complete graph into complete subgraphs when $g=s$.
+\\
+Imagine, for a moment, a new graph $G'$ where colors in our original graph $G$ are nodes with and edges exist between nodes representing colors sharing a node in $G$. We have just shown that every color is adjacent, and so $G'$ is a complete graph. 
 
-\textbf{An important consequence}: Because $g=s$ in both the cycle generation in section 3 as well as the PDS generation in section 5, these are, up to isomorphism, the same coloring.
+Every complete graph of the same size is clearly equivalent up to relabeling, so there is only one way to partition a complete graph into complete subgraphs when $g=s$.
+
+\textbf{An important consequence}: Because $g=s$ in both the cycle generation in section 3 as well as the PDS generation in section 5, these are, up to relabeling, the same coloring.
 
 \section{Constructing a $g=s-1$ partition from a $g=s$ partition}
 
-Suppose we have constructed $g=s$ by Perfect Difference Sets or (as we have shown, ultimately identically) by the method shown in Fig.~\ref{fig:s5g5}. Consider removing the $n_* \cup n^*$ clique and all associated edges. This changes us into a partition in which:
+Suppose we have constructed $g=s$ by Perfect Difference Sets or (as we have shown, ultimately identically) by the method shown in Fig.~\ref{fig:s5g5}. Consider removing the $n^* \cup \big( \bigcup_i n_i \big)$ clique and all associated edges. This changes our partition into one in which:
  
 \begin{enumerate}
 \item We have one fewer clique.
-\item Each remaining clique has one member removed (we removed some $n_*$ member from each $n_*$-including clique, and node $X$ was removed from each $G$ clique.)
+\item Each remaining clique has one member removed (we removed some $n_i$ from each $n_i$-including clique, and node $n^*$ was removed from each $G$ clique.)
 \item We lose g nodes.
 \item $s$ remains the same.
 \end{enumerate}
@@ -948,20 +951,20 @@ This matches the configuration of $g=s-1$. Though every graph constructed throug
 
 \section{Considering wider $g | s$ and $g | s-1$: Inception}
 
-It seems we have reached the limit of possibllities when $g=s$. In such a graph, when $g-1 = p^k$:
+It seems we have reached the limit of possibilities when $g=s$. In such a graph, when $g-1 = p^k$:
 \begin{itemize}
 \item We can create a game of Spot It with $s$ symbols, each of which appear $g$ times (section 1)
-\item We can always construct $g=s-1$ through a finite field $GF(g-1)$ (section 3), and augment with another clique to form $g=s$ (section 4).
-\item We can always find a perfect difference set modulo $n = (g+1)^2+g+1$ and construct a graph partition where $g=s$ (section 5).
+\item We can always construct $g=s-1$ through a finite field $\mathcal{GF(g-1)}$ (section 3), and augment with another clique to form $g=s$ (section 4).
+\item We can always find a perfect difference set modulo $n = g^2+g+1$ and construct a graph partition where $g=s$ (section 5).
 \item These partitions, and any where $g=s$, are isomorphic (section 6).
 \item We can always reduce to a partition where $g=s-1$ by removing a clique and associated edges. (section 7)
 \end{itemize}
 
 However, these only cover the equality cases of $g=s-1$ and $g=s$. Section 2 showed that we possibly could accommodate $g | s$ and $g | s-1$ more generally.
 
-Despite repeated attempts, there don't seem to be many surefire constructions (or reductions) from the above methods for slices like $g^* = \frac{g}{k}, k > 1$. Also, proving such constructions are \emph{impossible} also seems difficult.
+Despite repeated attempts, there don't seem to be many surefire constructions (or reductions) from the above methods for slices like $g^* = \frac{g}{k}, k > 1$. Proving that such constructions are \emph{impossible} also seems difficult.
 
-However, ``inception'' is one very minor method of generating such a partition. 
+However, ``inception''\footnote{This is really just recursively solving our same partition problem on each complete subgraph $K_g$. ``Inception'' is a nod to a movie sort of about recursion but also about running and guns.} is one very minor method of generating such a partition. 
 
 \begin{framed}
 \textbf{Inception}: If $K_n$ can be partitioned into complete subgraphs $K_g$ and $K_g$ can be partitioned into complete subgraphs $K_h$, then $K_n$ can be partitioned into complete subgraphs of size $K_h$. 
@@ -1106,11 +1109,11 @@ Through ad-hoc tinkering, we can find the graph in Fig.~\ref{fig:s7g3}, showing 
 \label{fig:s10g5}
 \end{figure}
 
-These are apparently instances of a \emph{Steiner Triple System} $S(t, k, n)$\cite{6}, where we look for groups of $k$ among $n$ total elements, which cover exactly once every set of size $t$. If $t=2$ (edges in the graph, pairs of girls), and $k=3$ (subgroups $K_3$, walking trios) among $n$, we have an instance of a Kirkman problem (and Spot It game); in fact, Kirkman problems are those where $t=2, k=3$.
+These are apparently instances of a \emph{Steiner Triple System} $S(t, k, n)$\cite{6}, where we look for groups of $k$ among $n$ total elements, which cover exactly once every set of size $t$. If $t=2$ (edges in the graph, pairs of girls), and $k=3$ (subgroups $K_3$, walking trios) among $n$, we have an instance of a Kirkman problem\footnote{In fact, those systems those where $t=2, k=3$ are named \emph{Kirkman triple systems.}} (and Spot It game). 
 
 The followups to this problem are varied (including links to projective and affine geometry) and many unsolved ($t \geq 6$). Much progress has been made on $STS(t=2,k=3,n)$ but results seem spotty for $k>3$.
 
-By some backtracking and brute force searching using our code \url{https://github.com/fettermania/mathnotes/tree/main/spotit/code}, we can find a few ad-hoc solutions on our own, even without the problem fully solved:
+By some backtracking and brute force searching using our code \url{https://github.com/fettermania/mathnotes/tree/main/spotit/code}, we can find a few ad-hoc solutions on our own in Fig.~\ref{fig:ad-hoc-steiner}, even without the problem fully solved.
 
 
 
@@ -1134,14 +1137,16 @@ The adjacencies for node 0 in $s=10, g=5$ are shown in Fig.~\ref{fig:s10g5}, obt
 
 \section{Nonuniform g: deletion and partial inception}
 
-All of our solutions were concerned with a Spot It deck in which every symbol appears exactly $g$ times. The commercial deck has $s=8$ on all cards, but contains $n=55$ cards instead of $s(g-1) +1 = 8(7) = 57$ cards, assuming $g=8$. The most likely explanation is that two cards were simply deleted. Deletion from a deck created with the methods above yields a deck in which $s$ remains constant but $g$ can vary. This could also occur if we replaced \emph{some} of the complete subgraphs $K_g$ with ``incepted'' graphs (section 8). It's also likely that we could greedily construct a deck with consistent $s$ if we were unconcerned if $g$ were uniform across colors.
+All of our solutions were concerned with a Spot It deck in which every symbol appears exactly $g$ times. The commercial deck has $s=8$ on all cards, but contains $n=55$ cards instead of $s(g-1) +1 = 8(7) = 57$ cards, assuming $g=8$. The most likely explanation is that two cards were simply deleted.
+\\
+Deletion from a deck created with the methods above yields a deck in which $s$ remains constant but $g$ can vary. This could also occur if we replaced \emph{some} of the complete subgraphs $K_g$ with ``incepted'' graphs (section 8). It's also likely that we could greedily construct a deck with consistent $s$ if we were unconcerned if $g$ were uniform across colors.
 
 \section{Open questions}
 
 In addition to the many open questions in Steiner Systems\cite{6}, which would include the whether any $g | s$ or $g | s-1$ has a solution, we have other questions about our systems:
 
 \begin{itemize}
-\item For an it be true that $g | s(s-1)$ but not true that $g | s$ or $g | s-1$ (e.g. $g=6, s=9$)?
+\item Can it be true that $g | s(s-1)$ but not true that $g | s$ or $g | s-1$ (e.g. $g=6, s=9$)?
 \item Are all constructions where $g=s-1$ isomorphic?
 \end{itemize}
 
@@ -1154,6 +1159,7 @@ In addition to the many open questions in Steiner Systems\cite{6}, which would i
 \bibitem{4} Adleman, Leonard M. and Lenstra, Hendrik W. ``FINDING IRREDUCIBLE POLYNOMIALS OVER FINITE FIELDS'' \url{https://www.math.leidenuniv.nl/~hwl/PUBLICATIONS/1986a/art.pdf}
 \bibitem{5} Wikipedia: \url{https://en.m.wikipedia.org/wiki/Kirkman\%27s_schoolgirl_problem}
 \bibitem{6} Wikipedia: \url{https://en.wikipedia.org/wiki/Steiner_system}
+\bibitem{7} Pardon the improper formatting of all of the above, including the paper.
 \end{thebibliography}
 
 
