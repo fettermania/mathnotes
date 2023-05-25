@@ -165,7 +165,7 @@ Noticing that every card has a relationship to every other card (notably, the id
 
 \end{scope}
 \end{tikzpicture}
-\caption{$n = s(g-1)+1$. Here, $s=4, g=3$}
+\caption{$n = s(g-1)+1$. Here, $s=4, g=4$}
 \label{fig:graph-theorem}
 \end{figure}
 
@@ -387,7 +387,7 @@ As the combination of $s, g$ determine the shape of the graph entirely, $g = s-1
 \end{itemize}
 
 \subsection{General Construction Algorithm}
-\emph{Algorithm Summary}: Our algorithm takes every constant $c \in \mathcal{F}$, and goes through the multiplication table of $\mathcal{F}$ row ($y$) by row. To a clique $C_{c,y}$ specified by these two, we add an element from $G_x$ for every column $x$ : The entry from $G_x$ indexed by the entry at $z = (x,y)$ in the table, plus the constant $c$.
+\emph{Algorithm Summary}: Our algorithm takes every constant $c$ in a finite field $\mathcal{F}$, and goes through the multiplication table of $\mathcal{F}$ row ($y$) by row. To a clique $C_{c,y}$ specified by these two, we add an element from $G_x$ for every column $x$ : The entry from $G_x$ indexed by the entry at $z = (x,y)$ in the table, plus the constant $c$.
 
 \begin{framed}
 \textbf{Construction Algorithm for $g=s-1$:}
