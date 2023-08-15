@@ -94,8 +94,8 @@ The proof/algorithm sketch:
 \begin{itemize}
 \item Section~\ref{section:solve-one}: We can solve the game definitively for one die of any size.
 \item Section~\ref{section:solve-perfect}: Solving the game perfectly for the standard ``bitches'' setup (15 dice of sizes indicated in Fig.~\ref{fig:larry2}) requires evaluating way too many states and transitions to be feasible, fun, or useful in play.
-\item Section~\ref{section:split-out}: We can reduce the game by considering 15 dice as each playing parallel and separate single-die games and bear the cost when this ends up being untrue.
-\item Section~\ref{section:final-ev}: The expected score at the end can then be approximated readily.
+\item Section~\ref{section:split-out}: We propose a simple strategy: We can reduce the game by considering 15 dice as each playing parallel and separate single-die games and bear the cost when this ends up being untrue.  We calculate a guess at a ``typical'' score with this strategy.
+\item Section~\ref{section:simultation}: We use computers to validate.
 \end{itemize}
 
 \section{Solving the one die case} \label{section:solve-one}
@@ -333,9 +333,44 @@ By building up from ground truth (one roll) to our state of $r$ rolls remaining,
 
 \section{The Architecture of a perfect solution} \label{section:solve-perfect}: 
 
-The problem is that the state of the 15-die game is not quite as simple.
+The state of the 15-die game is not quite as simple.
 
 Whereas the one-die game's\footnote{Note that we expanded the one-die game a bit with $r$ free rolls instead of a boring one-roll game.  You will see why shortly.} state $S$  can be summarized $S = [0,r] \in \mathbb{N}$, that is, a single integer between $0$ and $r$ rolls left, inclusive, we now have state $S = [0,12] \times [0,1] \times [0,1] \times [0,1] \in \mathbb{N}^4$.  This reads as the combination of the count of six-sided, eight-sided, ten-sided, and twelve-sided dice that remain, for a total of 104 states (including the ``done'' state of $(0,0,0,0)$.)
+
+
+\begin{figure}[!htb]
+  \begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}]
+\node[main] (6) {$12$};
+\node[main] (5) [right of=6] {$11$};
+\node[main] (4) [right of=5] {$10$};
+
+\node[main] (3) [right of=4] {$2$};
+\node[main] (2) [right of=3] {$1$};
+\node[main] (1) [right of=2] {$0$};
+\draw[->] (6) -- (5);
+\draw[->] (6) to [out = 90, in = 90, looseness=.25] (4);
+\draw[->] (5) -- (4);
+
+\draw[->] (3) -- (2);
+\draw[->] (2) -- (1);
+\draw[->] (3) to [out = 90, in = 90, looseness=.25] (1);
+
+\draw[dotted][->] (6) to [out = 90, in = 90, looseness=.25] (3);
+\draw[dotted][->] (6) to [out = 90, in = 90, looseness=.25] (2);
+\draw[dotted][->] (6) to [out = 90, in = 90, looseness=.5] (1);
+
+\draw[dotted][->] (5) to [out = 270, in = 270, looseness=.25] (3);
+\draw[dotted][->] (5) to [out = 270, in = 270, looseness=.25] (2);
+\draw[dotted] [->](5) to [out = 270, in = 270, looseness=.25] (1);
+
+\draw[dotted][->](4) -- (3);
+\draw[dotted][->](4) to [out = 90, in = 90, looseness=.25] (2);
+\draw[dotted][->](4) to [out = 90, in = 90, looseness=.25] (1);
+
+\end{tikzpicture}
+\caption{Transitions between 6-die substates}
+\label{fig:sixdietransitions}
+\end{figure}
 
 
 \begin{figure}[!htb]
@@ -385,53 +420,158 @@ Whereas the one-die game's\footnote{Note that we expanded the one-die game a bit
 \label{fig:cube}
 \end{figure}
 
-\begin{figure}
-  \begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}]
-\node[main] (6) {$a_{12}$};
-\node[main] (5) [right of=6] {$a_{11}$};
-\node[main] (4) [right of=5] {$a_{10}$};
 
-\node[main] (3) [right of=4] {$a_{2}$};
-\node[main] (2) [right of=3] {$a_1$};
-\node[main] (1) [right of=2] {$a_0$};
-\draw[->] (6) -- (5);
-\draw[->] (6) to [out = 90, in = 90, looseness=.25] (4);
-\draw[->] (5) -- (4);
+We can best visualize the transitions between these 104 states with the \emph{two} graphs in Figs.~\ref{fig:sixdietransitions} and ~\ref{fig:cube}.  The total state is exactly the combination of having anywhere from 0 to 12 6-dice left (Fig.~\ref{fig:sixdietransitions}) and having 0 or 1 (8-, 10-, 12-) dice left (Fig.~\ref{fig:cube}).  To conceptualize the whole graph in one figure, imagine breaking each of the $[0,1] \times 3$ nodes into a graph like (Fig.~\ref{fig:sixdietransitions}), and further, that every combined node $S_a = (a_6, a_8, a_{10}, a_{12})$ has a directed edge to node $S_b = (b_6, b_8, b_{10}, b_{12})$ if and only if $a_6 \leq b_6, a_8 \leq b_8, a_{10} \leq b_{10}, a_{12} \leq b_{12}, S_a \neq S_b$.
 
-\draw[->] (3) -- (2);
-\draw[->] (2) -- (1);
-\draw[->] (3) to [out = 90, in = 90, looseness=.25] (1);
+Given a state $S$ and the rolls we've gotten, we still want to choose to pick up the dice that give us the best expected value going forward.  This means running this algorithm to determine the expected value of state $S$:
 
-\draw[dotted][->] (6) to [out = 90, in = 90, looseness=.25] (3);
-\draw[dotted][->] (6) to [out = 90, in = 90, looseness=.25] (2);
-\draw[dotted][->] (6) to [out = 90, in = 90, looseness=.5] (1);
+\fbox{\parbox{\textwidth}{
 
-\draw[dotted][->] (5) to [out = 270, in = 270, looseness=.25] (3);
-\draw[dotted][->] (5) to [out = 270, in = 270, looseness=.25] (2);
-\draw[dotted] [->](5) to [out = 270, in = 270, looseness=.25] (1);
+\textbf{Pre-compute Algorithm: Expected value of die state $S$}:
 
-\draw[dotted][->](4) -- (3);
-\draw[dotted][->](4) to [out = 90, in = 90, looseness=.25] (2);
-\draw[dotted][->](4) to [out = 90, in = 90, looseness=.25] (1);
+\begin{enumerate}
+\item Start with accumulator $z = 0$.
+\item For each possible combination $c$ of rolls of $S = (a_6, a_8, a_{10}, a_{12})$ dice of size 6,8,10,12 respectively:
+  \begin{enumerate}
+    \item For each non-empty member $r$ of the power set $2^c$, where we take points and remove those $r$ dice:
+    \begin{enumerate}
+       \item Compute points added $P(r, c)$.
+       \item Determine future state $S_+ = S_a - r$.
+       \item Look up saved expected value $E_{S_+}$ from previous computations.
+       \item Compute total value $E_{S}(r,c) = P(r, c) + E_{S_+}$ 
+    \end{enumerate}
+    \item Choose the $r^*$ with the highest value $E_{S}(r^*,c)$.
+    \item Add $\frac{E_{s}(r^*, c)}{p(c)}$ to $z$, where $p(c)$ is the probability of combination $c$.
+  \end{enumerate}
+ \item Store $E_{s} \leftarrow z$.
+\end{enumerate}
+}}
 
-\end{tikzpicture}
-\caption{Transitions between 6-die substates}
-\label{fig:test2}
-\end{figure}
+We can precompute each such $E_{S}, S \in ([0,12 ] \times [0,1]^3 \in \mathbb{N}^4)$, in a \emph{reverse topological sort}, meaning crawling the graphs of Figs.~\ref{fig:sixdietransitions} and ~\ref{fig:cube} \emph{upstream} against the arrows, so that all of their required $E_{S_+}$ are ready for them.  An order might be doing all states with 0 dice, then 1 die, then 2 dice, like so:
+\begin{itemize}
+\item $S = (0,0,0,0)$ (known to be 0)
+\item $S = (0,0,0,1)$ (known to be 6.5)
+\item $S = (0,0,1,0)$ (known to be 5.5)
+\item $S = (0,1,0,0)$ (known to be 4.5)
+\item $S = (1,0,0,0)$ (known to be 3.5)
+\item $S = (2,0,0,0)$
+\item $S = (1,1,0,0)$
+\item $S = (1,0,1,0)$
+\item $S = (1,0,0,1)$
+\item $S = (0,1,0,1)$
+\item ...
+\item $S= (3, 0, 0, 0)$
+\item ...
+\item $S = (12, 1,  1, 1)$
+\end{itemize}
 
+Finally, once all the $E_S$ are computed, in order to make the best choice during game time, the most straightforward correct algorithm is likely \emph{running steps (2a) and (2b) from the Pre-Compute algorithm above.}
 
+This idea is an example of \emph{dynamic programming}, the idea of starting with less-complicated computations and saving the results to build to more complicated ones.  If we can rely on the previous computations as producing the best expected value, starting from known answers (the value of the empty state (0); the expected value of rolling a single die (3.5, 4.5, 5.5, 6.5 for our sizes)), the principle of choosing the move with the best expected value will produce, by extension, the best expected value at any larger state (including the 15-die state at the beginning of b.a.d.g.). 
 
+\emph{Doing the pre-computation would be doable, but a pain.  Computing the truly best move in real-time would be a lot for a computer, and certainly impossible for a human.}.
 
+\subsection{Why so difficult?}
 
-Solving the game perfectly for the standard ``bitches'' setup (15 dice of various sizes) requires evaluating the expected value of 103 different states with a max of 5,940,480 possibilities per state. 
+Let's look at the volume of each of these steps in the \textbf{Algorithm} above to see the volume of these computations.
+\begin{itemize}
+\item Step 2.  \emph{... each possible combination $c$ of rolls of $S = (a_6, a_8, a_{10}, a_{12})$ dice of size 6,8,10,12 respectively:}
+
+  \begin{itemize}
+  \item At the beginning state, naively, with 12 six-sided dice, there are $6^12 = 2,176,782,336$ possible rolls if the dice are all, say, different colors.
+  \item Noting that rolling $(1,1,2,2,3,3,4,4,5,5,6,6), (6,6,5,5,4,4,3,3,2,2,1,1)$ and $(1,6,1,6,2,5,2,5,3,4,3,4) $ are all the same, we can compute using the formula for ``12 indistinct balls in 6 distinct bins``\footnote{${12 + 6 - 1 \choose 6 - 1}$} to get 6188 truly different rolls.
+  \item Combined with the possibilities for the other dice, this makes $(6188)(8)(10)(12) = 5,940,480$ rolls to consider at the beginning. 
+  \item Naturally this is the biggest number of these. There may be only 6 rolls to consider at the end, perhaps.  Even in the middle (say, 6 6-sided dice, one 8-sided, one 10-sided), we're looking at 36,960 rolls.
+  \end{itemize}
+  
+    
+\item Step 2a: \emph{... each non-empty member $r$ of the power set $2^c$, where we take points and remove those $r$ dice}
+  \begin{itemize}
+  \item If there are 15 dice, the power set of these (minus the empty set\footnote{Gotta take at least one die!}) has $2^{15} - 1 = 32,767$ members.
+  \item Again, looking in the middle of the game, $2^8 - 1 = 255$	 is still a lot to go through.
+  \item We could mitigate this by not examining any choices  of $r$ where we accept multiple low-valued dice (half the pip count or less), which is never a good choice.  If half the values are low, then we're still left with examining something like $2^7=128$ possibilities.  Of course, we have to account for getting all ones in our expected value computation!
+  \end{itemize}
+\item The other computations are either simple (e.g. $p(c)$ in 2c) or already done ($E_S$ for an earlier state $S$).
+\item And, of course, we need to do this 103 times\footnote{Empty set is a freebie: 0}, walking backward through the graphs in Figs.~\ref{fig:sixdietransitions} and ~\ref{fig:cube}.
+\item If we took the average computation as the one where there are 6 6-sided dice, one 8-sided, and one 10-sided, that still totals $36960*255*103 = 970,754,400$ steps.  Of course, the middle is more like 7\% as hard as the beginning, not 50\%!
+\end{itemize}
+
+In the most optimistic case, we can pre-compute the value of all 104 expected states.  Then, for each of them we can generate a lookup table for the up to 6 million rolls possible.  Again, we can perhaps cut out some of the space where the die are high enough ($s$) or low enough ($\leq \frac{s}{2}$) for the answer to be obvious, but even specifying this strategy fully will take a lot of data.  
+
+\textbf{It is possible that there is a perfect and compressible heuristic with a lot less data. We present an extremely small heuristic that should perform pretty well.}
 
 \section{Splitting into parallel games} \label{section:split-out}
 
-We can reduce the game by considering 15 dice as each playing separate one-die games and bear the cost when this ends up being untrue.
+The main thesis of this paper: \textbf{We can reduce the game by considering 15 dice as each playing separate one-die games and bear the cost when this ends up being untrue.}  This produces a game with a compressible, human-scale strategy table, and a pretty good score (we think).
 
-\section{Expected Score} \label {section:final-ev} 
-The expected score at the end can then be approximated readily.
+The value of this should be clear.  If we have N dice remaining, and each die is playing a one-die game with up to \emph{about} N possible rolls in its future, by the ``Know When to Quit'' principle, we should continue to roll that die until it's time to quit.
+
+If this is the case, then our EV is clear from the lower-right entries in Figs.~\ref{fig:optimal6}, ~\ref{fig:optimal8}, ~\ref{fig:optimal10}, and ~\ref{fig:optimal12}.  12 6-dice with an EV best face of 5.859 (.141 points),, an 8-die with 7.762 (.328 points), a 10-die with 9.461 (.539 points), and a 12-die with 11.252 (.748 points), end up giving us an \textbf{expectation of 3.307 b.a.d.g. points.}.
+
+However, this is not the case for two reasons:
+\begin{itemize}
+\item If we get lucky and start bagging lots of high rolls, we have fewer rolls ahead of us as we might ``skip'' from, say 15 dice left\footnote{15 dice means maximum 15 rolls} to 12 by picking up 3 instead of 1.  This is \emph{simultaneous fortune}.
+\item If we get unlucky, we will be forced to choose pick up a die at or below its cutoff.  This is the main issue we'll face, or \emph{simultaneous misfortune}.  Within this:
+  \begin{itemize}
+  \item How often will we encounter misfortune?
+  \item How much is it gonna cost us when do we?
+  \end{itemize}
+\end{itemize}
+
+It's clear that we cannot declare that our strategy is the best \emph{only if nothing goes wrong}; just imagine we said ``Only pick up a die if it's the maximum.  If nothing goes wrong, your total score will be zero''.
+
+But we'll focus on approximating the amount of pain we'll endure with this strategy, on top of the 3.307 points.  In particular, we'll focus on approximating the contribution of \emph{simultaneous misfortune}.
+
+\emph{Simultaneous fortune} at least has two countervailing factors which may help cancel it out.  Simultaneously rolling a bunch of max rolls, say, helps us get a better score; it is clear we should always pick them up.  At the same time, it reduces the number of at-bats for the other dice by a little bit.   For a game of 12 6-sided dice, rolling three sixes betters our expected b.a.d.g. score for those dice by (.243 * 3 = .729) points, while the other nine see their expected score rise to .42 from .291 (1.161 points).  On the other \emph{other} hand, big jumps make the game shorter, and a shorter game has a smaller chance of the misfortune that actually does damage to us (makes us eat points), \emph{simultaneous misfortune}.  In reality, simultaneous fortune is an unalloyed good.  The only way it ``hurts us'' is merely accounting: it simply makes the remainig dice's expected values derived from  the ``separate games''  simplification less accurate.
+
+Each b.a.d.g. game is a walk through the 104-node graph of Figs.~\ref{fig:sixdietransitions} and ~\ref{fig:cube}, taking between one and fifteen steps.  The number of such paths bears a lot of similarity to the large numbers of the previous section.  
+
+Let's just look at a typical `seeming' path to get a sense of our chance of simultaneous fortune and misfortune, with a maximum likelihood estimate at each step.
+
+The chance of simultaneous misfortune for a set of dice $S=(a,b,c,d)$, with cutoffs $(c_a, c_b, c_c, c_d)$ is $P_m(a,b,c,d) = (\frac{c_a}{6})^a (\frac{c_b}{8})^b (\frac{c_c}{10})^c (\frac{c_d}{12})^d$.  Using the tables for our strategy, let's take a typical seeming walk.
+\begin{comment}
+\begin{itemize}
+\item 15 dice.  $S = (12, 1, 1, 1).  P_m(S) = (5/6)^{12}*7/8*9/10*11/12 = 0.081.$  &  $(2, 0.125, 0.1, 0.083)$
+\item 13 dice. $S = (10, 1, 1, 1). P_m(S) = (5/6)^{10}*7/8*9/10*11/12 = 0.117$.  &  $(3.67, 0.25, 0.2, 0.166)$
+\item 11 dice. $S =  (8,1,1,1).  P_m(S) = (5/6)^8*7/8*9/10*10/12  = 0.153$.  &  $(5, .375, .3, .25)$
+\item 10 dice. $S= (7,1,1,1).  P_m(S) = (5/6)^7*7/8*8/10*10/12 = .163$.  &  $(6.17, .5, .4, .33)$.  Take off at .5.
+\item 8 dice. $S= (6,0,1,1).  P_m(S) = (5/6)^6*8/10*10/12 = .223.$.  &  $(7.17, .625, .5, .42)$.  Keep on at .5.
+\item 7 dice. $S= (5, 0, 1, 1).   P_m(S) = (5/6)^5*8/10*10/12 = .268$.  &  $(8, .75, .6, .5)$.  Take off at .5.
+\item 4 dice. $S= (4,0,0,0)   P_m(S) = (4/6)^4 = .198.$  &  $(8.66, ...)$
+\item 3 dice. $S= (3,0,0,0)   P_m(S) = (4/6)^3 = .297.$  &  $(9.16, ...)$
+\item 2 dice. $S= (2,0,0,0)   P_m(S) = (3/6)^2 = .25.$  &  $(9.5, ...)$
+\item 1 die. $S= (1,0,0,0) $.  There is no misfortune here.  
+\end{itemize}
+\end{comment}
 
 
+
+
+\begin{figure}[!htb]
+\centering
+\begin{tabular}{c | c c c}
+dice & State & $P_m(S)$  & Exp hits \\
+\hline
+15 & $(12, 1, 1, 1).  $ & $ (5/6)^{12}*7/8*9/10*11/12 = 0.081.$  & $(2, 0.125, 0.1, 0.083)$\\
+13 & $(10, 1, 1, 1)$ &  $  (5/6)^{10}*7/8*9/10*11/12 = 0.117$.  &  $(3.67, 0.25, 0.2, 0.166)$\\
+11  & $(8,1,1,1)$ & $(5/6)^8*7/8*9/10*10/12  = 0.153$.  &  $(5, .375, .3, .25)$ \\
+10  & $(7,1,1,1)$ & $(5/6)^7*7/8*8/10*10/12 = .163$.  &  $(6.17, .5, .4, .33)$.   \\
+8  & $(6,0,1,1)$ & $(5/6)^6*8/10*10/12 = .223.$.  &  $(7.17, .625, .5, .42)$.  \\ 
+7  & $(5, 0, 1, 1)$ &   $(5/6)^5*8/10*10/12 = .268$.  &  $(8, .75, .6, .5)$.   \\ 
+4  & $(4,0,0,0)$   & $4/6)^4 = .198.$  &  $(8.66, ...)$ \\
+3  & $(3,0,0,0)$   &$(4/6)^3 = .297.$  &  $(9.16, ...)$ \\ 
+2  & $(2,0,0,0)$  &$(3/6)^2 = .25.$  &  $(9.5, ...)$\\ 
+1 & $(1,0,0,0)$ & 0 & \\
+\end{tabular}
+\caption{A random walk down Waldman St.}
+\label{fig:walk}
+\end{figure}
+
+
+We have, for this walk, an expected 1.75 occurrences of simultaneous misfortune.  Let's estimate these as a cost of between 1 (almost certain for early misses) and 2 (a bad final roll won't, on average penalize us all that much either), so a hand-wavy contribution of 1.5, for a total of 1.5*1.75=2.625 extra b.a.d.g. points on top of our 3.307 for 5.932.  
+
+There is no simple way to denote this a truly average walk.    The only reasonable way to evaluate either with any accuracy is just simulation with our strategy.  
+
+\section{Simulation} \label {section:simulation}
 
 \end{document}
