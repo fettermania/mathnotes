@@ -15,6 +15,11 @@ style=alphabetic,
 \graphicspath{ {./images/} }
 \usepackage{verbatim}
 \usepackage{tikz} 
+\tikzset{
+    vertex/.style={circle,draw,minimum size=1.5em},
+    edge/.style={->,> = latex'}
+}
+\usetikzlibrary{arrows}
 \usepackage{subcaption}
 \usepackage{hyperref}
 \usepackage{xcolor,colortbl}
@@ -330,7 +335,92 @@ By building up from ground truth (one roll) to our state of $r$ rolls remaining,
 
 The problem is that the state of the 15-die game is not quite as simple.
 
-Whereas the one-die game's\footnote{Note that we expanded the one-die game a bit with $r$ free rolls instead of a boring one-roll game.  You will see why shortly.} state $S$  can be summarized $S = [0,r] \in \mathbb{N}$, that is, a single integer between $0$ and $r$ rolls left, inclusive, we now have state $S = [0,12] \times [0,1] \times [0,1] \times [0,1] \in \mathbb{N}^4$.  This reads as the combination of the count of six-sided, eight-sided, ten-sided, and twelve-sided dice remain.  
+Whereas the one-die game's\footnote{Note that we expanded the one-die game a bit with $r$ free rolls instead of a boring one-roll game.  You will see why shortly.} state $S$  can be summarized $S = [0,r] \in \mathbb{N}$, that is, a single integer between $0$ and $r$ rolls left, inclusive, we now have state $S = [0,12] \times [0,1] \times [0,1] \times [0,1] \in \mathbb{N}^4$.  This reads as the combination of the count of six-sided, eight-sided, ten-sided, and twelve-sided dice that remain, for a total of 104 states (including the ``done'' state of $(0,0,0,0)$.)
+
+
+\begin{figure}[!htb]
+\begin{tikzpicture}
+\begin{scope}[every node/.style={circle,thick,draw}]
+\node (0) at (0, 0) {0,0,0};
+\node (1) at (0, 4) {0,0,1};
+\node (2) at (4, 0) {0,1,0};
+\node (3) at (4, 4) {0,1,1};
+\node (4) at (3, 2.6) {1,0,0};
+\node (5) at (3, 6.6) {1,0,1};
+\node (6) at (7, 2.6) {1,1,0};
+\node (7) at (7, 6.6) {1,1,1};
+
+\draw[edge] (1) to (0);
+%\draw[edge] (2) to (1);
+\draw[edge] (2) to (0);
+\draw[edge] (3) to (0);
+\draw[edge] (3) to (1);
+\draw[edge] (3) to (2);
+\draw[edge] (4) to (0);
+%\draw[edge] (4) to (1);
+\draw[edge] (4) to (2);
+%\draw[edge] (4) to (3);
+\draw[edge] (5) to (0);
+\draw[edge] (5) to (1);
+%\draw[edge] (5) to (2);
+%\draw[edge] (5) to (3);
+\draw[edge] (5) to (4);
+\draw[edge] (6) to (0);
+%\draw[edge] (6) to (1);
+\draw[edge] (6) to (2);
+%\draw[edge] (6) to (3);
+\draw[edge] (6) to (4);
+%\draw[edge] (6) to (5);
+\draw[edge] (7) to (0);
+\draw[edge] (7) to (1);
+\draw[edge] (7) to (2);
+\draw[edge] (7) to (3);
+\draw[edge] (7) to (4);
+\draw[edge] (7) to (5);
+\draw[edge] (7) to (6);
+
+\end{scope}
+\end{tikzpicture}
+\caption{Transitions between (B,C,D) = (8,10,12) substates}
+\label{fig:cube}
+\end{figure}
+
+\begin{figure}
+  \begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}]
+\node[main] (6) {$a_{12}$};
+\node[main] (5) [right of=6] {$a_{11}$};
+\node[main] (4) [right of=5] {$a_{10}$};
+
+\node[main] (3) [right of=4] {$a_{2}$};
+\node[main] (2) [right of=3] {$a_1$};
+\node[main] (1) [right of=2] {$a_0$};
+\draw[->] (6) -- (5);
+\draw[->] (6) to [out = 90, in = 90, looseness=.25] (4);
+\draw[->] (5) -- (4);
+
+\draw[->] (3) -- (2);
+\draw[->] (2) -- (1);
+\draw[->] (3) to [out = 90, in = 90, looseness=.25] (1);
+
+\draw[dotted][->] (6) to [out = 90, in = 90, looseness=.25] (3);
+\draw[dotted][->] (6) to [out = 90, in = 90, looseness=.25] (2);
+\draw[dotted][->] (6) to [out = 90, in = 90, looseness=.5] (1);
+
+\draw[dotted][->] (5) to [out = 270, in = 270, looseness=.25] (3);
+\draw[dotted][->] (5) to [out = 270, in = 270, looseness=.25] (2);
+\draw[dotted] [->](5) to [out = 270, in = 270, looseness=.25] (1);
+
+\draw[dotted][->](4) -- (3);
+\draw[dotted][->](4) to [out = 90, in = 90, looseness=.25] (2);
+\draw[dotted][->](4) to [out = 90, in = 90, looseness=.25] (1);
+
+\end{tikzpicture}
+\caption{Transitions between 6-die substates}
+\label{fig:test2}
+\end{figure}
+
+
+
 
 
 Solving the game perfectly for the standard ``bitches'' setup (15 dice of various sizes) requires evaluating the expected value of 103 different states with a max of 5,940,480 possibilities per state. 
