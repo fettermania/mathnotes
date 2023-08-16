@@ -77,3 +77,11 @@ def generate_rolls(die_state, verbose=False):
         return (points, die_state)
 
     
+def run_sim():
+    die_state = initial_die_state
+    points = 0
+    while die_state != [0, 0, 0, 0]:
+        (new_points, die_state) = generate_rolls(die_state, verbose=True)
+        points = points + new_points
+    return points
+
