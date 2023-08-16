@@ -1,9 +1,3 @@
-import functools
-import sys
-import getopt
-import os
-import math
-from time import time
 import random
 
 # Tables
@@ -34,8 +28,7 @@ def generate_rolls(die_state, verbose=False):
               [random.randint(1,10) for i in range(1,die_state[2] + 1)],
               [random.randint(1,12) for i in range(1,die_state[3] + 1)]]
     
-    #verbose and print(rolls)
-    print(rolls)
+    verbose and print(rolls)
 
     good_rolls = [ list(filter(lambda x: x > six_cutoffs[dice_left], rolls[0])),
                    list(filter(lambda x: x > eight_cutoffs[dice_left], rolls[1])),
@@ -59,7 +52,7 @@ def generate_rolls(die_state, verbose=False):
         points = six_points + eight_points + ten_points + twelve_points
         die_state = [die_state[0] - six_removed, die_state[1] - eight_removed, die_state[2] - ten_removed, die_state[3] - twelve_removed]
 
-        return (points, die_state)
+        return [points, die_state, 0]
     else:
         # -100 is a bad hack to give a max on an empty set
         best_rolls = [six_cutoffs[dice_left] - trymax(rolls[0]) , 
@@ -74,14 +67,23 @@ def generate_rolls(die_state, verbose=False):
         die_state[removable_die_pos] = die_state[removable_die_pos] - 1
 
         verbose and print("Removing die at pos %s " % (removable_die_pos))
-        return (points, die_state)
+        return [points, die_state, 1]
 
     
 def run_sim():
-    die_state = initial_die_state
+    die_state = [12, 1, 1, 1]
     points = 0
+    interruptions = 0
     while die_state != [0, 0, 0, 0]:
-        (new_points, die_state) = generate_rolls(die_state, verbose=True)
-        points = points + new_points
-    return points
+        result_vec = generate_rolls(die_state, verbose=False)
+        points = points + result_vec[0]
+        die_state = result_vec[1]
+        interruptions = interruptions + result_vec[2]
+    return [points, interruptions]
 
+def averages(v):
+    return [
+        sum(list(map(lambda x: x[0], v))) / len(v),
+        sum(list(map(lambda x: x[1], v))) / len(v)]
+
+     
