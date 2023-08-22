@@ -116,7 +116,7 @@ p_{max = k}(s,r) =  (\frac{k}{s})^r - (\frac{k-1}{s})^r \\
 E_{max}(s,r) = \sum_{k=1}^s k[\frac{k^r - (k-1)^r}{s}]
 \end{align}
 
-For any given number of pips $k$ between 1and $s$:
+For any given number of pips $k$ between 1 and $s$:
 \begin{itemize}
 \item (1) is the probability that all of the $r$ rolls are between 1 and $k$.
 \item (2) is the probability that all of the $r$ rolls are between 1 and $k-1$.
@@ -151,7 +151,7 @@ $r$ & $s=6$ & $s=8$  & $s=10$ & $s=12$  \\
 \label{fig:max-rolls}
 \end{figure}
 
-We then, look to the expected value of the next state and pick up our die if the value equals or exceeds it. For example, if we're rolling a 6-sided die and we have three rolls left, after rolling we pick up if and only if the roll exceeds what we'd expect by taking our shot with two rolls left (4.472). This means we'd pick up a 5 or 6. If we continue, we would pick up anything equal to or exceeding 3.5 on the next roll ($r=1, s=6$).
+We then look to the expected value of the next state and pick up our die if the value equals or exceeds it. For example, if we're rolling a 6-sided die and we have three rolls left, after rolling we pick up if and only if the roll exceeds what we'd expect by taking our shot with two rolls left (4.472). This means we'd pick up a 5 or 6. If we continue, we would pick up anything equal to or exceeding 3.5 on the next roll ($r=1, s=6$).
 
 \subsection{Why doesn't this work?}
 
@@ -180,7 +180,7 @@ Consider this example with a 50-sided die and three rolls remaining, with $E_{ma
 The reroll cutoff (inclusive) on $r=2$ will be 25 for any optimal strategy, since no decisions are possible for $r=1$.  The expected value for this Max strategy $E_M(r  = 2)$ is 31.75.
 
 \begin{align}
-E_M(2)  = \sum_{k=26}^{50} \frac{k}{50} + \frac{25}{50}*25.5 = 31.75 \\
+E_M(2)  = \sum_{k=26}^{50} \frac{k}{50} + \frac{25}{50}*25.5 = 31.75 
 \end{align}
 
 So we look at the expected value of five strategies (A, B(est), C, M(ax), D) then, which are exactly the different re-roll cutoffs when $r=3$: (30, 31, 32, 33, 34), respectively:
@@ -190,7 +190,7 @@ E_A(3) = \sum_{k=31}^{50} \frac{k}{50} + \frac{30}{50} (31.75) = 35.25 \\
 E_B(3) = \sum_{k=32}^{50} \frac{k}{50} + \frac{\textbf{31}}{50} (31.75) = \textbf{35.265} \\
 E_C(3) =  \sum_{k=33}^{50} \frac{k}{50} + \frac{32}{50} (31.75) = 35.260 \\
 E_M(3) = \sum_{k=34}^{50} \frac{k}{50} + \frac{\textbf{33}}{50}(31.75) = 35.235 \\
-E_D(3) = \sum_{k=35}^{50} \frac{k}{50} + \frac{34}{50} (31.75) = 35.19 \\
+E_D(3) = \sum_{k=35}^{50} \frac{k}{50} + \frac{34}{50} (31.75) = 35.19
 \end{align}
 
 We see that the expected value of our strategy peaks not at our supposed max strategy of rerolling at 33 or less, but rerolling at 31 or less (accepting 32 and 33).
@@ -214,8 +214,9 @@ E_B(s, r) = \sum_{c(s,r) < k \leq s} k(\frac{1}{s}) + E_B(s, r-1)\frac{c(s,r)}{s
 The first term of (14) is the expected payoff we get by picking up if we exceed our cutoff. The second term is the expected payoff we get by continuing if we don't exceed our cutoff.
 
 \begin{figure}[!htb]
+\centering
 \begin{tabular}{c | c c c}
-rolls left (6-side) & max reject & expected face & exp badg points \\
+dice left (6-side) & max reject & expected face & exp badg points \\
 \hline
 1 &  & 3.5 & 2.5 \\
 2 & \cellcolor{cyan} 3 & 4.25 & 1.75 \\
@@ -238,8 +239,9 @@ rolls left (6-side) & max reject & expected face & exp badg points \\
 \end{figure}
 
 \begin{figure}[!htb]
+\centering
 \begin{tabular}{c | c c c}
-rolls left (8-side) & max reject & expected face & exp badg points \\
+dice left (8-side) & max reject & expected face & exp badg points \\
 \hline
 1 &  & 4.5 & 3.5 \\
 2 & \cellcolor{cyan} 4 & 5.5 & 2.5 \\
@@ -263,8 +265,9 @@ rolls left (8-side) & max reject & expected face & exp badg points \\
 
 
 \begin{figure}[!htb]
+\centering
 \begin{tabular}{c | c c c}
-rolls left (10-side) & max reject & expected face & exp badg points \\
+dice left (10-side) & max reject & expected face & exp badg points \\
 \hline
 1 &  & 5.5 & 4.5 \\
 2 & \cellcolor{cyan} 5 & 6.75 & 3.25 \\
@@ -289,8 +292,9 @@ rolls left (10-side) & max reject & expected face & exp badg points \\
 
 
 \begin{figure}[!htb]
+\centering
 \begin{tabular}{c | c c c}
-rolls left (12-side) & max reject & expected face & exp badg points \\
+dice left (12-side) & max reject & expected face & exp badg points \\
 \hline
 
 1 &  & 6.5 & 5.5 \\
@@ -313,15 +317,43 @@ rolls left (12-side) & max reject & expected face & exp badg points \\
 \label{fig:optimal12}
 \end{figure}
 
-So, for playing a one-die version of this game with a die of size $s$, start by rejecting anything except $s$, and follow the blue colored entries in Figs.~\ref{fig:optimal6} through~\ref{fig:optimal12} for where you should start adjusting your cutoffs down..
+
+\begin{figure}[!htb]
+\centering
+\begin{tabular}{c | c c c c }
+dice left & Keep (6) & Keep (8) & Keep (10) & Keep (12) \\
+\hline
+2 & \cellcolor{green} 4 &  \cellcolor{green}  5 &  \cellcolor{green}  6 &  \cellcolor{green}  7\\
+3 & 5 &  \cellcolor{green}  6 &  \cellcolor{green}  7 &  \cellcolor{green} 8\\
+4 & 5 & 7 & 8 &  \cellcolor{green} 9 \\
+5 & \cellcolor{green}  5 & 7 &  \cellcolor{green} 8 & 10 \\
+6 & 6 & 7 &  9 & \cellcolor{green}  10 \\
+7 & 6 &  \cellcolor{green}  7 & 9 & 11 \\
+8 & 6 & 8 & 9 & 11 \\
+9 & 6 & 8 & 9 & 11 \\
+10 & 6 & 8 &   \cellcolor{green}  9 &  11 \\
+11 & 6 & 8 &10 & 11 \\
+12 & 6 & 8 &  10 & \cellcolor{green} 11 \\
+13 & 6 & 8 & 10 &12 \\
+14 & 6 & 8 & 10 & 12 \\
+15 & 6 & 8 & 10 &  12 \\
+\end{tabular}
+\caption{The ``Blackjack Table'': Pick up dice with green or higher.}
+\label{fig:blackjack-table}
+\end{figure}
+
+
+So, for playing a one-die version of this game with a die of size $s$, start by rejecting anything except $s$, and follow the blue colored entries in Figs.~\ref{fig:optimal6} through~\ref{fig:optimal12} for where you should start adjusting your cutoffs down.
+
+For ease of use, we also present this as a ``Blackjack Table'' in Fig.~\ref{fig:blackjack-table}, the kind of extraneous card often found in a 52-deck alongside promotional flotsam, which tells you when to hit or stay based on the dealer's card and your cards.\footnote{A blackjack table ignores the make up of cards left in the deck as a necessary simplification.}  After reader feedback, we present these as \emph{keeper cutoffs}, one more than $c(s,r)$ in the rest of the paper, and color the cells green to distinguish and annoy.
 
 By building up from ground truth (one roll) to our state of $r$ rolls remaining, using the Principle of Knowing When To Quit, we have shown that this is the optimal algorithm for one die of any size.
 
-\section{The Architecture of a perfect solution} \label{section:solve-perfect}: 
+\section{The Architecture of a perfect solution} \label{section:solve-perfect}
 
 The state of the 15-die game is not quite as simple.
 
-Whereas the one-die game's\footnote{Note that we expanded the one-die game a bit with $r$ free rolls instead of a boring one-roll game. You will see why shortly.} state $S$  can be summarized $S = [0,r] \in \mathbb{N}$, that is, a single integer between $0$ and $r$ rolls left, inclusive, we now have state $S = [0,12] \times [0,1] \times [0,1] \times [0,1] \in \mathbb{N}^4$. This reads as the combination of the count of six-sided, eight-sided, ten-sided, and twelve-sided dice that remain, for a total of 104 states (including the ``done'' state of $(0,0,0,0)$.)
+Whereas the one-die game's\footnote{Note that we expanded the one-die game a bit with $r$ free rolls instead of a boring one-roll game. You will see why shortly.} state $S$  can be summarized as $S = [0,r] \in \mathbb{N}$, that is, a single integer between $0$ and $r$ rolls left, inclusive, we now have state $S = [0,12] \times [0,1] \times [0,1] \times [0,1] \in \mathbb{N}^4$. This reads as the combination of the count of six-sided, eight-sided, ten-sided, and twelve-sided dice that remain, for a total of 104 states (including the ``done'' state of $(0,0,0,0)$.)
 
 
 \begin{figure}[!htb]
@@ -466,7 +498,7 @@ Let's look at the volume of each of these steps in the \textbf{Algorithm} above 
 
   \begin{itemize}
   \item At the beginning state, naively, with 12 six-sided dice, there are $6^{12} = 2,176,782,336$ possible rolls if the dice are all considered distinct.
-  \item Noting that rolling $(1,1,2,2,3,3,4,4,5,5,6,6), (6,6,5,5,4,4,3,3,2,2,1,1)$ and $(1,6,1,6,2,5,2,5,3,4,3,4) $ are all the same, we can compute using the formula for ``12 indistinct balls in 6 distinct bins``\footnote{${12 + 6 - 1 \choose 6 - 1}$} to get 6188 truly different rolls.
+  \item Noting that rolling $(1,1,2,2,3,3,4,4,5,5,6,6), (6,6,5,5,4,4,3,3,2,2,1,1)$ and $(1,6,1,6,2,5,2,5,3,4,3,4) $ are all the same, we can compute using the formula for ``12 indistinct balls in 6 distinct bins''\footnote{${12 + 6 - 1 \choose 6 - 1}$} to get 6188 truly different rolls.
   \item Combined with the possibilities for the other dice, this makes $(6188)(8)(10)(12) = 5,940,480$ rolls to consider at the beginning. 
   \item Naturally this is the biggest number of these. There may be only 6 rolls to consider at the last roll, perhaps. Even in the middle (say, 6 6-sided dice, one 8-sided, one 10-sided), we're looking at 36,960 rolls.
   \end{itemize}
@@ -479,7 +511,7 @@ Let's look at the volume of each of these steps in the \textbf{Algorithm} above 
   \item We could mitigate this by not examining any choices  of $r$ where we accept multiple low-valued dice (half the pip count or less), which is never a good choice. If half the values are low, then we're still left with examining something like $2^7=128$ possibilities. Of course, we have to account for getting all ones in our expected value computation!
   \end{itemize}
 \item The other computations are either simple (e.g. $p(c)$ in 2c) or already done ($E_S$ for an earlier state $S$).
-\item And, of course, we need to do this 103 times\footnote{Empty set is a freebie: 0}, walking backward through the graphs in Figs.~\ref{fig:sixdietransitions} and ~\ref{fig:cube}.
+\item And, of course, we need to do this 103 times\footnote{Empty set is a freebie: 0.}, walking backward through the graphs in Figs.~\ref{fig:sixdietransitions} and ~\ref{fig:cube}.
 \item If we took the average computation as the one where there are 6 6-sided dice, one 8-sided, and one 10-sided, that still totals $36960*255*103 = 970,754,400$ steps. Of course, a middle step is more like 7\% as hard as the beginning step, not 50\%!
 \end{itemize}
 
@@ -491,9 +523,9 @@ In the most optimistic case, we can pre-compute the value of all 104 expected st
 
 The main insight of this paper is: \textbf{We can reduce the game by considering 15 dice as each playing separate one-die games and bear the cost when this ends up being untrue.}  This produces a game with a compressible, human-scale strategy table, and a pretty good score (we think).
 
-The value of this should be clear. If we have $n$ dice remaining, and each die is playing a one-die game with up to \emph{about} $n$ possible rolls\footnote{So we're approximating rolls $r$ with number of dice $n$} in its future, by the ``Know When to Quit'' principle, we should continue to roll that die until it's time to quit.
+The value of this should be clear. If we have $n$ dice remaining, and each die is playing a one-die game with up to \emph{about} $n$ possible rolls\footnote{So we're approximating rolls $r$ with number of dice $n$.} in its future, by the ``Know When to Quit'' principle, we should continue to roll that die until it's time to quit.
 
-If this is the case, then our by linearity of expectation\footnote{The expected value of a sum of variables is the same as the sum of the expected values of the variables}, the EV is clear from the lower-right entries in Figs.~\ref{fig:optimal6}, ~\ref{fig:optimal8}, ~\ref{fig:optimal10}, and ~\ref{fig:optimal12}. 12 6-dice with an EV best face of 5.859 (.141 points), an 8-die with 7.762 (.328 points), a 10-die with 9.461 (.539 points), and a 12-die with 11.252 (.748 points), end up giving us an \textbf{expectation of 3.307 b. (a. d. g.) points.}.
+If this is the case, then our by linearity of expectation\footnote{The expected value of a sum of variables is the same as the sum of the expected values of the variables.}, the EV is clear from the lower-right entries in Figs.~\ref{fig:optimal6}, ~\ref{fig:optimal8}, ~\ref{fig:optimal10}, and ~\ref{fig:optimal12}. 12 6-dice with an EV best face of 5.859 (.141 points), an 8-die with 7.762 (.328 points), a 10-die with 9.461 (.539 points), and a 12-die with 11.252 (.748 points), end up giving us an \textbf{expectation of 3.307 b. (a. d. g.) points.}.
 
 However, this is not the case for two reasons:
 \begin{itemize}
@@ -539,15 +571,15 @@ The rules for this walk in Fig.~\ref{fig:walk} are:
 \begin{tabular}{c | c c c}
 dice & State & $p_{sm}(S)$  & Exp hits (cumulative) \\
 \hline
-15 & $(12, 1, 1, 1) $ & $ (5/6)^{12}*7/8*9/10*11/12 = 0.081.$  & $(2, 0.125, 0.1, 0.083)$\\
-13 & $(10, 1, 1, 1)$ &  $  (5/6)^{10}*7/8*9/10*11/12 = 0.117$. &  $(3.67, 0.25, 0.2, 0.166)$\\
-12  & $(9,1,1,1)$ & $(5/6)^9*7/8*9/10*10/12  = .127$. &  $(5.17, .375, .3, .33)$ \\
-10  & $(7,1,1,1)$ & $(5/6)^7*7/8*8/10*10/12 = .163$. &  $(6.33, .5, .5, .67)$.  \\
-9  & $(6,1,1,1)$ & $(5/6)^6*7/8*8/10*10/12 = .195.$. &  $(7.33, .625 , .7, .84)$. \\ 
-8  & $(5, 1, 1, 1)$ &   $(5/6)^5*7/8*8/10*10/12 = ..234$. &  $(8.17, .875, 1.1, 1)$.  \\ 
-5  & $(4,1,0,0)$   & $(4/6)^4*6/8 = .148.$  &  $(9.5, 1.125, X,X )$ \\
-3  & $(3,0,0,0)$   &$(4/6)^3 = .296.$  &  $(10.5, X, X, X)$ \\ 
-2  & $(2,0,0,0)$  &$(3/6)^2 = .25.$  &  $(11.5, X, X, X)$\\ 
+15 & $(12, 1, 1, 1) $ & $ (5/6)^{12}*7/8*9/10*11/12 = 0.081$  & $(2, 0.125, 0.1, 0.083)$\\
+13 & $(10, 1, 1, 1)$ &  $  (5/6)^{10}*7/8*9/10*11/12 = 0.117$ &  $(3.67, 0.25, 0.2, 0.166)$\\
+12  & $(9,1,1,1)$ & $(5/6)^9*7/8*9/10*10/12  = .127$ &  $(5.17, .375, .3, .33)$ \\
+10  & $(7,1,1,1)$ & $(5/6)^7*7/8*8/10*10/12 = .163$ &  $(6.33, .5, .5, .67)$ \\
+9  & $(6,1,1,1)$ & $(5/6)^6*7/8*8/10*10/12 = .195$ &  $(7.33, .625 , .7, .84)$ \\ 
+8  & $(5, 1, 1, 1)$ &   $(5/6)^5*7/8*8/10*10/12 = .234$ &  $(8.17, .875, 1.1, 1)$  \\ 
+5  & $(4,1,0,0)$   & $(4/6)^4*6/8 = .148$  &  $(9.5, 1.125, X,X )$ \\
+3  & $(3,0,0,0)$   &$(4/6)^3 = .296$  &  $(10.5, X, X, X)$ \\ 
+2  & $(2,0,0,0)$  &$(3/6)^2 = .25$  &  $(11.5, X, X, X)$\\ 
 1 & $(1,0,0,0)$ & 0 & \\
 \end{tabular}
 \caption{A random walk down Waldman St.}
@@ -556,7 +588,7 @@ dice & State & $p_{sm}(S)$  & Exp hits (cumulative) \\
 
 \subsection{Example Results}
 
-We have, for this walk, an expected 1.61 occurrences of simultaneous misfortune. Let's estimate that we only lift one die\footnote{Though \emph{maybe} if multiple dice are just a bit worse than their future EV, there's a corner case where lifting many dice under misfortune is best} and we pay a cost of between 1 (almost certain for early misses) and 2 (a bad final roll won't, on average penalize us all that much either), so a hand-wavy average penalty of 1.5, for a total of 1.5*1.61=2.415 extra b. (a.d.g.) points for misfortune. Adding this to our ideal 3.307 points gives us 5.722 points as our estimate.
+We have, for this walk, an expected 1.61 occurrences of simultaneous misfortune. Let's estimate that we only lift one die\footnote{Though \emph{maybe} if multiple dice are just a bit worse than their future EV, there's a corner case where lifting many dice under misfortune is best.} and we pay a cost of between 1 (almost certain for early misses) and 2 (a bad final roll won't, on average penalize us all that much either), so a hand-wavy average penalty of 1.5, for a total of 1.5*1.61=2.415 extra b. (a.d.g.) points for misfortune. Adding this to our ideal 3.307 points gives us 5.722 points as our estimate.
 
 There is no simple means to determine a truly average walk.   The only reasonable way to evaluate either with any accuracy is just simulation with our strategy. 
 
@@ -592,7 +624,7 @@ Results are in figure Fig.~\ref{fig:results}.
 
 \textbf{Summary across a million games using the parallel strategy}:
 \begin{itemize}
-\item These are naturally right-tailed distributions (you can get 8 interruptions but you can't get -5) but look ``normal''.\footnote{Stated without proof}
+\item These are naturally right-tailed distributions (you can get 8 interruptions but you can't get -5) but look ``normal''.\footnote{Stated without proof.}
 \item Our average number of interruptions was \textbf{1.55}.  This is pretty close to our guess of 1.61 in the Section~\ref{section:split-out}.
 \item Our chance of getting zero points was 0.11\%.  This is likely strategy-independent (only happens if you always get a max somewhere in each roll).
 \item Our chance of getting no interruptions was 21.2\%.  So, our parallel delusion bubble didn't burst for those runs.
