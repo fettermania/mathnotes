@@ -87,3 +87,32 @@ def averages(v):
         sum(list(map(lambda x: x[1], v))) / len(v)]
 
      
+
+# Stats for the paper
+# runs = [bdice.run_sim() for i in range(1, 1000001)]
+# points = list(map(lambda x: x[0], runs))
+
+# # Discards last chunk if too small
+# def chop_into_chunks_of_n(my_list, n):
+#     limit = int(len(my_list) / n)
+#     return [my_list[i * n:(i + 1) * n] for i in range(limit)]
+
+# chunks = chop_into_chunks_of_n(points, 6)
+
+# def print_chunk_stats(points_arr, n):
+#     random.shuffle(points_arr)
+#     chunks = chop_into_chunks_of_n(points_arr, n)
+#     mins = list(map(min, chunks))
+#     mins.sort()
+#     mins_grouped = [(k, list(g)) for k, g in itertools.groupby(mins)]
+#     mins_histogram = list(map(lambda x: (x[0], len(x[1])), mins_grouped))
+#     print("Stats for n = %s" % n)
+#     print("Average: %s" % (sum(mins) / len(chunks)))
+#     print("COL 1")
+#     for h in mins_histogram:
+#         print(h[0])
+#     print("COL 2")
+#     for h in mins_histogram:
+#         print(h[1])
+
+

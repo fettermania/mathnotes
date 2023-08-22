@@ -177,7 +177,7 @@ Consider this example with a 50-sided die and three rolls remaining, with $E_{ma
 \end{itemize}
 \end{comment}
 
-The reroll cutoff (inclusive) on $r=2$ will be 25 for any optimal strategy, since no decisions are possible for $r=1$.  The expected value for this Max strategy $E_M(r  = 2)$ is 31.75.
+The reroll cutoff (inclusive) on $r=2$ will be 25 for any optimal strategy, since no decisions are possible for $r=1$. The expected value for this Max strategy $E_M(r  = 2)$ is 31.75.
 
 \begin{align}
 E_M(2)  = \sum_{k=26}^{50} \frac{k}{50} + \frac{25}{50}*25.5 = 31.75 
@@ -545,7 +545,7 @@ But we'll focus on approximating the amount of pain we'll endure with this strat
 \begin{itemize}
 \item Good: Simultaneously rolling a bunch of max rolls, say, helps us get a better score; it is clear we should always pick them up.
 \item Good: Big jumps make the game shorter, and a shorter game has a smaller chance of the misfortune that actually does damage to us (makes us eat points), \emph{simultaneous misfortune}. 
-\item Bad: At the same time, it reduces the number of at-bats for the other dice by a little bit.  
+\item Bad: At the same time, it reduces the number of at-bats for the other dice by a little bit. 
 \end{itemize}
 
 For a game of 12 6-sided dice, rolling three sixes betters our expected (b. a. d. g.) score for those dice by (.243 * 3 = .729) points, while the other nine see their expected score rise to .42 from .291 (1.161 points). 
@@ -561,7 +561,7 @@ Note that the chance of simultaneous misfortune for a set of dice $S=(a,b,c,d)$,
 The rules for this walk in Fig.~\ref{fig:walk} are:
 \begin{itemize}
 \item We pick up dice (second column) according to the tables above. Instead of using rolls remaining, however, we use dice count (first column). We could create a function to better estimate rolls remaining, but we're trying to create a human-runnable strategy here. We need to keep it simple.
-\item We calculate the expected number of simultaneous misfortunes along the way as $p_{sm}(S)$ in the third column.  The expected sum is the sum of these turn-based expectations.
+\item We calculate the expected number of simultaneous misfortunes along the way as $p_{sm}(S)$ in the third column. The expected sum is the sum of these turn-based expectations.
 \item At each roll we add to an expected number of ``hits'' (over the cutoff) for the 6, 8, 10, and 12 dice over all their rolls (fourth column). This is $1-\frac{c_i}{s_i}$ for each die.
 \item Once we get to an integer threshold in hits in column four, we remove dice accordingly.
 \end{itemize}
@@ -590,17 +590,17 @@ dice & State & $p_{sm}(S)$  & Exp hits (cumulative) \\
 
 We have, for this walk, an expected 1.61 occurrences of simultaneous misfortune. Let's estimate that we only lift one die\footnote{Though \emph{maybe} if multiple dice are just a bit worse than their future EV, there's a corner case where lifting many dice under misfortune is best.} and we pay a cost of between 1 (almost certain for early misses) and 2 (a bad final roll won't, on average penalize us all that much either), so a hand-wavy average penalty of 1.5, for a total of 1.5*1.61=2.415 extra b. (a.d.g.) points for misfortune. Adding this to our ideal 3.307 points gives us 5.722 points as our estimate.
 
-There is no simple means to determine a truly average walk.   The only reasonable way to evaluate either with any accuracy is just simulation with our strategy. 
+There is no simple means to determine a truly average walk.  The only reasonable way to evaluate either with any accuracy is just simulation with our strategy. 
 
 \section{Simulation} \label {section:simulation}
 
-The code for the simulation is at \url{https://github.com/fettermania/mathnotes/blob/main/bdice/bdice.py}.  This an implementation of the algorithm we've implicitly taken for parallel runs:
+The code for the simulation is at \url{https://github.com/fettermania/mathnotes/blob/main/bdice/bdice.py}. This an implementation of the algorithm we've implicitly taken for parallel runs:
 \begin{enumerate}
 \item Start with state $S \leftarrow (12,1,1,1)$
 \item If state $S = (0, 0, 0, 0)$, return number of points and interruptions and exit
 \item Roll all dice in S.
 \item If any dice are strictly above the thresholds in Figs.~\ref{fig:optimal6} through~\ref{fig:optimal12}, take them out of $S$ and add their points to the total.
-\item Otherwise take the single die which differs from its cutoff by the least\footnote{Ties broken arbitrarily, meaning we don't suspect this is important.}, remove it, add its points to the total.  Add 1 to total interruptions.
+\item Otherwise take the single die which differs from its cutoff by the least\footnote{Ties broken arbitrarily, meaning we don't suspect this is important.}, remove it, add its points to the total. Add 1 to total interruptions.
 \item Go back to step 2.
 \end{enumerate}
 
@@ -625,13 +625,54 @@ Results are in figure Fig.~\ref{fig:results}.
 \textbf{Summary across a million games using the parallel strategy}:
 \begin{itemize}
 \item These are naturally right-tailed distributions (you can get 8 interruptions but you can't get -5) but look ``normal''.\footnote{Stated without proof.}
-\item Our average number of interruptions was \textbf{1.55}.  This is pretty close to our guess of 1.61 in the Section~\ref{section:split-out}.
-\item Our chance of getting zero points was 0.11\%.  This is likely strategy-independent (only happens if you always get a max somewhere in each roll).
-\item Our chance of getting no interruptions was 21.2\%.  So, our parallel delusion bubble didn't burst for those runs.
-\item However, our average score for those runs with no interruptions was 5.67, higher than our EV of 3.31,  so \emph{simultaneous fortune does have a real effect}, to the tune of 2.36 points on average.  This revised number would bring our Section~\ref{section:split-out} estimate up to 8.1.
-\item \textbf{Our average number of points was 8.53}.  This is higher than our new revised guess, which was based on guessing that the interruptions were about 1.5 points each.  This makes their average 1.84 points each.
+\item Our average number of interruptions was \textbf{1.55}. This is pretty close to our guess of 1.61 in the Section~\ref{section:split-out}.
+\item Our chance of getting zero points was 0.11\%. This is likely strategy-independent (only happens if you always get a max somewhere in each roll).
+\item Our chance of getting no interruptions was 21.2\%. So, our parallel delusion bubble didn't burst for those runs.
+\item However, our average score for those runs with no interruptions was 5.67, higher than our EV of 3.31,  so \emph{simultaneous fortune does have a real effect}, to the tune of 2.36 points on average. This revised number would bring our Section~\ref{section:split-out} estimate up to 8.1.
+\item \textbf{Our average number of points was 8.53}. This is higher than our new revised guess, which was based on guessing that the interruptions were about 1.5 points each. This makes their average 1.84 points each.
 \end{itemize}
 
-The heuristics in Figs.~\ref{fig:optimal6} through~\ref{fig:optimal12} should be good enough for passable performance at the Waldman table, and memorizable enough even for 3-4 rounds of Crown and Schwepps Raspberry-Pomegranate Ginger Ale Zero.
+\subsection{Among Friends}
+
+As much as b. (a. d. g.) has an objective, it is to beat the score of all of the other players at the table. The payoff structure could be pooling everyone's equal ante and giving it to the player with the lowest score.
+
+This is different than trying to get the best expected score. The payoff for rewarding a low expected score would be more like everyone winning 20 dollars from an infinite pot and giving back their score in dollars.
+
+Though the Blackjack Table in Fig.~\ref{fig:blackjack-table} helps us approximate playing for a low score easily, there are some adjustments we can consider:
+\begin{itemize}
+\item It's possible that, given the phenomena of \emph{simultaneous fortune} and \emph{simultaneous misfortune} of earlier sections, the configuration of Fig.~\ref{fig:blackjack-table} optimizing for the best \textbf{mean} may be slightly different. We could search nearby in our simulations to find better results.
+\item If you're playing to get the best of \emph{n} players, the configuration in the table is likely not ideal as well, as winning among $n$ requires tuning for higher \textbf{variance}.
+\end{itemize}
+
+We put aside the first consideration of \emph{mean} for another time, perhaps.
+To get a sense of what score tends to win among \emph{n} players, we run the simulation again in figure Fig.~\ref{fig:minimum}.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.6]{minimum}
+\caption{Winning points among N players}
+\label{fig:minimum}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\begin{tabular}{c | c }
+players & average minimum score \\
+\hline
+2 & 6.4732 \\
+3 & 5.548292 \\
+4 & 4.984596 \\
+5 & 4.58938 \\
+6 & 4.29199 \\
+7 & 4.05768 \\
+8 & 3.864 \\
+\end{tabular}
+\caption{Average minimum winners}
+\label{fig:min-winners}
+\end{figure}
+
+These assume everyone plays off of our table in Fig.~\ref{fig:blackjack-table}.  Our average score for our ``parallel strategy''  is 8.5 and has some sizable variance, so it stands to reason that the winner among two players might have 6 or 7 points, among three players slightly less, and so on.  
+
+This of course presumes Larry can put together eight like-minded friends. The heuristics in Figs.~\ref{fig:optimal6} through~\ref{fig:optimal12} should be good enough for passable performance at the Waldman table, and memorizable enough even for 3-4 rounds of Crown and Schwepps Raspberry-Pomegranate Ginger Ale Zero.
 
 \end{document}
