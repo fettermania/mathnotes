@@ -1,0 +1,131 @@
+\documentclass[11pt, oneside]{article} 	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry} 		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}  		% ... or a4paper or a5paper or ... 
+\usepackage[parfill]{parskip} 		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{authblk}
+\usepackage[
+backend=biber,
+style=alphabetic,
+]{biblatex}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{verbatim}
+\usepackage{tikz} 
+\usepackage{subfig}
+\usepackage{hyperref}
+
+\usepackage{syntonly}
+% \syntaxonly <-- use this for checking syntax only
+% \mbox {text} - keep together
+% \fbox {text} - keep together and draw around
+
+%\pagestyle{plain|headings|empty} % header and footer p.27
+%SetFonts
+%\include{filename}, \includeonly{filename1, filename2} , \input[fiename}
+
+%SetFonts% 
+
+
+\title{Shorty Paper: Waldman-Beltrone Divsion}
+\author{Dave Fetterman}
+\affil{Obviously Unemployed}
+\date{9/29/23}
+\begin{document}
+\maketitle
+
+\section{Motivation and Standard Approach}
+
+\textbf{\emph{Suppose you were looking to receive \$1000 from a tax-deferred savings account with a tax rate of $t=40\%$.  How much would you have to withdraw in order to end up with \$1000? }}
+
+There are at least two approaches to this.  To societies who've discovered division, we can simply set up equation (1), meaning ``My post-tax remainder $r$ of what total withdrawal $x$ yields 
+\$1000?''
+
+\begin{align}
+rx = 1000 \\
+(1-t)x = 1000 \\
+x = \frac{1000}{1-t} \\ 
+\end{align}
+
+In this case, (3) show us we'd need to withdraw $\frac{1000}{1-.4} = 1666.67$ to get to 1000 after taxes.
+
+However, there does exist another way to get this figure without the bother of conventional division.
+
+\section{Iterated Withdrawal}
+
+Considered by L. F. Waldman, possibly among others, the following method \emph{also} produces the desired effect of getting the right amount of post-tax money out.
+\begin{enumerate}
+\item Start with your shortfall $x_0$. In the the above example $x_0 = 1000$.
+\item Withdraw your shortfall $x_i$ from the bank.  After setting aside tax debt $x_i \cdot t$, set your new shortfall $x_{i+1} \leftarrow x_i \cdot t$.
+\item If shortfall is less than the quantum unit of currency $\epsilon$, end with your withdrawal and debt piles completed.  Else set $i \leftarrow i+1$ and go to step (1).
+\end{enumerate}
+
+Thus, instead of withdrawing \$1666.67 and setting aside \$666.67 for taxes, we:
+\begin{itemize}
+\item \textbf{Withdraw 1000}, set aside 1000 * .4 = 400.  Total post-tax: 600.
+\item \textbf{Withdraw 400}, set aside 400 * .4 = 160.  Total post-tax: 600 + 240.
+\item \textbf{Withdraw 160}, set aside 160 * .4 = 64.   Total post-tax: 600 + 240 + 96.
+\item \textbf{Withdraw 64}, set aside 64 * .4 = 25.60.  Total Post tax = 600 + 240 + 96 + 38.4
+\item ... 
+\end{itemize}
+
+After an infinite number of iterations, We end up with \$1666.67 withdrawn from the bank, \$1000 in our pocket and \$666.67 for the tax man.  Simple!
+
+\section{Proof} 
+
+A pre-tax withdrawal of  $\frac{x}{1-t}$  before application of tax at rate $t$ produces post-tax income of $x$.  This exercise is left as proof to Larry Waldman\footnote{Also known as ``the'' reader.}.  We prove that the Waldman-Beltrone method of withdrawal also produces this result. 
+
+ If $|t| < 1$, the well known series $Q = 1 + t + t^2 + t^3 ...$ converges:
+
+\begin{align}
+Q = 1 + t + t^2 + t^3 + ... = \sum_{r=0}^{\infty} t^r\\ 
+tQ = t  + t^2 + t^3 + t^4 ... = \sum_{r=0}^{\infty} t^r \\
+(1-t)Q = 1 \\
+Q = \frac{1}{1-t} \\
+\end{align}
+
+But we see that $Q$ is exactly what we're calculating in Waldman-Beltone wfithdrawal:
+
+\begin{itemize}
+\item \textbf{Withdraw shortfall of 1000} $ = 1000 * 1 = xt^0$
+\item \textbf{ Withdraw shortfall of 400} $= 1000 * .4. = xt^1$
+\item \textbf{Withdraw shortfall of 160} $= 1000 * .4 * .4 = xt^2$
+\item \textbf{Withdraw shortfall of 64} $= 1000 * .4 * .4 * .4  = xt^3$.
+\item ...
+\end{itemize}
+
+We can see that our total withdrawal ends up being $x(1+t+t^2 + t^3 + ...) = x\frac{1}{1-t}$ as above.
+
+\section{So what?}
+
+
+This means that \emph{we can compute division $\frac{x}{d}$ with  $-1 < d < 1$ entirely from the operations of addition, subtraction, and multiplication}.  We can easily expand this to add $d \neq 0$ with the addition of a simple [decimal] shift operator  $shift(x, a)$ which shifts the decimal point $a$ units left if $a \leq 0$  and $a$ units right if $a > 0$.  If we're operating in base $b$, this means  multiplying by $b^a$.
+
+\textbf{Computing $\frac{x}{r}$ via Waldman-Beltrone division to precision $\epsilon$}:
+\begin{enumerate}
+\item Shift $r$ by $a$ places until $|r| < 1$.
+\item $tot \leftarrow 1, i \leftarrow 0, t_0 = 1-r$
+\item $t_{i+1} \leftarrow t*t_{i}, tot \leftarrow t_{i+1}$
+\item $i \leftarrow i+1$
+\item If $xt_{i} < \epsilon$, go to step 3. 
+\item Otherwise, shift $x * tot$ by $a$ places, and return.
+\end{enumerate}
+
+The advantages to W-B divison include:
+\begin{itemize}
+\item Ability to implement with only addition, subtraction (to get $t=1-r$), multiplication, and shift operators.
+\item May impresses your friends.
+\end{itemize}
+
+The disadvantages include:
+\begin{itemize}
+\item Theoretically takes infinite time to complete.
+\item Difficult and absurd.
+\end{itemize}
+
+We also acknowledge that long division also only requires the operations of addition, subtraction, multiplication, and shift (and some sort of ``compare''), but we are not personal friends with Mr. Long, nor do we care to be.
+
+\end{document}
