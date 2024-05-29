@@ -24,7 +24,7 @@ style=alphabetic,
 \usepackage{syntonly}
 
 % \syntaxonly \langle -- use this for checking syntax only
-% \mbox {text} - keep together
+% \mbox {text} - keep together	
 % \fbox {text} - keep together and draw around
 
 %\pagestyle{plain|headings|empty} % header and footer p.27
@@ -96,8 +96,86 @@ We can assume:
 \textbf{Questions}:
 \begin{enumerate}
 \item At the end of the day, suppose we see three flags on the left and one on the right.  What's the most likely value of $p$?\footnote{Given that we have no priors, we could call this the \emph{maximum likelihood estimate}. Or, the value of $p$ that makes this most probable.}
-\item Suppose we see $m$ flags on the left and $n$ flags on the right.  What's the most likely value of $p$?
+\item Suppose we see $k$ flags on the left and $n-k$ flags on the right.  What's the most likely value of $p$?
 \end{enumerate}
+
+\section{Solution}
+
+\subsection{Markov Chain Model}
+
+Rather than think of a line of pedestrians waiting to cross from either side, we should instead model this as a series of crossings from the left and right, with probabilities $p$ and $1-p$, respectively.  For example, the sequence $LRLLR$ would have probability $p(1-p)p^2(1-p)$.
+
+To describe the flags, we also have states $A_0 ... A_n$, corresponding to 0 flags on the right side of the street, 1 flag on the right, up to $n$ flags on the right.  We denote the probability of being in state $A_k$ as $a_k$.  
+
+\begin{figure}[!htb]
+\centering
+\begin{subfigure}{.5\textwidth}
+ \centering
+$ \left[\begin{array}{ccccc}
+           1-p &1-p & 0 & 0 & 0 \\ 
+           p & 0 & 1-p & 0 & 0 \\ 
+           0 & p & 0 & 1-p & 0 \\ 
+	  0 & 0 & p & 0 & 1-p \\ 
+	  0 & 0 & 0 & p & p \\ 
+           \end{array}\right] 
+           \cdot
+           \begin{bmatrix} a_0 \\ a_1 \\ a_2 \\ a_3 \\ a_4 \\
+           \end{bmatrix}
+           $
+ \caption{Transition matrix from state $\vec{a}$}
+\label{fig:markov}
+\end{subfigure}
+\end{figure}
+
+Then, starting at time $t=0$ from state distribution vector $\vec{a}$, we can use a Markov model approach to describe the probability of being in each state at time $t=1$.  The matrix $M$ in Fig.~\ref{fig:markov}, when left-multiplied with state vector $\vec{a}$ at $t=0$, produces $\vec{a}$ at $t=1$.  $M_{ij}$, meaning the element in row $i$ and column $j$, gives the probability of transitioning from state $A_j$ to $A_i$.\footnote{Note that I zero-index matrices, a CS-based habit I've not been able to break}.  The first column, then, says that we have a $1-p$ probability of transitioning from state $A_0$ to $A_0$ (a flagless left crossing) and a $p$ probability of transitioning from state $A_0$ to $A_1$ (a crossing taking one of the $n-0 =  n$ flags on the left with us).
+
+\subsection{Finding Equilibrium}
+
+A Markov matrix will always have a largest eigenvalue of $\lambda  = 1$.  Though there are other proofs of this, since repeated application of the Markov chain will neither grow nor shrink a probability vector without bound, this must be so.  
+
+With an eigenvalue $\lambda = 1$, this means we must have an eigenvector $\vec{a_\lambda}$ such that $M \cdot \vec{a_\lambda} = \lambda \cdot \vec{a_\lambda}$, or $M \cdot \vec{a_\lambda}  = \vec{a_\lambda}$.
+
+We assert without proof that $M$ is aperiodic (we're not going to get into a cycle), so by Markov chain theory, repeated application of $M$ will yield the equilibrium behavior no matter the initial state distribution $\vec{a}$, as long as the sum of the vector's values are 1.  Therefore, we need to find the equilibrium solution as shown in Fig.~\ref{fig:equilibrium}.
+
+
+\begin{figure}[!htb]
+\centering
+ \centering
+$ \left[\begin{array}{ccccc}
+           1-p &1-p & 0 & 0 & 0 \\ 
+           p & 0 & 1-p & 0 & 0 \\ 
+           0 & p & 0 & 1-p & 0 \\ 
+	  0 & 0 & p & 0 & 1-p \\ 
+	  0 & 0 & 0 & p & p \\ 
+           \end{array}\right]
+           \cdot
+           \begin{bmatrix} a_0 \\ a_1 \\ a_2 \\ a_3 \\ a_4 \\
+           \end{bmatrix}
+           = 
+           \begin{bmatrix} a_0 \\ a_1 \\ a_2 \\ a_3 \\ a_4 \\
+           \end{bmatrix}
+           $
+ \caption{Equilibrium assertion}
+\label{fig:equilibrium}
+\end{figure}
+
+
+\subsection{Finding Equilibrium}
+
+Solve for eigenvectors
+\begin{align}
+pa_3 + pa_4 = a_5 \Rightarrow a_4 = \frac{p}{1-p}a_3\\
+pa_2 + (1-p)a_4 = a_3 \Rightarrow pa_2 + pa_3 = a_3 \Rightarrow a_3 = \frac{p}{1-p}a_2\\ 
+pa_1 + (1-p)a_3 = a_2 \Rightarrow pa_1 + pa_2 = a_2 \Rightarrow a_2 = \frac{p}{1-p}a_1\\ 
+pa_0 + (1-p)a_2 = a_1 \Rightarrow pa_0 + pa_1 = a_1 \Rightarrow a_1 = \frac{p}{1-p}a_0\\ 
+(1-p)a_0 + (1-p)a_1 = a_0 \Rightarrow (1-p)a_0 + pa_0 = a_0 \\
+\end{align}
+
+We quickly see a pattern emerge where for $0 < i \leq n$, each $a_i = \frac{p}{1-p}a_{i-1}$.  This last line means $a_0$  is unconstrained, but of course the sum of the $a_i$ components are 1.  Therefore each of these can normalized by dividing out $a_0(1 + (\frac{p}{1-p})^1 + (\frac{p}{1-p})^2 +  ... + (\frac{p}{1-p})^{n-1})$. Setting $r = \frac{p}{1-p}$ for convenience, each term becomes $r^k\frac{1-r}{1-r^n}$.
+
+
+
+\subsection{Solving for p at Equilibrium}
 
 
 % == Boneyard: Some junk to use as templates from an earlier paper ==
@@ -318,7 +396,7 @@ At the 2x2 size, it should be clear that:
 \item The upper left and lower right values are necessarily equal, as are the upper right and lower left. There are four possible game sequences (completely determined by the first move), and those starting with, say, $(3,3)$ in figure 5b need to end with $(6,5)$, equivalent to $[(6,5), (3,3)]$.
 \item Because of this identity, the rows and columns all sum to the same value. (proving Lemma 1 at $n=2$)
 \item An equilibrium strategy of this zero sum game is playing each option with probability $\frac{1}{2}$, as the players are essentially playing a game of Matching Pennies\cite{1} (showing Lemma 2).
-\item Therefore, the expected payoff is the average of a(ny) row or column (showing Lemma 3).
+\item Thefore, the expected payoff is the average of a(ny) row or column (showing Lemma 3).
 \end{itemize}
 
 
