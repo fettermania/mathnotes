@@ -127,16 +127,17 @@ $ \left[\begin{array}{ccccc}
 \end{subfigure}
 \end{figure}
 
-Then, starting at time $t=0$ from state distribution vector $\vec{a}$, we can use a Markov model approach to describe the probability of being in each state at time $t=1$.  The matrix $M$ in Fig.~\ref{fig:markov}, when left-multiplied with state vector $\vec{a}$ at $t=0$, produces $\vec{a}$ at $t=1$.  $M_{ij}$, meaning the element in row $i$ and column $j$, gives the probability of transitioning from state $A_j$ to $A_i$.\footnote{Note that I zero-index matrices, a CS-based habit I've not been able to break}.  The first column, then, says that we have a $1-p$ probability of transitioning from state $A_0$ to $A_0$ (a flagless left crossing) and a $p$ probability of transitioning from state $A_0$ to $A_1$ (a crossing taking one of the $n-0 =  n$ flags on the left with us).
+Then, starting at time $t=0$ from state distribution vector $\vec{a}$, we can use a Markov model approach to describe the probability of being in each state at time $t=1$.  The matrix $M$ in Fig.~\ref{fig:markov}, when left-multiplied with state vector $\vec{a}$ at $t=0$, produces $\vec{a}$ at $t=1$.  $M_{ij}$, meaning the element in row $i$ and column $j$, gives the probability of transitioning from state $A_j$ to $A_i$.\footnote{Note that I zero-index matrices, a CS-based habit I've not been able to break} The first column, then, says that we have a $1-p$ probability of transitioning from state $A_0$ to $A_0$ (a flagless left crossing) and a $p$ probability of transitioning from state $A_0$ to $A_1$ (a crossing taking one of the $n-0 =  n$ flags on the left with us).
 
 \subsection{Finding Equilibrium}
 
+\begin{comment}
 A Markov matrix will always have a largest eigenvalue of $\lambda  = 1$.  Though there are other proofs of this, since repeated application of the Markov chain will neither grow nor shrink a probability vector without bound, this must be so.  
 
 With an eigenvalue $\lambda = 1$, this means we must have an eigenvector $\vec{a_\lambda}$ such that $M \cdot \vec{a_\lambda} = \lambda \cdot \vec{a_\lambda}$, or $M \cdot \vec{a_\lambda}  = \vec{a_\lambda}$.
+\end{comment}
 
-We assert without proof that $M$ is aperiodic (we're not going to get into a cycle), so by Markov chain theory, repeated application of $M$ will yield the equilibrium behavior no matter the initial state distribution $\vec{a}$, as long as the sum of the vector's values are 1.  Therefore, we need to find the equilibrium solution as shown in Fig.~\ref{fig:equilibrium}.
-
+We assert without proof that $M$ is aperiodic (we're not going to get into a multi-step cycle, which seems clear), so by Markov chain theory, repeated application of $M$ will yield an equilibrium behavior no matter the initial state distribution $\vec{a}$. Therefore, we need to find an equilibrium solution as shown in Fig.~\ref{fig:equilibrium}.
 
 \begin{figure}[!htb]
 \centering
@@ -162,7 +163,8 @@ $ \left[\begin{array}{ccccc}
 
 \subsection{Finding Equilibrium}
 
-Solve for eigenvectors
+Solve for the equilibrium vector (eigenvector associated with eigenvalue $\lambda = 1$):
+
 \begin{align}
 pa_3 + pa_4 = a_5 \Rightarrow a_4 = \frac{p}{1-p}a_3\\
 pa_2 + (1-p)a_4 = a_3 \Rightarrow pa_2 + pa_3 = a_3 \Rightarrow a_3 = \frac{p}{1-p}a_2\\ 
@@ -173,9 +175,31 @@ pa_0 + (1-p)a_2 = a_1 \Rightarrow pa_0 + pa_1 = a_1 \Rightarrow a_1 = \frac{p}{1
 
 We quickly see a pattern emerge where for $0 < i \leq n$, each $a_i = \frac{p}{1-p}a_{i-1}$.  This last line means $a_0$  is unconstrained, but of course the sum of the $a_i$ components are 1.  Therefore each of these can normalized by dividing out $a_0(1 + (\frac{p}{1-p})^1 + (\frac{p}{1-p})^2 +  ... + (\frac{p}{1-p})^{n-1})$. Setting $r = \frac{p}{1-p}$ for convenience, each term becomes $r^k\frac{1-r}{1-r^n}$.
 
-
-
 \subsection{Solving for p at Equilibrium}
+
+We have this formula for the equilibrium value of component $a_k$ of $\vec{a}$: $f(k) = r^k\frac{1-r}{1-r^n}$, where $r = \frac{p}{1-p}$.
+
+Though $f$ is formulaic, setting its derivative to 0 and solving means 
+\begin{align}
+0 = f'(r)  = \frac{(1-r^n)(kr^{k-1}-(k+1)r^k)+nr^{n-1}(r^k-r^{k+1})}{(1-r^n)^2} \\
+\Leftrightarrow 0 = (1-r^n)(kr^{k-1}-(k+1)r^k)+nr^{n-1}(r^k-r^{k+1}) \\
+\end{align}
+
+It is best to leave finding this roots $z$ to a numerical solver.  Once found, we can back out $p = \frac{z}{1+z}$.
+
+For $n = 4$ flags, we have solutions to $f'(k) = 0$:
+\begin{itemize}
+\item $k=0$, no solution.  This corresponds to $z=0$ and $p=0$.
+\item $k=1,  z = .56774, p = .362$
+\item $k=2,  z = 1, p = .5$
+\item $k=3,  z = 1.7614, p = .638$
+\item $k=4$, no solution.  This corresponds to $z=\infty$ and $p = 1$.
+\end{itemize}
+
+This fits the intuition that for zero flags on the right, $p = 0$ guarantees this outcome, while $p > 0$ does not.  The symmetrical argument applies for $k=n $ and $p=1$.  Finally, for $k = \frac{n}{2}$, the idea that $p=.5$ maximizes an even split makes intuitive sense.
+
+
+For an arbitrary $n,k$ pair, the same methodology should apply.
 
 
 % == Boneyard: Some junk to use as templates from an earlier paper ==
