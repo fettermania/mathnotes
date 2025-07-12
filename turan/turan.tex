@@ -1,0 +1,223 @@
+\documentclass[11pt, oneside]{article} 	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry} 		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper} 		% ... or a4paper or a5paper or ... 
+\usepackage[parfill]{parskip} 		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps¤ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{authblk}
+\usepackage{framed}
+\usepackage[
+backend=biber,
+style=alphabetic,
+]{biblatex}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{verbatim}
+\usepackage{tikz} 
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+
+
+
+\usepackage{syntonly}
+
+% \syntaxonly \langle -- use this for checking syntax only
+% \mbox {text} - keep together
+% \fbox {text} - keep together and draw around
+
+%\pagestyle{plain|headings|empty} % header and footer p.27
+%SetFonts
+%\include{filename}, \includeonly{filename1, filename2} , \input[fiename}
+
+%SetFonts% 
+
+
+\title{Turan's Theorem}
+\author{Dave Fetterman}
+\affil{Employed in not math}
+\date{7/12/25}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\begin{document}
+
+\section{Turan's Theorem Original Proof}
+
+Set
+\[
+  f(n,k)=\frac12\,n^{2}\Bigl(1-\frac1k\Bigr).
+\]
+
+\subsection*{Turan's theorem}
+
+\begin{theorem}[Turan]
+If a graph \(G=(V,E)\) on \(n\) vertices satisfies \(|E|>f(n,k)\), then \(G\) contains a \((k+1)\)-clique.
+\end{theorem}
+
+\paragraph{Contrapositive.}
+If \(G\) has no \((k+1)\)-clique, then
+\[
+  |E|\le f(n,k).
+\]
+
+\bigskip
+\textbf{Proof Plan}: If we can transform any graph  \(G=(V,E)\)  without a \((k+1)\)-clique into a graph  \(G^*=(V,E^*)\) where \(G^*\) has no  \((k+1)\)-clique, and \(|E| = |E^*| \leq f(n,k)\), the contrapositive of Turan's theorem follows directly.
+
+We consider such a set of graphs next: \(k\)-partite graphs.  
+ 
+
+
+\begin{lemma}[\(k\)-partite bound]\label{lem:kpartite}
+
+A \(k\)-partite graph on \(n\) vertices contains no \((k+1)\)-clique and satisfies
+\[
+  |E|\le f(n,k).
+\]
+(The proof of the \(k\)-partite bound lemma is in a later section.)
+\end{lemma}
+
+
+\begin{lemma}[Transformation lemma]\label{lem:transform}
+Let \(G\) be a graph on \(n\) vertices with no \((k+1)\)-clique.  
+Then there exists a \(k\)-partite graph on the same vertex set with the same number of edges, in particular:
+\[
+  |E|\le\frac12 n^{2}\Bigl(1-\frac1k\Bigr),
+\]
+Additionally, \(G\) possesses a vertex of degree at most \(n\bigl(1-\frac1k\bigr)\).
+\end{lemma}
+
+\subsection*{Base case}
+For \(n\le k+1\) the claim is immediate: the complete graph \(K_{k+1}\) contains \(\frac12(k+1)k\) edges.  If we have less than or equal to \(\frac12(k+1)k - 1\) edges, we cannot form a \(k+1\)-clique.  We show that this edge count is less than the bound.
+
+\begin{itemize}
+\item $\frac1{2}(k+1)k - 1 \leq \frac1{2}(k+1)^2\frac{k-1}{k}$
+\item $\frac1{2}k^3+\frac1{2}k^2-k \leq \frac1{2}(k^2+2k+1)(k-1)$
+\item $\frac1{2}k^3+\frac1{2}k^2-k \leq \frac1{2}k^3+k^2-\frac1{2}k-\frac1{2}$
+\item $-\frac1{2}k^2-\frac{k}{2} + \frac1{2} \leq 0$
+\end{itemize}
+
+which is clear since $k > 1$.
+
+Then, any graph avoiding a \((k+1)\)-clique already satisfies the bound and is itself \(k\)-partite (some parts may be empty).
+
+
+\subsection*{Average degree observation}
+
+Because \(|E| \leq \frac12 n^{2}(1-\frac1k)\), the average degree is at most \(n(1-\frac1k)\); hence some vertex has degree at most \(\lfloor(n(1-\frac1k)\rfloor\).
+
+\subsection*{Inductive step}
+
+Assume \(n>k+1\) and that the lemma holds for all  graph of node count \(n\) or fewer.  
+Let \(G\) be a graph on \(n+1\) vertices with no \((k+1)\)-clique.
+
+Every induced subgraph of size \(n\) also avoids \((k+1)\)-cliques and so meets the edge bound \(f(n,k)\).
+
+\bigskip
+\textbf{Goal:} find a vertex \(v\) of degree
+\[
+  \deg(v)\le D:=n-\left\lfloor\frac{n}{k}\right\rfloor.
+\]
+
+With such a vertex we delete \(v\), apply the induction hypothesis to \(G-v\) to obtain a \(k\)-partite graph, then assign \(v\) to a smallest partition (necessarily of size \(\leq \lfloor\frac{n}{k}\rfloor\)), rewiring its at most \(D\) edges across the remaining partitions.  The resulting graph is \(k\)-partite with the same edge count as \(G\).
+
+\begin{lemma}[Degree bound lemma]\label{lem:degbound}
+
+The degree bound \(\lfloor n(1-\frac1{k})\rfloor\) will be equal to the bound \(D\) if \(k\mid n\) and equal to \(D-1\) if \(k\nmid n\).
+
+\end{lemma}
+
+If \(k\mid n\) then
+\[
+ n-\Bigl\lfloor\frac{n}{k}\Bigr\rfloor=\Bigl\lfloor n\Bigl(1-\frac1k\Bigr)\Bigr\rfloor,
+\]
+ the floor operation becomes the identity and equality follows.
+ 
+If \(n = qk + r, \lfloor n(1-\frac1{k})\rfloor = \lfloor(qk+r) - q - \frac{r}{k}\rfloor\), and \(n-\lfloor \frac{n}{k}\rfloor\) = \(qk+r-\lfloor(q+\frac{r}{k})\rfloor\).
+
+Taking out the integer \(qk+r, \lfloor -q - \frac{r}{k}\rfloor < -\lfloor q + r/k\rfloor\), and they lie on either side of integer \(-q\), so \(\lfloor n(1-\frac1{k})\rfloor = 
+n- \lfloor \frac{n}{k}\rfloor  - 1\).
+
+\subsection*{Existence of a small degree vertex}
+
+\begin{itemize}
+\item If \(k\nmid n\), choose any subset of \(n\) vertices of \(G\), which has \(n+1\) nodes.
+
+  By induction the subset contains a vertex \(w\) of degree \(\le n(1-\frac1k)\), which is  \(\leq D - 1\) by the Degree Bound Lemma, so the whole graph has such a vertex.  Even if \( (v, w) \in E\), \(w\) satisfies the degree bound.
+
+\item Suppose now \(k\mid n\) (no more floors!) and, toward contradiction, that every vertex satisfies \(\deg(v) \geq D+1\).
+
+  Count edges in all \(\binom{n+1}{n}=n+1\) induced \(n\)-vertex subgraphs.  
+  By induction each has at most
+  \[
+    f(n,k)=\frac12 n^{2}\Bigl(1-\frac1k\Bigr)
+  \]
+  edges.  Summing and dividing by the multiplicity \(n-1\) with which each edge is counted (two subgraphs will contain its endpoints), we obtain an upper bound
+  \[
+    T_{\text{upper}}=\frac{n+1}{n-1}f(n,k).
+  \]
+
+  On the other hand, our degree assumption forces at least
+  \[
+    T_{\text{lower}}=\frac{n+1}{2}\bigl(n-\tfrac{n}{k}+1\bigr)
+  \]
+  edges in total.  Compute
+  \[
+    T_{\text{lower}}-T_{\text{upper}}
+    =\frac{n+1}{2}\,\frac{n-k}{k(n-1)}>0
+  \]
+  because \(n>k\).  This contradiction establishes that a vertex of degree \(\le D\) exists.
+\end{itemize}
+
+\subsection*{Completion of the inductive step}
+
+Removing the low-degree vertex and applying the rewiring argument yields a \(k\)-partite graph on \(n+1\) vertices with the same edge count as \(G\).  
+Hence every \((n+1)\)-vertex graph without a \((k+1)\)-clique satisfies
+\[
+  |E|\le\frac12 n^{2}\Bigl(1-\frac1k\Bigr).
+\]
+
+\bigskip
+\noindent
+\textbf{Corollary (Turan).}\;
+If \(|E|>\frac12 n^{2}(1-\frac1k)\) then \(G\) must contain a \((k+1)\)-clique.
+
+
+\section{Proof of k-partite lemma}
+
+A \(k\)-partite graph (perhaps a real term but I'll use it here) has \(k\) partitions of nodes, within which all are disconnected.  The nodes from differing partitions may connect.  A \em{perfectly balanced} graph has partitions all of equal size.
+
+\begin{proposition}
+The edge-count formula of a perfectly balanced $k$-partite graph is
+\[
+E_p(n,k)=\frac{n^{2}}{2}\Bigl(1-\frac{1}{k}\Bigr).
+\]
+\end{proposition}
+
+Each of \(n\) nodes connects to \(n\frac{k-1}{k}\) nodes in other partitions.  We divide by two to get the number of edges.
+
+\begin{proposition}
+The edge-count formula of a perfectly balanced graph of node total $n$ is the upper bound to any partitioning of nodes among $k$ partitions.
+\end{proposition}
+
+We are looking at maximizing $f(\vec{a}) = \frac1{2}\sum_{i \neq j; i, j < k}^k a_i a_j$, where $a_i$ is the node count of partition $i$.
+
+We can write this as $f(\vec{a}) = \frac1{2}\sum_{i \neq j; i, j < k} a_i a_j =  (\sum_i^k a_i)^2-  \frac1{2} \sum_i^k{a_i}^2  = n^2-  \frac1{2} \sum_i^k{a_i}^2 $.  So we are looking at minimizing the final term to maximize $f(\vec{a})$
+
+Consider the definition of statistical variance: $Var(a_1, a_2 ... a_k) = \sum_{i=1}^k (a_i - \bar{a})^2 =  \sum_{i=1}^k (a_i^2 - 2\bar{a}a_i+\bar{a}^2) $.
+
+So $Var(a_1, a_2 ... a_k) = \frac1{k}[\sum_{i=1}^k (a_i^2) - 2\bar{a}(\sum_{i=1}^k a_i) + k\bar{a}^2]$
+
+Thus, ignoring constant terms, minimizing $Var(a_1, a_2 ... a_k)$ is the same as minimizing  $\sum_{i=1}^k{a_i}^2$.  But the variance reaches its minimum at zero when all values $a_i$ are equal.  This is therefore bounded by the edge count of the equal partition $E_p(n,k)=\frac{n^{2}}{2}\Bigl(1-\frac{1}{k}\Bigr).$
+
+\subsection{Conclusion}
+Therefore, any $k$-partite graph has less than or equal to $\frac{n^{2}}{2}\Bigl(1-\frac{1}{k}\Bigr)$ edges.
+
+
+
+
+\end{document}
