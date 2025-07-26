@@ -21,6 +21,8 @@ style=alphabetic,
 \captionsetup{compatibility=false}
 
 
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, decorations.pathreplacing}
 
 \usepackage{syntonly}
 
@@ -35,7 +37,7 @@ style=alphabetic,
 %SetFonts% 
 
 
-\title{Turan's Theorem}
+\title{Original Graph Theorem Proofs}
 \author{Dave Fetterman}
 \affil{Employed in not math}
 \date{7/12/25}
@@ -43,12 +45,356 @@ style=alphabetic,
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
 
 \begin{document}
 
+\section{Menger's Theorem}
+
+\begin{theorem}[Menger's Theorem]
+Let $G$ be a finite undirected graph and $A$ and $B$ two disjoint subsets of vertices. Then the minimum number of vertices that need to be removed to disconnect $A$ from $B$ is equal to the maximum number of vertex-disjoint paths from $A$ to $B$.
+\end{theorem}
+
+\begin{proof}
+On a graph $G$,  define $n(G)$ as the number of vertex-disjoint paths between $A$ and $B$, and the minimum cut as $m(G)$.
+
+\paragraph{$m \geq n$:} If we have $N = n(G)$ vertex-disjoint paths and we remove $M < n(G)$ of these vertices, $A$ and $B$ must still be connected through at least one path since no paths can share a vertex.
+
+\paragraph{$n \geq m$:}  For any graph $G = (V,E)$, we prove by induction on induced subgraphs of size $k$ (remove all but $k$ nodes). 
+
+Base Case: $k = 0, 1$ are meaningless, with no paths available.  So remove all but 2 vertices from $G$.  If they are connected, $m(G)= n(G) = 1$.  If not, $m(G) = n(G) = 0$.  The condition holds.
+
+Inductive Case: Say for any induced subgraph $G^* = (V^*, E^*)$ of $G$, where $|V^*| = k -1, n(G*) \geq m(G*)$. 
+
+If adding a node $v$ (and its edges incident to $V^*$) back into $G^*$ does not increase the number of vertex-disjoint paths, then our condition holds, since removing $v$ (adding it to the cut set) doesn't change $n(G)$ or $m(G)$. 
+
+If doing so \emph{does} increase the number of vertex-disjoint paths, then it can do so only by one: Cutting $v$ yields $G^*$, where the condition holds, and adding $v$ may increase the cut set by one, but can only add one more vertex-disjoint path to $G*$ (informally, you can't use $v$ more than once).
+\end{proof}
+
+Therefore $m(G) = n(G)$.
+
+
+
+\section{K\"onig's Theorem}
+
+\begin{theorem}[K\"onig's Theorem]
+In a bipartite graph, the size of the maximum matching equals the size of the minimum vertex cover (a set of nodes that together touch every edge).
+\end{theorem}
+
+\begin{proof}
+Assume we have nodes $\{a_i\}$ in one independent set and $\{b_i\}$ in the other independent set of the bipartite graph.
+
+Relabel them so our maximum matching is $(a_1, b_1) \ldots (a_m, b_m)$. This means there are sets of nodes $\{a_{m+i} \}$ ($i > 0$) that only connect to $b_1 \ldots b_m$ and nodes $\{b_{m+i}\}$ ($i > 0$) that only connect to $a_1 \ldots a_m$.
+
+If some $a_{m+j}, j > 0$ connects to $b_i$, $1 \leq i \leq m$, then no $b_{m+k}$, $k > 0$ can connect to $a_i$, since then we would have a bigger matching by removing $(a_i, b_i)$ and adding $(a_{m+j}, b_i)$ and $(a_i, b_{m+k})$, a contradiction of our assumptions.
+
+Therefore, for every node in the $a$-component outside the matching, add to the cover any adjacent $b_i$ in the matching (and vice versa for every $b$ node outside the matching).  And there can be no nodes in the $b$-component outside the matching connecting to $a_i$, so only one of $a_i, b_i$ will be selected.  If $a_i$ and $b_i$ have no adjacencies outside the matching, or have not been selected after all the non-matched nodes are covered, then select either one for the cover.  Therefore, we will have exactly one node in the cover for every edge in the matching.
+
+This vertex cover covers all nodes outside the original matching and clearly covers all the nodes $a_1 \ldots a_m, b_1 \ldots b_m$ too.  It is the minimum as any node set smaller than size $m$ cannot cover the nodes in the matching.
+
+\end{proof}
+
+\begin{tikzpicture}[node distance=1cm]
+    % First row
+    \node[circle, draw, minimum size=6mm] (a1) at (0,0) {};
+    \node[circle, draw, minimum size=6mm] (b1) at (4,0) {};
+    \node[left=2mm of a1] {$a_1$};
+    \node[right=2mm of b1] {$b_1$};
+    \draw[thick, teal] (a1) -- (b1);
+    
+    % Second row
+    \node[circle, draw, minimum size=6mm] (a2) at (0,-1) {};
+    \node[circle, draw, minimum size=6mm] (b2) at (4,-1) {};
+    \node[left=2mm of a2] {$a_2$};
+    \node[right=2mm of b2] {$b_2$};
+    \draw[thick, teal] (a2) -- (b2);
+    
+    % Third row
+    \node[circle, draw, minimum size=6mm] (a3) at (0,-2) {};
+    \node[circle, draw, minimum size=6mm] (b3) at (4,-2) {};
+    \node[left=2mm of a3] {$a_3$};
+    \node[right=2mm of b3] {$b_3$};
+    \draw[thick, teal] (a3) -- (b3);
+    
+    % First set of vertical dots
+    \node at (0,-3) {$\vdots$};
+    \node at (4,-3) {$\vdots$};
+    
+    % a_k, b_k matched pair
+    \node[circle, draw, minimum size=6mm] (ak) at (0,-4) {};
+    \node[circle, draw, minimum size=6mm] (bk) at (4,-4) {};
+    \node[left=2mm of ak] {$a_i$};
+    \node[right=2mm of bk] {$b_i$};
+    \draw[thick, teal] (ak) -- (bk);
+    
+    % Second set of vertical dots
+    \node at (0,-5) {$\vdots$};
+    \node at (4,-5) {$\vdots$};
+    
+    % a_m, b_m matched pair
+    \node[circle, draw, minimum size=6mm] (am) at (0,-6) {};
+    \node[circle, draw, minimum size=6mm] (bm) at (4,-6) {};
+    \node[left=2mm of am] {$a_m$};
+    \node[right=2mm of bm] {$b_m$};
+    \draw[thick, teal] (am) -- (bm);
+    
+    % Third set of vertical dots
+    \node at (0,-7) {$\vdots$};
+    \node at (4,-7) {$\vdots$};
+    
+    % Unmatched nodes
+    \node[circle, draw, minimum size=6mm] (amj) at (0,-8) {};
+    \node[circle, draw, minimum size=6mm] (bnk) at (4,-8) {};
+    \node[left=2mm of amj] {$a_{m+j}$};
+    \node[right=2mm of bnk] {$b_{m+k}$};
+    
+    % Connections from unmatched to matched
+    \draw[thick, red] (amj) -- (bk);
+    \draw[thick, red] (bnk) -- (ak);
+    
+\end{tikzpicture}
+
+\section{Brooks's Theorem - TODO}
+\begin{theorem}If a graph $G$ is not a clique and not an odd cycle and has maximum degree $d$, it can be properly colored with $d$ colors.
+\end{theorem}
+
+
+First, some lemmas.  Call graphs which are not themselves odd cycles or complete graphs \emph{allowed graphs}.
+
+Note: TODO - if $d = 2$ at any point, it's a set of components, each of which are cycles. So these fit brooks right away.  Where can we asume $d \geq 3$?
+
+\begin{lemma}[Augmented odd cycle] If an allowed graph $G$ consists of an odd cycle $C_n$ plus an additional node $v$, it is colorable with maximum degree = $d$ colors.
+\emph{Proof}: $G - v = C_n$ is colorable in three colors, an alternating chain of $\frac{n-1}{2}$ red, blue pairs, plus a final green node.  Since $G$ is an allowed graph, $v$ is connected to $C_n$, and therefore some node in $C_n$ has degree $\geq 3$. 
+
+If $deg(v) \geq 4$, color $v$ yellow, and $\chi(G) = 3 < d$.  If $deg(v) \leq 2$, a color is clearly available, so $\chi(G) = 3 = d$.  If $deg(v) = 3$, we consider first $|V| = 4$.  This is disallowed since $G$ would be a complete graph.  Then since $|V| \geq 5 \rightarrow n \geq 4$, there is a node unconnected to $v$.  Rotate the colors of $C_n$ so this one is green and color $v$ green. Then $\chi(G) = 3 = d$.
+\end{lemma}
+
+\begin{lemma}[Augmented complete graph] If an allowed graph $G$ consists of an odd cycle $K_n$ plus an additional node $v$, it is colorable with maximum degree = $d$ colors.
+\emph{Proof}: $K_n$ is clearly colorable in $n$ colors.  Since $G = (V, E) $ is an allowed graph, $0 < deg(v)< n$, and $v$ is connected to $K_n$ in $G$.  This means some node in $K_n$ must have degree $n$.  Additionally, since $G$ is an allowed graph, there must be some node $w, (v,w) \notin E$ with degree = $n-1$.  Color $v$ the same as $w$.  The graph is colorable in $n$ colors, with max degree $n$.
+
+\end{lemma}
+
+\textbf{Proof of Brooks's theorem}:
+
+\emph{Note}: We assume this is a connected graph; if it's a disconnected graph, then the maximum degree of the component will be less than or equal to that of the graph, and we can color each component separately by the procedure below.
+
+We will take any allowed $G$ and proceed by induction on induced subgraphs $G^*=(V^*, E^*)$ of $G$. 
+
+Base Case: $|G^*| = 1$: The graph is a single node, a clique of size 1, colorable with one color.
+
+Inductive Case: Assume for all induced subgraphs of $G^*$ of $G = (V,E)$, the proposition holds and $G$ is not an odd cycle or a complete graph and has max degree $d$.
+
+Remove a node $v$ of lowest degree in $G$.  Consider the induced graph $G^* = G - v$, with max degree $d$, colorable in $d$ colors.
+
+First, we assume $d \geq 3$, since otherwise we are done:
+\begin{itemize}
+\item If $d = 1$,  we have a set of pairs. If $deg(v)$ = 1, $G$ is 2-colorable.  If $deg(v) = 2$, and it is connected to two nodes in a pair, we have a disallowed subgraph.  If  $deg(v) = 2$ and it is connected to two different pairs, that path is two-colorable.  If $deg(v) \geq 3$, color the pairs red-blue and $v$ green.
+\item if $d = 2$, and does not include an odd cycle component (handled below), then including $v$ brings $d$ to 3.  Color the even cycles red-blue and $v$ green.
+\end{itemize}
+
+\begin{itemize} 
+\item If the induced graph is an odd cycle, then $G$ is colorable in 3 colors by the Augmented Odd Cycle lemma.
+\item  If the induced graph is a complete graph, then $G$ is colorable by the Augmented Complete Graph lemma.
+\item If the maximum degree $d$ of $G^*$ is greater than $deg(v)$, color the induced graph with $d$ colors, and there will be at least one left for $v$.
+\end{itemize}
+
+We assume every node in $G*$ has degree at most $v$ (TODO, can we have all degree 4, and removing a degree 4 makes it all degree 3?)
+
+We will illustrate this with $d = 3$ in $G^*$ (thus $d \leq 4$ in $G$) and then argue this generalizes to $d >  3$ in $G^*$.
+
+Include $v$, uncolored, back in the graph as shown:
+
+\begin{tikzpicture}[scale=1.5]
+  % Define node positions
+  \node[circle, fill=red, inner sep=3pt, label=below:A] (A) at (-2, 0) {};
+  \node[circle, fill=green, inner sep=3pt, label=below:B] (B) at (0, -1) {};
+  \node[circle, fill=blue, inner sep=3pt, label=below right:C] (C) at (2, 0) {};
+  \node[circle, fill=blue, inner sep=3pt, label=above left:D] (D) at (-2, 2) {};
+  \node[circle, fill=red, inner sep=3pt, label=above right:E] (E) at (2, 2) {};
+  \node[circle, fill=black, inner sep=3pt, label=below:V] (V) at (0, -2.5) {};
+  
+  % Draw dashed paths with alternating colors
+  % Path from D to E (blue and red dashes)
+  \draw[blue, dashed, line width=1.5pt] (D) to[bend left=20] (E);
+  \draw[red, dashed, line width=1.5pt, dash pattern=on 3pt off 6pt, dash phase=4.5pt] (D) to[bend left=20] (E);
+  
+  % Path from A to B (green and red dashes)
+  \draw[green, dashed, line width=1.5pt] (A) -- (B);
+  \draw[red, dashed, line width=1.5pt, dash pattern=on 3pt off 6pt, dash phase=4.5pt] (A) -- (B);
+  
+  % Path from B to C (blue and green dashes)
+  \draw[blue, dashed, line width=1.5pt] (B) -- (C);
+  \draw[green, dashed, line width=1.5pt, dash pattern=on 3pt off 6pt, dash phase=4.5pt] (B) -- (C);
+  
+  % Connections to V (solid black lines)
+  \draw[black, line width=1pt] (A) -- (V);
+  \draw[black, line width=1pt] (B) -- (V);
+  \draw[black, line width=1pt] (C) -- (V);
+  
+  % Additional connections
+  \draw[black, line width=1pt] (A) -- (D);
+  \draw[black, line width=1pt] (C) -- (E);
+\end{tikzpicture}
+
+Our goal is to change the number of colors among $\{A, B, C\}$ to less than three.  If that is the case,then $v$ has a free one to select and we're done.
+
+More assumptions:
+\begin{itemize}
+\item If two of $v$'s neighbors share a color already, then we're done.  Therefore, assume $v$'s neighbors $A$, $B$, and $C$ are colored red, green, and blue, respectively.
+\item (*) We show paths between A and C (ignoring D and E for the moment), A and B, and B and C, possibly just a single edge.  They cannot all be single edges, however.  If so, $G = \{A,B,C,V\}$ was a complete subgraph $K_4$.  If disconnected from the rest of the graph, we have a disallowed condition.  If one of these nodes shares an edge outside of this set with some node $w$, then the max degree of $G^*$ is 4 and $v$ can be colored yellow.  So at least one of the three paths has more than one edge (and since alternating colors, must have at least three edges).
+\item If there is not an alternating red-blue path from A to C, then switch red and blue along that path and and transitive neighbors.  The graph will still be valid, with A and C both blue.  Color V red.
+\item The same logic applies for red-green paths between A and B, and blue-green paths between B and C.
+\item So assume there are these three alternating colors paths as shown in the figure.
+\item (*) Note that paths between  A and B,  B and C, and A and C can be possibly just a single edge.  They cannot all be single edges, however.  If so, $G = \{A,B,C,V\}$ is a complete subgraph $K_4$.  If disconnected from the rest of the graph, we have a disallowed condition.  If one of these nodes shares an edge outside of this set with some node $w$, then the max degree of $G^*$ is 4 and $v$ can be colored yellow.  So some path needs to have at least four nodes instead of two. Without loss of generality, we'll pick the red-blue path, which must include nodes D and E beyond A and C.
+\end{itemize}
+
+If any one of these three paths (A,B), (B,C), (A,C) can be flipped without flipping both endpoints, we can color v.
+
+We introduce another other lemma to help us do our flipping:
+
+\begin{lemma}[Splitting Lemma]
+If an alternating color path starting from some node $v$ and proceeding $v_1, v_2...$ encounters a node  $v_i$ where two succesive nodes share a color, then then transitive chain starting from $v .. v_i$ can be flipped.
+\end{lemma}
+Proof: If in, say a red-blue chain, $v_{i-1}$ is transfomred to red, $v_i$ has been transformed to blue, and $v_{i+1, 1}$ and $v_{i+1, 2}$ are both green, the chain must stop due to the degree of $v_i$.  If $v_{i+1, 1}$ and $v_{i+1, 2}$ are both blue, change $v_i$ to green.  The whole sequence $v ... v_i$ can then be flipped (with $v_i$ ending up in two possible valid states.  In either case, $v$ has been flipped.
+
+\begin{tikzpicture}[scale=1.5]
+  % Define node positions in equilateral triangle formation
+  \node[circle, fill=blue, inner sep=3pt, label=below:w] (w) at (0, -1.732) {};
+  \node[circle, fill=green, inner sep=3pt, label=above left:y] (y) at (-1.5, 0.866) {};
+  \node[circle, fill=green, inner sep=3pt, label=above right:z] (z) at (1.5, 0.866) {};
+  \node[circle, fill=red, inner sep=3pt, label=center:x] (x) at (0, 0) {};
+  
+  % Draw arrows
+  \draw[->, black, line width=1.5pt] (w) -- (x);
+  \draw[->, black, line width=1.5pt] (x) -- (y);
+  \draw[->, black, line width=1.5pt] (x) -- (z);
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[scale=1.5]
+  % Define node positions in equilateral triangle formation
+  \node[circle, fill=blue, inner sep=3pt, label=below:w] (w) at (0, -1.732) {};
+  \node[circle, fill=blue, inner sep=3pt, label=above left:y] (y) at (-1.5, 0.866) {};
+  \node[circle, fill=blue, inner sep=3pt, label=above right:z] (z) at (1.5, 0.866) {};
+  \node[circle, fill=red, inner sep=3pt, label=center:x] (x) at (0, 0) {};
+  
+  % Draw arrows
+  \draw[->, black, line width=1.5pt] (w) -- (x);
+  \draw[->, black, line width=1.5pt] (x) -- (y);
+  \draw[->, black, line width=1.5pt] (x) -- (z);
+\end{tikzpicture}
+
+
+In particular, this means that if chains of two colors SPLIT into child chains, the original chain can be flipped up to the point of intersection.
+
+
+\begin{corollary}[No crossing Lemma]
+If two alternating chains meet, they cannot both continue from the point of intersection without one being flippable.
+\end{corollary}
+Similarly to the splitting lemma, this means there are four node adjacent to the point of intersection, and therefore at least two colors unrepresented in the neigbhor set, and the intersection can be colored with one of htese.
+
+\begin{tikzpicture}[scale=1.5]
+  % Define node positions in square formation (clockwise from top-left)
+  \node[circle, fill=blue, inner sep=3pt, label=above left:v] (v) at (-1.5, 1.5) {};
+  \node[circle, fill=green, inner sep=3pt, label=above right:w] (w) at (1.5, 1.5) {};
+  \node[circle, fill=blue, inner sep=3pt, label=below right:y] (y) at (1.5, -1.5) {};
+  \node[circle, fill=green, inner sep=3pt, label=below left:z] (z) at (-1.5, -1.5) {};
+  \node[circle, fill=red, inner sep=3pt, label=center:x] (x) at (0, 0) {};
+  
+  % Draw lines (no arrows) from each corner to center
+  \draw[black, line width=1.5pt] (v) -- (x);
+  \draw[black, line width=1.5pt] (w) -- (x);
+  \draw[black, line width=1.5pt] (y) -- (x);
+  \draw[black, line width=1.5pt] (z) -- (x);
+\end{tikzpicture}
+
+
+\textbf{Coloring the figure}
+
+Consider the figure again, and consider a blue-green chain from node D.
+\begin{itemize}
+\item There must be a blue-green chain (of some positive length) from D, otherwise D has three red neighbors, and the splitting lemma applies when trying to draw a red-blue chain from A to C.
+\item That blue-geen chain cannot intersect the chain from B to C, otherwise the splitting lemma applies when trying to draw a red-green path from B to C.
+\item If the blue-green chain does not intersect the red-gren chain from A to B (or splits on the way, meaning D can be made green), A has two green neighbors and can be colored blue.  Color $v$ red.
+\item If the blue green chain DOES intersect the red-green chain from A to B at some formerly, green node $w$, and if $w$ is not adjacent to $A$, $A$ still has two green neighbors and can be made blue, and $v$ red.
+\item If in the last case, $w$ is adjacent to A, then A has a blue neighbbor and a green neighbor.  However, C now either connects to A (through E) through a split path, or not at all.  So C can be flipped to red, and V to blue.
+\end{itemize}
+
+When flipping a path starting from A, B, or C, if the number of colors available is less than $d$, we can always end the chain there.  This means, no matter how many colors beyond three we have, if a chain can "split", or if every node doesn't have $d-1$ colors adjacent to it (excluding its own color), then we can stop our path flipping at that spot and convert the color of origin (in our case, A, B, or C).
+
+\begin{tikzpicture}[scale=1.5]
+  % Define node positions in equilateral triangle formation
+  \node[circle, fill=blue, inner sep=3pt, label=below:w] (w) at (0, -1.732) {};
+  \node[circle, fill=green, inner sep=3pt, label=above left:y] (y) at (-1.5, 0.866) {};
+  \node[circle, fill=green, inner sep=3pt, label=above right:z] (z) at (1.5, 0.866) {};
+  \node[circle, fill=red, inner sep=3pt, label=center:x] (x) at (0, 0) {};
+  
+  % Additional unlabeled nodes
+  \node[circle, fill=orange, inner sep=3pt] (orange) at (-2.5, -0.5) {};
+  \node[circle, fill=yellow, inner sep=3pt] (yellow) at (2.5, -0.5) {};
+  
+  % Draw arrows for original triangle pattern
+  \draw[-, black, line width=1.5pt] (w) -- (x);
+  \draw[-, black, line width=1.5pt] (x) -- (y);
+  \draw[-, black, line width=1.5pt] (x) -- (z);
+  
+  % Connect center to additional nodes
+  \draw[-, black, line width=1.5pt] (x) -- (orange);
+  \draw[-, black, line width=1.5pt] (x) -- (yellow);
+\end{tikzpicture}
+
+Therefore, even if $d = 3 + j, j > 0$, we can ignore all of the $j$ colors outside of these three when constructing these paths.  The arugment for at least one cycle of degree greater than three (marked (*) above) holds as well, since complete graphs of degree $d$ follow the same argument
+
+
+\section{Lovasz's Theorem and Cobipartite Graphs}
+
+\begin{definition}[Perfect Graph]
+A weakly perfect graph $G$ has a chromatic number $\chi(G)$ (the number of colors required for a vertex coloring) equal to its clique number $\omega(G)$ (the size of its largest fully-connected subgraph or \emph{clique}).  A refinement of this, a strongly perfect graph $G$, has this property for every induced subgraph $G^* \subset G$.
+\end{definition}
+
+\begin{theorem}[Lovasz]
+The complement of any perfect graph is perfect.
+\end{theorem}
+
+Let's start with a seemingly smaller theorem: A cobipartite graph (complement of a bipartite graph) is perfect.  Since a bipartite graph is clearly perfect (chromatic number of two, clique number of two), showing this proves Lovasz's theorem for a subset of graphs.
+
+In a cobipartite graph, there are two cliques, $K_m$ and $K_n$, with some set of connections between them.
+
+Denote the maximum clique $C_m \cup C_n$, where $C_m \subseteq K_m$, $C_n \subseteq K_n$, and call $M$ the remaining nodes in $K_m$.  These are the nodes we need to color in $|C_n|$ colors to show$ K_m \cup K_n$ is a weakly perfect graph.
+
+Define the fanout $F(S)$ of a subset of $S \subseteq M$ as the set of nodes in $M$ that are NOT connected to $C_n$.  (This is an odd name, but it defines the set of colors $M$ can take).
+
+\begin{lemma}[Expanding fanout lemma]
+$|F(S)| \geq |S|$ for all $S \subseteq M.$
+\end{lemma}
+
+\emph{Proof:} Suppose that $|F(S)| < |S|$ for some $S \subseteq M$.  This means that $S$ is connected to all of $C_m$ (since $M \subset K_m$), and everything in $C_n$ except some set $F(S)$.  However, the clique $S \cup C_m \cap (C_n - F(S))$ is larger than $C_m \cap C_n$ since $|F(S)| < |S|$, which contradicts the maximality of $C_m \cap C_n$.
+
+This also implies that $|F(M)| \geq |M|$, so $|C_n| \geq |M|$.
+
+\begin{lemma}[Fanout colorability lemma]
+ For every such $S \subseteq M$ with fanout $F(S)$ where $|F(S)| \geq |S|$, $S$ can be colored with the colors of $F(S)$.
+\end{lemma}
+
+We proceed by induction.  
+
+Base case: If $|S| = 1$, then there is at least one node in $C_n$ unconnected to $S$, and we color it trivially.
+
+Inductive step: 
+The inductive step will be by contradiction.  Suppose this is true for all $|S| < k$ but NOT true for $|S| = k$.  First, if there is a subset of $T$ of $S$ where $|T| = |F(T)|$, then $|F(S-T)| \geq |S-T|$, and we have two smaller sets we can color separately by inductive hypothesis.  Thus, we assume $|F(T)| > |T|$ for all $T \subset S$.
+
+If $T$ and $S-T$ both have fanouts larger than they, then they have to intersect in some node $X \in F(S)$.  Color this node in $T$ the color of the corresponding node in $C_n$ (remember, they are the ones NOT connected to $C_n$) and remove it from $T$ and $S-T$.  These reduced sets are colorable by inductive hypothesis. 
+
+Therefore, $M$ can be colored with the colors of $C_n$,  and by symmetry, $N$ can be colored with the colors of $C_m$.
+
+\textbf{Lovasz:} Say a graph is perfect and colorable in $k$ colors.  This is actually a $k$-partite graph, where each partition corresponds to one of the $k$ colors.  Its complement has cliques $K_1 ... K_k$ with some maximal clique among them.
+
+The logic of the cobipartite graph applies completely; when discussing some $M$ excluded from the maximal clique, it did not matter how $C_n$ was distributed among other partitions.  In a bipartite graph, they were all in a second partition, but in a $k$-partite graph, they could just as easily be spread among $k-1$ partitions.  So each excluded subset $M_i$ of a partition can be colored with the colors of its fanout (among all $K_j, j \neq i$), no matter where they are grouped, and we have a  perfect graph.  We can say that a weakly perfect graph has a weakly perfect complement and by the Expanding Fanout Lemma, which will hold on every induced subgraph, a strongly perfect graph has a strongly perfect complement.
+
+
 \section{Turan's Theorem Original Proof}
 
-Set
+Define:
 \[
   f(n,k)=\frac12\,n^{2}\Bigl(1-\frac1k\Bigr).
 \]
@@ -56,7 +402,7 @@ Set
 \subsection*{Turan's theorem}
 
 \begin{theorem}[Turan]
-If a graph \(G=(V,E)\) on \(n\) vertices satisfies \(|E|>f(n,k)\), then \(G\) contains a \((k+1)\)-clique.
+If a graph \(G=(V,E)\) on \(n\) nodes satisfies \(|E|>f(n,k)\), then \(G\) contains a \((k+1)\)-clique.
 \end{theorem}
 
 \paragraph{Contrapositive.}
@@ -66,15 +412,14 @@ If \(G\) has no \((k+1)\)-clique, then
 \]
 
 \bigskip
-\textbf{Proof Plan}: If we can transform any graph  \(G=(V,E)\)  without a \((k+1)\)-clique into a graph  \(G^*=(V,E^*)\) where \(G^*\) has no  \((k+1)\)-clique, and \(|E| = |E^*| \leq f(n,k)\), the contrapositive of Turan's theorem follows directly.
+\textbf{Proof Plan}: If we can transform any graph  \(G=(V,E)\)  without a \((k+1)\)-clique into a graph  \(G^*=(V,E^*)\) where \(G^*\) has no  \((k+1)\)-clique and \(|E| = |E^*| \leq f(n,k)\), the contrapositive of Turan's theorem follows directly.
 
-We consider such a set of graphs next: \(k\)-partite graphs.  
- 
+We consider such a set of graphs next: \(k\)-partite graphs.  An example of these is bipartite graphs ($k=2$).
 
 
 \begin{lemma}[\(k\)-partite bound]\label{lem:kpartite}
 
-A \(k\)-partite graph on \(n\) vertices contains no \((k+1)\)-clique and satisfies
+A \(k\)-partite graph on \(n\) nodes contains no \((k+1)\)-clique and satisfies
 \[
   |E|\le f(n,k).
 \]
@@ -83,51 +428,50 @@ A \(k\)-partite graph on \(n\) vertices contains no \((k+1)\)-clique and satisfi
 
 
 \begin{lemma}[Transformation lemma]\label{lem:transform}
-Let \(G\) be a graph on \(n\) vertices with no \((k+1)\)-clique.  
-Then there exists a \(k\)-partite graph on the same vertex set with the same number of edges, in particular:
+Let \(G\) be a graph on \(n\) nodes with no \((k+1)\)-clique.  
+Then there exists a \(k\)-partite graph on the same node set with the same number of edges, in particular:
 \[
   |E|\le\frac12 n^{2}\Bigl(1-\frac1k\Bigr),
 \]
-Additionally, \(G\) possesses a vertex of degree at most \(n\bigl(1-\frac1k\bigr)\).
+Additionally, \(G\) possesses a node of degree at most \(n\bigl(1-\frac1k\bigr)\).
 \end{lemma}
 
 \subsection*{Base case}
 For \(n\le k+1\) the claim is immediate: the complete graph \(K_{k+1}\) contains \(\frac12(k+1)k\) edges.  If we have less than or equal to \(\frac12(k+1)k - 1\) edges, we cannot form a \(k+1\)-clique.  We show that this edge count is less than the bound.
 
-\begin{itemize}
-\item $\frac1{2}(k+1)k - 1 \leq \frac1{2}(k+1)^2\frac{k-1}{k}$
-\item $\frac1{2}k^3+\frac1{2}k^2-k \leq \frac1{2}(k^2+2k+1)(k-1)$
-\item $\frac1{2}k^3+\frac1{2}k^2-k \leq \frac1{2}k^3+k^2-\frac1{2}k-\frac1{2}$
-\item $-\frac1{2}k^2-\frac{k}{2} + \frac1{2} \leq 0$
-\end{itemize}
+\begin{align}
+-\frac1{2}k^2-\frac{k}{2} + \frac1{2} \leq 0  \\
+\frac1{2}k^3+\frac1{2}k^2-k \leq \frac1{2}k^3+k^2-\frac1{2}k-\frac1{2} \\
+\frac1{2}k^3+\frac1{2}k^2-k \leq \frac1{2}(k^2+2k+1)(k-1) \\
+\frac1{2}(k+1)k - 1 \leq \frac1{2}(k+1)^2\frac{k-1}{k} 
+\end{align}
 
-which is clear since $k > 1$.
+
+(1) is clear since $k > 1$.
 
 Then, any graph avoiding a \((k+1)\)-clique already satisfies the bound and is itself \(k\)-partite (some parts may be empty).
 
 
-\subsection*{Average degree observation}
-
-Because \(|E| \leq \frac12 n^{2}(1-\frac1k)\), the average degree is at most \(n(1-\frac1k)\); hence some vertex has degree at most \(\lfloor(n(1-\frac1k)\rfloor\).
+Because \(|E| \leq \frac12 n^{2}(1-\frac1k)\), the average degree is at most \(n(1-\frac1k)\); hence some node has degree at most \(\lfloor(n(1-\frac1k)\rfloor\).
 
 \subsection*{Inductive step}
 
 Assume \(n>k+1\) and that the lemma holds for all  graph of node count \(n\) or fewer.  
-Let \(G\) be a graph on \(n+1\) vertices with no \((k+1)\)-clique.
+Let \(G\) be a graph on \(n+1\) nodes with no \((k+1)\)-clique.
 
 Every induced subgraph of size \(n\) also avoids \((k+1)\)-cliques and so meets the edge bound \(f(n,k)\).
 
 \bigskip
-\textbf{Goal:} find a vertex \(v\) of degree
+\textbf{Goal:} find a node \(v\) of degree
 \[
   \deg(v)\le D:=n-\left\lfloor\frac{n}{k}\right\rfloor.
 \]
 
-With such a vertex we delete \(v\), apply the induction hypothesis to \(G-v\) to obtain a \(k\)-partite graph, then assign \(v\) to a smallest partition (necessarily of size \(\leq \lfloor\frac{n}{k}\rfloor\)), rewiring its at most \(D\) edges across the remaining partitions.  The resulting graph is \(k\)-partite with the same edge count as \(G\).
+If so, we apply the induction hypothesis to \(G-v\) to obtain a \(k\)-partite graph, then assign \(v\) to a smallest partition (necessarily of size \(\leq \lfloor\frac{n}{k}\rfloor\)), rewiring its at most \(D\) edges across the remaining partitions.  The resulting graph is \(k\)-partite with the same edge count as \(G\).
 
 \begin{lemma}[Degree bound lemma]\label{lem:degbound}
 
-The degree bound \(\lfloor n(1-\frac1{k})\rfloor\) will be equal to the bound \(D\) if \(k\mid n\) and equal to \(D-1\) if \(k\nmid n\).
+The above-mentioned bound \(\lfloor n(1-\frac1{k})\rfloor\) is equal to the bound target bound \(D\) if \(k\mid n\) and equal to \(D-1\) if \(k\nmid n\).
 
 \end{lemma}
 
@@ -142,16 +486,16 @@ If \(n = qk + r, \lfloor n(1-\frac1{k})\rfloor = \lfloor(qk+r) - q - \frac{r}{k}
 Taking out the integer \(qk+r, \lfloor -q - \frac{r}{k}\rfloor < -\lfloor q + r/k\rfloor\), and they lie on either side of integer \(-q\), so \(\lfloor n(1-\frac1{k})\rfloor = 
 n- \lfloor \frac{n}{k}\rfloor  - 1\).
 
-\subsection*{Existence of a small degree vertex}
+\subsection*{Existence of a small degree node}
 
 \begin{itemize}
-\item If \(k\nmid n\), choose any subset of \(n\) vertices of \(G\), which has \(n+1\) nodes.
+\item If \(k\nmid n\), choose any subset of \(n\) nodes of \(G\), excluding some node $v$,
 
-  By induction the subset contains a vertex \(w\) of degree \(\le n(1-\frac1k)\), which is  \(\leq D - 1\) by the Degree Bound Lemma, so the whole graph has such a vertex.  Even if \( (v, w) \in E\), \(w\) satisfies the degree bound.
+  By induction the subset contains a node \(w\) of degree \(\le n(1-\frac1k)\), which is  \(\leq D - 1\) by the Degree Bound Lemma, so the whole graph has such a node.  Even if \( (v, w) \in E\), \(w\) satisfies the degree bound.
 
-\item Suppose now \(k\mid n\) (no more floors!) and, toward contradiction, that every vertex satisfies \(\deg(v) \geq D+1\).
+\item Suppose now \(k\mid n\) (no more floors!) and, toward contradiction, that every node satisfies \(\deg(v) \geq D+1\).
 
-  Count edges in all \(\binom{n+1}{n}=n+1\) induced \(n\)-vertex subgraphs.  
+  Count edges in all \(\binom{n+1}{n}=n+1\) induced \(n\)-node subgraphs.  
   By induction each has at most
   \[
     f(n,k)=\frac12 n^{2}\Bigl(1-\frac1k\Bigr)
@@ -170,13 +514,13 @@ n- \lfloor \frac{n}{k}\rfloor  - 1\).
     T_{\text{lower}}-T_{\text{upper}}
     =\frac{n+1}{2}\,\frac{n-k}{k(n-1)}>0
   \]
-  because \(n>k\).  This contradiction establishes that a vertex of degree \(\le D\) exists.
+  because \(n>k\).  This contradiction establishes that a node of degree \(\le D\) exists.
 \end{itemize}
 
 \subsection*{Completion of the inductive step}
 
-Removing the low-degree vertex and applying the rewiring argument yields a \(k\)-partite graph on \(n+1\) vertices with the same edge count as \(G\).  
-Hence every \((n+1)\)-vertex graph without a \((k+1)\)-clique satisfies
+Removing the low-degree node and applying the rewiring argument yields a \(k\)-partite graph on \(n+1\) nodes with the same edge count as \(G\).  
+Hence every \((n+1)\)-node graph without a \((k+1)\)-clique satisfies
 \[
   |E|\le\frac12 n^{2}\Bigl(1-\frac1k\Bigr).
 \]
@@ -187,9 +531,11 @@ Hence every \((n+1)\)-vertex graph without a \((k+1)\)-clique satisfies
 If \(|E|>\frac12 n^{2}(1-\frac1k)\) then \(G\) must contain a \((k+1)\)-clique.
 
 
-\section{Proof of k-partite lemma}
+\subsection{Proof of k-partite lemma}
 
-A \(k\)-partite graph (perhaps a real term but I'll use it here) has \(k\) partitions of nodes, within which all are disconnected.  The nodes from differing partitions may connect.  A \em{perfectly balanced} graph has partitions all of equal size.
+A \(k\)-partite graph has \(k\) partitions of nodes, within which all are disconnected.  The nodes from differing partitions may connect.  Clearly, a $k+1$-clique cannot exist among them, as nodes within each partition are disconnected, and there are only $k$ partitions. 
+
+A perfectly balanced graph has partitions all of equal size.
 
 \begin{proposition}
 The edge-count formula of a perfectly balanced $k$-partite graph is
@@ -206,11 +552,21 @@ The edge-count formula of a perfectly balanced graph of node total $n$ is the up
 
 We are looking at maximizing $f(\vec{a}) = \frac1{2}\sum_{i \neq j; i, j < k}^k a_i a_j$, where $a_i$ is the node count of partition $i$.
 
-We can write this as $f(\vec{a}) = \frac1{2}\sum_{i \neq j; i, j < k} a_i a_j =  (\sum_i^k a_i)^2-  \frac1{2} \sum_i^k{a_i}^2  = n^2-  \frac1{2} \sum_i^k{a_i}^2 $.  So we are looking at minimizing the final term to maximize $f(\vec{a})$
+We can write this as 
+\begin{align}
+f(\vec{a}) = \frac1{2}\sum_{i \neq j; i, j < k} a_i a_j =  (\sum_i^k a_i)^2-  \frac1{2} \sum_i^k{a_i}^2  = n^2-  \frac1{2} \sum_i^k{a_i}^2 
+\end{align}
 
-Consider the definition of statistical variance: $Var(a_1, a_2 ... a_k) = \sum_{i=1}^k (a_i - \bar{a})^2 =  \sum_{i=1}^k (a_i^2 - 2\bar{a}a_i+\bar{a}^2) $.
+ So we are looking at minimizing the final term to maximize $f(\vec{a})$
+
+Consider the definition of statistical variance: 
+\begin{align}
+Var(a_1, a_2 ... a_k) = \sum_{i=1}^k (a_i - \bar{a})^2 =  \sum_{i=1}^k (a_i^2 - 2\bar{a}a_i+\bar{a}^2) 
+\end{align}
 
 So $Var(a_1, a_2 ... a_k) = \frac1{k}[\sum_{i=1}^k (a_i^2) - 2\bar{a}(\sum_{i=1}^k a_i) + k\bar{a}^2]$
+
+Note that $2\bar{a}(\sum_{i=1}^k a_i) = 2k\bar{a}^2$.
 
 Thus, ignoring constant terms, minimizing $Var(a_1, a_2 ... a_k)$ is the same as minimizing  $\sum_{i=1}^k{a_i}^2$.  But the variance reaches its minimum at zero when all values $a_i$ are equal.  This is therefore bounded by the edge count of the equal partition $E_p(n,k)=\frac{n^{2}}{2}\Bigl(1-\frac{1}{k}\Bigr).$
 
