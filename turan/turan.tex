@@ -161,15 +161,14 @@ This vertex cover covers all nodes outside the original matching and clearly cov
 
 First, some lemmas.  Call graphs which are not themselves odd cycles or complete graphs \emph{allowed graphs}.
 
-Note: TODO - if $d = 2$ at any point, it's a set of components, each of which are cycles. So these fit brooks right away.  Where can we asume $d \geq 3$?
-
 \begin{lemma}[Augmented odd cycle] If an allowed graph $G$ consists of an odd cycle $C_n$ plus an additional node $v$, it is colorable with maximum degree = $d$ colors.
-\emph{Proof}: $G - v = C_n$ is colorable in three colors, an alternating chain of $\frac{n-1}{2}$ red, blue pairs, plus a final green node.  Since $G$ is an allowed graph, $v$ is connected to $C_n$, and therefore some node in $C_n$ has degree $\geq 3$. 
 
-If $deg(v) \geq 4$, color $v$ yellow, and $\chi(G) = 3 < d$.  If $deg(v) \leq 2$, a color is clearly available, so $\chi(G) = 3 = d$.  If $deg(v) = 3$, we consider first $|V| = 4$.  This is disallowed since $G$ would be a complete graph.  Then since $|V| \geq 5 \rightarrow n \geq 4$, there is a node unconnected to $v$.  Rotate the colors of $C_n$ so this one is green and color $v$ green. Then $\chi(G) = 3 = d$.
+\textit{Proof}: $G - v = C_n$ is colorable in three colors, an alternating chain of $\frac{n}{2}$ red, blue pairs, plus a final green node.  Since $G$ is an allowed graph, $v$ is connected to $C_n$, and therefore some node in $C_n$ has degree $\geq 3$. 
+
+If $deg(v) \geq 4$, color $v$ yellow, and $\chi(G) = 3 < d$.  If $deg(v) \leq 2$, a color is clearly available, so $\chi(G) = 3 = d$.  If $deg(v) = 3$, we consider first $n = 3$.  This is disallowed since $G$ would be a complete graph.  Then since $n \geq 4$, there is a node unconnected to $v$.  Rotate the colors of $C_n$ so this one is green and color $v$ green. Then $\chi(G) = 3 = d$.
 \end{lemma}
 
-\begin{lemma}[Augmented complete graph] If an allowed graph $G$ consists of an odd cycle $K_n$ plus an additional node $v$, it is colorable with maximum degree = $d$ colors.
+\begin{lemma}[Augmented complete graph] If an allowed graph $G$ consists of a complete graph $K_n$ plus an additional node $v$, it is colorable with maximum degree = $n$ colors.
 \emph{Proof}: $K_n$ is clearly colorable in $n$ colors.  Since $G = (V, E) $ is an allowed graph, $0 < deg(v)< n$, and $v$ is connected to $K_n$ in $G$.  This means some node in $K_n$ must have degree $n$.  Additionally, since $G$ is an allowed graph, there must be some node $w, (v,w) \notin E$ with degree = $n-1$.  Color $v$ the same as $w$.  The graph is colorable in $n$ colors, with max degree $n$.
 
 \end{lemma}
@@ -184,21 +183,23 @@ Base Case: $|G^*| = 1$: The graph is a single node, a clique of size 1, colorabl
 
 Inductive Case: Assume for all induced subgraphs of $G^*$ of $G = (V,E)$, the proposition holds and $G$ is not an odd cycle or a complete graph and has max degree $d$.
 
-Remove a node $v$ of lowest degree in $G$.  Consider the induced graph $G^* = G - v$, with max degree $d$, colorable in $d$ colors.
+Remove a node $v$ of lowest degree in $G$.  By inductive hypothesis the induced graph $G^* = G - v$, with max degree $d$, is colorable in $d$ colors.
 
-First, we assume $d \geq 3$, since otherwise we are done:
+Also, we assume $d \geq 3$, since otherwise we are done:
 \begin{itemize}
-\item If $d = 1$,  we have a set of pairs. If $deg(v)$ = 1, $G$ is 2-colorable.  If $deg(v) = 2$, and it is connected to two nodes in a pair, we have a disallowed subgraph.  If  $deg(v) = 2$ and it is connected to two different pairs, that path is two-colorable.  If $deg(v) \geq 3$, color the pairs red-blue and $v$ green.
-\item if $d = 2$, and does not include an odd cycle component (handled below), then including $v$ brings $d$ to 3.  Color the even cycles red-blue and $v$ green.
+\item If $d = 1$,  we have a set of pairs. If $deg(v)$ = 1, $G$ is 2-colorable.  If $deg(v) = 2$, and it is connected to two nodes in a pair, we have a disallowed subgraph of graph $G$.  If  $deg(v) = 2$ and it is connected to two different pairs, that path is two-colorable.  If $deg(v) \geq 3$, color the pairs red-blue and $v$ green.
+\item if $d = 2$, and does not include an odd cycle component (handled below), then including a connected $v$ brings max degree of $G$ to at least 3.  Color the even cycles red-blue and $v$ green.
 \end{itemize}
 
+Let's also treat easy cases of the induction:
+
 \begin{itemize} 
-\item If the induced graph is an odd cycle, then $G$ is colorable in 3 colors by the Augmented Odd Cycle lemma.
-\item  If the induced graph is a complete graph, then $G$ is colorable by the Augmented Complete Graph lemma.
+\item If any induced graph component is a cycle, then the cycle plus v is colorable in 3 colors by the Augmented Odd Cycle lemma or the argument above for $d=2$ (even cycle).
+\item  If any induced graph component is a complete graph, then adding v makes it colorable within bounds by the Augmented Complete Graph lemma.
 \item If the maximum degree $d$ of $G^*$ is greater than $deg(v)$, color the induced graph with $d$ colors, and there will be at least one left for $v$.
 \end{itemize}
 
-We assume every node in $G*$ has degree at most $v$ (TODO, can we have all degree 4, and removing a degree 4 makes it all degree 3?)
+We assume every node in $G*$ has degree at most $deg(v)+1$.
 
 We will illustrate this with $d = 3$ in $G^*$ (thus $d \leq 4$ in $G$) and then argue this generalizes to $d >  3$ in $G^*$.
 
@@ -241,21 +242,23 @@ Our goal is to change the number of colors among $\{A, B, C\}$ to less than thre
 More assumptions:
 \begin{itemize}
 \item If two of $v$'s neighbors share a color already, then we're done.  Therefore, assume $v$'s neighbors $A$, $B$, and $C$ are colored red, green, and blue, respectively.
-\item (*) We show paths between A and C (ignoring D and E for the moment), A and B, and B and C, possibly just a single edge.  They cannot all be single edges, however.  If so, $G = \{A,B,C,V\}$ was a complete subgraph $K_4$.  If disconnected from the rest of the graph, we have a disallowed condition.  If one of these nodes shares an edge outside of this set with some node $w$, then the max degree of $G^*$ is 4 and $v$ can be colored yellow.  So at least one of the three paths has more than one edge (and since alternating colors, must have at least three edges).
+\item (*) We show paths between A and C (ignoring D and E for the moment), A and B, and B and C, possibly just a single edge.  They cannot all be single edges, however.  If so, $G = \{A,B,C,V\}$ was a complete subgraph $K_4$.  If disconnected from the rest of the graph, we have a disallowed condition.  If one of these nodes shares an edge outside of this set with some node $w$, then the max degree of $G^*$ is 4 and $v$ can be colored yellow.  So at least one of the three paths has more than one edge (and since alternating colors, must have at least three edges).  Here, without loss of generality, we make it the red-blue path from A to C.
 \item If there is not an alternating red-blue path from A to C, then switch red and blue along that path and and transitive neighbors.  The graph will still be valid, with A and C both blue.  Color V red.
 \item The same logic applies for red-green paths between A and B, and blue-green paths between B and C.
-\item So assume there are these three alternating colors paths as shown in the figure.
-\item (*) Note that paths between  A and B,  B and C, and A and C can be possibly just a single edge.  They cannot all be single edges, however.  If so, $G = \{A,B,C,V\}$ is a complete subgraph $K_4$.  If disconnected from the rest of the graph, we have a disallowed condition.  If one of these nodes shares an edge outside of this set with some node $w$, then the max degree of $G^*$ is 4 and $v$ can be colored yellow.  So some path needs to have at least four nodes instead of two. Without loss of generality, we'll pick the red-blue path, which must include nodes D and E beyond A and C.
+\item So assume there are these three alternating color paths as shown in the figure.
+
 \end{itemize}
 
-If any one of these three paths (A,B), (B,C), (A,C) can be flipped without flipping both endpoints, we can color v.
+
+If we can flip exactly one endpoint among these three paths  (A,B), (B,C), (A,C), we can color v freely.
 
 We introduce another other lemma to help us do our flipping:
 
 \begin{lemma}[Splitting Lemma]
-If an alternating color path starting from some node $v$ and proceeding $v_1, v_2...$ encounters a node  $v_i$ where two succesive nodes share a color, then then transitive chain starting from $v .. v_i$ can be flipped.
+If an alternating color path encounters a node where two successive (yet unflipped) nodes share a color, then then transitive chain starting from the beginning to this point
 \end{lemma}
-Proof: If in, say a red-blue chain, $v_{i-1}$ is transfomred to red, $v_i$ has been transformed to blue, and $v_{i+1, 1}$ and $v_{i+1, 2}$ are both green, the chain must stop due to the degree of $v_i$.  If $v_{i+1, 1}$ and $v_{i+1, 2}$ are both blue, change $v_i$ to green.  The whole sequence $v ... v_i$ can then be flipped (with $v_i$ ending up in two possible valid states.  In either case, $v$ has been flipped.
+\textit{Proof}:  Refer to the figure.  If in, say a red-blue chain, $w$ is transformed to red, $x$ has been transformed to blue, and $y, z$ are both green, the chain must stop.  If $deg(x) = 3$, it can stay blue while not violating color constraints.  If $x$ is adjacent to an additional blue node, color $x$ yellow since $deg(x) = 4$.
+if $y$ and $z$ are both blue,  there is at least one other color to change x to. 
 
 \begin{tikzpicture}[scale=1.5]
   % Define node positions in equilateral triangle formation
@@ -289,9 +292,9 @@ In particular, this means that if chains of two colors SPLIT into child chains, 
 
 
 \begin{corollary}[No crossing Lemma]
-If two alternating chains meet, they cannot both continue from the point of intersection without one being flippable.
+If two alternating chains cross, they are both flippable at the point of intersection.
 \end{corollary}
-Similarly to the splitting lemma, this means there are four node adjacent to the point of intersection, and therefore at least two colors unrepresented in the neigbhor set, and the intersection can be colored with one of htese.
+Similarly to the splitting lemma, this means there are four nodes adjacent to the point of intersection, and therefore at least one color unrepresented in the neighbor set, and the intersection can be colored with one of these.
 
 \begin{tikzpicture}[scale=1.5]
   % Define node positions in square formation (clockwise from top-left)
@@ -311,15 +314,16 @@ Similarly to the splitting lemma, this means there are four node adjacent to the
 
 \textbf{Coloring the figure}
 
-Consider the figure again, and consider a blue-green chain from node D.
+Consider the first figure again, and consider a blue-green chain from node D.
 \begin{itemize}
 \item There must be a blue-green chain (of some positive length) from D, otherwise D has three red neighbors, and the splitting lemma applies when trying to draw a red-blue chain from A to C.
-\item That blue-geen chain cannot intersect the chain from B to C, otherwise the splitting lemma applies when trying to draw a red-green path from B to C.
-\item If the blue-green chain does not intersect the red-gren chain from A to B (or splits on the way, meaning D can be made green), A has two green neighbors and can be colored blue.  Color $v$ red.
-\item If the blue green chain DOES intersect the red-green chain from A to B at some formerly, green node $w$, and if $w$ is not adjacent to $A$, $A$ still has two green neighbors and can be made blue, and $v$ red.
+\item That blue-green chain cannot intersect the chain from B to C, otherwise the splitting lemma applies when trying to draw a blue-green path from B to C.
+\item If the blue-green chain does not intersect the red-green chain from A to B (or splits on the way, meaning D can be made green), A has two green neighbors and can be colored blue (or, if it has three neighbors, color the remaining color).  Color $v$ red.
+\item If the blue green chain DOES intersect the red-green chain from A to B at some formerly green node $w$, and if $w$ is not adjacent to $A$, $A$ still has two green neighbors and can thus be flipped.
 \item If in the last case, $w$ is adjacent to A, then A has a blue neighbbor and a green neighbor.  However, C now either connects to A (through E) through a split path, or not at all.  So C can be flipped to red, and V to blue.
 \end{itemize}
 
+\textbf{Generalizing to $d > 3$}
 When flipping a path starting from A, B, or C, if the number of colors available is less than $d$, we can always end the chain there.  This means, no matter how many colors beyond three we have, if a chain can "split", or if every node doesn't have $d-1$ colors adjacent to it (excluding its own color), then we can stop our path flipping at that spot and convert the color of origin (in our case, A, B, or C).
 
 \begin{tikzpicture}[scale=1.5]
@@ -343,7 +347,7 @@ When flipping a path starting from A, B, or C, if the number of colors available
   \draw[-, black, line width=1.5pt] (x) -- (yellow);
 \end{tikzpicture}
 
-Therefore, even if $d = 3 + j, j > 0$, we can ignore all of the $j$ colors outside of these three when constructing these paths.  The arugment for at least one cycle of degree greater than three (marked (*) above) holds as well, since complete graphs of degree $d$ follow the same argument
+Therefore, even if $d = 3 + j, j > 0$, we can ignore all of the $j$ colors outside of these three when constructing these paths.  The arugment for at least one cycle of degree greater than three (marked (*) above) holds as well, since complete graphs of degree $d$ follow the same argument.
 
 
 \section{Lovasz's Theorem and Cobipartite Graphs}
