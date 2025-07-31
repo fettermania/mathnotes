@@ -360,6 +360,27 @@ Therefore, even if $d(G^*) = 3 + j, j > 0$, we can ignore all of the $j$ colors 
 \begin{theorem}[Dirac] An $n$-node graph in which each node has degree at least $\frac{n}{2}$ must have a Hamiltonian cycle.
 \end{theorem}
 
+First, some lemmas: 
+
+\begin{lemma}[Minimum cycle length] If a graph has nodes all of degree $d \geq 2$,  there exists a cycle within it of length at least $d+1$.
+\end{lemma}
+\textit{Proof}: A greedy algorithm suffices here.  Select any starting node $v$.  Define the "seen" node list $L$as $\{v\}$ and head node $h$ as $v$.  $N(h)$ is a function defined as the neighbor set of some node $h$.
+\begin{enumerate}
+\item If $N(h) \subseteq L$, pick the earliest node in the list $e$.  Then the cycle is the slice of $L$ between $e$ and $h$, with $h$ connecting to $e$ at the end.  Because $h$ has degree $\geq d$, $e$ must be at least $d$ nodes back in the list, making the cycle length at least $d+1$.
+\item Else append $h$ to $L$ and set $h$ to one of its neighbors not in $L$.
+\end{enumerate}
+
+Suppose there is a graph of $G$ of even node count $n > 4$.
+
+There must be a cycle of size $s$ at least $\frac{n}{2} + 1$ by the Minimum cycle length lemma.  Call this component $C$ and the complement $D := G - C$.
+
+\begin{lemma}{Crowded neighbors principle}: If there are $n$ nodes in a cycle, selecting $\lfloor\frac{n}{2}\rfloor + 1$ of them must yield at least two neighboring nodes. 
+\end{lemma}
+\textit(Proof): Selected nodes cannot outnumber unselected nodes since every selected node must be followed by an unselected one in a cycle without neighbors being selected.
+
+For Dirac's theorem, we first dispatch with small  node counts:
+
+
 \begin{itemize}
 \item This is meaningless for $n \in {1,2}$.  No cycles are possible.
 \item This is clear for $n = 3$: a triangle.
@@ -384,25 +405,21 @@ Therefore, even if $d(G^*) = 3 + j, j > 0$, we can ignore all of the $j$ colors 
     \draw[red, thick] (b) to[bend right=30] (c);
     \draw[blue, thick] (b) to[bend right=15] (d);
 \end{tikzpicture}
-
-We have established the \textbf{base case of $n \leq 4$}.  Now we will inductively look at even $n > 4$, and later argue this validates $n > 4$ odd.  
-
-First, a lemma: 
-
-\begin{lemma}[Minimum cycle length] If a graph has nodes all of degree $d \geq 2$,  there exists a cycle within it of length at least $d+1$.
+\begin{lemma}[Dirac's Theorem,node count $n \geq 4, n$ even]: Dirac's theorem holds for $G=(V,E)$, where node count $n := |V| \geq 4, n$ even.
 \end{lemma}
-\textit{Proof}: A greedy algorithm suffices here.  Select any starting node $v$.  Define the "seen" node list $L$as $\{v\}$ and head node $h$ as $v$.  $N(h)$ is a function defined as the neighbor set of some node $h$.
-\begin{enumerate}
-\item If $N(h) \subseteq L$, pick the earliest node in the list $e$.  Then the cycle is the slice of $L$ between $e$ and $h$, with $h$ connecting to $e$ at the end.  Because $h$ has degree $\geq d$, $e$ must be at least $d$ nodes back in the list, making the cycle length at least $d+1$.
-\item Else append $h$ to $L$ and set $h$ to one of its neighbors not in $L$.
-\end{enumerate}
+\textit{Proof}:
 
-Suppose there is a graph of $G$ of even node count $n > 4$.
+First, in such a graph there must be a cycle of size s at least $\frac{n}{2}+1$ by the Minimum Cycle Length theorem.  Call this set of cycle nodes $C$ and the remaining nodes $D$.  Assume $D$ is non-empty (otherwise $s$ is a Hamiltonian cycle).  Therefore, $|s| = |C| \leq n-1$.
 
-There must be a cycle of size $s$ at least $\frac{n}{2} + 1$ by the Minimum cycle length lemma.  Call this component $C$ and the complement $D := G - C$.
+Also, two definitions:
+\begin{itemize}
+\item For node  $d \in D$, define the out-degree $out(d)$ to be the number of nodes $d$ is connected to in $C$.
+\item For node  $d \in D$, define the in-degree $in(d)$ to be the number of nodes $d$ is connected to in $D$.
+\end{itemize}
 
-\textbf{Crowded neighbors principle}: If there are $n$ nodes in a cycle, selecting $\lfloorl\frac{n}{2}\rfloor + 1$ of them must yield at least two neighboring nodes.  Selected nodes cannot outnumber unselected nodes since every selected node must be followed by an unselected one in a cycle without neighbors being selected.
 
+
+\begin{comment}
 \begin{itemize}
 \item if $|D| = 0$, we have a a Hamiltonian cycle.
 \item If $D$ is $n-1$, then the remaining node $d_1 \in D$, of degree $\geq \frac{n}{2}$, must connect to two adjacent nodes $a$ and $b$. A complete cycle $(a, d_1, b, ... a)$ exists.
@@ -411,13 +428,14 @@ There must be a cycle of size $s$ at least $\frac{n}{2} + 1$ by the Minimum cycl
 
 \end{itemize}
 
+
 NOTE: Every D node has to be 2 + k - 1 away from all its neighbors in C.
 
 Assume there are 3 or more nodes in $D$ then.
 
 Since the graph is connected, there must be another node $d$ in $D$ not in the cycle connected to the graph.
 
-For a node $d_i$ in D, call the degree of connections to $C$ $d_i$'s  "outdegree". Each such node must have outdegree  between 2 (only $n/2 - 2$ other nodes in $D$) and $\lfloor s / 2 \rfloor$ (can't connect to C's neighbors), inclusive.  This means the in-degree (number of nodes in D connected to $d_i$) $k$ must be between $n/2 - 2$ (2 edges outgoing) and $n/2 - \lfloor s/2 \rfloor$ ($n/2-2$ edges outgoing).
+For a node $d_i$ in D, call the degree of connections to $C$ $d_i$'s  "out-degree". Each such node must have out-degree  between 2 (only $n/2 - 2$ other nodes in $D$) and $\lfloor s / 2 \rfloor$ (can't connect to C's neighbors), inclusive.  This means the in-degree (number of nodes in D connected to $d_i$) $k$ must be between $n/2 - 2$ (2 edges outgoing) and $n/2 - \lfloor s/2 \rfloor$ ($n/2-2$ edges outgoing).
 
 So there's a Hamiltonian cycle among these nodes of $k+1$, and thus $k$ paths of length $k$.  This means any connections between two adjacent nodes in the cycle (ends of the path) would be a path of length $k+2$, so no  neighbors of $d_i$ $x,y \in C$ can be closer than $k+2$ in C's cycle.
 
@@ -427,22 +445,27 @@ At the endpoints, there aren't 2 nodes each $n/2$ apart in the cycle since $s < 
 
 Thus there must be a cycle bigger than $s$.  We can repeat this until $s = n$.
 
-If $n$ is odd, then remove any node $a$. This reduces the degree requirement for all nodes by one. There must be a cycle among the $n-1$ nodes by inductive hypothesis.  But $a$ is must be connected to two adjacent nodes $b$ and $c$, as it is connected to $(n-1)/2 + 1$ nodes.  Then replace $b$-$c$ with $b$-$a$-$c$ in the original cycle.
+\end{comment}
 
+We seek to prove that if the degree of every node is $\geq \frac{n}{2}$ and $D$ is non-empty, a cycle larger than $s$ can be formed. With that, we set the larger cycle to $C$ and remove those nodes from $D$.  We then repeat until $D$ is empty and $C$ is a Hamiltonian cycle.
+ 
+Let $k$ be the minimum in-degree of the vertices in $D$. 
 
+\begin{itemize}
+\item If $k = 0$, then some vertex $d \in D$ has out-degree $\geq \frac{n}{2} $.  Since $|s| \leq n - 1 < 2 \cdot \frac{n}{2} $, by the Crowded Neighbors Principle, $d$ must adjoin two adjacent vertices $a, b \in s$.  A longer cycle than $s$ is $(a, \ldots, b, v, a)$, with $a, b$ connected "the long way 'round".
 
-Let $k$ be the minimum in-degree of the vertices in $D$.
+\item If $k = 1$, then $|s| \leq n - 2$, and some vertex $d \in D$ has out-degree $\geq \frac{n}{2} - 1$,   If $|s| < n - 2 =  2 (\frac{n}{2} - 1)$, two vertices in $s$ are adjacent to $d$ by Crowded Neighbors.   If $|s| = 2 (\frac{n}{2} - 1)$, any two of $d$'s adjacencies in $s$, say $c_1, c_2$ must all be at least two edges apart (not adjacent) in the cycle for no greater cycle to form; otherwise the path $(c_1, \ldots, c_2, d, c_1)$ is longer than $(c_1, \ldots, c_2, c_1)$, again, going "the long way 'round".  This means $d$ is connected to exactly "every other node" in $s$.
 
-If $k = 0$, then some vertex $v$ in $D$ has outdegree $\geq \frac{n}{2} $.  Since $|s| \leq n - 1 < 2 \frac{n}{2} $, by the lemma, $v$ must adjoin two adjacent vertices $a, b \in s$.  The cycle is the long way around $(a, \ldots, b, v, a)$. TODOgfdcxb cvbghyt5r4e3wqaszx cdfrt543ewqaz cvbhjuy632wqazsxdfghyjuy654321`	1
+Then $d$'s neighbor $d_1 \in D$ must have at least one adjacency in $s$, call it $c_1$.  However, $c_1$ cannot be more than two nodes apart from some $d$-connection $c \in s$. Adding the path $(c, d, d_1, c_1)$ to $s$ and removing the path between $c$ and $c_1$ (max length two) increases the cycle length of $s$.
 
-If $k = 1$, then some vertex $d$ in D has outdegree $\geq  \frac{n}{2} - 1$, and $|s| \leq  - 2$.  If $|s| < 2 (\frac{n}{2} - 1)$, two $d$-adjacent vertices are adjacent.  
+\item If $k \geq 2$, there is a cycle of length at least $k+1$ in $D$ by the minimum cycle lemma.
 
-If $|s| = 2 (\frac{n}{2} - 1)$, $d$'s adjacencies in $s$ called $d_i$ must all be two apart for no greater cycle to form.  Then $d$'s neighbor $d_1$ in D must have at least one adjacency in $s$, and it must be no further than 2 edges in $s$ away from some $d$-adjacent node in $s$, say $c_1$.  So there is some $v_i$ such that $(d_i  d c_1 a, \ldots d_i)$ is of length $|s| + 1$.
+There is some node $d \in D$ with degree $k$ in a cycle of length at least $k+1$ (to see this, apply the minimum cycle length theorem algorithm starting with $d$).  This means $d$ has $\frac{n}{2}-k$ neighbors in $C$, which must span a path of at least $2(\frac{n}{2} - k) - 1$ nodes if they are each at least two apart (otherwise, adding the 'jump out to d' and removing the original cycle edge increases cycle length).  
 
-If $k \geq 2$, there is a cycle of length $k+1$ in $D$ by the minimum cycle lemma.
+But $d$ also has two neighbors in $D$: $d_1$ and $d_2$, in a cycle of length at least $k+1$, so $d_1$ and $d_2$ have a path of $k-1$ nodes between them, inclusive.   $d_1$ has at least one neighbor in $C$, $e$ which must be $k+1$ away from any of $d$'s neighbors $d_i$ (otherwise, if $d_i$ connects to $e$, and $e$ is less than $k+1$ nodes away from some $c_i$ along $s$, then $(e, d_1,  \ldots d_2, d, c_i)$ is a cycle of length $k+2$ or greater).  This is the same for $d_2$ with neighbor $f$.  This means that $C$ must contain $2(frac{n}{2} - k) - 1 + 2(k+1) = n+1$ nodes, which it does not. 
+\end{itemize}
 
-Say $d$ has degree $k$.  This means $d$ has $\frac{n}{2}-k$ neighbors in $C$, which must span at least $2(\frac{n}{2} - k) - 1$ nodes if they are each at least two apart.  But $d$ has two neighbors in $D$: $d_1$ and $d_2$, in a cycle of length at least $k+1$.  $d_1$ has at least one neighbor in $C$, $f$ which must be $k+1$ away from any of $v$'s neighbors.  This is the same for $d_2$ with neighbor $e$.  This means that $C$ must contain $2(frac{n}{2} - k) - 1 + 2(k+1) = n+1$ nodes, which it does not. 
-
+\textbf{Case where n is odd, n > 4}: If $n$ is odd, then remove any node $a$. This reduces the degree requirement for all nodes by one (e.g. degree greater than $7 / 2$ means 4, and degree greater than $6/2$ means three).  There must be a Hamiltomian cycle among the $n-1$ nodes by the even case..  But $a$ is must be connected to two adjacent nodes $b$ and $c$ as its requirements mean it is connected to \textit{more} than half of the remaining nodes.  By the Crowded Neighbor principle, there are two adjacent nodes in $s$, $b$ and $c$,  connected to $a$.  Remove the edge $(b,c)$ from $s$ and insert the path $(b, a, c)$ and we have a Hamiltonian cycle.
 
 
 \begin{tikzpicture}[scale=1.0]
