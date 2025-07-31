@@ -37,17 +37,25 @@ style=alphabetic,
 %SetFonts% 
 
 
-\title{Original Graph Theorem Proofs}
-\author{Dave Fetterman}
-\affil{Employed in not math}
-\date{7/12/25}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{definition}[theorem]{Definition}
 
+\title{Six not-so-easy Pieces}
+\author{Dave Fetterman}
+\date{\today}
+
 \begin{document}
+
+\maketitle
+
+\begin{abstract}
+TODO
+\end{abstract}
+
+\tableofcontents
 
 \section{Menger's Theorem}
 
@@ -728,7 +736,7 @@ Hence every \((n+1)\)-node graph without a \((k+1)\)-clique satisfies
 If \(|E|>\frac12 n^{2}(1-\frac1k)\) then \(G\) must contain a \((k+1)\)-clique.
 
 
-\subsection{Proof of k-partite lemma}
+\subsection*{Proof of k-partite lemma}
 
 A \(k\)-partite graph has \(k\) partitions of nodes, within which all are disconnected.  The nodes from differing partitions may connect.  Clearly, a $k+1$-clique cannot exist among them, as nodes within each partition are disconnected, and there are only $k$ partitions. 
 
@@ -767,7 +775,7 @@ Note that $2\bar{a}(\sum_{i=1}^k a_i) = 2k\bar{a}^2$.
 
 Thus, ignoring constant terms, minimizing $Var(a_1, a_2 ... a_k)$ is the same as minimizing  $\sum_{i=1}^k{a_i}^2$.  But the variance reaches its minimum at zero when all values $a_i$ are equal.  This is therefore bounded by the edge count of the equal partition $E_p(n,k)=\frac{n^{2}}{2}\Bigl(1-\frac{1}{k}\Bigr).$
 
-\subsection{Conclusion}
+\subsection*{Conclusion}
 Therefore, any $k$-partite graph has less than or equal to $\frac{n^{2}}{2}\Bigl(1-\frac{1}{k}\Bigr)$ edges.
 
 
