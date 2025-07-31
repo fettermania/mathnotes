@@ -355,8 +355,172 @@ When flipping a path starting from A, B, or C, if the number of colors available
 
 Therefore, even if $d(G^*) = 3 + j, j > 0$, we can ignore all of the $j$ colors outside of these three when constructing these paths.  The argument for at least one cycle of degree greater than three (marked (*) above) holds as well, since complete graphs of degree $d$ follow the same argument.
 
+\section{Dirac's Theorem}
 
-\section{Lovasz's Theorem and Cobipartite Graphs}
+\begin{theorem}[Dirac] An $n$-node graph in which each node has degree at least $\frac{n}{2}$ must have a Hamiltonian cycle.
+\end{theorem}
+
+\begin{itemize}
+\item This is meaningless for $n \in {1,2}$.  No cycles are possible.
+\item This is clear for $n = 3$: a triangle.
+\item For $n = 4$, connected nodes $a$ and $b$ must be connected to $c$ and $d$ respectively (blue edges in figure), or both to some $c$ (red edges).
+ \begin{itemize}
+ \item If the first (blue) case, if $c$ is connected to $d$, we have a 4-cycle.  If $c$ is connected to $b$, then $d$ must be connected to $a$ or $c$, both yielding cycles.
+ \item if the second (red) case, $d$ is connected to two of $\{a,b,c\}$, creating a 4-cycle.
+\end{itemize}
+\end{itemize}
+
+\begin{tikzpicture}[scale=2]
+    % Define nodes
+    \node[circle, fill=black, inner sep=2pt, label=above left:$a$] (a) at (0, 1) {};
+    \node[circle, fill=black, inner sep=2pt, label=below left:$b$] (b) at (0, 0) {};
+    \node[circle, fill=black, inner sep=2pt, label=above right:$c$] (c) at (2, 1) {};
+    \node[circle, fill=black, inner sep=2pt, label=below right:$d$] (d) at (2, 0) {};
+    
+    % Draw edges with colors matching the image
+    \draw[red, thick] (a) to[bend left=15] (c);
+    \draw[blue, thick] (a) to[bend right=15] (c);
+    \draw[black, thick] (a) -- (b);
+    \draw[red, thick] (b) to[bend right=30] (c);
+    \draw[blue, thick] (b) to[bend right=15] (d);
+\end{tikzpicture}
+
+We have established the \textbf{base case of $n \leq 4$}.  Now we will inductively look at even $n > 4$, and later argue this validates $n > 4$ odd.  
+
+First, a lemma: 
+
+\begin{lemma}[Minimum cycle length] If a graph has nodes all of degree $d \geq 2$,  there exists a cycle within it of length at least $d+1$.
+\end{lemma}
+\textit{Proof}: A greedy algorithm suffices here.  Select any starting node $v$.  Define the "seen" node list $L$as $\{v\}$ and head node $h$ as $v$.  $N(h)$ is a function defined as the neighbor set of some node $h$.
+\begin{enumerate}
+\item If $N(h) \subseteq L$, pick the earliest node in the list $e$.  Then the cycle is the slice of $L$ between $e$ and $h$, with $h$ connecting to $e$ at the end.  Because $h$ has degree $\geq d$, $e$ must be at least $d$ nodes back in the list, making the cycle length at least $d+1$.
+\item Else append $h$ to $L$ and set $h$ to one of its neighbors not in $L$.
+\end{enumerate}
+
+Suppose there is a graph of $G$ of even node count $n > 4$.
+
+There must be a cycle of size $s$ at least $\frac{n}{2} + 1$ by the Minimum cycle length lemma.  Call this component $C$ and the complement $D := G - C$.
+
+\textbf{Crowded neighbors principle}: If there are $n$ nodes in a cycle, selecting $\lfloorl\frac{n}{2}\rfloor + 1$ of them must yield at least two neighboring nodes.  Selected nodes cannot outnumber unselected nodes since every selected node must be followed by an unselected one in a cycle without neighbors being selected.
+
+\begin{itemize}
+\item if $|D| = 0$, we have a a Hamiltonian cycle.
+\item If $D$ is $n-1$, then the remaining node $d_1 \in D$, of degree $\geq \frac{n}{2}$, must connect to two adjacent nodes $a$ and $b$. A complete cycle $(a, d_1, b, ... a)$ exists.
+\item If $s$ is $n-2$, and the remaining nodes $d_1, d_2$ are unconnected, add $d_1$ to $s$ via the crowded neighbor principle, then $d_2$ to $d_1 \cup s$ by the same.
+\item If $s$ is $n-2$, and the remaining nodes $d_1, d_2$ are connected, they must each connect to the same $n/2 - 2$ nodes, but two nodes $a$ and $b$ two apart in the original cycle (separated by, say, $x$) can become $a$ - $d_1$ - $d_2$ - $b$ ... $a$ to increase the cycle length.  Then, by the crowded neighbor principle, $x$ can be added to this cycle.
+
+\end{itemize}
+
+NOTE: Every D node has to be 2 + k - 1 away from all its neighbors in C.
+
+Assume there are 3 or more nodes in $D$ then.
+
+Since the graph is connected, there must be another node $d$ in $D$ not in the cycle connected to the graph.
+
+For a node $d_i$ in D, call the degree of connections to $C$ $d_i$'s  "outdegree". Each such node must have outdegree  between 2 (only $n/2 - 2$ other nodes in $D$) and $\lfloor s / 2 \rfloor$ (can't connect to C's neighbors), inclusive.  This means the in-degree (number of nodes in D connected to $d_i$) $k$ must be between $n/2 - 2$ (2 edges outgoing) and $n/2 - \lfloor s/2 \rfloor$ ($n/2-2$ edges outgoing).
+
+So there's a Hamiltonian cycle among these nodes of $k+1$, and thus $k$ paths of length $k$.  This means any connections between two adjacent nodes in the cycle (ends of the path) would be a path of length $k+2$, so no  neighbors of $d_i$ $x,y \in C$ can be closer than $k+2$ in C's cycle.
+
+There must be $n/2 - k$ nodes in the cycle of length $s$ ($\geq n/2 + 1$) each $k+2$ or more apart, $k \in [n/2 - 2, n/2 - \lfloor s/2 \rfloor]$, so we require $(n/2-k)(k+2) = (n/2-2)k-k^2+n = f(k)$.
+
+At the endpoints, there aren't 2 nodes each $n/2$ apart in the cycle since $s < n$, or $s/2$ nodes $n/2-\lfloor s/2 \rfloor$ apart since $s \geq n/2+1$.  $f'(k)$ has a zero at $n/2-2-2k= 0$ or $2k=n/2-2$ or $k = n/4-1$.  The nodes required in the cycle there are $(n/2-2)(n/4-1)-(n/4-1)^2+n > n$ since $(n/2-2) > (n/4-1)$ for $n \geq 5$.
+
+Thus there must be a cycle bigger than $s$.  We can repeat this until $s = n$.
+
+If $n$ is odd, then remove any node $a$. This reduces the degree requirement for all nodes by one. There must be a cycle among the $n-1$ nodes by inductive hypothesis.  But $a$ is must be connected to two adjacent nodes $b$ and $c$, as it is connected to $(n-1)/2 + 1$ nodes.  Then replace $b$-$c$ with $b$-$a$-$c$ in the original cycle.
+
+
+
+Let $k$ be the minimum in-degree of the vertices in $D$.
+
+If $k = 0$, then some vertex $v$ in $D$ has outdegree $\geq \frac{n}{2} $.  Since $|s| \leq n - 1 < 2 \frac{n}{2} $, by the lemma, $v$ must adjoin two adjacent vertices $a, b \in s$.  The cycle is the long way around $(a, \ldots, b, v, a)$. TODOgfdcxb cvbghyt5r4e3wqaszx cdfrt543ewqaz cvbhjuy632wqazsxdfghyjuy654321`	1
+
+If $k = 1$, then some vertex $d$ in D has outdegree $\geq  \frac{n}{2} - 1$, and $|s| \leq  - 2$.  If $|s| < 2 (\frac{n}{2} - 1)$, two $d$-adjacent vertices are adjacent.  
+
+If $|s| = 2 (\frac{n}{2} - 1)$, $d$'s adjacencies in $s$ called $d_i$ must all be two apart for no greater cycle to form.  Then $d$'s neighbor $d_1$ in D must have at least one adjacency in $s$, and it must be no further than 2 edges in $s$ away from some $d$-adjacent node in $s$, say $c_1$.  So there is some $v_i$ such that $(d_i  d c_1 a, \ldots d_i)$ is of length $|s| + 1$.
+
+If $k \geq 2$, there is a cycle of length $k+1$ in $D$ by the minimum cycle lemma.
+
+Say $d$ has degree $k$.  This means $d$ has $\frac{n}{2}-k$ neighbors in $C$, which must span at least $2(\frac{n}{2} - k) - 1$ nodes if they are each at least two apart.  But $d$ has two neighbors in $D$: $d_1$ and $d_2$, in a cycle of length at least $k+1$.  $d_1$ has at least one neighbor in $C$, $f$ which must be $k+1$ away from any of $v$'s neighbors.  This is the same for $d_2$ with neighbor $e$.  This means that $C$ must contain $2(frac{n}{2} - k) - 1 + 2(k+1) = n+1$ nodes, which it does not. 
+
+
+
+\begin{tikzpicture}[scale=1.0]
+    
+    % Define node positions
+    \coordinate (f) at (-3,3);
+    \coordinate (e) at (3,3);
+    \coordinate (n1) at (-2.5,2);
+    \coordinate (cnk) at (-2,0.5);
+    \coordinate (n2) at (-1.5,-1);
+    \coordinate (c1) at (0,-1.5);
+    \coordinate (n3) at (1.5,-1);
+    \coordinate (c2) at (2,0.5);
+    \coordinate (n4) at (2.5,2);
+    
+    % Red cycle nodes
+    \coordinate (d) at (0,-3);
+    \coordinate (d1) at (-2.5,-4);
+    \coordinate (d2) at (2.5,-4);
+    
+    % Blue main cycle
+    \draw[blue, thick] (f) -- (n1);
+    \fill[blue] (n1) circle (0.08);
+    
+    \draw[blue, thick] (n1) -- (cnk);
+    \fill[blue] (cnk) circle (0.08);
+    
+    \draw[blue, thick] (cnk) -- (n2);
+    \fill[blue] (n2) circle (0.08);
+    
+    \draw[blue, thick] (n2) -- (c1);
+    \fill[blue] (c1) circle (0.08);
+    
+    \draw[blue, thick] (c1) -- (n3);
+    \fill[blue] (n3) circle (0.08);
+    
+    \draw[blue, thick] (n3) -- (c2);
+    \fill[blue] (c2) circle (0.08);
+    
+    \draw[blue, thick] (c2) -- (n4);
+    \fill[blue] (n4) circle (0.08);
+    
+    \draw[blue, thick] (n4) -- (e);
+    
+    % Dashed connection from e to f
+    \draw[blue, dashed, thick] (e) -- (f);
+    
+    % Red cycle d, d1, d2
+    \draw[red, thick] (d) -- (d1);
+    \fill[red] (d1) circle (0.08);
+    
+    \draw[red, dashed, thick] (d1) -- (d2);
+    \fill[red] (d2) circle (0.08);
+    
+    \draw[red, thick] (d2) -- (d);
+    \fill[red] (d) circle (0.08);
+    
+    % Connections from d cycle to blue nodes
+    \draw[red, thick] (d) -- (c1);
+    \draw[red, thick] (d) -- (c2);
+    \draw[red, thick] (d) -- (cnk);
+    \draw[red, thick] (d1) -- (e);
+    \draw[red, thick] (d2) -- (f);
+    
+    % Labels
+    \node[blue, font=\normalsize] at (f) [above] {$f$};
+    \node[blue, font=\normalsize] at (e) [above] {$e$};
+    \node[blue, font=\small] at (cnk) [left] {$c_{n/2-k}$};
+    \node[blue, font=\small] at (c1) [below] {$c_1$};
+    \node[blue, font=\small] at (c2) [right] {$c_2$};
+    
+    \node[red, font=\small] at (d) [below] {$d$};
+    \node[red, font=\small] at (d1) [below] {$d_1$};
+    \node[red, font=\small] at (d2) [below] {$d_2$};
+    
+\end{tikzpicture}
+
+\section{Lovasz's Theorem}
 
 \begin{definition}[Perfect Graph]
 A weakly perfect graph $G$ has a chromatic number $\chi(G)$ (the number of colors required for a vertex coloring) equal to its clique number $\omega(G)$ (the size of its largest fully-connected subgraph or \emph{clique}).  A refinement of this, a strongly perfect graph $G$, has this property for every induced subgraph $G^* \subset G$.
