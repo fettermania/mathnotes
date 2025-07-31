@@ -57,7 +57,7 @@ TODO
 
 \tableofcontents
 
-\section{Menger's Theorem}
+\section{Menger's Theorem Original Proof}
 
 \begin{theorem}[Menger's Theorem]
 Let $G$ be a finite undirected graph and $A$ and $B$ two disjoint subsets of vertices. Then the minimum number of vertices that need to be removed to disconnect $A$ from $B$ is equal to the maximum number of vertex-disjoint paths from $A$ to $B$.
@@ -83,7 +83,7 @@ Therefore $m(G) = n(G)$.
 
 
 
-\section{K\"onig's Theorem}
+\section{K\"onig's Theorem Original Proof}
 
 \begin{theorem}[K\"onig's Theorem]
 In a bipartite graph, the size of the maximum matching equals the size of the minimum vertex cover (a set of nodes that together touch every edge).
@@ -102,6 +102,8 @@ This vertex cover covers all nodes outside the original matching and clearly cov
 
 \end{proof}
 
+\begin{figure}
+\centering
 \begin{tikzpicture}[node distance=1cm]
     % First row
     \node[circle, draw, minimum size=6mm] (a1) at (0,0) {};
@@ -162,7 +164,10 @@ This vertex cover covers all nodes outside the original matching and clearly cov
     
 \end{tikzpicture}
 
-\section{Brooks's Theorem}
+\caption{A caption.}
+\end{figure}
+
+\section{Brooks's Theorem Original Proof}
 \begin{theorem}[Brooks]If a graph $G$ is not a clique and not an odd cycle and has maximum degree $d$, it can be properly colored with $d$ colors.
 \end{theorem}
 
@@ -215,6 +220,8 @@ Because of the last case, we assume every node in $G*$ has degree at most $deg(v
 We will illustrate this with $d(G^*) = 3$ (thus $d(G) \leq 4$) and then argue this generalizes to $d(G^*) >  3$.
 
 Include $v$, uncolored, back into the graph $G^*$ as shown:
+\begin{figure}
+\centering
 
 \begin{tikzpicture}[scale=1.5]
   % Define node positions
@@ -247,6 +254,8 @@ Include $v$, uncolored, back into the graph $G^*$ as shown:
   \draw[black, line width=1pt] (A) -- (D);
   \draw[black, line width=1pt] (C) -- (E);
 \end{tikzpicture}
+\caption{A caption.}
+\end{figure}
 
 If $d(G^*) = 4$, we ignore the presumed 'yellow' node connected to $v$ for now (see argument for 'only three colors matter' at the end).
 
@@ -272,7 +281,8 @@ If an alternating color path encounters a node where two successive (yet unflipp
 \textit{Proof}:  Refer to the figure.  If in, say a red-blue chain, $w$ is transformed to red, $x$ has been transformed to blue, and $y, z$ are both green, the chain must stop.  If $deg(x) = 3$, it can stay blue while not violating color constraints.  If $x$ is adjacent to an additional blue node, color $x$ yellow since $deg(x) = 4$.
 if $y$ and $z$ are both blue,  there is at least one other color to change x to. 
 If there is an additional node connected to $x$ and it is 'yellow' (fourth color), the above arguments don't change.  If it is not 'yellow', color $x$ yellow.
-
+\begin{figure}
+\centering
 \begin{tikzpicture}[scale=1.5]
   % Define node positions in equilateral triangle formation
   \node[circle, fill=blue, inner sep=3pt, label=below:w] (w) at (0, -1.732) {};
@@ -285,7 +295,11 @@ If there is an additional node connected to $x$ and it is 'yellow' (fourth color
   \draw[->, black, line width=1.5pt] (x) -- (y);
   \draw[->, black, line width=1.5pt] (x) -- (z);
 \end{tikzpicture}
+\caption{A caption.}
+\end{figure}
 
+\begin{figure}
+\centering
 
 \begin{tikzpicture}[scale=1.5]
   % Define node positions in equilateral triangle formation
@@ -299,6 +313,8 @@ If there is an additional node connected to $x$ and it is 'yellow' (fourth color
   \draw[->, black, line width=1.5pt] (x) -- (y);
   \draw[->, black, line width=1.5pt] (x) -- (z);
 \end{tikzpicture}
+\caption{A caption.}
+\end{figure}
 
 
 In particular, this means that if chains of two colors SPLIT into child chains, the original chain can be flipped up to the point of intersection.
@@ -308,6 +324,9 @@ In particular, this means that if chains of two colors SPLIT into child chains, 
 If two alternating chains cross, they are both flippable at the point of intersection.
 \end{corollary}
 Similarly to the splitting lemma, this means there are four nodes adjacent to the point of intersection, and therefore at least one color unrepresented in the neighbor set, and the intersection can be colored with one of these.
+
+\begin{figure}
+\centering
 
 \begin{tikzpicture}[scale=1.5]
   % Define node positions in square formation (clockwise from top-left)
@@ -323,6 +342,8 @@ Similarly to the splitting lemma, this means there are four nodes adjacent to th
   \draw[black, line width=1.5pt] (y) -- (x);
   \draw[black, line width=1.5pt] (z) -- (x);
 \end{tikzpicture}
+\caption{A caption.}
+\end{figure}
 
 
 \textbf{Coloring the figure}
@@ -340,6 +361,10 @@ Consider the first figure again, and consider a blue-green chain from node D.
 \textbf{Generalizing to $d > 3$}
 When flipping a path starting from A, B, or C, if the number of colors available is less than $d$, we can always end the chain there.  This means, no matter how many colors beyond three we have, if a chain can "split", or if every node doesn't have $d-1$ colors adjacent to it (excluding its own color), then we can stop our path flipping at that spot and convert the color of origin (in our case, A, B, or C).
 \end{lemma}
+
+\begin{figure}
+\centering
+
 \begin{tikzpicture}[scale=1.5]
   % Define node positions in equilateral triangle formation
   \node[circle, fill=blue, inner sep=3pt, label=below:w] (w) at (0, -1.732) {};
@@ -360,10 +385,12 @@ When flipping a path starting from A, B, or C, if the number of colors available
   \draw[-, black, line width=1.5pt] (x) -- (orange);
   \draw[-, black, line width=1.5pt] (x) -- (yellow);
 \end{tikzpicture}
+\caption{A caption.}
+\end{figure}
 
 Therefore, even if $d(G^*) = 3 + j, j > 0$, we can ignore all of the $j$ colors outside of these three when constructing these paths.  The argument for at least one cycle of degree greater than three (marked (*) above) holds as well, since complete graphs of degree $d$ follow the same argument.
 
-\section{Dirac's Theorem}
+\section{Dirac's Theorem Original Proof}
 
 \begin{theorem}[Dirac] An $n$-node graph in which each node has degree at least $\frac{n}{2}$ must have a Hamiltonian cycle.
 \end{theorem}
@@ -399,6 +426,9 @@ For Dirac's theorem, we first dispatch with small  node counts:
 \end{itemize}
 \end{itemize}
 
+
+\begin{figure}
+\centering
 \begin{tikzpicture}[scale=2]
     % Define nodes
     \node[circle, fill=black, inner sep=2pt, label=above left:$a$] (a) at (0, 1) {};
@@ -413,6 +443,10 @@ For Dirac's theorem, we first dispatch with small  node counts:
     \draw[red, thick] (b) to[bend right=30] (c);
     \draw[blue, thick] (b) to[bend right=15] (d);
 \end{tikzpicture}
+\caption{A caption.}
+\end{figure}
+
+
 \begin{lemma}[Dirac's Theorem,node count $n \geq 4, n$ even]: Dirac's theorem holds for $G=(V,E)$, where node count $n := |V| \geq 4, n$ even.
 \end{lemma}
 \textit{Proof}:
@@ -476,13 +510,16 @@ But $d$ also has two neighbors in $D$: $d_1$ and $d_2$, in a cycle of length at 
 \textbf{Case where n is odd, n > 4}: If $n$ is odd, then remove any node $a$. This reduces the degree requirement for all nodes by one (e.g. degree greater than $7 / 2$ means 4, and degree greater than $6/2$ means three).  There must be a Hamiltomian cycle among the $n-1$ nodes by the even case..  But $a$ is must be connected to two adjacent nodes $b$ and $c$ as its requirements mean it is connected to \textit{more} than half of the remaining nodes.  By the Crowded Neighbor principle, there are two adjacent nodes in $s$, $b$ and $c$,  connected to $a$.  Remove the edge $(b,c)$ from $s$ and insert the path $(b, a, c)$ and we have a Hamiltonian cycle.
 
 
+\begin{figure}
+\centering
+
 \begin{tikzpicture}[scale=1.0]
     
     % Define node positions
     \coordinate (f) at (-3,3);
     \coordinate (e) at (3,3);
     \coordinate (n1) at (-2.5,2);
-    \coordinate (cnk) at (-2,0.5);
+    \coordinate (cz) at (-2,0.5);
     \coordinate (n2) at (-1.5,-1);
     \coordinate (c1) at (0,-1.5);
     \coordinate (n3) at (1.5,-1);
@@ -498,10 +535,10 @@ But $d$ also has two neighbors in $D$: $d_1$ and $d_2$, in a cycle of length at 
     \draw[blue, thick] (f) -- (n1);
     \fill[blue] (n1) circle (0.08);
     
-    \draw[blue, thick] (n1) -- (cnk);
-    \fill[blue] (cnk) circle (0.08);
+    \draw[blue, thick] (n1) -- (cz);
+    \fill[blue] (cz) circle (0.08);
     
-    \draw[blue, thick] (cnk) -- (n2);
+    \draw[blue, thick] (cz) -- (n2);
     \fill[blue] (n2) circle (0.08);
     
     \draw[blue, thick] (n2) -- (c1);
@@ -534,14 +571,14 @@ But $d$ also has two neighbors in $D$: $d_1$ and $d_2$, in a cycle of length at 
     % Connections from d cycle to blue nodes
     \draw[red, thick] (d) -- (c1);
     \draw[red, thick] (d) -- (c2);
-    \draw[red, thick] (d) -- (cnk);
+    \draw[red, thick] (d) -- (cz);
     \draw[red, thick] (d1) -- (e);
     \draw[red, thick] (d2) -- (f);
     
     % Labels
     \node[blue, font=\normalsize] at (f) [above] {$f$};
     \node[blue, font=\normalsize] at (e) [above] {$e$};
-    \node[blue, font=\small] at (cnk) [left] {$c_{n/2-k}$};
+    \node[blue, font=\small] at (cz) [left] {$c_z$};
     \node[blue, font=\small] at (c1) [below] {$c_1$};
     \node[blue, font=\small] at (c2) [right] {$c_2$};
     
@@ -550,8 +587,10 @@ But $d$ also has two neighbors in $D$: $d_1$ and $d_2$, in a cycle of length at 
     \node[red, font=\small] at (d2) [below] {$d_2$};
     
 \end{tikzpicture}
+\caption{A caption.}
+\end{figure}
 
-\section{Lovasz's Theorem}
+\section{Lovasz's Theorem Originial Proof}
 
 \begin{definition}[Perfect Graph]
 A weakly perfect graph $G$ has a chromatic number $\chi(G)$ (the number of colors required for a vertex coloring) equal to its clique number $\omega(G)$ (the size of its largest fully-connected subgraph or \emph{clique}).  A refinement of this, a strongly perfect graph $G$, has this property for every induced subgraph $G^* \subset G$.
