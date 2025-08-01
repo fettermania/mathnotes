@@ -52,8 +52,28 @@ style=alphabetic,
 \maketitle
 
 \begin{abstract}
-TODO
+Wherein I attempt original proofs of non-original seminal graph theorems without reference to any other theorems or external input, for my own enjoyment.
 \end{abstract}
+
+Graph theory can sometimes admit systematic approaches, enabled by work like the \textit{Spectral Theorem}, but by and large, each graph theory proof seems to be its own unique puzzle.  This makes them great for the average swagman to attempt proofs of their theorems, many only discovered in the mid-20th century.  
+
+Though I solicited Claude Anthropic for interesting theorems to prove, this work is entirely my own, proven without reference to any other theorems.  The lemmas may exist elsewhere or be entirely unnamed elsewhere.  Thus, each proof may be inelegant, incomplete, or just plain wrong.  At long last, I have run out of counterarguments for them.
+
+Listed below are the statements of the six proofs, along with where I had the key insight.  They are arranged in order of increasing difficulty (for me).
+
+\textbf{Menger's Theorem}. Let $G = (V,E)$ be a finite undirected graph and $A$ and $B$ two disjoint subsets of vertices in $V$. Then the minimum number of vertices that need to be removed to disconnect $A$ from $B$ is equal to the maximum number of vertex-disjoint paths from $A$ to $B$.  \textit{Moment of insight}: Child's swimming lesson.
+
+\textbf{K\"onig's Theorem}
+In a bipartite graph, the size of the maximum matching equals the size of the minimum vertex cover (a set of vertices that together touch every edge). \textit{Moment of insight}: Alone in the office.
+
+\textbf{Brooks's Theorem} If a graph $G$ is not a clique and not an odd cycle and has maximum degree $d$, it can be properly vertex-colored with $d$ colors. \textit{Moment of insight}: Bus.
+
+\textbf{Dirac's Theorem} An $n$-vertex graph in which each vertex has degree at least $\frac{n}{2}$ must have a Hamiltonian cycle.   \textit{Moment of insight}: Bus.
+
+\textbf{Lovasz's Theorem}: The complement of any perfect graph is perfect.  \textit{Moment of insight}: Child's swimming lesson.
+
+\textbf{Turan's Theorem}: If a graph \(G=(V,E)\) on \(n\) vertices satisfies \(|E|>\frac12\,n^{2}\Bigl(1-\frac1k\Bigr)\), then \(G\) contains a \((k+1)\)-clique.  \textit{Moment of insight}: Child's holiday concert.
+
 
 \tableofcontents
 
@@ -70,13 +90,13 @@ On a graph $G$,  define $n(G)$ as the number of vertex-disjoint paths between $A
 
 \paragraph{$n \geq m$:}  For any graph $G = (V,E)$, we prove by induction on induced subgraphs of size $k$ (remove all but $k$ vertices). 
 
-Base Case: $k = 0, 1$ are meaningless, with no paths available.  So remove all but 2 vertices from $G$.  If they are connected, $m(G)= n(G) = 1$.  If not, $m(G) = n(G) = 0$.  The condition holds.
+\textbf{Base Case}: $k = 0, 1$ are meaningless, with no paths available.  So remove all but 2 vertices from $G$.  If they are connected, $m(G)= n(G) = 1$.  If not, $m(G) = n(G) = 0$.  The condition holds.
 
-Inductive Case: Say for any induced subgraph $G^* = (V^*, E^*)$ of $G$, where $|V^*| = k -1, n(G*) \geq m(G*)$. 
+\textbf{Inductive Case}: Say for any induced subgraph $G^* = (V^*, E^*)$ of $G$, where $|V^*| = k -1, n(G^*) \geq m(G^*)$. 
 
 If adding a vertex $v$ (and its edges incident to $V^*$) back into $G^*$ does not increase the number of vertex-disjoint paths, then our condition holds, since removing $v$ (adding it to the cut set) doesn't change $n(G)$ or $m(G)$. 
 
-If doing so \emph{does} increase the number of vertex-disjoint paths, then it can do so only by one: Cutting $v$ yields $G^*$, where the condition holds, and adding $v$ may increase the cut set by one, but can only add one more vertex-disjoint path to $G*$ (informally, you can't use $v$ more than once).
+If doing so \emph{does} increase the number of vertex-disjoint paths, then it can do so only by one: Cutting $v$ yields $G^*$, where the condition holds, and adding $v$ may increase the cut set by one, but can only add one more vertex-disjoint path to $G^*$ (informally, you can't use $v$ more than once).
 \end{proof}
 
 Therefore $m(G) = n(G)$.
@@ -92,7 +112,7 @@ In a bipartite graph, the size of the maximum matching equals the size of the mi
 \begin{proof}
 Assume we have vertices $\{a_i\}$ in one independent set and $\{b_i\}$ in the other independent set of the bipartite graph.
 
-Relabel them so our maximum matching is $(a_1, b_1) \ldots (a_m, b_m)$. This means there are sets of vertices $\{a_{m+i} \}$ ($i > 0$) that only connect to $b_1 \ldots b_m$ and vertices $\{b_{m+i}\}$ ($i > 0$) that only connect to $a_1 \ldots a_m$.
+Relabel them so our maximum matching is $(a_1, b_1) \ldots (a_m, b_m)$. This means there are sets of vertices $\{a_{m+i} \}$ ($i > 0$) that only connect to $b_1 \ldots b_m$ and vertices $\{b_{m+i}\}$ ($i > 0$) that only connect to $a_1 \ldots a_m$ (see Fig. \ref{fig:konig}).
 
 If some $a_{m+j}, j > 0$ connects to $b_i$, $1 \leq i \leq m$, then no $b_{m+k}$, $k > 0$ can connect to $a_i$, since then we would have a bigger matching by removing $(a_i, b_i)$ and adding $(a_{m+j}, b_i)$ and $(a_i, b_{m+k})$, a contradiction of our assumptions.
 
@@ -164,7 +184,8 @@ This vertex cover covers all vertices outside the original matching and clearly 
     
 \end{tikzpicture}
 
-\caption{A caption.}
+\caption{Green is the maximum matching.  Red edges as such cannot exist.}
+\label{fig:konig}
 \end{figure}
 
 \section{Brooks's Theorem Original Proof}
@@ -193,9 +214,9 @@ If $deg(v) \geq 4$, color $v$ yellow, and $\chi(G) \leq 4 \leq d$.  If $deg(v) \
 
 We will take any allowed $G$ and proceed by induction on induced subgraphs $G^*=(V^*, E^*)$ of $G$. 
 
-Base Case: $|G^*| = 2$: If connected, the graph is a single pair, a clique of size 2, colorable with two colors.
+\textbf{Base Case}: $|G^*| = 2$: If connected, the graph is a single pair, a clique of size 2, colorable with two colors.
 
-Inductive Case: Assume for all induced subgraphs of $G^*$ of $G = (V,E)$, the proposition holds and $G$ is not an odd cycle or a complete graph and has max degree $d(G)$.
+\textbf{Inductive Case}: Assume for all induced subgraphs of $G^*$ of $G = (V,E)$, the proposition holds and $G$ is not an odd cycle or a complete graph and has max degree $d(G)$.
 
 Remove a vertex $v$ of lowest degree in $G$.  By inductive hypothesis the induced graph $G^* = G - v$, with max degree $d(G^*) \leq d(G)$, is colorable in $d := d(G^*)$ colors.
 
@@ -254,7 +275,8 @@ Include $v$, uncolored, back into the graph $G^*$ as shown:
   \draw[black, line width=1pt] (A) -- (D);
   \draw[black, line width=1pt] (C) -- (E);
 \end{tikzpicture}
-\caption{A caption.}
+\caption{Disrupt any alternating path and colorability follows}
+\label{fig:brooks}
 \end{figure}
 
 If $d(G^*) = 4$, we ignore the presumed 'yellow' vertex connected to $v$ for now (see argument for 'only three colors matter' at the end).
@@ -267,7 +289,7 @@ More assumptions:
 \item (*) We show paths between A and C (ignoring D and E for the moment), A and B, and B and C, possibly just a single edge.  They cannot all be single edges, however.  If so, $G = \{A,B,C,V\}$ was a complete subgraph $K_4$.  If disconnected from the rest of the graph, we have a disallowed condition.  If one of these vertices shares an edge outside of this set with some vertex $w$, then the max degree of $G^*$ is 4 and $v$ can be colored yellow.  So at least one of the three paths has more than one edge (and since alternating colors, must have at least three edges).  Here, without loss of generality, we make it the red-blue path from A to C.  (Note: if $deg(v) = 4$, the same logic applies: there must be a selection of A, B, and C such that two of them are not directly connected.)
 \item If there is not an alternating red-blue path from A to C, then switch red and blue along that path and and transitive neighbors.  The graph will still be valid, with A and C both blue.  Color $v$ red.
 \item The same logic applies for red-green paths between A and B, and blue-green paths between B and C.
-\item So assume there are these three alternating color paths as shown in the figure.
+\item So assume there are these three alternating color paths as shown in Fig. \ref{fig:brooks}.
 
 \end{itemize}
 
@@ -278,8 +300,8 @@ We introduce another other lemma to help us do our flipping:
 \begin{lemma}[Splitting Lemma]
 If an alternating color path encounters a vertex where two successive (yet unflipped) vertices share a color, then then transitive chain starting from the beginning to this point can be flipped.
 \end{lemma}
-\textit{Proof}:  Refer to the figure.  If in, say a red-blue chain, $w$ is transformed to red, $x$ has been transformed to blue, and $y, z$ are both green, the chain must stop.  If $deg(x) = 3$, it can stay blue while not violating color constraints.  If $x$ is adjacent to an additional blue vertex, color $x$ yellow since $deg(x) = 4$.
-if $y$ and $z$ are both blue,  there is at least one other color to change x to. 
+\textit{Proof}:  Refer to figures.  If in, say a red-blue chain (Fig. \ref{fig:brooksflip1}), $w$ is transformed to red, $x$ has been transformed to blue, and $y, z$ are both green, the chain must stop.  If $deg(x) = 3$, it can stay blue while not violating color constraints.  If $x$ is adjacent to an additional blue vertex, color $x$ yellow since $deg(x) = 4$.
+if $y$ and $z$ are both blue,  there is at least one other color to change x to (Fig. \ref{fig:brooksflip2})
 If there is an additional vertex connected to $x$ and it is 'yellow' (fourth color), the above arguments don't change.  If it is not 'yellow', color $x$ yellow.
 \begin{figure}
 \centering
@@ -295,7 +317,8 @@ If there is an additional vertex connected to $x$ and it is 'yellow' (fourth col
   \draw[->, black, line width=1.5pt] (x) -- (y);
   \draw[->, black, line width=1.5pt] (x) -- (z);
 \end{tikzpicture}
-\caption{A caption.}
+\caption{Flippable if $w-x$ follows a red-blue chain.}
+\label{fig:brooksflip1}
 \end{figure}
 
 \begin{figure}
@@ -313,7 +336,9 @@ If there is an additional vertex connected to $x$ and it is 'yellow' (fourth col
   \draw[->, black, line width=1.5pt] (x) -- (y);
   \draw[->, black, line width=1.5pt] (x) -- (z);
 \end{tikzpicture}
-\caption{A caption.}
+\caption{Also flippable if $w-x$ follows a red-blue chain.}
+\label{fig:brooksflip2}
+
 \end{figure}
 
 
@@ -323,7 +348,7 @@ In particular, this means that if chains of two colors SPLIT into child chains, 
 \begin{corollary}[No crossing Lemma]
 If two alternating chains cross, they are both flippable at the point of intersection.
 \end{corollary}
-Similarly to the splitting lemma, this means there are four vertices adjacent to the point of intersection, and therefore at least one color unrepresented in the neighbor set, and the intersection can be colored with one of these.
+Similarly to the splitting lemma, this means there are four vertices adjacent to the point of intersection (Fig. \ref{fig:brookscross}), and therefore at least one color unrepresented in the neighbor set, and the intersection can be colored with one of these.
 
 \begin{figure}
 \centering
@@ -342,7 +367,9 @@ Similarly to the splitting lemma, this means there are four vertices adjacent to
   \draw[black, line width=1.5pt] (y) -- (x);
   \draw[black, line width=1.5pt] (z) -- (x);
 \end{tikzpicture}
-\caption{A caption.}
+\caption{If two flipping chains cross, they can stop at any intersection}
+\label{fig:brookscross}
+
 \end{figure}
 
 
@@ -359,7 +386,7 @@ Consider the first figure again, and consider a blue-green chain from vertex D.
 
 \begin{lemma}[Only three colors matter]
 \textbf{Generalizing to $d > 3$}
-When flipping a path starting from A, B, or C, if the number of colors available is less than $d$, we can always end the chain there.  This means, no matter how many colors beyond three we have, if a chain can "split", or if every vertex doesn't have $d-1$ colors adjacent to it (excluding its own color), then we can stop our path flipping at that spot and convert the color of origin (in our case, A, B, or C).
+When flipping a path starting from A, B, or C, if the number of colors available is less than $d$, we can always end the chain there (Fig. \ref{fig:brookstoomany}).  This means, no matter how many colors beyond three we have, if a chain can "split", or if every vertex doesn't have $d-1$ colors adjacent to it (excluding its own color), then we can stop our path flipping at that spot and convert the color of origin (in our case, A, B, or C).  
 \end{lemma}
 
 \begin{figure}
@@ -385,7 +412,8 @@ When flipping a path starting from A, B, or C, if the number of colors available
   \draw[-, black, line width=1.5pt] (x) -- (orange);
   \draw[-, black, line width=1.5pt] (x) -- (yellow);
 \end{tikzpicture}
-\caption{A caption.}
+\caption{Additional colors can be ignored.  Any duplicates allow flipping as usual.}
+\label{fig:brookstoomany}
 \end{figure}
 
 Therefore, even if $d(G^*) = 3 + j, j > 0$, we can ignore all of the $j$ colors outside of these three when constructing these paths.  The argument for at least one cycle of degree greater than three (marked (*) above) holds as well, since complete graphs of degree $d$ follow the same argument.
@@ -411,7 +439,7 @@ There must be a cycle of size $s$ at least $\frac{n}{2} + 1$ by the Minimum cycl
 
 \begin{lemma}[Crowded neighbors principle]: If there are $n$ vertices in a cycle, selecting $\lfloor\frac{n}{2}\rfloor + 1$ of them must yield at least two neighboring vertices. 
 \end{lemma}
-\textit(Proof): Selected vertices cannot outnumber unselected vertices since every selected vertex must be followed by an unselected one in a cycle without neighbors being selected.
+\textit{Proof}: Selected vertices cannot outnumber unselected vertices since every selected vertex must be followed by an unselected one in a cycle without neighbors being selected.
 
 For Dirac's theorem, we first dispatch with small  vertex counts:
 
@@ -419,7 +447,7 @@ For Dirac's theorem, we first dispatch with small  vertex counts:
 \begin{itemize}
 \item This is meaningless for $n \in {1,2}$.  No cycles are possible.
 \item This is clear for $n = 3$: a triangle.
-\item For $n = 4$, connected vertices $a$ and $b$ must be connected to $c$ and $d$ respectively (blue edges in figure), or both to some $c$ (red edges).
+\item For $n = 4$, connected vertices $a$ and $b$ must be connected to $c$ and $d$ respectively (blue edges in figure), or both to some $c$ (red edges).  See Fig. \ref{fig:dirac4}.
  \begin{itemize}
  \item If the first (blue) case, if $c$ is connected to $d$, we have a 4-cycle.  If $c$ is connected to $b$, then $d$ must be connected to $a$ or $c$, both yielding cycles.
  \item if the second (red) case, $d$ is connected to two of $\{a,b,c\}$, creating a 4-cycle.
@@ -443,7 +471,8 @@ For Dirac's theorem, we first dispatch with small  vertex counts:
     \draw[red, thick] (b) to[bend right=30] (c);
     \draw[blue, thick] (b) to[bend right=15] (d);
 \end{tikzpicture}
-\caption{A caption.}
+\caption{$n$ = 4 necessitates a Hamiltonian cycle when all degrees $\geq 2$}
+\label{fig:dirac4}
 \end{figure}
 
 
@@ -502,12 +531,11 @@ Then $d$'s neighbor $d_1 \in D$ must have at least one adjacency in $s$, call it
 
 \item If $k \geq 2$, there is a cycle of length at least $k+1$ in $D$ by the minimum cycle lemma.
 
-There is some vertex $d \in D$ with degree $k$ in a cycle of length at least $k+1$ (to see this, apply the minimum cycle length theorem algorithm starting with $d$).  This means $d$ has $\frac{n}{2}-k$ neighbors in $C$, which must span a path of at least $2(\frac{n}{2} - k) - 1$ vertices if they are each at least two apart (otherwise, adding the 'jump out to d' and removing the original cycle edge increases cycle length).  
+There is some vertex $d \in D$ with degree $k$ in a cycle of length at least $k+1$ (to see this, apply the minimum cycle length theorem algorithm starting with $d$).  This means $d$ has $\frac{n}{2}-k$ neighbors in $C$, which must span a path of at least $2(\frac{n}{2} - k) - 1$ vertices if they are each at least two apart (otherwise, adding the 'jump out to d' and removing the original cycle edge increases cycle length).  (See Fig. \ref{fig:dirackgeq2}).
 
 But $d$ also has two neighbors in $D$: $d_1$ and $d_2$, in a cycle of length at least $k+1$, so $d_1$ and $d_2$ have a path of $k-1$ vertices between them, inclusive.   $d_1$ has at least one neighbor in $C$, $e$ which must be $k+1$ away from any of $d$'s neighbors $d_i$ (otherwise, if $d_i$ connects to $e$, and $e$ is less than $k+1$ vertices away from some $c_i$ along $s$, then $(e, d_1,  \ldots d_2, d, c_i)$ is a cycle of length $k+2$ or greater).  This is the same for $d_2$ with neighbor $f$.  This means that $C$ must contain $2(frac{n}{2} - k) - 1 + 2(k+1) = n+1$ vertices, which it does not. 
 \end{itemize}
 
-\textbf{Case where n is odd, n > 4}: If $n$ is odd, then remove any vertex $a$. This reduces the degree requirement for all vertices by one (e.g. degree greater than $7 / 2$ means 4, and degree greater than $6/2$ means three).  There must be a Hamiltomian cycle among the $n-1$ vertices by the even case..  But $a$ is must be connected to two adjacent vertices $b$ and $c$ as its requirements mean it is connected to \textit{more} than half of the remaining vertices.  By the Crowded Neighbor principle, there are two adjacent vertices in $s$, $b$ and $c$,  connected to $a$.  Remove the edge $(b,c)$ from $s$ and insert the path $(b, a, c)$ and we have a Hamiltonian cycle.
 
 
 \begin{figure}
@@ -522,7 +550,7 @@ But $d$ also has two neighbors in $D$: $d_1$ and $d_2$, in a cycle of length at 
     \coordinate (cz) at (-2,0.5);
     \coordinate (n2) at (-1.5,-1);
     \coordinate (c1) at (0,-1.5);
-    \coordinate (n3) at (1.5,-1);
+    \coordinate (n3) at (1.5,-1);f
     \coordinate (c2) at (2,0.5);
     \coordinate (n4) at (2.5,2);
     
@@ -587,8 +615,12 @@ But $d$ also has two neighbors in $D$: $d_1$ and $d_2$, in a cycle of length at 
     \node[red, font=\small] at (d2) [below] {$d_2$};
     
 \end{tikzpicture}
-\caption{A caption.}
+\caption{There is not enough room for $d_1, d_2$ to not create a bigger cycle}
+\label{fig:dirackgeq2}
 \end{figure}
+
+\textbf{Case where n is odd, $n > 4$}: If $n$ is odd, then remove any vertex $a$. This reduces the degree requirement for all vertices by one (e.g. degree greater than $7 / 2$ means 4, and degree greater than $6/2$ means three).  There must be a Hamiltomian cycle among the $n-1$ vertices by the even case..  But $a$ is must be connected to two adjacent vertices $b$ and $c$ as its requirements mean it is connected to \textit{more} than half of the remaining vertices.  By the Crowded Neighbor principle, there are two adjacent vertices in $s$, $b$ and $c$,  connected to $a$.  Remove the edge $(b,c)$ from $s$ and insert the path $(b, a, c)$ and we have a Hamiltonian cycle.
+
 
 \section{Lovasz's Theorem Originial Proof}
 
@@ -637,8 +669,6 @@ The logic of the cobipartite graph applies completely; when discussing some $M$ 
 
 
 \section{Turan's Theorem Original Proof}
-
-\subsection*{Turan's theorem}
 
 \begin{theorem}[Turan]
 If a graph \(G=(V,E)\) on \(n\) vertices satisfies \(|E|>\frac12\,n^{2}\Bigl(1-\frac1k\Bigr)\), then \(G\) contains a \((k+1)\)-clique.
