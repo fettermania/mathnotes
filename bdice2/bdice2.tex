@@ -139,6 +139,20 @@ However, this does provide a positive lower bound, and brings up this interestin
 
 If we can couple this with the proof of the next theorem, we can state that $P(k)$ has an asymptotic limit as $k \rightarrow \infty$ given some $q$.
 
+\textbf{Calculating by hand}:
+\begin{itemize} 
+\item $P(0) = 1$
+\item $P(1) = p$
+\item $P(2) = p^2(1+2q) = p^2(3-2p)$
+\item $P(3) =p^3(13-27p+21p^2-6p^3)$
+\item $P(4) = p^4 (75 - 316 p + 606 p^2 - 664 p^3 + 432 p^4 - 156 p^5 + 24 p^6)$
+\item $P(1)-P(0)=p-1=-(1-p)$
+\item $P(2)-P(1)=p^2(3-2p)-p= (-1) p (1-2 p) (1-p )$
+\item $P(3)-P(2)=(-1) 3 p^2 (1 - p)^3 (1-2 p)$
+\item $P(4) - P(3) = -p^3 (1-2p) (p - 1)^2 (12 p^4 - 48 p^3 + 72 p^2 - 50 p + 13)$
+\end{itemize}
+
+
 
 Proof 2: $P(t) < P(t-1)$
 
