@@ -1,7 +1,6 @@
 import functools
 import math
 
-ev = [1]
 
 def fact(i):
     if i == 0:
@@ -9,49 +8,14 @@ def fact(i):
     else:
         return functools.reduce(lambda x, y: x*y, range(1, i+1))
 
-def r_choose_k(r, k):
+def n_choose_k(r, k):
     return int(fact(r) / (fact(r-k) * fact(k)))
-
-
-
-def calc_p_r(r,p):
-    global ev
-    total = 0
-    for k in range(1, r+1):
-        total = total + r_choose_k(r,k)*math.pow(p,k)*math.pow(1-p, r-k)*ev[r-k]
-    ev.append(total)
-    return total
-
-
-my_max = 100
-if False:
-
-    for s in range(2, 10):
-        p = 1/s
-    
-        for r in range(1, my_max):
-            acalc_p_r(r, p)
-        print(f"p = {p}")
-        print(ev[1])
-        print(ev[-4:])
-        ev = [1]
-
-for s in range(2, 10):
-    p = .495
-
-    for r in range(1, my_max):
-        calc_p_r(r, p)
-    print(f"p = {p}")
-    print(ev[1])
-    print(ev)
-    ev = [1]
 
 
 states = [12, 1, 1, 1]
 sides = [6,8,10,12]
 probs = list(map(lambda x: 1/x, sides))
 
-import functools
 
 # returns in topological order
 def all_states(state_vec):
@@ -76,7 +40,7 @@ def create_initial_state_evs(state_vec):
 def prob_single_die_transition(count1, count2, p):
     n = count1
     k = count1 - count2
-    return r_choose_k(n, k) * math.pow(p, k) * math.pow(1-p, n-k)
+    return n_choose_k(n, k) * math.pow(p, k) * math.pow(1-p, n-k)
 
 
 def prob_state_transition(state, reachable_state, probs):
@@ -92,8 +56,22 @@ def calculate_evs(state_vec, probs):
         total_ev = 0
         for reachable_state in reachables:
             p = prob_state_transition(state, reachable_state, probs)
-            total_ev = total_ev + (p * evs[tuple(reachable_state)])
-        evs[tuple(state)] = p
+            previous_ev = evs[tuple(reachable_state)]
+            total_ev = total_ev + p*previous_ev
+   #        print(f"P({state} -> {reachable_state} = {p}, previous_ev = {previous_ev}")
+        evs[tuple(state)] = total_ev
     return evs
+
+print("\n === COMMERCIAL GAME ==== \n")
+print(calculate_evs(states, probs))
+
+
+asymptotic_x = 100
+for s in range(1,10):
+    print(f"\n === Single die {s}, asymptotic: ==== \n")
+    print(calculate_evs([asymptotic_x], [1/s])[tuple([asymptotic_x])])
+
+print("\n === Non-monotonic value: p=.495 GAME ==== \n")
+print(calculate_evs([asymptotic_x], [.495]))
 
 
