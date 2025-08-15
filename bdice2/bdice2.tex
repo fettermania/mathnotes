@@ -43,7 +43,7 @@ style=alphabetic,
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{definition}[theorem]{Definition}
 
-\title{BDAG 2: perfection}
+\title{BADG 2: A Perfect Game}
 \author{Dave Fetterman}
 \date{\today}
 
@@ -52,42 +52,55 @@ style=alphabetic,
 \maketitle
 
 \begin{abstract}
-TODO
+The earlier (b. a. d. g.) paper focused on a near-optimal strategy for maximizing expected value in gameplay.  This paper focuses on a different question: what is the probability of playing a perfect game?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds and prove convergence.
 \end{abstract}
 
-\begin{theorem}The expected chance of a perfect game with $r$ standard dice of $s$ sides each,  given $p := \frac1{s}$, is $P(r) = \Sigma_{k=1}^r {r \choose k} p^k q^{r-k} P(r-k)$, with $P(0)$ defined as 1.
+\begin{theorem}The expected chance of a perfect game with $r$ standard dice of $s$ sides each,  given $p := \frac1{s}$, is $F(r) = \Sigma_{k=1}^r {r \choose k} p^k q^{r-k} F(r-k)$, with $F(0)$ defined as 1.
 \end{theorem}
 \textit{Proof}: This a clear application of the binomial theorem.  
 
 Bounding this quantity will be the principal thrust of this paper.
 
-\begin{lemma}[Easy Cases Lemma] If $p = 0$, P(r) = 0.  If $p = 1, P(r) = 1$. If $s = 2$, for any $r > 0,P(r) = \frac{1}{2}$.
+\begin{lemma}[Easy Cases Lemma] If $p = 0$, F(r) = 0.  If $p = 1, F(r) = 1$. If $s = 2$, for any $r > 0,F(r) = \frac{1}{2}$.
 \end{lemma}
 \textit{Proof}: 
 Though we won't be flipping infinite $(p=0)$ or 1-sided $(p=1)$, dice, these algebraic identities are obvious (can't succeed, can't fail, respectively) and will be useful later.
 
-\textbf{Base case for s=2}: $P(1) = \frac1{2}$ since a perfect game occurs if and only if the coin flips 2 instead of 1.
+\textbf{Base case for s=2}: $F(1) = \frac1{2}$ since a perfect game occurs if and only if the coin flips 2 instead of 1.
 
-\textbf{Inductive case for s=2}: Assuming $P(k) = \frac1{2}$ for all $0 < k < r$,  and $P(0) = 1$:
+\textbf{Inductive case for s=2}: Assuming $F(k) = \frac1{2}$ for all $0 < k < r$,  and $F(0) = 1$:
 \begin{align}
-\Sigma_{k=1}^{r-1} {r \choose k} p^k q^{r-k} P(r-k) + {r \choose r} p^r q^0 P(0) = \\
+\Sigma_{k=1}^{r-1} {r \choose k} p^k q^{r-k} F(r-k) + {r \choose r} p^r q^0 F(0) = \\
  (2^r - 2) \frac1{2^r} (\frac1{2}) + \frac1{2^r} 2(\frac1{2}) = \\
  (2^r) \frac1{2^r} (\frac1{2}) = \frac1{2}
 \end{align}
 
-\begin{theorem}For an unbounded set of $r > 0$ standard $s$-sided dice, $s \geq 2$, the probability $P(r)$ of getting a perfect game has a lower bound of $\exp(-\frac{q}{(1-q)^2})$, if we define  $q := 1-\frac1{s}$.
+\textbf{table of contents TODO}
+\begin{itemize}
+\item Initial Problem Statement: Perfect games
+\item Solution for BADG commercial version
+\item One die type, $n \rightarrow \infty$
+\item Easy Cases
+\item Lazy Upper bound
+\item Lazy Lower bound (Pochhammer)
+\item Extremely Lazy Lower bound (closed form)
+\item Wrong attempt: $F(t) < F(t-1)?$
+\item F(n) exhibits provably asymptotic behavior
+\end{itemize}
+
+\begin{theorem}For an unbounded set of $r > 0$ standard $s$-sided dice, $s \geq 2$, the probability $F(r)$ of getting a perfect game has a lower bound of $\exp(-\frac{q}{(1-q)^2})$, if we define  $q := 1-\frac1{s}$.
 \end{theorem}
 \textit{Proof}:
 
 \begin{itemize}
 \item First, while at stage $k$, where $k$ dice remain, the probabilty $P_{s}(k)$ of continuing to some stage $j < k$  is clearly $1 - q^k$.
-\item The probability $P(k)$ of passing all such stages is greater than or equal to $P^* = \Pi_{i=1}^k P_{s}(k)$, since a successful traversal may involve skipping one or more stages, and $P^*$ assumes we no stages.
+\item The probability $F(k)$ of passing all such stages is greater than or equal to $P^* = \Pi_{i=1}^k P_{s}(k)$, since a successful traversal may involve skipping one or more stages, and $P^*$ assumes we no stages.
 
-\item Therefore, $P(k) \geq \Pi_{i=1}^k P_{s}(k) =  \Pi_{i=1}^k (1-q^k)$.
-\item This means $\log(P(k)) \geq \Sigma_{i=1}^k \log(P_{s}(k)) = \Sigma_{i=1}^k \log(1-q^k)$.
+\item Therefore, $F(k) \geq \Pi_{i=1}^k P_{s}(k) =  \Pi_{i=1}^k (1-q^k)$.
+\item This means $\log(F(k)) \geq \Sigma_{i=1}^k \log(P_{s}(k)) = \Sigma_{i=1}^k \log(1-q^k)$.
 \end{itemize}
 
-This $P(k)$ is apparently defined as the \textbf{q-Pochhammer symbol} $(q;q)_\infty = \Pi_{i=1}^k (1-q^k)$, with known convergence properties.  I'll instead attempt to tackle convergence without the aid of these theorems.
+This $F(k)$ is apparently defined as the \textbf{q-Pochhammer symbol} $(q;q)_\infty = \Pi_{i=1}^k (1-q^k)$, with known convergence properties.  I'll instead attempt to tackle convergence without the aid of these theorems.
 
 Often, $\log(1-z)$ is approximated by $-z$ near zero, but we are most concerned with $z$ near one, since $1-z$ approaches 0, and $\log(1-z)$ explodes.  Therefore, let's look at the expansion of $\log(1-z)$:
 \begin{itemize}
@@ -97,8 +110,8 @@ Often, $\log(1-z)$ is approximated by $-z$ near zero, but we are most concerned 
 
 So when summing $\Sigma_{i=1}^k \log(1-q^k)$, we can instead sum 
 \begin{align}
-\log(P(k)) = \log(1-q^1) + \log(1-q^2) + \log(1-q^3) + \ldots \\ 
-\log(P(k)) = (-q - \frac{q^2}{2} - \frac{q^3}{3} + \ldots) +  (-q^2 - \frac{q^4}{2} - \frac{q^6}{3} + \ldots) +  (-q^3 - \frac{q^6}{2} - \frac{q^9}{3} + \ldots) +  \ldots \\
+\log(F(k)) = \log(1-q^1) + \log(1-q^2) + \log(1-q^3) + \ldots \\ 
+\log(F(k)) = (-q - \frac{q^2}{2} - \frac{q^3}{3} + \ldots) +  (-q^2 - \frac{q^4}{2} - \frac{q^6}{3} + \ldots) +  (-q^3 - \frac{q^6}{2} - \frac{q^9}{3} + \ldots) +  \ldots \\
 > (-q - q^2 - q^3 + \ldots) +   (-q^2 - q^4 - q^6 + \ldots) +  (-q^3 - q^6 - q^9 + \ldots) + \ldots \\
 = \frac{-q}{1-q} + \frac{-q^2}{1-q^2} + \frac{-q^3}{1-q^3} +    \ldots \\
 > \frac{-q}{1-q} + \frac{-q^2}{1-q} + \frac{-q^3}{1-q} +    \ldots \\
@@ -114,7 +127,7 @@ So when summing $\Sigma_{i=1}^k \log(1-q^k)$, we can instead sum
 \item (6) and (7) follow from (5) by dividing out $\frac1{1-q}$ and applying Identity 1.
 \end{itemize}
 
-Since $\log(P(k))  > \frac{-q}{(1-q)^2}$, $P(k) > \exp (\frac{-q}{(1-q)^2)})$.
+Since $\log(F(k))  > \frac{-q}{(1-q)^2}$, $F(k) > \exp (\frac{-q}{(1-q)^2)})$.
 
 \begin{table}[h]
 \centering
@@ -128,51 +141,95 @@ s & p & q & bound \\
 10 & $\frac{1}{10}$ & $\frac{9}{10}$ & $\exp(-90) \approx 8.19 \times 10^{-40}$ \\
 \hline
 \end{tabular}
-\caption{Very loose lower bounds on $P(k = \infty)$}
+\caption{Very loose lower bounds on $F(k = \infty)$}
 \label{tab:lower_boundsl}
 \end{table}
 
 
-This is a thoroughly unsatisfying lower bound, as we know $P(2) = \frac1{2}$.
+This is a thoroughly unsatisfying lower bound, as we know $F(2) = \frac1{2}$.
 
-However, this does provide a positive lower bound, and brings up this interesting fact: \textbf{Though increasing the number of sides of the dice can drive P(k) to zero, increasing k to $\infty$ will never set P(k) to zero}.  
+However, this does provide a positive lower bound, and brings up this interesting fact: \textbf{Though increasing the number of sides of the dice can drive F(k) to zero, increasing k to $\infty$ will never set F(k) to zero}.  
 
-If we can couple this with the proof of the next theorem, we can state that $P(k)$ has an asymptotic limit as $k \rightarrow \infty$ given some $q$.
+If we can couple this with the proof of the next theorem, we can state that $F(k)$ has an asymptotic limit as $k \rightarrow \infty$ given some $q$.
 
 \textbf{Calculating by hand}:
 \begin{itemize} 
-\item $P(0) = 1$
-\item $P(1) = p$
-\item $P(2) = p^2(1+2q) = p^2(3-2p)$
-\item $P(3) =p^3(13-27p+21p^2-6p^3)$
-\item $P(4) = p^4 (75 - 316 p + 606 p^2 - 664 p^3 + 432 p^4 - 156 p^5 + 24 p^6)$
-\item $P(1)-P(0)=p-1=-(1-p)$
-\item $P(2)-P(1)=p^2(3-2p)-p= (-1) p (1-2 p) (1-p )$
-\item $P(3)-P(2)=(-1) 3 p^2 (1 - p)^3 (1-2 p)$
-\item $P(4) - P(3) = -p^3 (1-2p) (p - 1)^2 (12 p^4 - 48 p^3 + 72 p^2 - 50 p + 13)$
+\item $F(0) = 1$
+\item $F(1) = p$
+\item $F(2) = p^2(1+2q) = p^2(3-2p)$
+\item $F(3) =p^3(13-27p+21p^2-6p^3)$
+\item $F(4) = p^4 (75 - 316 p + 606 p^2 - 664 p^3 + 432 p^4 - 156 p^5 + 24 p^6)$
+\item $F(1)-F(0)=p-1=-(1-p)$
+\item $F(2)-F(1)=p^2(3-2p)-p= (-1) p (1-2 p) (1-p )$
+\item $F(3)-F(2)=(-1) 3 p^2 (1 - p)^3 (1-2 p)$
+\item $F(4) - F(3) = -p^3 (1-2p) (p - 1)^2 (12 p^4 - 48 p^3 + 72 p^2 - 50 p + 13)$	
 \end{itemize}
 
+\begin{comment}
 
 
-Proof 2: $P(t) < P(t-1)$
+f_0(p) = 1;
+f_1(p) = p;
+	f_1(p) - f_0(p) = 1-p
+
+f_2(p) = p^2(1+2q) = p^2(3-2p);
+	f_2(p) - f_1(p) = 
+f_3(p) =p^3(13-27p+21p^2-6p^3);
+f_2(p) - f_3(p) = 3 (1-p)^3 p^2 (1-2 p)
+
+f_4(p)= p^4 (1+4q+6q^2 +16q^3 +12q^4+12q^5+24q^6)
+
+ ),
+
+
+f(5) - f(6) = 
+q = 1-p;  p^5 +5p^5 q+10p^5 q^2 +30p^5 q^3 +35p^5 q^4 +50p^5 q^5 +90p^5 q^6 +80p^5 q^7 +60p^5 q^8 +60p^5 q^9 +120p^5 q^10 ?p^6 ?6p^6 q?15p^6 q^2 ?50p^6 q^3 ?75p^6 q^4 ?126p^6 q^5 ?240p^6 q^6 ?300p^6 q^7 ?360p^6 q^8 ?390p^6 q^9 ?660p^6 q^10 ?540p^6 q^11 ?480p^6 q^12 ?360p^6 q^13 ?360p^6 q^14 ?720p^6 q^15
+
+ 
+?
+ 
+
+
+
+
+
+
+
+
+
+\item $F(4) = p^4 (75 - 316 p + 606 p^2 - 664 p^3 + 432 p^4 - 156 p^5 + 24 p^6)$
+\item $F(1)-F(0)=p-1=-(1-p)$
+\item $F(2)-F(1)=p^2(3-2p)-p= (-1) p (1-2 p) (1-p )$
+\item $F(3)-F(2)=(-1) 3 p^2 (1 - p)^3 (1-2 p)$
+\item $F(4) - F(3) = -p^3 (1-2p) (p - 1)^2 (12 p^4 - 48 p^3 + 72 p^2 - 50 p + 13)$
+
+\end{comment}
+
+\begin{theorem}[Incorrect Blind Alley: $F(n) < F(n-1)$] If $p < \frac1{2}, F(n-1) > F(n)$ for $n > 1$.\end{theorem}
+
+\begin{itemize}
+\item TODO: Show calculation of various functions directly.
+\item Show calculation of $p = \frac1{2} - \epsilon,q = \frac1{2} - \epsilon$ with $p= 0.495$.
+\item Show interesting observations: growth of polynomial
+\end{itemize}
 
 \begin{itemize}
 \item $R(t)$ is starting at position $t$, throwing $t-1$ dice.
-\item $P(t) = p(1+q^{t-1})P(t-1) + qR(t) = pP(t-1)+pq^{t-1}P(t-1) + qR(t)$
-\item If $qR(t) < qP(t-1) - pq^{t-1}P(t-1)$, same as $ P(t-1)-R(t)  > pq^{t-2}P(t-1)$, then $P(t) < P(t-1)$.
+\item $F(t) = p(1+q^{t-1})F(t-1) + qR(t) = pF(t-1)+pq^{t-1}F(t-1) + qR(t)$
+\item If $qR(t) < qF(t-1) - pq^{t-1}F(t-1)$, same as $ F(t-1)-R(t)  > pq^{t-2}F(t-1)$, then $F(t) < F(t-1)$.
 
-\item In the special case $q = p = \frac{1}{2}$, then $P(t-1) - R(t) = p^{t-1} (1) - p^{t-1}\cdot p$  + other zero factors $= p^t = pq^{t-2}\cdot\frac{1}{2}$.  
-\item So we're satisfied since $P(t) = \frac{1}{2}$ for $t \geq 1$.
+\item In the special case $q = p = \frac{1}{2}$, then $F(t-1) - R(t) = p^{t-1} (1) - p^{t-1}\cdot p$  + other zero factors $= p^t = pq^{t-2}\cdot\frac{1}{2}$.  
+\item So we're satisfied since $F(t) = \frac{1}{2}$ for $t \geq 1$.
 
-\item If $p \leq \frac{1}{3}, P(t-1)  - R(t) =  [p^{t-1}P(0) - p^{t-1}P(1)$ + other positive factors $] = p^{t-1}q + \epsilon$.
+\item If $p \leq \frac{1}{3}, F(t-1)  - R(t) =  [p^{t-1}F(0) - p^{t-1}F(1)$ + other positive factors $] = p^{t-1}q + \epsilon$.
 \end{itemize}
 
 
 \begin{align}
-t=3, P(3) - R(4) > pq^{4-1}P(4-1)\\
-p^3P(0) - p^3P(1) \\
-{3 \choose 2} p^2qP(1) - {3 \choose 2} p^2qP(2) \\ 
-{3 \choose 1} p^2qP(2) - {3 \choose 2} p^2qP(3) \\
+t=3, F(3) - R(4) > pq^{4-1}F(4-1)\\
+p^3F(0) - p^3F(1) \\
+{3 \choose 2} p^2qF(1) - {3 \choose 2} p^2qF(2) \\ 
+{3 \choose 1} p^2qF(2) - {3 \choose 2} p^2qF(3) \\
 \end{align}
 
 
