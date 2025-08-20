@@ -55,6 +55,101 @@ style=alphabetic,
 The earlier (b. a. d. g.) paper focused on a near-optimal strategy for maximizing expected value in gameplay.  This paper focuses on a different question: what is the probability of playing a perfect game?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds and prove convergence.
 \end{abstract}
 
+\section{The Commercial Game}
+
+This is solvable using standard recursive techniques.
+
+\begin{align}
+\vec{S} = [12, 1,1,1 ] \\
+\vec{p} = [\frac1{6}, \frac1{8}, \frac1{10}, \frac1{12}] \\
+P_{single}(n, k, \vec{p}) := {n \choose k} p^k(1-p)^{n-k} \\
+P_{transition}(\vec{s_1}, \vec{s_2}, \vec{p}) := \Pi_{i=0}^{dim(\vec{s})} P_{single}(\vec{s_1}_i, \vec{s_2}_i, \vec{p}_i) \\
+F(\vec{0}) := 1 \\
+substates(\vec{s}) := \mathop{\times}\limits_{i=0}^{dim(s)} [0, s_i] \\
+states = topological\_sort(substates(\vec{S}) - [0,0,0,0]) \\
+for \vec{s} \in states: \\
+  F(\vec{s}) = \Sigma_{\vec{t} \in (substates(\vec{s}) - \vec{s})} P_{transition}(\vec{s}, \vec{t}) \cdot F(\vec{t})
+\end{align}
+
+
+% Auto-generated EV tables (rounded to 4 significant digits)
+\[\text{EV with }(d_{10},d_{12})=(0,0)\quad
+\begin{array}{c|cc}
+d_6 \backslash d_8 & 0 & 1\\\hline
+0&1&0.125\\
+1&0.1667&0.05642\\
+2&0.07407&0.03244\\
+3&0.04192&0.02206\\
+4&0.02809&0.01679\\
+5&0.02107&0.01378\\
+6&0.01708&0.01195\\
+7&0.01463&0.01076\\
+8&0.01303&0.009966\\
+9&0.01195&0.009423\\
+10&0.01119&0.009044\\
+11&0.01065&0.008779\\
+12&0.01025&0.008591\\
+\end{array}
+\]
+
+\[\text{EV with }(d_{10},d_{12})=(1,0)\quad
+\begin{array}{c|cc}
+d_6 \backslash d_8 & 0 & 1\\\hline
+0&0.1&0.03469\\
+1&0.04556&0.02046\\
+2&0.02644&0.01425\\
+3&0.01815&0.01109\\
+4&0.01392&0.009299\\
+5&0.01152&0.008218\\
+6&0.01006&0.007537\\
+7&0.009124&0.0071\\
+8&0.008506&0.006818\\
+9&0.00809&0.006638\\
+10&0.007809&0.006529\\
+11&0.007618&0.006468\\
+12&0.007491&0.006441\\
+\end{array}
+\]
+
+\[\text{EV with }(d_{10},d_{12})=(0,1)\quad
+\begin{array}{c|cc}
+d_6 \backslash d_8 & 0 & 1\\\hline
+0&0.08333&0.02908\\
+1&0.03819&0.01726\\
+2&0.02231&0.01209\\
+3&0.0154&0.009464\\
+4&0.01188&0.00798\\
+5&0.009888&0.007088\\
+6&0.008677&0.006532\\
+7&0.007907&0.006181\\
+8&0.007404&0.00596\\
+9&0.007071&0.005825\\
+10&0.006851&0.00575\\
+11&0.006707&0.005715\\
+12&0.006618&0.005709\\
+\end{array}
+\]
+
+\[\text{EV with }(d_{10},d_{12})=(1,1)\quad
+\begin{array}{c|cc}
+d_6 \backslash d_8 & 0 & 1\\\hline
+0&0.02347&0.01087\\
+1&0.01406&0.007809\\
+2&0.009946&0.006252\\
+3&0.007849&0.005385\\
+4&0.006672&0.004879\\
+5&0.005971&0.00458\\
+6&0.005542&0.004408\\
+7&0.005278&0.004318\\
+8&0.00512&0.004283\\
+9&0.005033&0.004284\\
+10&0.004994&0.004312\\
+11&0.004988&0.004356\\
+12&0.005005&0.004413\\
+\end{array}
+\]
+
+
 \begin{theorem}The expected chance of a perfect game with $r$ standard dice of $s$ sides each,  given $p := \frac1{s}$, is $F(r) = \Sigma_{k=1}^r {r \choose k} p^k q^{r-k} F(r-k)$, with $F(0)$ defined as 1.
 \end{theorem}
 \textit{Proof}: This a clear application of the binomial theorem.  
@@ -147,6 +242,29 @@ s & p & q & bound \\
 
 
 This is a thoroughly unsatisfying lower bound, as we know $F(2) = \frac1{2}$.
+
+\begin{definition}[$(q;q)_{\infty}$: The q-pochhammer symbol]
+The q-pochhammer symbol $(q;q)_{\infty} = \Pi_{k=1}^{\infty}(1-q^k)$ is a known convergent quantity.
+\end{definition}
+ 
+\[
+\begin{array}{c|c|c}
+q & (q;q)_\infty & \exp\!\left(-\tfrac{q}{(1-q)^2}\right) \\
+\hline
+1/2  & 2.8879 \times 10^{-1} & 1.3534 \times 10^{-1} \\
+2/3  & 6.9272 \times 10^{-2} & 2.4788 \times 10^{-3} \\
+3/4  & 1.5545 \times 10^{-2} & 6.1442 \times 10^{-6} \\
+4/5  & 3.3680 \times 10^{-3} & 2.0612 \times 10^{-9} \\
+5/6  & 7.1400 \times 10^{-4} & 9.3576 \times 10^{-14} \\
+6/7  & 1.4913 \times 10^{-4} & 5.7495 \times 10^{-19} \\
+7/8  & 3.0815 \times 10^{-5} & 4.7809 \times 10^{-25} \\
+8/9  & 6.3155 \times 10^{-6} & 5.3802 \times 10^{-32} \\
+9/10 & 1.2861 \times 10^{-6} & 8.1940 \times 10^{-40} \\
+\end{array}
+\]
+
+
+
 
 However, this does provide a positive lower bound, and brings up this interesting fact: \textbf{Though increasing the number of sides of the dice can drive F(k) to zero, increasing k to $\infty$ will never set F(k) to zero}.  
 
