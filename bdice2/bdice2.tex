@@ -21,9 +21,11 @@ style=alphabetic,
 \captionsetup{compatibility=false}
 
 
+
 \usepackage{tikz}
 \usetikzlibrary{positioning, arrows.meta, decorations.pathreplacing}
-
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{syntonly}
 
 % \syntaxonly \langle -- use this for checking syntax only
@@ -52,17 +54,164 @@ style=alphabetic,
 \maketitle
 
 \begin{abstract}
-The earlier (b. a. d. g.) paper focused on a near-optimal strategy for maximizing expected value in gameplay.  This paper focuses on a different question: what is the probability of playing a perfect game?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds and prove convergence.
+An earlier (b. a. d. g.) paper (http://fettermania.com/math/bdice.pdf) focused on a near-optimal strategy for maximizing expected value in gameplay.  This paper focuses on a different question: what is the probability of playing a perfect game?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds and prove convergence.
 \end{abstract}
 
-\section{The Commercial Game}
+\section{Introduction and the Commercial Game}
+
+Outside of ideological patron Larry Waldman, the publication of my original b. a. d. g. paper (http://fettermania.com/math/bdice.pdf) received little human fanfare, as expected.  However, robots.txt somehow picked up on this and brought this to the attention of Samuel Cox, creator of the game.  After dispensing with mild praise about the paper and strong confusion about my interest in it, Mr. Cox suggested another problem. 
+
+Instead of "how does one play the game with high/maximum expected value?" (addressed in the first paper), Mr. Cox wondered how often a \textit{perfect game} (one in which the best possible score is achieved at the end) occur?  I took this on and a day or so later, the solution to this particular question surfaced readily.  Naturally unsatisfied by instances, I sought a more general solution to a subproblem I found.  Nine months later, just as I was beginning to enjoy my futility and disinterest in this neglected offspring, the brood emerged.  
+
+So we'll briefly discuss the game, the assumption, the solution method for the commercially offered game, the numbers before diving in to the second quest and surprising discoveries found along the way.
+
+\subsection{The Game}
+
+With no access to the game, we search the web.  From what I can only assume is/was the front page of boardgamegeek.com, b.a.d.g. has these drunkenly paraphrased rules (sic):
+\begin{enumerate}
+\item \textit{Roll all the dice}
+\item \textit{Determine if you have bitches a "bitch" is the highest number on any dice usually this is the six but there are a few exceptions the 8 and 10 and 12-sided die as well as the custom}
+\item \textit{Remove dice you want to set aside your highest dice to get the best past possible score. You must set aside at least one die per roll you can set aside as many dice as you want.}
+\item \textit{Reroll the remaining dice and keep setting them aside until you're out of dice.}
+\item \textit{Score add up all the dice The person with the highest score wins.}
+\end{enumerate}
+
+I'll take it from here, TrevDogg.  To formalize this more clearly, a solitaire-style game of b. a. d. g. follows this pattern:
+\begin{enumerate}
+\item Begin with 12 standard dice of six sides, along with one eight-, one ten-, and one twelve-sided die.
+\item On each of your turns, roll all of the dice.
+\item If you set any dice from this roll aside,  add their face total to your overall score.
+\item You must pick up at least one die each turn.
+\end{enumerate}
+
+The question \textit{"how likely am I to get a perfect score?"} therefore relies on the \textit{strategy} one employs in picking up dice.  
+
+\subsection{The Assumption}
+\begin{proposition}[The Smoke 'em if you got 'em strategy]: The best strategy to achieve a perfect game is to always pick up as many dice with maximum face value as the turn allows.\end{proposition}
+
+Upon reflection, this proposition is:
+\begin{enumerate}
+\item Simple
+\item Obvious
+\item The strategy any reasonable person would employ
+\item Assumed throughout the rest of the paper
+\item \textbf{Mathematically false}
+\end{enumerate}
+
+Why mathematically false?  The second quest offers a few surprises.  See \textbf{The Smoking Gun} section for details.  However, for the discretely sized dice of 6, 8, 10, and 12 sides, we'll assume having more points in the bank and less dice to roll is better than the inverse; reasonably, if you set aside a die with a max roll, that die will \textit{again} have to hit a max roll to achieve your perfect game.  Why not just bank it?
+
+So, we assume it in calculating the expected value of any state reachable from the standard b. a. d. g. starting configuration in the next section.
+
+\subsection{The Commercial Game Solution Method} 
+
+These  definitions will help us write a program to get our solution for the commercial game:
+\begin{itemize}
+\item The ``state'' $\vec{S} := [a,b,c,d]$ is how many dice of size 6, 8, 10, and 12 remain, respectively.  We start at $\vec{S} = [12, 1, 1, 1]$.  A perfect game ends at $\vec{S} = \vec{0}$.  A failure to roll any max roll ends the game in an unlisted `losing' state $\varnothing$.
+\item The ``probability vector'' $\vec{p} := [1/6, 1/8, 1/10, 1/12]$ is the chance of getting a max roll from each of the dice sizes, again here assumed to be 6, 8, 10, 12.
+\item With a win defined as value $1$ and a loss as value $0$, the ``expected value'' of being in state $\vec{s}$ is defined as $F(\vec{s})$.  Since there is only a single, deterministic strategy, the expected value is then equivalent to the probability of ending up in winning state $\vec{0}$ from state $\vec{s}$.
+\item Therefore, $F(\vec{0}) = F([0,0,0,0]) = 1$, and $F(\varnothing) = 0$.
+\end{itemize}
+
+First, let's limit ourselves to a game (or state with only $d-sided$ dice, collapsing state vector $\vec{s}$ to a single integer $r$ ($r$ dice of size $d$ left).
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[
+      >=Latex,
+      state/.style={circle,fill=black,inner sep=1.7pt},
+      lab/.style={font=\small}
+    ]
+    
+    % positions
+    \node[state] (s0) at (0,0)   {};
+    \node[state] (s1) at (2.6,0) {};
+    \node[state] (s2) at (5.2,0) {};
+    \node         (dots) at (7.8,0) {$\cdots$};
+    \node[state] (sr1) at (10.4,0) {};
+    \node[state] (sr)  at (13.0,0) {};
+    
+    % labels (top of nodes)
+    \node[lab,above=3pt of s0] {$F(0)=1$};
+    \node[lab,above=3pt of s1] {$F(1)$};
+    \node[lab,above=3pt of s2] {$F(2)$};
+    \node[lab,above=3pt of sr1] {$F(r\!-\!1)$};
+    \node[lab,above=3pt of sr]  {$F(r)$};
+    
+    % leftward arrows
+    \draw[->] (s1) to[bend right=20] node[lab,below] {$pq$} (s0);
+    \draw[->] (s2) to[bend right=20] node[lab,below] {$\binom{2}{1}pq$} (s1);
+    \draw[->] (sr) to[bend right=20] node[lab,below] {$\binom{r}{1}p\,q^{r-1}$} (sr1);
+    
+    % special red arrow from F(r-1) to F(2)
+    \draw[->,red,thick,bend right=25] (sr1) to node[lab,above,sloped,text=red] 
+      {$\binom{r-1}{\,r-3\,}p^{\,r-3}q^{2}$} (s2);
+    
+    % sink/bust nodes
+    \node[state,fill=white,draw=black,inner sep=1pt] (z1) at (2.6,-1.3) {};
+    \node[state,fill=white,draw=black,inner sep=1pt] (z2) at (5.2,-1.3) {};
+    \node[state,fill=white,draw=black,inner sep=1pt] (zr1) at (10.4,-1.3) {};
+    \node[state,fill=white,draw=black,inner sep=1pt] (zr) at (13.0,-1.3) {};
+    \node[lab,below=2pt of z1] {$\varnothing$};
+    \node[lab,below=2pt of z2] {$\varnothing$};
+    \node[lab,below=2pt of zr1] {$\varnothing$};
+    \node[lab,below=2pt of zr] {$\varnothing$};
+    
+    % bust arrows with q^t
+    \draw[->] (s1) -- node[lab,right] {$q^{1}$} (z1);
+    \draw[->] (s2) -- node[lab,right] {$q^{2}$} (z2);
+    \draw[->] (sr1) -- node[lab,right] {$q^{r-1}$} (zr1);
+    \draw[->] (sr) -- node[lab,right] {$q^{r}$} (zr);
+    
+    \end{tikzpicture}
+    \caption{Transition graph of the dice game showing expected values $F(t)$ and transition probabilities.}
+    \label{fig:dice-transition}
+\end{figure}
+
+
+\begin{lemma}[EV of $r$ $d$-sided dice]: The expected chance of a completing perfect game from a state of $r$ standard dice of $d$ sides each,  given $p := \frac1{d}$ and $q := 1-p$, is $F(k) = \Sigma_{k=1}^r {r \choose k} p^k q^{r-k} F(r-k)$, with $F(0)$ defined as 1.\end{lemma}
+
+\textit{Proof}: This a clear application of the binomial theorem.  The chance of transitioning to state $F(r-k)$ from $F(r)$ is the chance of rolling exactly $k$ max rolls and $r-k$ non-max rolls among your $d$-sided dice, or $P_{single}(r, k, p) := {r \choose k} p^k q^{r-k}$.  The expected value of being in this new state is defined as $F(r-k)$.  The value of this state transition possibility is their product, and the total expected value of being in state $r$ is the sum of the values of all state transition values.  Note that $k=0$ implies a roll with no maxes, and thus a loss (value 0).
+
+Extending this to dice of different sizes is clear:
+
+
+\begin{lemma}[State Transition lemma] The chance of transitioning from state $\vec{s_1}={s_1}_1, {s_1}_2\ldots{s_1}_z$ to state $\vec{s_2} = {s_2}_1, {s_2}_2\ldots {s_2}_z$ with probability vector $\vec{p} = p_1, p_2 \ldots p_z$ is the product of the individual probabilities:
+  $P_{transition}(\vec{s_1},\vec{s_2},\vec{p}) := \Pi_{i=0}^z P_{single}(\vec{s_1}_i ,\vec{s_2}_i,\vec{p}_i)$.
+
+\textit{Proof:} Since the outcome of rolling dice of $d$ sides are all indepedent of each other, $P_{transition}$ can be expressed as the product of $P_{single}$ quantiites.
+
+
+
+The expected chance of a completing perfect game from a state of $r$ standard dice of $d$ sides each,  given $p := \frac1{d}$ and $q := 1-p$, is $F(k) = \Sigma_{k=1}^r {r \choose k} p^k q^{r-k} F(r-k)$, with $F(0)$ defined as 1.\end{lemma}
+\textit{Proof}: This a clear application of the binomial theorem.  The chance of transitioning to state $F(r-k)$ from $F(r)$ is the chance of rolling exactly $k$ max rolls and $r-k$ non-max rolls among your $d$-sided dice, or ${r \choose k} p^k q^{r-k}$.  The expected value of being in this new state is defined as $F(r-k)$.  The value of this state transition possibility is their product, and the total expected value of being in state $r$ is the sum of the values of all state transition values.  Note that $k=0$ implies a roll with no maxes, and thus a loss (value 0).
+
+
+
 
 This is solvable using standard recursive techniques.
 
+\begin{algorithm}
+\caption{Dynamic program for $F(\vec{s})$}
+\begin{algorithmic}[1]
+\State $\vec{S} \gets [12,1,1,1]$
+\State $\vec{p} \gets \left[\tfrac{1}{6}, \tfrac{1}{8}, \tfrac{1}{10}, \tfrac{1}{12}\right]$
+\State $P_{\text{single}}(n,k,p) \gets \binom{n}{k} p^k (1-p)^{n-k}$
+\State $P_{\text{transition}}(\vec{s_1},\vec{s_2},\vec{p}) \gets \prod_{i=0}^{\dim(\vec{s})} P_{\text{single}}(\vec{s_1}_i,\vec{s_2}_i,\vec{p}_i)$
+\State $F(\vec{0}) \gets 1$
+\State $\text{substates}(\vec{s}) \gets \prod_{i=0}^{\dim(\vec{s})} [0,s_i]$
+\State $\text{states} \gets \text{topological\_sort}\!\left(\text{substates}(\vec{S}) \setminus \{[0,0,0,0]\}\right)$
+\For{$\vec{s} \in \text{states}$}
+  \State $F(\vec{s}) \gets \sum_{\vec{t} \in \left(\text{substates}(\vec{s}) \setminus \{\vec{s}\}\right)} 
+     P_{\text{transition}}(\vec{s},\vec{t}) \cdot F(\vec{t})$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+\begin{comment}
 \begin{align}
+
 \vec{S} = [12, 1,1,1 ] \\
 \vec{p} = [\frac1{6}, \frac1{8}, \frac1{10}, \frac1{12}] \\
-P_{single}(n, k, \vec{p}) := {n \choose k} p^k(1-p)^{n-k} \\
+P_{single}(n, k, \vec{p}) := {n \\ k} p^k(1-p)^{n-k} \\
 P_{transition}(\vec{s_1}, \vec{s_2}, \vec{p}) := \Pi_{i=0}^{dim(\vec{s})} P_{single}(\vec{s_1}_i, \vec{s_2}_i, \vec{p}_i) \\
 F(\vec{0}) := 1 \\
 substates(\vec{s}) := \mathop{\times}\limits_{i=0}^{dim(s)} [0, s_i] \\
@@ -70,6 +219,7 @@ states = topological\_sort(substates(\vec{S}) - [0,0,0,0]) \\
 for \vec{s} \in states: \\
   F(\vec{s}) = \Sigma_{\vec{t} \in (substates(\vec{s}) - \vec{s})} P_{transition}(\vec{s}, \vec{t}) \cdot F(\vec{t})
 \end{align}
+\end{comment}
 
 
 % Auto-generated EV tables (rounded to 4 significant digits)
@@ -150,11 +300,6 @@ d_6 \backslash d_8 & 0 & 1\\\hline
 \]
 
 
-\begin{theorem}The expected chance of a perfect game with $r$ standard dice of $s$ sides each,  given $p := \frac1{s}$, is $F(r) = \Sigma_{k=1}^r {r \choose k} p^k q^{r-k} F(r-k)$, with $F(0)$ defined as 1.
-\end{theorem}
-\textit{Proof}: This a clear application of the binomial theorem.  
-
-Bounding this quantity will be the principal thrust of this paper.
 
 \begin{lemma}[Easy Cases Lemma] If $p = 0$, F(r) = 0.  If $p = 1, F(r) = 1$. If $s = 2$, for any $r > 0,F(r) = \frac{1}{2}$.
 \end{lemma}
