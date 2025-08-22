@@ -27,6 +27,9 @@ style=alphabetic,
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{syntonly}
+\usepackage{mathabx}
+\usepackage{xcolor,colortbl}
+
 
 % \syntaxonly \langle -- use this for checking syntax only
 % \mbox {text} - keep together
@@ -54,7 +57,7 @@ style=alphabetic,
 \maketitle
 
 \begin{abstract}
-An earlier (b. a. d. g.) paper (http://fettermania.com/math/bdice.pdf) focused on a near-optimal strategy for maximizing expected value in gameplay.  This paper focuses on a different question: what is the probability of playing a perfect game?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds and prove convergence.
+An earlier (b. a. d. g.) paper (http://fettermania.com/math/bdice.pdf) focused on a near-optimal strategy for maximizing expected value in gameplay.  This paper focuses on a different question: what is the probability of playing a perfect game?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related question: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds, prove convergence, and find surprising results along the way.
 \end{abstract}
 
 \section{Introduction and the Commercial Game}
@@ -112,7 +115,7 @@ These  definitions will help us write a program to get our solution for the comm
 \item Therefore, $F(\vec{0}) = F([0,0,0,0]) = 1$, and $F(\varnothing) = 0$.
 \end{itemize}
 
-First, let's limit ourselves to a game (or state with only $d-sided$ dice, collapsing state vector $\vec{s}$ to a single integer $r$ ($r$ dice of size $d$ left).
+First, let's limit ourselves to a game (or state with only $d-sided$ dice, collapsing state vector $\vec{s}$ to a single integer $r$ ($r$ dice of size $d$ left).  Refer to Fig. \ref{fig:dice-transition} for a visualization of the states starting at $r$ dice left of size $d$, with $p := 1/d, q := 1-p$.
 
 \begin{figure}[ht]
     \centering
@@ -138,8 +141,9 @@ First, let's limit ourselves to a game (or state with only $d-sided$ dice, colla
     \node[lab,above=3pt of sr]  {$F(r)$};
     
     % leftward arrows
-    \draw[->] (s1) to[bend right=20] node[lab,below] {$pq$} (s0);
+    \draw[->] (s1) to[bend right=20] node[lab,below] {$p$} (s0);
     \draw[->] (s2) to[bend right=20] node[lab,below] {$\binom{2}{1}pq$} (s1);
+    \draw[->] (s2) to[bend right=60] node[lab,below] {$p^2$} (s0);
     \draw[->] (sr) to[bend right=20] node[lab,below] {$\binom{r}{1}p\,q^{r-1}$} (sr1);
     
     % special red arrow from F(r-1) to F(2)
@@ -157,7 +161,7 @@ First, let's limit ourselves to a game (or state with only $d-sided$ dice, colla
     \node[lab,below=2pt of zr] {$\varnothing$};
     
     % bust arrows with q^t
-    \draw[->] (s1) -- node[lab,right] {$q^{1}$} (z1);
+    \draw[->] (s1) -- node[lab,right] {$q$} (z1);
     \draw[->] (s2) -- node[lab,right] {$q^{2}$} (z2);
     \draw[->] (sr1) -- node[lab,right] {$q^{r-1}$} (zr1);
     \draw[->] (sr) -- node[lab,right] {$q^{r}$} (zr);
@@ -168,7 +172,7 @@ First, let's limit ourselves to a game (or state with only $d-sided$ dice, colla
 \end{figure}
 
 
-\begin{lemma}[EV of $r$ $d$-sided dice]: The expected chance of a completing perfect game from a state of $r$ standard dice of $d$ sides each,  given $p := \frac1{d}$ and $q := 1-p$, is $F(k) = \Sigma_{k=1}^r {r \choose k} p^k q^{r-k} F(r-k)$, with $F(0)$ defined as 1.\end{lemma}
+\begin{lemma}[EV of $r$ $d$-sided dice]The expected chance of a completing perfect game from a state of $r$ standard dice of $d$ sides each,  given $p := \frac1{d}$ and $q := 1-p$, is $F(k) = \Sigma_{k=1}^r {r \choose k} p^k q^{r-k} F(r-k)$, with $F(0)$ defined as 1.\end{lemma}
 
 \textit{Proof}: This a clear application of the binomial theorem.  The chance of transitioning to state $F(r-k)$ from $F(r)$ is the chance of rolling exactly $k$ max rolls and $r-k$ non-max rolls among your $d$-sided dice, or $P_{single}(r, k, p) := {r \choose k} p^k q^{r-k}$.  The expected value of being in this new state is defined as $F(r-k)$.  The value of this state transition possibility is their product, and the total expected value of being in state $r$ is the sum of the values of all state transition values.  Note that $k=0$ implies a roll with no maxes, and thus a loss (value 0).
 
@@ -176,29 +180,23 @@ Extending this to dice of different sizes is clear:
 
 
 \begin{lemma}[State Transition lemma] The chance of transitioning from state $\vec{s_1}={s_1}_1, {s_1}_2\ldots{s_1}_z$ to state $\vec{s_2} = {s_2}_1, {s_2}_2\ldots {s_2}_z$ with probability vector $\vec{p} = p_1, p_2 \ldots p_z$ is the product of the individual probabilities:
-  $P_{transition}(\vec{s_1},\vec{s_2},\vec{p}) := \Pi_{i=0}^z P_{single}(\vec{s_1}_i ,\vec{s_2}_i,\vec{p}_i)$.
+  $P_{transition}(\vec{s_1},\vec{s_2},\vec{p}) := \Pi_{i=0}^z P_{single}(\vec{s_1}_i ,\vec{s_2}_i,\vec{p}_i)$.\end{lemma}
 
-\textit{Proof:} Since the outcome of rolling dice of $d$ sides are all indepedent of each other, $P_{transition}$ can be expressed as the product of $P_{single}$ quantiites.
+\textit{Proof:} Since the outcomes of rolling dice of $d$ sides are all independent of each other, $P_{transition}$ can be expressed as the product of $P_{single}$ quantities.
 
+\subsection{Simple recursive algorithm}
 
-
-The expected chance of a completing perfect game from a state of $r$ standard dice of $d$ sides each,  given $p := \frac1{d}$ and $q := 1-p$, is $F(k) = \Sigma_{k=1}^r {r \choose k} p^k q^{r-k} F(r-k)$, with $F(0)$ defined as 1.\end{lemma}
-\textit{Proof}: This a clear application of the binomial theorem.  The chance of transitioning to state $F(r-k)$ from $F(r)$ is the chance of rolling exactly $k$ max rolls and $r-k$ non-max rolls among your $d$-sided dice, or ${r \choose k} p^k q^{r-k}$.  The expected value of being in this new state is defined as $F(r-k)$.  The value of this state transition possibility is their product, and the total expected value of being in state $r$ is the sum of the values of all state transition values.  Note that $k=0$ implies a roll with no maxes, and thus a loss (value 0).
-
-
-
-
-This is solvable using standard recursive techniques.
+With these easy proofs and definitions in hand, the algorithm follows readily - build up each state from $F(\vec{0})$ to $F(\vec{S})$ by applying the State Transition Lemma and previously computed values of $F$ in Algorithm 1:
 
 \begin{algorithm}
-\caption{Dynamic program for $F(\vec{s})$}
+\caption{Dynamic program for $F(\vec{S})$}
 \begin{algorithmic}[1]
 \State $\vec{S} \gets [12,1,1,1]$
 \State $\vec{p} \gets \left[\tfrac{1}{6}, \tfrac{1}{8}, \tfrac{1}{10}, \tfrac{1}{12}\right]$
-\State $P_{\text{single}}(n,k,p) \gets \binom{n}{k} p^k (1-p)^{n-k}$
-\State $P_{\text{transition}}(\vec{s_1},\vec{s_2},\vec{p}) \gets \prod_{i=0}^{\dim(\vec{s})} P_{\text{single}}(\vec{s_1}_i,\vec{s_2}_i,\vec{p}_i)$
+\State $P_{\text{single}}(r,k,p) := \binom{r}{k} p^k (1-p)^{r-k}$
+\State $P_{\text{transition}}(\vec{s_1},\vec{s_2},\vec{p}) := \prod_{i=0}^{\dim(\vec{s})} P_{\text{single}}(\vec{s_1}_i,\vec{s_2}_i,\vec{p}_i)$
 \State $F(\vec{0}) \gets 1$
-\State $\text{substates}(\vec{s}) \gets \prod_{i=0}^{\dim(\vec{s})} [0,s_i]$
+\State $\text{substates}(\vec{s}) := \bigtimes\limits_{i=0}^{dim(s)} [0, s_i] $
 \State $\text{states} \gets \text{topological\_sort}\!\left(\text{substates}(\vec{S}) \setminus \{[0,0,0,0]\}\right)$
 \For{$\vec{s} \in \text{states}$}
   \State $F(\vec{s}) \gets \sum_{\vec{t} \in \left(\text{substates}(\vec{s}) \setminus \{\vec{s}\}\right)} 
@@ -206,99 +204,113 @@ This is solvable using standard recursive techniques.
 \EndFor
 \end{algorithmic}
 \end{algorithm}
-\begin{comment}
-\begin{align}
 
-\vec{S} = [12, 1,1,1 ] \\
-\vec{p} = [\frac1{6}, \frac1{8}, \frac1{10}, \frac1{12}] \\
-P_{single}(n, k, \vec{p}) := {n \\ k} p^k(1-p)^{n-k} \\
-P_{transition}(\vec{s_1}, \vec{s_2}, \vec{p}) := \Pi_{i=0}^{dim(\vec{s})} P_{single}(\vec{s_1}_i, \vec{s_2}_i, \vec{p}_i) \\
-F(\vec{0}) := 1 \\
-substates(\vec{s}) := \mathop{\times}\limits_{i=0}^{dim(s)} [0, s_i] \\
-states = topological\_sort(substates(\vec{S}) - [0,0,0,0]) \\
-for \vec{s} \in states: \\
-  F(\vec{s}) = \Sigma_{\vec{t} \in (substates(\vec{s}) - \vec{s})} P_{transition}(\vec{s}, \vec{t}) \cdot F(\vec{t})
-\end{align}
-\end{comment}
+\subsection{Results for Commercial Game}
 
+The results have two surprises - TODO.
+% First pair of tables
+\begin{figure}[ht]
+    \centering
+    % left table
+    \begin{minipage}{0.45\textwidth}
+    \centering
+    \[
+    \begin{array}{c|cc}
+    d_6 \backslash d_8 & 0 & 1\\\hline
+    0&1&0.125\\
+    1&0.1667&0.05642\\
+    2&0.07407&0.03244\\
+    3&0.04192&0.02206\\
+    4&0.02809&0.01679\\
+    5&0.02107&0.01378\\
+    6&0.01708&0.01195\\
+    7&0.01463&0.01076\\
+    8&0.01303&0.009966\\
+    9&0.01195&0.009423\\
+    10&0.01119&0.009044\\
+    11&0.01065&0.008779\\
+    12&0.01025&0.008591\\
+    \end{array}
+    \]
+    \end{minipage}
+    \hfill
+    % right table
+    \begin{minipage}{0.45\textwidth}
+    \centering
+    \[
+    \begin{array}{c|cc}
+    d_6 \backslash d_8 & 0 & 1\\\hline
+    0&0.1&0.03469\\
+    1&0.04556&0.02046\\
+    2&0.02644&0.01425\\
+    3&0.01815&0.01109\\
+    4&0.01392&0.009299\\
+    5&0.01152&0.008218\\
+    6&0.01006&0.007537\\
+    7&0.009124&0.0071\\
+    8&0.008506&0.006818\\
+    9&0.00809&0.006638\\
+    10&0.007809&0.006529\\
+    11&0.007618&0.006468\\
+    12&0.007491&0.006441\\
+    \end{array}
+    \]
+    \end{minipage}
+    \caption{Expected values for $(d_{10},d_{12})=(0,0)$ (left) and $(1,0)$ (right).}
+    \label{fig:ev-tables-1}
+\end{figure}
 
-% Auto-generated EV tables (rounded to 4 significant digits)
-\[\text{EV with }(d_{10},d_{12})=(0,0)\quad
-\begin{array}{c|cc}
-d_6 \backslash d_8 & 0 & 1\\\hline
-0&1&0.125\\
-1&0.1667&0.05642\\
-2&0.07407&0.03244\\
-3&0.04192&0.02206\\
-4&0.02809&0.01679\\
-5&0.02107&0.01378\\
-6&0.01708&0.01195\\
-7&0.01463&0.01076\\
-8&0.01303&0.009966\\
-9&0.01195&0.009423\\
-10&0.01119&0.009044\\
-11&0.01065&0.008779\\
-12&0.01025&0.008591\\
-\end{array}
-\]
-
-\[\text{EV with }(d_{10},d_{12})=(1,0)\quad
-\begin{array}{c|cc}
-d_6 \backslash d_8 & 0 & 1\\\hline
-0&0.1&0.03469\\
-1&0.04556&0.02046\\
-2&0.02644&0.01425\\
-3&0.01815&0.01109\\
-4&0.01392&0.009299\\
-5&0.01152&0.008218\\
-6&0.01006&0.007537\\
-7&0.009124&0.0071\\
-8&0.008506&0.006818\\
-9&0.00809&0.006638\\
-10&0.007809&0.006529\\
-11&0.007618&0.006468\\
-12&0.007491&0.006441\\
-\end{array}
-\]
-
-\[\text{EV with }(d_{10},d_{12})=(0,1)\quad
-\begin{array}{c|cc}
-d_6 \backslash d_8 & 0 & 1\\\hline
-0&0.08333&0.02908\\
-1&0.03819&0.01726\\
-2&0.02231&0.01209\\
-3&0.0154&0.009464\\
-4&0.01188&0.00798\\
-5&0.009888&0.007088\\
-6&0.008677&0.006532\\
-7&0.007907&0.006181\\
-8&0.007404&0.00596\\
-9&0.007071&0.005825\\
-10&0.006851&0.00575\\
-11&0.006707&0.005715\\
-12&0.006618&0.005709\\
-\end{array}
-\]
-
-\[\text{EV with }(d_{10},d_{12})=(1,1)\quad
-\begin{array}{c|cc}
-d_6 \backslash d_8 & 0 & 1\\\hline
-0&0.02347&0.01087\\
-1&0.01406&0.007809\\
-2&0.009946&0.006252\\
-3&0.007849&0.005385\\
-4&0.006672&0.004879\\
-5&0.005971&0.00458\\
-6&0.005542&0.004408\\
-7&0.005278&0.004318\\
-8&0.00512&0.004283\\
-9&0.005033&0.004284\\
-10&0.004994&0.004312\\
-11&0.004988&0.004356\\
-12&0.005005&0.004413\\
-\end{array}
-\]
-
+% Second pair of tables
+\begin{figure}[ht]
+    \centering
+    % left table
+    \begin{minipage}{0.45\textwidth}
+    \centering
+    \[
+    \begin{array}{c|cc}
+    d_6 \backslash d_8 & 0 & 1\\\hline
+    0&0.08333&0.02908\\
+    1&0.03819&0.01726\\
+    2&0.02231&0.01209\\
+    3&0.0154&0.009464\\
+    4&0.01188&0.00798\\
+    5&0.009888&0.007088\\
+    6&0.008677&0.006532\\
+    7&0.007907&0.006181\\
+    8&0.007404&0.00596\\
+    9&0.007071&0.005825\\
+    10&0.006851&0.00575\\
+    11&0.006707&0.005715\\
+    12&0.006618&0.005709\\
+    \end{array}
+    \]
+    \end{minipage}
+    \hfill
+    % right table
+    \begin{minipage}{0.45\textwidth}
+    \centering
+    \[
+    \begin{array}{c|cc}
+    d_6 \backslash d_8 & 0 & 1\\\hline
+    0&0.02347&0.01087\\
+    1&0.01406&0.007809\\
+    2&0.009946&0.006252\\
+    3&0.007849&0.005385\\
+    4&0.006672&0.004879\\
+    5&0.005971&0.00458\\
+    6&0.005542&0.004408\\
+    7&0.005278&0.004318\\
+    8&0.00512&\cellcolor{yellow}0.004283\\
+    9&0.005033&0.004284\\
+    10&0.004994&0.004312\\
+    11&\cellcolor{yellow}0.004988&0.004356\\
+    12&0.005005&0.004413\\
+    \end{array}
+    \]
+    \end{minipage}
+    \caption{Expected values for $(d_{10},d_{12})=(0,1)$ (left) and $(1,1)$ (right).}
+    \label{fig:ev-tables-2}
+\end{figure}
 
 
 \begin{lemma}[Easy Cases Lemma] If $p = 0$, F(r) = 0.  If $p = 1, F(r) = 1$. If $s = 2$, for any $r > 0,F(r) = \frac{1}{2}$.
