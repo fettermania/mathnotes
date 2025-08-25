@@ -59,70 +59,58 @@ style=alphabetic,
 \maketitle
 
 \begin{abstract}
-An earlier (b. a. d. g.) paper (http://fettermania.com/math/bdice.pdf) focused on a near-optimal strategy for maximizing expected value in gameplay.  This paper focuses on a different question: what is the probability of playing a perfect game?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related question: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds, prove convergence, and find surprising results along the way.
+An earlier paper (http://fettermania.com/math/bdice.pdf) focused on a near-optimal strategy for maximizing expected value in gameplay for \textit{Bitches: A Dice Game}.  This paper focuses on a different question: what is the probability of playing a perfect game?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related question: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds, prove convergence, and find surprising results along the way.
 \end{abstract}
 
 \section{Introduction and the Commercial Game}
 
-Outside of ideological patron Larry Waldman, the publication of my original b. a. d. g. paper (http://fettermania.com/math/bdice.pdf) received little fanfare from humans.  However, robots.txt somehow picked up on this and brought this to the attention of Samuel Cox, creator of the game.  After dispensing mild praise about the paper and strong confusion about my interest in it, Mr. Cox suggested another problem. 
+Outside of ideological patron Larry Waldman, the publication of my original b. a. d. g. paper (http://fettermania.com/math/bdice.pdf) received little fanfare from humans.  However, the robots somehow picked up on this and brought it to the attention of Samuel Cox, creator of the game.  After dispensing mild praise about the paper and strong confusion about my interest in it, Mr. Cox suggested another problem. 
 
-Instead of ``how does one play the game with high/maximum expected value?'' (addressed in the first paper), Mr. Cox wondered how often a \textit{perfect game} (one in which the best possible score is achieved at the end) occurs?  There's a computational aspect to this, but an implied question that Mr. Cox has debated with his class is also: ``is it always best to pick up all your maximum-roll dice?''   
+Instead of ``how does one play the game with high/maximum expected value?'' (addressed in the first paper), Mr. Cox wondered how often a \textit{perfect game} (one in which the best possible score is achieved at the end) occurs if played optimally.  Though optimal play looks obvious (pick up all your good rolls), Mr. Cox has also debated with his class: ``is it always best to pick up all your maximum-roll dice?''   
 
-I took this on and a day or so later, the solution to this particular question surfaced readily.  Naturally unsatisfied by instances, I sought a more general solution to a subproblem I found.  Nine months later, just as I was beginning to enjoy my futility and disinterest in its gestation, the babe emerged.  
+I took this on and a day or so later, the solution to this particular question surfaced.  As usual, twinkly subproblems appeared along the way, and I left to find a solution to a related problem: \textit{does the probability of a perfect game converge as the number of dice increase to infinity?}.
 
-We'll briefly review the game's rules, make a strategic assumption, and the solution method for the commercially offered game before diving in to a discovered second quest: asymptotic behavior of infinite dice.  We'll note surprising or interesting findings in \textbf{bold}.
+We'll briefly review the game's rules and the solution method for the commercially offered game before diving in to a discovered second quest: asymptotic behavior of infinite dice.  We'll note surprising or interesting findings in \textit{\textbf{bold-italic}}.
 
 \subsection{The Game}
 
-With no physical access to the game set, we search the web for the rules.  From what I can only assume is/was the front page of boardgamegeek.com, some intrepid swagman has posted these b.a.d.g. rules [sic]:
-
-\begin{enumerate}
-\item \textit{Roll all the dice}
-\item \textit{Determine if you have bitches a "bitch" is the highest number on any dice usually this is the six but there are a few exceptions the 8 and 10 and 12-sided die as well as the custom}
-\item \textit{Remove dice you want to set aside your highest dice to get the best past possible score. You must set aside at least one die per roll you can set aside as many dice as you want.}
-\item \textit{Reroll the remaining dice and keep setting them aside until you're out of dice.}
-\item \textit{Score add up all the dice The person with the highest score wins.}
-\end{enumerate}
-
-\subsection{Translation}
-
-I'll take it from here, TrevDogg.  To formalize this more clearly, a solitaire-style perfect game of b. a. d. g. follows this pattern:
+Though the rules to the multi-player game are detailed in the original paper (http://fettermania.com/math/bdice.pdf), we will reformulate this for a solitaire-style perfect game, which follows this pattern:
 \begin{enumerate}
 \item Begin with 12 standard dice of six sides, along with one eight-, one ten-, and one twelve-sided die.
 \item On each turn, roll all remaining dice in play.
-\item If you're looking to play a perfect game, this means that if there are no dice with a maximum side showing, you have lost (``busted'').
+\item If there are no dice with a maximum side showing (e.g. a six-sided die showing six pips), you have lost (``busted'').
 \item Set aside some number of dice which have achieved their maximum roll.
 \item Continue until no dice remain (you have a perfect game) or you have busted out.
 \end{enumerate}
 
 The question \textit{"how likely am I to get a perfect score?"} therefore relies on the \textit{strategy} one employs in picking up dice.  
 
-\subsection{The Strategy Assumption}
+\subsection{Mistake 1: The Strategy Assumption}
 \begin{proposition}[Smoke 'em if you got 'em] The best strategy to achieve a perfect game is to always pick up as many dice with maximum face value as the turn allows.\end{proposition}
 
-Upon reflection, this proposition is:
+This proposition is:
 \begin{enumerate}
 \item Simple
 \item Obvious
 \item The strategy any reasonable person would employ
-\item Assumed throughout the rest of the paper
-\item \textbf{Mathematically false}
+\item Assumed for the calculations in the next section
+\item \textbf{\textit{Mathematically false}}
 \end{enumerate}
 
-Why mathematically false?  This is only true in some extreme cases - see \textbf{The Smoking Gun TODO unbold this} section for details.  However, for the discretely sized dice of 6, 8, 10, and 12 sides, we'll assume having more points in the bank and fewer dice to roll is better than the inverse; intuitively, if you set aside a die with a max roll, that die will \textit{again} have to hit a max roll to achieve your perfect game.  Why not just bank it?
-
-In the next section, we assume this simple, deterministic strategy in calculating the expected value of any state reachable from the standard b. a. d. g. starting configuration.
+In the next section, we assume this simple, deterministic strategy in calculating the expected value of any state reachable from the standard b. a. d. g. starting configuration and show where it goes wrong.
 
 \subsection{Solution Method for the Commercial Game}
 
-These definitions will help us write a program to get our solution for the commercial game:
+The following definitions will help us write a program to get our solution for the commercial game:
 \begin{itemize}
-\item The ``state'' $\vec{S} := [a,b,c,d]$ is how many dice of size 6, 8, 10, and 12 remain, respectively.  We start at $\vec{S} = [12, 1, 1, 1]$.  A perfect game ends at $\vec{S} = \vec{0}$.  A failure to roll any max roll ends the game in an unlisted `losing' state $\varnothing$.
+\item The ``state'' $\vec{s} := [a,b,c,d]$ is how many dice of size 6, 8, 10, and 12 remain, respectively.  We start at $\vec{S} = [12, 1, 1, 1]$.  A perfect game ends at $\vec{s} = \vec{0}$.  A failure to roll any max roll ends the game in an unlisted `losing' state $\varnothing$.
 \item The ``probability vector'' $\vec{p} := [1/6, 1/8, 1/10, 1/12]$ is the chance of getting a max roll from each of the dice sizes, again here assumed to be 6, 8, 10, 12.
-\item With a win defined as value $1$ and a loss as value $0$, the ``expected value'' of being in state $\vec{s}$ is defined as $F(\vec{s})$.  Since there is only a single, deterministic strategy, the expected value is then equivalent to the probability of ending up in winning state $\vec{0}$ from state $\vec{s}$.
-\item Therefore, $F(\vec{0}) = F([0,0,0,0]) = 1$, and $F(\varnothing) = 0$.
+\item With a win defined as value $1$ ($F(\vec{0}) = F([0,0,0,0]) = 1$) and a loss as value $0$ ($F(\varnothing) = 0$), the ``expected game value'' of any other state $\vec{s}$ is denoted as $F(\vec{s})$.  
+\item Said another way, $F(\vec{s})$ is the probability of ending up in winning state $\vec{0}$ from state $\vec{s}$.
+\item We call any state $\vec{t} := [t_1,t_2 ... t_z]$  \textit{reachable} from state $\vec{s} := [s_1,s_2 ... s_z]$ if $t_i \leq s_i$ for all $1 \leq i \leq z$, but $\vec{s} \neq \vec{t}$.  More intuitively, if you can start at state $\vec{s}$ and get to state $\vec{t}$ in one roll (and corresponding pickup) of your dice, then $\vec{t}$ is reachable from $\vec{s}$.  This is just any non-bust state ``smaller than'' where you are now.
 \end{itemize}
 
+\subsection{Probability Lemmas}
 First, let's limit ourselves to a game (or state) with only a single flavor of dice, say $d$-sided, collapsing state vector $\vec{s}$ to a single integer $r$ ($r$ dice of size $d$ left).  Refer to Fig. \ref{fig:dice-transition} for a visualization of the states starting at $r$ dice left of size $d$, with $p := 1/d, q := 1-p$.
 
 \begin{figure}[ht]
@@ -175,22 +163,22 @@ First, let's limit ourselves to a game (or state) with only a single flavor of d
     \draw[->] (sr) -- node[lab,right] {$q^{r}$} (zr);
     
     \end{tikzpicture}
-    \caption{Transition graph of the dice game showing expected values $F(t)$ and transition probabilities.}
+    \caption{Transition graph of the dice game showing expected values $F(r)$ and transition probabilities.}
     \label{fig:dice-transition}
 \end{figure}
 
 
-\begin{lemma}[EV of $r$ $d$-sided dice]The chance of a completing perfect game from a state of $r$ standard dice of $d$ sides each, with definitions $p := \frac1{d}, P_{single}(r, k, p) := {r \choose k} p^k(1-p)^{r-k},$ and $F(0) = 1$ is defined by the recurrence $F(k) = \sum_{k=1}^r P_{single}(r,k,p) F(r-k)$. \end{lemma}
+\begin{lemma}[EV of $r$ $d$-sided dice]The chance of a completing perfect game from a state of $r$ standard dice of $d$ sides each, with definitions $p := \frac1{d}, P_{single}(r, k, p) := {r \choose k} p^k(1-p)^{r-k},$ and $F(0) = 1$ is defined by the recurrence $F(r) = \sum_{k=1}^r P_{single}(r,k,p) F(r-k)$. \end{lemma}
 
-\textit{Proof}: This a clear application of the binomial theorem.  The chance of transitioning to the state with $r-k$ remaining dice from that with $r$ is the chance of rolling exactly $k$ max rolls and $r-k$ non-max rolls among your $d$-sided dice, or $P_{single}(r, k, p)$.  The expected value of being in this new state is defined as $F(r-k)$.  The value of this state transition possibility is $P_{single}(r, k, p)F(r-k)$. The total expected value of being in state $r$ is the sum of the values of all possible state transitions.  Note that $k=0$ implies a roll with no maxes, and thus a loss (value 0), and $F(0) = 1$ since no dice remaining (outside of a loss case) means a victory, or unit value of expectation.
+\textit{Proof}: This a clear application of the binomial theorem.  With the Smoke 'Em if you Got 'Em Strategy, the chance of transitioning to the state with $r-k$ remaining dice from that with $r$ is the chance of rolling exactly $k$ max rolls and $r-k$ non-max rolls among your $d$-sided dice, or $P_{single}(r, k, p)$.  The expected value of being in this new state is defined as $F(r-k)$.  The value of this state transition possibility is $P_{single}(r, k, p)F(r-k)$. The total expected value of being in state $r$ is therefore the sum of the values of all possible state transitions.  Note that $k=0$ implies a roll with no maxes, and thus a loss (value 0), and $F(0) = 1$ since no dice remaining (outside of a loss case) means a victory, or unit value of expectation.
 
-Extending this to dice of different sizes is clear:
+Extending this to dice of $z$ different sizes is clear:
 
-\begin{lemma}[State Transition lemma] $P_{transition}(\vec{s_1},\vec{s_2},\vec{p})$, the chance of transitioning from state $\vec{s_1}=[{s_1}_1, {s_1}_2\ldots{s_1}_z]$ to state $\vec{s_2} = [{s_2}_1, {s_2}_2\ldots {s_2}_z]$ with probability vector $\vec{p} = [p_1, p_2 \ldots p_z]$ is equal to
-  $\prod_{i=0}^z P_{single}(\vec{s_1}_i ,\vec{s_2}_i,\vec{p}_i)$.\end{lemma}
+\begin{lemma}[State Transition lemma] $P_{transition}(\vec{s},\vec{t},\vec{p})$, the chance of transitioning from state $\vec{s}=[s_1,s_2,\ldots s_z]$ to state $\vec{t} = [{t}_1, {t}_2\ldots {t}_z]$ with probability vector $\vec{p} = [p_1, p_2 \ldots p_z]$ is equal to
+  $\prod_{i=0}^z P_{single}(\vec{s}_i ,\vec{t}_i,\vec{p}_i)$.\end{lemma}
 
 
-\textit{Proof:} Divide the turn's roll into $z$ independent subrolls, each rolling all ${s_1}_i$ dice, $1 \leq i \leq z$, each with $p_i$ chance of hitting a max.  The outcomes of these $z$ subrolls are all mutually independent, so $P_{transition}$ can be expressed as the product of $P_{single}$ quantities.
+\textit{Proof:} Divide the turn's roll into $z$ independent subrolls, each rolling all $s_i$ dice, $1 \leq i \leq z$, each with $p_i$ chance of hitting a max.  The outcomes of these $z$ subrolls are all mutually independent, so $P_{transition}$ can be expressed as the product of $P_{single}$ quantities.
 
 \subsection{Simple recursive algorithm}
 
@@ -198,8 +186,8 @@ With these easy proofs and definitions in hand, the algorithm follows readily - 
 \begin{itemize}
 \item Steps 1 - 5 are definitions from the lemmas above.
 \item Step 6 creates a set of all states reachable from state $\vec{s}$, \textit{including $\vec{s}$ itself}.  
-\item Step 7 creates an ordered list of states $s_1, s_2, s_3...$ , like $[0,0,0,0], [0,0,1,0], [0,1,0,0], [0,1,1,0]....$ where, when $s_i$, is encountered in the list, all reachable states have occurred previously in the list.
-\item Step 9 calculates $F(\vec{s})$ from the values of previously calculated substates  and the use of Lemma 1.3.
+\item Thinking of the states as a directed graph where a state points to all the states reachable from it, Step 7 creates an ordered list of states $s_1, s_2, s_3...$ , like $[0,0,0,0], [0,0,1,0], [0,1,0,0], [0,1,1,0]....$ where, when $s_i$, is encountered in the list, all states reachable from $s_i$ occur before $s_i$ in the list.  There are many such possible orders. This is required for step 9's $F(\vec{t})$ values to be defined.
+\item Step 9 uses Lemma 1.3 to calculate $F(\vec{s})$ from the values of previously calculated substates.
 \end{itemize}
 
 
@@ -222,15 +210,11 @@ With these easy proofs and definitions in hand, the algorithm follows readily - 
 
 \subsection{Results for Commercial Game}
 
-The chance of winning\footnote{Alternatively, expected value of being in state $F(\vec{s})$, with $F(\vec{0}) = 1, F(\varnothing) = 0$} $F(\vec{s})$ for every state $\vec{s}$, with $\vec{s}$ ranging from $\vec{0}$ to $\vec{S} = [12, 1, 1, 1]$ is listed in Figures \ref{fig:ev-tables-1} and \ref{fig:ev-tables-2}.  These are computed with the simple python program at https://github.com/fettermania/mathnotes/blob/main/bdice2/bdice2.py.  
+Using the Smoke 'Em if you Got 'Em strategy, the chance of winning\footnote{Alternatively, expected value of being in state $F(\vec{s})$, with $F(\vec{0}) = 1, F(\varnothing) = 0$} $F(\vec{s})$ for every state $\vec{s}$, with $\vec{s}$ ranging from $\vec{0}$ to $\vec{S} = [12, 1, 1, 1]$ is listed in Figures \ref{fig:ev-tables-1} and \ref{fig:ev-tables-2}.  These are computed with the simple python program at https://github.com/fettermania/mathnotes/blob/main/bdice2/bdice2.py.  
 
-Note that these are \textit{four-dimensional} results, with each dimension $i$ corresponding to the count of dice $s_i$ in each state.  Since the number of 8-, 10-, and 12-sided dice is either zero or one, we've collapsed these into four 12x2 tables, where $d_k$ notes the number of dice of size $k$.  
+Note that these are \textit{four-dimensional} results, with each dimension $i$ corresponding to the count of dice $s_i$ in each state.  Since the number of 8-, 10-, and 12-sided dice is either zero or one, we've collapsed these into four 12 by 2 tables, where $d_k$ notes the number of dice of size $k$.  
 
 Our main \textit{initial} result is in the bottom-right corner of Fig. \ref{fig:ev-tables-2}.
-
-\begin{framed}
-\textbf{What The Creator Asked For}: The chance of getting a perfect run the commercial game using the clear strategy is about 0.004413, or a little more than 4.4\%.
-\end{framed}
 
 % First pair of tables
 \begin{figure}[ht]
@@ -324,11 +308,11 @@ Our main \textit{initial} result is in the bottom-right corner of Fig. \ref{fig:
     5&0.005971&0.00458\\
     6&0.005542&0.004408\\
     7&0.005278&0.004318\\
-    8&0.00512&\cellcolor{yellow}0.004283\\
-    9&0.005033&0.004284\\
+    8&0.00512&0.004283\\
+    9&0.005033&\cellcolor{yellow}0.004284\\
     10&0.004994&0.004312\\
-    11&\cellcolor{yellow}0.004988&0.004356\\
-    12&0.005005&0.004413\\
+    11&0.004988&0.004356\\
+    12&\cellcolor{yellow}0.005005&0.004413\\
     \end{array}
     \]
     \end{minipage}
@@ -336,6 +320,39 @@ Our main \textit{initial} result is in the bottom-right corner of Fig. \ref{fig:
     \label{fig:ev-tables-2}
 \end{figure}
 
+\subsection{Observations}
+Observations from Figs. \ref{fig:ev-tables-1} and \ref{fig:ev-tables-2}:
+\begin{itemize}
+\item Most of the time, starting with some state $\vec{s}$ and picking up one or more dice will increase the expected value of winning.
+\item However, we do note some non-monotonicity: there are two surprising ``critical points'' at $[12,0,1,1]$ and $[9, 1, 1, 1]$, where instead of the EV decreasing as $d_6$ increases, the EV increases instead.  This means that, say, rolling two max-sixes and no other max dice in state $[10, 1, 1, 1]$ suggests the best strategy is to \textit{\textbf{leave one max die on the table}} so as to end up in slighly higher EV state $[9,1,1,1]$ over $[8,1,1,1]$.  We will revisit these in the next section.
+\item At all states reachable from $[12, 0, 1, 1]$, the best strategy is confirmed: pick up as many max-rolled dice as possible.  Deviating from this strategy produces an $F$-value smaller than those in the table. \textit{Note:} The ``bend'' at $[11,0,1,1]$ does not affect this; you have no alternative from [12,0,1,1] than to pick up if [11,0,1,1] is your new roll state.
+\item At all states reachable from $[10,1,1,1]$, the simple strategy remains best.
+\item We can confirm that holding $d_6$ steady, it's always better to have zero than one of each of the 8, 10, and 12-sided dice.
+\end{itemize}
+
+\begin{framed}
+\textbf{What The Creator Asked For}: The chance of getting a perfect run the commercial game using the Smoke 'Em strategy is about 0.004413, or a little more than 4.4\%.
+\end{framed}
+
+\subsection{Re-examining The optimal strategy}
+
+From examining the table it becomes clear that there are expected values for states $\vec{s}, \vec{t}$ such that $\vec{t}$ is reachable from $\vec{s}$ yet $F(\vec{t} ) < F(\vec{s})$.  
+
+This means that for state, say, $\vec{s}+e_1$, that even when rolling enough maxes to get to $\vec{t}$, picking up fewer dice than the Smoke 'em if you Got em strategy may be best.
+
+This means we need to refine our formula to choose the best selectable EV state from state $\vec{s}$, not just the furthest from $\vec{s}$.  With this definition in hand:
+
+$selectable\_states(\vec{s}, \vec{t}) := (substates(\vec{s}) - \vec{s}) - substates(\vec{t}) + \vec{t}$
+
+Update Step 9 of Algorithm 1 above to: 
+
+$F(\vec{s}) \gets \sum_{\vec{t} \in \left(\text{substates}(\vec{s}) - \{\vec{s}\}\right)} 
+     P_{\text{transition}}(\vec{s},\vec{t}) \cdot max_{\vec{u} \in selectable\_states(\vec{s}, \vec{t})} F(\vec{u})$
+     
+
+Because F monotonically decreases as all of $d_6, d_8, d_{10}, d_{12}$ increase up to these critical points, these two functions will be equal on states reachable from $[10,1,1,1]$ and $[12,0,1,1]$.
+
+We then need to recursively reevaluate $F$ on ``bigger'' states than $[9,1,1,1]$, shown in Fig. \ref{fig:ev-tables-corrected}.
 
 \begin{figure}[ht]
     \centering
@@ -361,69 +378,62 @@ Our main \textit{initial} result is in the bottom-right corner of Fig. \ref{fig:
     \label{fig:ev-tables-corrected}
 \end{figure}
 
-\begin{enumerate}
- \item State 0.004312: When you roll exactly 2 sixes (probability ~= 21\%)
-    - Naive: Take both sixes ? [8,1,1,1]
-    - Optimal: Take only 1 six ? 0.004284
- \item State 0.004366: When you roll exactly 2 sixes (probability ~= 21\%)
-    - Naive: Take both sixes ? 0.004284
-    - Optimal: Take only 1 six ? 0.004312
- \item  State 0.004446: When you roll exactly 2 sixes (probability ~= 21\%)
-    - Naive: Take both sixes ? 0.004312
-    - Optimal: Take only 1 six ? 0.004366
-\end{enumerate}
-    
-Observations from Figs. \ref{fig:ev-tables-1} and \ref{fig:ev-tables-2}:
+
+\begin{framed}
+\textbf{What The Creator Really Asked For}: The chance of getting a perfect run the commercial game using the very best strategy (smoke 'em except leave a second and final unsupported six on $[d_6 \in \{10,11,12\},d_8=1,d_{10}=1,d_{12}=1]$) is about 0.004446, or a little more than 4.4\%, a 0.73\% relative improvement on the smoke 'em strategy.
+\end{framed}
+
+So it turns out Mr. Cox's students are correct - you may indeed want to ``save'' future six rolls if your rarer ``onesies'' remain.  The difference on the commercial game begins at $[10,1,1,1]$, and occurs exactly when you roll exactly 2 sixes on 6-sided dice and no other maxes.
+
 \begin{itemize}
-\item In almost all cases, the more dice remain, the lower the expected value of winning is. 
-\item However, we do note some non-monotonicity: there's are two surprising "bends" at $[11,0,1,1]$ and $[8, 1, 1, 1]$.
-\item At all states reachable from $[12, 0, 1, 1]$, the best strategy is confirmed: pick up as many max-rolled dice as possible.  Deviating from this strategy produces an $F$-value smaller than those in the table.  \textit{Note:} The left-column "bend" at $[11,0,1,1]$ does not affect this; you have no alternative from [12,0,1,1] than to pick up if [11,0,1,1] is your new roll state.
-\item At all states reachable from $[9,1,1,1]$, the simple strategy remains best.
-\item However, if you dice s
-\item We can confirm that holding $d_6$ steady, it's always better to have zero than one of each of the 8, 10, and 12-sided dice.
-\item However, if $d_{10} = 1$ and $d_{12} = 1$ we notice that it's slightly \textit{better} to have 12 $d_6$ dice to roll than 11 or 10.
+ \item $[10,1,1,1]$: Naive: Take both sixes (EV = 0.0043116537).  \textbf{Optimal}: Take only 1 six (EV = 0.0043120029).
+ \item $[11,1,1,1]$: Naive: Take both sixes (EV = 0.0043564817).  \textbf{Optimal}: Take only 1 six (EV = 0.0043662025).
+ \item $[12,1,1,1]$: Naive: Take both sixes (EV = 0.0044132805).  \textbf{Optimal}: Take only 1 six (EV = 0.0044456381).
 \end{itemize}
 
-\subsection{Re-examining The optimal strategy}
+It's nice to see the game is complex and non monotonic even in this constrained scenario.    There are likely higher configurations yielding other critical points in the space e, especially as more dimensions (dice types) are added.  Though the difference is minuscule in the commercial game, expanding $\vec{S}$ to something like $S^* = [24,2,2,2]$ yields a wider EV difference between simple and optimal strategies\footnote{$F(S^*) = 0.0033078600$ using the basic strategy and $0.0038614244$ using the optimal, a 17\% improvement}.
 
-From examining the table it becomes clear that there are expected values for states $\vec{s}, \vec{t}$ such that $\vec{t}$  precedes $\vec{s}$ yet $F(\vec{t} ) < F(\vec{s})$.  
+\section{The Second Quest: $d_6 \rightarrow \infty$}
 
-This means that for state, say, $\vec{s}+e_1$, that even when rolling enough maxes to get to $\vec{t}$, picking up fewer dice to get to will beat the Smoke 'em if you Got em strategy.
-
-This means we need to refine our formula to
-
-$selectable\_states(\vec{s_1}, \vec{s_2}) := substates(\vec{s_1}-\vec{s_2}) +\vec{s_2} \\ \{\vec{s_1}\}.$
-
-$F(\vec{s}) \gets \sum_{\vec{t} \in \left(\text{substates}(\vec{s}) \setminus \{\vec{s}\}\right)} 
-     P_{\text{transition}}(\vec{s},\vec{t}) \cdot max_{\vec{u} \in selectable\_states(\vec{s_1}, \vec{s_2})} F(\vec{u})$
-     
-
-Because F is monotonic up to these inflection points, these two functions will be equal on earlier states.
-
-
-
-So, we need to recursively reevaluate $F$ on states ``after'' $[12,0,0,1]$ and $[8,1,1,1]$ knowing that $F* = F$ before then.  
-
-
-
-So it turns out Mr. Cox's students are correct - you may indeed want to ``save'' future six rolls if your rarer ``onesies'' remain.  The difference on the commercial game begins at 9,1,1,1 and can increase your odds to xxx.
-
-
-
-It's nice to see the game is complex and non monotonic even in this constrained scenario.    There are likely higher configurations yielding other critical points in the space e, especially as more dimensions (dice types) are added.
-
-
-
-But can we say nothing more definitive than that?  Looking at the first table (fig 2), with only one type of die, it looks like a higher dice count both decreases our chance of winning, but may also do so asymptotically.
-
-
+But can we say nothing more definitive than that?  Looking at the left column on the first table (Fig. \ref{fig:ev-tables-1}) with only one type of die, it looks like a higher dice count both decreases our chance of winning, but may also do so asymptotically.
 
 Let's run $\vec{0} + 100e_1$ and see.
-
-
-
-Todo
-
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+$r$ & $P(r)$ \\
+\hline
+0 & 1.000000000000000 \\
+1 & 0.166666666666667 \\
+2 & 0.074074074074074 \\
+3 & 0.041923868312757 \\
+4 & 0.028091341512981 \\
+5 & 0.021074519393544 \\
+6 & 0.017084426737672 \\
+7 & 0.014629278661270 \\
+8 & 0.013031406311202 \\
+9 & 0.011947904221376 \\
+10 & 0.011190349681739 \\
+\hline
+\vdots & \vdots \\
+\hline
+90 & 0.009033527660227 \\
+91 & 0.009033527656758 \\
+92 & 0.009033527653985 \\
+93 & 0.009033527651768 \\
+94 & 0.009033527649995 \\
+95 & 0.009033527648578 \\
+96 & 0.009033527647444 \\
+97 & 0.009033527646538 \\
+98 & 0.009033527645813 \\
+99 & 0.009033527645234 \\
+100 & 0.009033527644770 \\
+\hline
+\end{tabular}
+\caption{Values of $P(n)$ for selected indices}
+\label{tab:p_values}
+\end{table}
 
 
 It certainly looks like there is an asymptote to which f(s) converges.  This will be the thrust of the rest of this paper: examining the infinite game of F(s) with one type of die.

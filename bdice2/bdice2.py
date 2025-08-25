@@ -69,7 +69,8 @@ print(calculate_evs(states, probs))
 asymptotic_x = 100
 for s in range(1,10):
     print(f"\n === Single die {s}, asymptotic: ==== \n")
-    print(calculate_evs([asymptotic_x], [1/s])[tuple([asymptotic_x])])
+    #print(calculate_evs([asymptotic_x], [1/s])[tuple([asymptotic_x])])
+    print(calculate_evs([asymptotic_x], [1/s]))
 
 print("\n === Non-monotonic value: p=.495 GAME ==== \n")
 print(calculate_evs([asymptotic_x], [.495]))
