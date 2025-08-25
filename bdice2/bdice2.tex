@@ -502,14 +502,6 @@ However, this symbol does not have a closed form evaluation.  Let's try to find 
 \item This means $\log(F(r)) \geq \sum_{k=1}^r \log(1-q^k)$ 
 \end{itemize}
 
-\begin{align*}
-F(r) &= \sum_{k=1}^{r-1} {r \choose k} p^k q^{r-k} F(r-k) + {r \choose r} p^r q^0 F(0) \\
-&= [ {r \choose 1}  +  {r \choose 2 } + \ldots +  {r \choose r-1}] \frac1{2^r} (\frac1{2}) + \frac1{2^r} 2(\frac1{2}) \\
-&= (2^r - 2) \frac1{2^r} (\frac1{2}) + 2\frac1{2^r} (\frac1{2}) \\
-&= (2^r) \frac1{2^r} (\frac1{2})\\
-&=  \frac1{2}
-\end{align*}
-
 
 Often, $\log(1-z)$ is approximated by $-z$ near zero, but we are most concerned with $z$ near one, since $1-z$ approaches 0, and $\log(1-z)$ explodes.  Therefore, let's look at the expansion of $\log(1-z)$:
 \begin{itemize}
@@ -555,7 +547,7 @@ q & P(\infty) & (q;q)_\infty & \exp\!\left(-\tfrac{q}{(1-q)^2}\right) \\
 9/10 & 1.1705 \times 10^{-4} & 1.2861 \times 10^{-6} & 8.1940 \times 10^{-40} \\
 \end{array}
 \]
-This is a very poor bound, especially when compared to $(q;q)_\infty$.   But being able to prove Lemma 2.2 and 2.4 in closed form yields this surprising result:
+This is a very poor bound, especially when compared to $(q;q)_\infty$.   But being able to prove Lemma 2.3 and 2.5 in closed form yields this surprising result:
 
 \begin{corollary}[Bounded Results for $F(r)$ as $r \rightarrow \infty$] As $p \rightarrow 0, F(r) \rightarrow 0$.  However, for fixed $p > 0$, $F(r) > \epsilon$ as $r \rightarrow \infty$ for some $\epsilon > 0$.
 \end{corollary}
@@ -568,59 +560,29 @@ There are a few ways to make this stronger:
 \item Prove that $F(r)$ actually converges (instead of just ``is bounded'') as $r \rightarrow \infty$.
 \end{enumerate}
 
+We will show why (1) is unlikely, that (3) is true, and hope to one day get better bounds for (2) than lemmas 2.3 and 2.5.
+
+Applying Definition 2.1 by hand yields:
 
 \textbf{Calculating by hand}:
-\begin{itemize} 
-\item $F(0) = 1$
-\item $F(1) = p$
-\item $F(2) = p^2(1+2q) = p^2(3-2p)$
-\item $F(3) =p^3(13-27p+21p^2-6p^3)$
-\item $F(4) = p^4 (75 - 316 p + 606 p^2 - 664 p^3 + 432 p^4 - 156 p^5 + 24 p^6)$
-\item $F(1)-F(0)=p-1=-(1-p)$
-\item $F(2)-F(1)=p^2(3-2p)-p= (-1) p (1-2 p) (1-p )$
-\item $F(3)-F(2)=(-1) 3 p^2 (1 - p)^3 (1-2 p)$
-\item $F(4) - F(3) = -p^3 (1-2p) (p - 1)^2 (12 p^4 - 48 p^3 + 72 p^2 - 50 p + 13)$	
-\end{itemize}
 
-\begin{comment}
+Note that, as always, $q$ is defined as $1-p, p \in \mathbb{R}$, and $0 < p \leq \frac1{2}$
+\[
+\begin{aligned}
+F(0) &= 1, \\[6pt]
+F(1) &= p, \\[6pt]
+F(2) &= p^{2}\,\bigl(1 + 2q \bigr), \\[6pt]
+F(3) &= p^{3}\,\bigl(1 + 3q + 3q^{2} + 6q^{3} \bigr), \\[6pt]
+F(4) &= p^{4}\,\bigl(1 + 4q + 6q^{2} + 16q^{3} + 12q^{4} + 12q^{5} + 24q^{6} \bigr), \\[6pt]
+F(5) &= p^{5}\,\bigl(1 + 5q + 10q^{2} + 30q^{3} + 35q^{4} + 50q^{5} + 90q^{6} + 80q^{7} + 60q^{8} + 60q^{9} + 120q^{10} \bigr), \\[6pt]
+F(6) &= p^{6}\,\bigl(1 + 6q + 15q^{2} + 50q^{3} + 75q^{4} + 126q^{5} + 240q^{6} + 300q^{7} + 360q^{8} + 390q^{9} \\
+&\qquad\qquad\;\; + 660q^{10} + 540q^{11} + 480q^{12} + 360q^{13} + 360q^{14} + 720q^{15} \bigr).
+\end{aligned}
+\]
 
+\begin{proposition}[F(r) does not have a closed form] Since the maximum degree of $p$ in $F(r)$ is $\frac{r(r+1}}{2}$
+\end{proposition}
 
-f_0(p) = 1;
-f_1(p) = p;
-	f_1(p) - f_0(p) = 1-p
-
-f_2(p) = p^2(1+2q) = p^2(3-2p);
-	f_2(p) - f_1(p) = 
-f_3(p) =p^3(13-27p+21p^2-6p^3);
-f_2(p) - f_3(p) = 3 (1-p)^3 p^2 (1-2 p)
-
-f_4(p)= p^4 (1+4q+6q^2 +16q^3 +12q^4+12q^5+24q^6)
-
- ),
-
-
-f(5) - f(6) = 
-q = 1-p;  p^5 +5p^5 q+10p^5 q^2 +30p^5 q^3 +35p^5 q^4 +50p^5 q^5 +90p^5 q^6 +80p^5 q^7 +60p^5 q^8 +60p^5 q^9 +120p^5 q^10 ?p^6 ?6p^6 q?15p^6 q^2 ?50p^6 q^3 ?75p^6 q^4 ?126p^6 q^5 ?240p^6 q^6 ?300p^6 q^7 ?360p^6 q^8 ?390p^6 q^9 ?660p^6 q^10 ?540p^6 q^11 ?480p^6 q^12 ?360p^6 q^13 ?360p^6 q^14 ?720p^6 q^15
-
- 
-?
- 
-
-
-
-
-
-
-
-
-
-\item $F(4) = p^4 (75 - 316 p + 606 p^2 - 664 p^3 + 432 p^4 - 156 p^5 + 24 p^6)$
-\item $F(1)-F(0)=p-1=-(1-p)$
-\item $F(2)-F(1)=p^2(3-2p)-p= (-1) p (1-2 p) (1-p )$
-\item $F(3)-F(2)=(-1) 3 p^2 (1 - p)^3 (1-2 p)$
-\item $F(4) - F(3) = -p^3 (1-2p) (p - 1)^2 (12 p^4 - 48 p^3 + 72 p^2 - 50 p + 13)$
-
-\end{comment}
 
 \begin{theorem}[Incorrect Blind Alley: $F(n) < F(n-1)$] If $p < \frac1{2}, F(n-1) > F(n)$ for $n > 1$.\end{theorem}
 
