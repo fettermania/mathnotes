@@ -397,12 +397,14 @@ It's nice to see the game is complex and non monotonic even in this constrained 
 
 But can we say nothing more definitive than that?  Looking at the left column on the first table (Fig. \ref{fig:ev-tables-1}) with only one type of die, it looks like a higher dice count both decreases our chance of winning, but may also do so asymptotically.
 
-Let's run $\vec{0} + 100e_1$ and see.
+Let's run $\vec{S} = [r, 0, 0, 0], r \rightarrow \infty$ and see (Table \ref{tab:p_values}).
+
+
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|c|}
 \hline
-$r$ & $P(r)$ \\
+$r$ & $F(r)$ \\
 \hline
 0 & 1.000000000000000 \\
 1 & 0.166666666666667 \\
@@ -431,35 +433,63 @@ $r$ & $P(r)$ \\
 100 & 0.009033527644770 \\
 \hline
 \end{tabular}
-\caption{Values of $P(n)$ for selected indices}
+\caption{Values of $P(r)$ for selected indices}
 \label{tab:p_values}
 \end{table}
 
 
-It certainly looks like there is an asymptote to which f(s) converges.  This will be the thrust of the rest of this paper: examining the infinite game of F(s) with one type of die.
+It certainly looks like there is an asymptote to which $F(\vec{s})$ converges.  This will be the thrust of the rest of this paper: examining the infinite game of $F(\vec{s})$ with one type of die.  \textbf{But can we prove there is an asymptote?}
 
+Two notes:
 
+\begin{itemize}
+\item We only have one type of die now, and if we have $r$ of them left, the EV of that state is given as $F(r)$ (we changed $F$ to take integers now instead of vectors).
+\item  Unless we see an inflection point ($F(r)$ reverses direction and starts \textit{increasing} past a certain point), the simple strategy and optimal strategy (from section 1) are equivalent.  
+\end{itemize}
+
+\subsection{Mathematical Lemmas}
+
+Restating $F$ for the single die with $d$ sides case, with $p := 1 / d, q := 1 - p$  we start with $F(0) = 1, F(r) = \sum_{k = 1}^r {r \choose k}p^kq^{r-k} F(r-k)$.
 
 \begin{lemma}[Easy Cases Lemma] If $p = 0$, F(r) = 0.  If $p = 1, F(r) = 1$. If $s = 2$, for any $r > 0,F(r) = \frac{1}{2}$.
 \end{lemma}
 \textit{Proof}: 
 Though we won't be flipping infinite $(p=0)$ or 1-sided $(p=1)$, dice, these algebraic identities are obvious (can't succeed, can't fail, respectively) and will be useful later.
 
-\textbf{Base case for s=2}: $F(1) = \frac1{2}$ since a perfect game occurs if and only if the coin flips 2 instead of 1.
+\textbf{Base case for $p=\frac1{2}$}: $F(1) = \frac1{2}$ since a perfect game occurs if and only if the 2-die (coin, really) shows 2 instead of 1.
 
-\textbf{Inductive case for s=2}: Assuming $F(k) = \frac1{2}$ for all $0 < k < r$,  and $F(0) = 1$:
-\begin{align}
-\sum_{k=1}^{r-1} {r \choose k} p^k q^{r-k} F(r-k) + {r \choose r} p^r q^0 F(0) = \\
- (2^r - 2) \frac1{2^r} (\frac1{2}) + \frac1{2^r} 2(\frac1{2}) = \\
- (2^r) \frac1{2^r} (\frac1{2}) = \frac1{2}
-\end{align}
+\textbf{Inductive case for $p=\frac1{2}$}: Assuming $F(k) = \frac1{2}$ for all $0 < k < r$,  and $F(0) = 1$:
+\begin{align*}
+F(r) &= \sum_{k=1}^{r-1} {r \choose k} p^k q^{r-k} F(r-k) + {r \choose r} p^r q^0 F(0) \\
+&= [ {r \choose 1}  +  {r \choose 2 } + \ldots +  {r \choose r-1}] \frac1{2^r} (\frac1{2}) + \frac1{2^r} 2(\frac1{2}) \\
+&= (2^r - 2) \frac1{2^r} (\frac1{2}) + 2\frac1{2^r} (\frac1{2}) \\
+&= (2^r) \frac1{2^r} (\frac1{2})\\
+&=  \frac1{2}
+\end{align*}
+
+For simplicity, we consider only $p \leq \frac1{2}$ from here on out\footnote{Swap ``$q$'' for ``$p$'' in all statements if $p > \frac1{2}$ and you'll find mirrored results (e.g. $p$ converges upward)}. 
+
+\begin{lemma}[Lazy Upper Bound for $F(r)$]: With $r \geq 1$ $d$-sided dice remaining and $p \leq \frac1{2}, F(r) \leq p$.
+\end{lemma}
+\textit{Proof}: See Fig. \ref{fig:dice-transition}.  Any successful path from state $r > 0$ to state $0$ has a final jump of the form $p^k, k \leq r$.  For instance, the ``low'' path in Fig. \ref{fig:dice-transition} would have probability $F(r) = [{r \choose 1}pq^{r-1}] [{r \choose 1}p^{r-3}q^2] [{2 \choose 1}pq] p^1$, or a single, miraculous jump would have probability $F(r) = p^r$.  In any case, $F(r) = M(r,p)p^k$ for some $M(r,p) \leq 1$, and some $k \geq 1$ for the final stage before 0.  Since $p^k \leq p$ for $k \geq 1$, $F(r) = M(r,p)p^k < p^k \leq p$.
+
+\begin{lemma}[Lazy Lower Bound for $F(r)$ (Pochhammer form)]: With $r \geq 1$ $d$-sided dice remaining, defining $p := 1/d$ with $p \leq \frac1{2}, F(r) \geq \prod_{i=1}^k (1-q^k)$.
+\end{lemma}
+\textit{Proof}: See Fig. \ref{fig:dice-transition}.  Any successful path passes through a set of these stages $r, r-1 \ldots 1$ \textit{without once} falling into the state $\varnothing$.  This means that if state $k$ is included in the path, that there was a $(1-q^k)$ chance of not busting at that stage.  So, assuming our successful path visited every single stage (picking up exactly one die each time), the chance of success would be at least $F(r) = \prod_{i=1}^k (1-q^k)$, since we survived every ``bust trap''.  However, we need not visit every stage (we could possibly pick up more than one die).  Therefore, $F(r) \geq \prod_{i=1}^k (1-q^k)$.
+
+Interestingly enough, \textit{\textbf{this lower bound for $F(r)$ is a known quantity called the q-Pochhammer symbol $(q;q)_\infty = \prod_{i=1}^k (1-q^k)$, with known convergence properties,}} appearing in areas like quantum algebra and physics.  News to me.  Neato.
+
+However, this symbol does not have a closed form evaluation.  Let's try to find a closed form bound that's even WORSE than this one.
+
+
+
+Any unsuccessful path from state $r > 0$ to state $0$ has a final jump of the form $p^k, k \leq r$.  For instance, the ``low'' path in Fig. \ref{fig:dice-transition} would have probability $F(r) = [{r \choose 1}pq^{r-1}] [{r \choose 1}p^{r-3}q^2] [{2 \choose 1}pq] p^1$, or a single, miraculous jump would have probability $F(r) = p^r$.  In any case, $F(r) = M(r,p)p^k$ for some $M(r,p) \leq 1$, and some $k \geq 1$ for the final stage before 0.  Since $p^k \leq p$ for $k \geq 1$, $F(r) = M(r,p)p^k < p^k \leq p$.
+
+
+
 
 \textbf{table of contents TODO}
 \begin{itemize}
-\item Initial Problem Statement: Perfect games
-\item Solution for BADG commercial version
-\item One die type, $n \rightarrow \infty$
-\item Easy Cases
 \item Lazy Upper bound
 \item Lazy Lower bound (Pochhammer)
 \item Extremely Lazy Lower bound (closed form)
