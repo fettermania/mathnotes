@@ -2,7 +2,7 @@
 \usepackage{geometry} 		% See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper} 		% ... or a4paper or a5paper or ... 
 \usepackage[parfill]{parskip} 		% Activate to begin paragraphs with an empty line rather than an indent
-\usepackage{graphicx}				% Use pdf, png, jpg, or eps¤ with pdflatex; use eps in DVI mode
+\usepackage{graphicx}				% Use pdf, png, jpg, or epsÂ§ with pdflatex; use eps in DVI mode
 								% TeX will automatically convert eps --> pdf in pdflatex		
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -433,7 +433,7 @@ $r$ & $F(r)$ \\
 100 & 0.009033527644770 \\
 \hline
 \end{tabular}
-\caption{Values of $P(r)$ for selected indices}
+\caption{Values of $F(r)$ with $p=\frac1{6}$}
 \label{tab:p_values}
 \end{table}
 
@@ -449,7 +449,9 @@ Two notes:
 
 \subsection{Mathematical Lemmas}
 
-Restating $F$ for the single die with $d$ sides case, with $p := 1 / d, q := 1 - p$  we start with $F(0) = 1, F(r) = \sum_{k = 1}^r {r \choose k}p^kq^{r-k} F(r-k)$.
+To restate $F$ for a single die value:
+
+\begin{definition}[EV of Game at state $r$]: The expected value of the game with $r$ fixed $d$-sided dice is 1 at $r = 0 (F(0) = 1)$, and with $p := 1 / d, q := 1 - p$, is defined by $F(r) = \sum_{k = 1}^r {r \choose k}p^kq^{r-k} F(r-k)$ when $r > 0$.\end{definition}
 
 \begin{lemma}[Easy Cases Lemma] If $p = 0$, F(r) = 0.  If $p = 1, F(r) = 1$. If $s = 2$, for any $r > 0,F(r) = \frac{1}{2}$.
 \end{lemma}
@@ -483,11 +485,6 @@ However, this symbol does not have a closed form evaluation.  Let's try to find 
 
 
 
-Any unsuccessful path from state $r > 0$ to state $0$ has a final jump of the form $p^k, k \leq r$.  For instance, the ``low'' path in Fig. \ref{fig:dice-transition} would have probability $F(r) = [{r \choose 1}pq^{r-1}] [{r \choose 1}p^{r-3}q^2] [{2 \choose 1}pq] p^1$, or a single, miraculous jump would have probability $F(r) = p^r$.  In any case, $F(r) = M(r,p)p^k$ for some $M(r,p) \leq 1$, and some $k \geq 1$ for the final stage before 0.  Since $p^k \leq p$ for $k \geq 1$, $F(r) = M(r,p)p^k < p^k \leq p$.
-
-
-
-
 \textbf{table of contents TODO}
 \begin{itemize}
 \item Lazy Upper bound
@@ -497,19 +494,22 @@ Any unsuccessful path from state $r > 0$ to state $0$ has a final jump of the fo
 \item F(n) exhibits provably asymptotic behavior
 \end{itemize}
 
-\begin{theorem}For an unbounded set of $r > 0$ standard $s$-sided dice, $s \geq 2$, the probability $F(r)$ of getting a perfect game has a lower bound of $\exp(-\frac{q}{(1-q)^2})$, if we define  $q := 1-\frac1{s}$.
-\end{theorem}
+\begin{lemma}[Closed Form Lower Bound Lemma]For an unbounded set of $r > 0$ standard $d$-sided dice, $s \geq 2$, the probability $F(r)$ of getting a perfect game has a lower bound of $\exp(-\frac{q}{(1-q)^2})$, if we define  $q := 1-\frac1{d}$.
+\end{lemma}
 \textit{Proof}:
-
 \begin{itemize}
-\item First, while at stage $k$, where $k$ dice remain, the probabilty $P_{s}(k)$ of continuing to some stage $j < k$  is clearly $1 - q^k$.
-\item The probability $F(k)$ of passing all such stages is greater than or equal to $P^* = \prod_{i=1}^k P_{s}(k)$, since a successful traversal may involve skipping one or more stages, and $P^*$ assumes we no stages.
-
-\item Therefore, $F(k) \geq \prod_{i=1}^k P_{s}(k) =  \prod_{i=1}^k (1-q^k)$.
-\item This means $\log(F(k)) \geq \sum_{i=1}^k \log(P_{s}(k)) = \sum_{i=1}^k \log(1-q^k)$.
+\item First we have $F(r) \geq \prod_{k=1}^r (1-q^k)$ from the Lazy Lower Bound lemma.
+\item This means $\log(F(r)) \geq \sum_{k=1}^r \log(1-q^k)$ 
 \end{itemize}
 
-This $F(k)$ is apparently defined as the \textbf{q-Pochhammer symbol} $(q;q)_\infty = \prod_{i=1}^k (1-q^k)$, with known convergence properties.  I'll instead attempt to tackle convergence without the aid of these theorems.
+\begin{align*}
+F(r) &= \sum_{k=1}^{r-1} {r \choose k} p^k q^{r-k} F(r-k) + {r \choose r} p^r q^0 F(0) \\
+&= [ {r \choose 1}  +  {r \choose 2 } + \ldots +  {r \choose r-1}] \frac1{2^r} (\frac1{2}) + \frac1{2^r} 2(\frac1{2}) \\
+&= (2^r - 2) \frac1{2^r} (\frac1{2}) + 2\frac1{2^r} (\frac1{2}) \\
+&= (2^r) \frac1{2^r} (\frac1{2})\\
+&=  \frac1{2}
+\end{align*}
+
 
 Often, $\log(1-z)$ is approximated by $-z$ near zero, but we are most concerned with $z$ near one, since $1-z$ approaches 0, and $\log(1-z)$ explodes.  Therefore, let's look at the expansion of $\log(1-z)$:
 \begin{itemize}
@@ -517,72 +517,57 @@ Often, $\log(1-z)$ is approximated by $-z$ near zero, but we are most concerned 
 \item Identity 2: $\int f(z) = \log(1-z) = -z-\frac{z^2}{2} - \frac{z^3}{3} - \ldots$
 \end{itemize}
 
-So when summing $\sum_{i=1}^k \log(1-q^k)$, we can instead sum 
+So when summing $\sum_{i=1}^k \log(1-q^k)$, we can instead sum:
 \begin{align}
-\log(F(k)) = \log(1-q^1) + \log(1-q^2) + \log(1-q^3) + \ldots \\ 
-\log(F(k)) = (-q - \frac{q^2}{2} - \frac{q^3}{3} + \ldots) +  (-q^2 - \frac{q^4}{2} - \frac{q^6}{3} + \ldots) +  (-q^3 - \frac{q^6}{2} - \frac{q^9}{3} + \ldots) +  \ldots \\
-> (-q - q^2 - q^3 + \ldots) +   (-q^2 - q^4 - q^6 + \ldots) +  (-q^3 - q^6 - q^9 + \ldots) + \ldots \\
-= \frac{-q}{1-q} + \frac{-q^2}{1-q^2} + \frac{-q^3}{1-q^3} +    \ldots \\
-> \frac{-q}{1-q} + \frac{-q^2}{1-q} + \frac{-q^3}{1-q} +    \ldots \\
-= \frac1{1-q}[-q -q^2 - q^3 - \ldots ]\\
-= \frac{-q}{(1-q)^2} 
+\log(F(r)) &= \log(1-q^1) + \log(1-q^2) + \log(1-q^3) + \cdots \\
+&= \left(-q - \frac{q^2}{2} - \frac{q^3}{3} - \cdots\right) + \left(-q^2 - \frac{q^4}{2} - \frac{q^6}{3} - \cdots\right) \nonumber \\
+&\quad + \left(-q^3 - \frac{q^6}{2} - \frac{q^9}{3} - \cdots\right) + \cdots \\
+&> \left(-q - q^2 - q^3 - \cdots\right) + \left(-q^2 - q^4 - q^6 - \cdots\right) \nonumber \\
+&\quad + \left(-q^3 - q^6 - q^9 - \cdots\right) + \cdots \\
+&= \frac{-q}{1-q} + \frac{-q^2}{1-q^2} + \frac{-q^3}{1-q^3} + \cdots \\
+&> \frac{-q}{1-q} + \frac{-q^2}{1-q} + \frac{-q^3}{1-q} + \cdots \\
+&= \frac{1}{1-q}\left[-q - q^2 - q^3 - \cdots\right] \\
+&= \frac{-q}{(1-q)^2}
 \end{align}
 
 \begin{itemize}
-\item (2) follows from (1) by substitution using Identity1 above.
+\item (2) follows from (1) by substitution using Identity 2 above.
 \item (3) follows from (2) since the denominators of (2) are larger.
-\item (4) follows from (3) when dividing each sequence by $-q^k$  and applying identity 2.
+\item (4) follows from (3) when dividing each sequence by $-q^k$  and applying identity 1.
 \item (5) follows from (4) since the denominators of (4) are larger.
-\item (6) and (7) follow from (5) by dividing out $\frac1{1-q}$ and applying Identity 1.
+\item (6) and (7) follow from (5) by dividing out $\frac1{1-q}$ and applying Identity 2.
 \end{itemize}
 
-Since $\log(F(k))  > \frac{-q}{(1-q)^2}$, $F(k) > \exp (\frac{-q}{(1-q)^2)})$.
+Since $\log(F(r))  > \frac{-q}{(1-q)^2}$, $F(r) > \exp (\frac{-q}{(1-q)^2})$.
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-s & p & q & bound \\
-\hline
-2 & $\frac{1}{2}$ & $\frac{1}{2}$ & $\exp(-2) \approx .135$ \\
-3 & $\frac{1}{3}$ & $\frac{2}{3}$ & $\exp(-6) \approx .00248 $ \\
-4 & $\frac{1}{4}$ & $\frac{3}{4}$ & $\exp(-12) \approx 6.14 \times 10^{-6}$ \\
-10 & $\frac{1}{10}$ & $\frac{9}{10}$ & $\exp(-90) \approx 8.19 \times 10^{-40}$ \\
-\hline
-\end{tabular}
-\caption{Very loose lower bounds on $F(k = \infty)$}
-\label{tab:lower_boundsl}
-\end{table}
-
-
-This is a thoroughly unsatisfying lower bound, as we know $F(2) = \frac1{2}$.
-
-\begin{definition}[$(q;q)_{\infty}$: The q-pochhammer symbol]
-The q-pochhammer symbol $(q;q)_{\infty} = \prod_{k=1}^{\infty}(1-q^k)$ is a known convergent quantity.
-\end{definition}
- 
 \[
-\begin{array}{c|c|c}
-q & (q;q)_\infty & \exp\!\left(-\tfrac{q}{(1-q)^2}\right) \\
+\begin{array}{c|c|c|c}
+q & P(\infty) & (q;q)_\infty & \exp\!\left(-\tfrac{q}{(1-q)^2}\right) \\
 \hline
-1/2  & 2.8879 \times 10^{-1} & 1.3534 \times 10^{-1} \\
-2/3  & 6.9272 \times 10^{-2} & 2.4788 \times 10^{-3} \\
-3/4  & 1.5545 \times 10^{-2} & 6.1442 \times 10^{-6} \\
-4/5  & 3.3680 \times 10^{-3} & 2.0612 \times 10^{-9} \\
-5/6  & 7.1400 \times 10^{-4} & 9.3576 \times 10^{-14} \\
-6/7  & 1.4913 \times 10^{-4} & 5.7495 \times 10^{-19} \\
-7/8  & 3.0815 \times 10^{-5} & 4.7809 \times 10^{-25} \\
-8/9  & 6.3155 \times 10^{-6} & 5.3802 \times 10^{-32} \\
-9/10 & 1.2861 \times 10^{-6} & 8.1940 \times 10^{-40} \\
+1/2  & 5.0000 \times 10^{-1} & 2.8879 \times 10^{-1} & 1.3534 \times 10^{-1} \\
+2/3  & 1.9827 \times 10^{-1} & 6.9272 \times 10^{-2} & 2.4788 \times 10^{-3} \\
+3/4  & 7.3137 \times 10^{-2} & 1.5545 \times 10^{-2} & 6.1442 \times 10^{-6} \\
+4/5  & 2.5997 \times 10^{-2} & 3.3680 \times 10^{-3} & 2.0612 \times 10^{-9} \\
+5/6  & 9.0335 \times 10^{-3} & 7.1400 \times 10^{-4} & 9.3576 \times 10^{-14} \\
+6/7  & 3.0912 \times 10^{-3} & 1.4913 \times 10^{-4} & 5.7495 \times 10^{-19} \\
+7/8  & 1.0461 \times 10^{-3} & 3.0815 \times 10^{-5} & 4.7809 \times 10^{-25} \\
+8/9  & 3.5109 \times 10^{-4} & 6.3155 \times 10^{-6} & 5.3802 \times 10^{-32} \\
+9/10 & 1.1705 \times 10^{-4} & 1.2861 \times 10^{-6} & 8.1940 \times 10^{-40} \\
 \end{array}
 \]
+This is a very poor bound, especially when compared to $(q;q)_\infty$.   But being able to prove Lemma 2.2 and 2.4 in closed form yields this surprising result:
 
+\begin{corollary}[Bounded Results for $F(r)$ as $r \rightarrow \infty$] As $p \rightarrow 0, F(r) \rightarrow 0$.  However, for fixed $p > 0$, $F(r) > \epsilon$ as $r \rightarrow \infty$ for some $\epsilon > 0$.
+\end{corollary}
+The upshot: \textit{\textbf{Though increasing the number of sides of the dice can drive F(r) to zero, increasing the number of dice (r) to $\infty$ will never drive F(r) below some fixed constant dependent only on $p$}}
 
+There are a few ways to make this stronger:
+\begin{enumerate}
+\item Find a closed form solution for $F(r)$.
+\item Find a solution for the asymptote of F(r) as $r \rightarrow \infty$.
+\item Prove that $F(r)$ actually converges (instead of just ``is bounded'') as $r \rightarrow \infty$.
+\end{enumerate}
 
-
-However, this does provide a positive lower bound, and brings up this interesting fact: \textbf{Though increasing the number of sides of the dice can drive F(k) to zero, increasing k to $\infty$ will never set F(k) to zero}.  
-
-If we can couple this with the proof of the next theorem, we can state that $F(k)$ has an asymptotic limit as $k \rightarrow \infty$ given some $q$.
 
 \textbf{Calculating by hand}:
 \begin{itemize} 
