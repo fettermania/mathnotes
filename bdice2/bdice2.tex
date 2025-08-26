@@ -2,7 +2,7 @@
 \usepackage{geometry} 		% See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper} 		% ... or a4paper or a5paper or ... 
 \usepackage[parfill]{parskip} 		% Activate to begin paragraphs with an empty line rather than an indent
-\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps¬ß with pdflatex; use eps in DVI mode
 								% TeX will automatically convert eps --> pdf in pdflatex		
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -445,6 +445,7 @@ Two notes:
 \begin{itemize}
 \item We only have one type of die now, and if we have $r$ of them left, the EV of that state is given as $F(r)$ (we changed $F$ to take integers now instead of vectors).
 \item  Unless we see an inflection point ($F(r)$ reverses direction and starts \textit{increasing} past a certain point), the simple strategy and optimal strategy (from section 1) are equivalent.  
+\item If we can find $F(r), r \rightarrow \infty$ with one type of 
 \end{itemize}
 
 \subsection{Mathematical Lemmas}
@@ -482,17 +483,6 @@ For simplicity, we consider only $p \leq \frac1{2}$ from here on out\footnote{Sw
 Interestingly enough, \textit{\textbf{this lower bound for $F(r)$ is a known quantity called the q-Pochhammer symbol $(q;q)_\infty = \prod_{i=1}^k (1-q^k)$, with known convergence properties,}} appearing in areas like quantum algebra and physics.  News to me.  Neato.
 
 However, this symbol does not have a closed form evaluation.  Let's try to find a closed form bound that's even WORSE than this one.
-
-
-
-\textbf{table of contents TODO}
-\begin{itemize}
-\item Lazy Upper bound
-\item Lazy Lower bound (Pochhammer)
-\item Extremely Lazy Lower bound (closed form)
-\item Wrong attempt: $F(t) < F(t-1)?$
-\item F(n) exhibits provably asymptotic behavior
-\end{itemize}
 
 \begin{lemma}[Closed Form Lower Bound Lemma]For an unbounded set of $r > 0$ standard $d$-sided dice, $s \geq 2$, the probability $F(r)$ of getting a perfect game has a lower bound of $\exp(-\frac{q}{(1-q)^2})$, if we define  $q := 1-\frac1{d}$.
 \end{lemma}
@@ -562,11 +552,19 @@ There are a few ways to make this stronger:
 
 We will show why (1) is unlikely, that (3) is true, and hope to one day get better bounds for (2) than lemmas 2.3 and 2.5.
 
+\subsection{An Unlikely Closed Form}
+
+Definition 2.1, again, is that our EV with $r > 0$ $d$-sided dice remaining, with $p = 1/d, q = 1-p$, is $F(r) = \sum_{k = 1}^r {r \choose k}p^kq^{r-k} F(r-k)$.
+
+
+Definition 2.1 is a complicated recurrence; each successive $F(r)$ depends not only on the previous result $F(r-1)$ but \textit{all} previous results $F(r-j), 0 \leq j \leq r$.
+Note that in successive tables, as always, $q$ is defined as $1-p, p \in \mathbb{R}$, and $0 < p \leq \frac1{2}$
+
+
 Applying Definition 2.1 by hand yields:
 
-\textbf{Calculating by hand}:
+\textbf{Table A: List of F(r)}:
 
-Note that, as always, $q$ is defined as $1-p, p \in \mathbb{R}$, and $0 < p \leq \frac1{2}$
 \[
 \begin{aligned}
 F(0) &= 1, \\[6pt]
@@ -580,50 +578,130 @@ F(6) &= p^{6}\,\bigl(1 + 6q + 15q^{2} + 50q^{3} + 75q^{4} + 126q^{5} + 240q^{6} 
 \end{aligned}
 \]
 
-\begin{proposition}[F(r) does not have a closed form] Since the maximum degree of $p$ in $F(r)$ is $\frac{r(r+1}}{2}$
+This form isn't yet obvious.  Let's look at differences $F(r) - F(r+1)$; if these converge or are bounded, we have hope for a closed form solution:
+
+\textbf{Table B: List of F(r) - F(r+1)}:
+
+
+\[
+\begin{aligned}
+F(0) - F(1) &= 1 \,\bigl( 1 - p\bigr), \\[6pt]
+F(1) - F(2) &= p \,\bigl( 1 - p - 2pq \bigr), \\[6pt]
+F(2) - F(3) &= p^{2}\,\bigl( 1 + 2q - p - 3pq - 3pq^{2} - 6pq^{3} \bigr), \\[6pt]
+F(3) - F(4) &= p^{3}\,\bigl( 1 + 3q + 3q^{2} + 6q^{3} \\
+&\qquad - p - 4pq - 6pq^{2} - 16pq^{3} - 12pq^{4} - 12pq^{5} - 24pq^{6} \bigr), \\[6pt]
+F(4) - F(5) &= p^{4}\,\bigl( 1 + 4q + 6q^{2} + 16q^{3} + 12q^{4} + 12q^{5} + 24q^{6} \\
+&\qquad - p - 5pq - 10pq^{2} - 30pq^{3} - 35pq^{4} - 50pq^{5} - 90pq^{6} \\
+&\qquad - 80pq^{7} - 60pq^{8} - 60pq^{9} - 120pq^{10} \bigr), \\[6pt]
+F(5) - F(6) &= p^{5}\,\bigl( 1 + 5q + 10q^{2} + 30q^{3} + 35q^{4} + 50q^{5} + 90q^{6} + 80q^{7} + 60q^{8} + 60q^{9} + 120q^{10} \\
+&\qquad - p - 6pq - 15pq^{2} - 50pq^{3} - 75pq^{4} - 126pq^{5} - 240pq^{6} \\
+&\qquad - 300pq^{7} - 360pq^{8} - 390pq^{9} - 660pq^{10} - 540pq^{11} \\
+&\qquad - 480pq^{12} - 360pq^{13} - 360pq^{14} - 720pq^{15} \bigr).
+\end{aligned}
+\]
+
+
+\begin{proposition}[F(r) does not have a closed form] 
 \end{proposition}
-
-
-\begin{theorem}[Incorrect Blind Alley: $F(n) < F(n-1)$] If $p < \frac1{2}, F(n-1) > F(n)$ for $n > 1$.\end{theorem}
-
+\textit{Thoughts}:
 \begin{itemize}
-\item TODO: Show calculation of various functions directly.
-\item Show calculation of $p = \frac1{2} - \epsilon,q = \frac1{2} - \epsilon$ with $p= 0.495$.
-\item Show interesting observations: growth of polynomial
+\item Since the maximum degree of $p$ in $F(r)$ is $\frac{r(r+1)}{2}$, this suggests $F$'s successive values become more complicated than a closed from allows.
+\item Lemma 2.2 also shows $F(r)(\frac1{2})) = \frac1{2}$ for any $r > 0$.  This means that $F(r+1)-F(r)$ \textit{does} collapse always at $p = \frac1{2}$ (also 0, 1), but must be nonzero at some $p=\frac1{2} - \epsilon$ as well.  
+
 \end{itemize}
 
-\begin{itemize}
-\item $R(t)$ is starting at position $t$, throwing $t-1$ dice.
-\item $F(t) = p(1+q^{t-1})F(t-1) + qR(t) = pF(t-1)+pq^{t-1}F(t-1) + qR(t)$
-\item If $qR(t) < qF(t-1) - pq^{t-1}F(t-1)$, same as $ F(t-1)-R(t)  > pq^{t-2}F(t-1)$, then $F(t) < F(t-1)$.
+Though not a proof, these suggest \textit{\textbf{there may not be a fundamentally simpler way to capture our multi-way recurrence than a polynomial whose leading coefficient is a triangle number in r!}}.  Then, my first attempt to find a solution focused instead on the seemingly monotonic behavior of $F(r), r \rightarrow \infty$ for fixed $p < \frac1{2}$.
 
-\item In the special case $q = p = \frac{1}{2}$, then $F(t-1) - R(t) = p^{t-1} (1) - p^{t-1}\cdot p$  + other zero factors $= p^t = pq^{t-2}\cdot\frac{1}{2}$.  
-\item So we're satisfied since $F(t) = \frac{1}{2}$ for $t \geq 1$.
+\subsection{F(r) is non-monotonic}
 
-\item If $p \leq \frac{1}{3}, F(t-1)  - R(t) =  [p^{t-1}F(0) - p^{t-1}F(1)$ + other positive factors $] = p^{t-1}q + \epsilon$.
-\end{itemize}
 
+\begin{theorem}[Incorrect Blind Alley: $F(r+1) < F(r), r > 0$] If $p < \frac1{2}, F(r+1) < F(r)$ for $r > 0$.\end{theorem}
+\textit{Failed Proof}: This certainly seems obvious.  Perhaps there are reformulations or combinatorial identities that allow the reduction of Definition 2.1 to something manageable.
+
+The bugbear of $F(r)(\frac1{2})=\frac1{2}$ made sure, however, that successive differences had to be extremely small near $\frac1{2}$, so no real daylight poked through. Additionally, there are countervailing forces as well: you are \textit{less} likely to fail on stage $r+1$ (immediate bust probability: $q^{r+1}$) than stage $r$ (immediate bust probability: $q^r$), but more likely to land further away from stage 0 than at stage $r$, presumably worse EV by induction.
+
+All hope was lost when the counterexample was found.
+
+\begin{proposition}[Counterexample of Monotonicity]$F(r) < F(r+1)$ for certain values of $r > 0, p < \frac1{2}$.\end{proposition}
+
+Consider that at $p = \frac1{2}, F(r) = F(s) = \frac1{2}$ for any $r, s > 0$, and therefore, $F(r) - F(r+1) = 0$.  If $F(r) > F(r+1)$ when $p < \frac1{2}$, we can expect that with $p$ at some distance $\epsilon$ below $\frac1{2}$, that the difference will be positive.
+  
+First, reformulate each of the expressions in \textbf{Table B} as dependent on this $\epsilon$: with $p \rightarrow \frac1{2} - \epsilon,  q \rightarrow \frac1{2} + \epsilon$:
+
+\textbf{List of F(r) - F(r+1), as a function $\epsilon$}:
+
+\[
+\begin{aligned}
+F(1) - F(2) &= -2 \epsilon^{3} + \tfrac{1}{2}\,\epsilon, \\[6pt]
+F(2) - F(3) &= 6 \epsilon^{6} + 3 \epsilon^{5} - 3 \epsilon^{4} - \tfrac{3}{2}\,\epsilon^{3} + \tfrac{3}{8}\,\epsilon^{2} + \tfrac{3}{16}\,\epsilon, \\[6pt]
+F(3) - F(4) &= -24 \epsilon^{10} - 36 \epsilon^{9} + 20 \epsilon^{7} + 11 \epsilon^{6} - \tfrac{5}{2}\,\epsilon^{5} - 4 \epsilon^{4} - \tfrac{1}{4}\,\epsilon^{3} + \tfrac{13}{32}\,\epsilon^{2} + \tfrac{3}{64}\,\epsilon, \\[6pt]
+F(4) - F(5) &= 120 \epsilon^{15} + 360 \epsilon^{14} + 330 \epsilon^{13} - 40 \epsilon^{12} - \tfrac{485}{2}\,\epsilon^{11} - \tfrac{267}{2}\,\epsilon^{10} - \tfrac{7}{8}\,\epsilon^{9} + 50 \epsilon^{8} \\
+&\quad + \tfrac{925}{32}\,\epsilon^{7} - \tfrac{9}{32}\,\epsilon^{6} - \tfrac{801}{128}\,\epsilon^{5} - \tfrac{71}{32}\,\epsilon^{4} + \tfrac{185}{512}\,\epsilon^{3} + \tfrac{135}{512}\,\epsilon^{2} + \tfrac{3}{2048}\,\epsilon, \\[6pt]
+F(5) - F(6) &= -720 \epsilon^{21} - 3600 \epsilon^{20} - 7200 \epsilon^{19} - 6420 \epsilon^{18} - 315 \epsilon^{17} + 4560 \epsilon^{16} + 3810 \epsilon^{15} + 720 \epsilon^{14} \\
+&\quad - \tfrac{6285}{8}\,\epsilon^{13} - \tfrac{6205}{8}\,\epsilon^{12} - \tfrac{2893}{8}\,\epsilon^{11} + \tfrac{231}{32}\,\epsilon^{10} + \tfrac{13305}{128}\,\epsilon^{9} + \tfrac{1985}{32}\,\epsilon^{8} \\
+&\quad + \tfrac{1387}{128}\,\epsilon^{7} - \tfrac{1273}{128}\,\epsilon^{6} - \tfrac{21449}{4096}\,\epsilon^{5} - \tfrac{1405}{4096}\,\epsilon^{4} + \tfrac{425}{1024}\,\epsilon^{3} \\
+&\quad + \tfrac{2047}{16384}\,\epsilon^{2} - \tfrac{423}{65536}\,\epsilon.
+\end{aligned}
+\]
+
+We're looking to see if F(r) - F(r+1) is ever negative, and we need look no further than $F(5) - F(6)$, for small $\epsilon$.   Notice that if $\epsilon$ is almost zero, the final term in each sum $C\cdot \epsilon$ for some $C$ will dominate the expression, as $\epsilon^2, \epsilon^3...$ will be exceedingly small.  For $F(1) - F(2), F(2) - F(3), F(3) - F(4)$ and $F(4) - F(5)$, the final  $C$ is positive, but for $F(5) - F(6)$, C = $-\frac{423}{65536}$.  This means that for small epsilon, looking at $p = \frac1{2} - \epsilon$ may yield an increase in EV as we move from 5 to 6 dice left.
+
+Sure enough, for $\epsilon = .005 \rightarrow p = .495$, we see that $F(r+1)$ can be greater than $F(r)$ in Table  \ref{tab:p_values_epsilon}:
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+$r$ & $F(r)$ \\
+\hline
+0 & 1.000000000000000 \\
+1 & 0.495 \\
+2 & 0.49250025 \\
+3 & 0.49155356436553116 \\
+4 & 0.4913090668731703 \\
+5 & \cellcolor{yellow}0.4912951070978062 \\
+6 & 0.4913242043135742 \\
+7 & 0.4913441989090334 \\
+8 & \cellcolor{yellow}0.49135032152170444 \\
+9 & 0.4913486656274434 \\
+10 & 0.4913447466697759 \\
+\hline
+\end{tabular}
+\caption{Values of $F(r)$ with $p=0.495$}
+\label{tab:p_values_epsilon}
+\end{table}
+
+
+We can see that $F(r)$ will reverse directions (yellow cells) as $r$ increases, though it does asymptotically approach something like 0.4913417493573063 as $r \rightarrow \infty$.
+
+With monotonicty and bounds, convergence is assured.  Without it, we must show convergence another way.
+
+\subsection{F(r) converges as $r \rightarrow \infty$}
+
+Notice that each term $F(k)$ in table A is of the form $F(k) = p^k a_k$, where $a_k$ is completely a function of $q$.
 
 \begin{align}
-t=3, F(3) - R(4) > pq^{4-1}F(4-1)\\
-p^3F(0) - p^3F(1) \\
-{3 \choose 2} p^2qF(1) - {3 \choose 2} p^2qF(2) \\ 
-{3 \choose 1} p^2qF(2) - {3 \choose 2} p^2qF(3) \\
+a_0 = 1, F(0) = 1 = p^0a_0 \\
+a_1 = 1, F(1) = p = p^1a_1\\
+a_2 = 1+2q, F(2) = p^2a_2 \\
+a_3 = 1+3q+3q^2+6q^3, F(3) = p^3a_3
 \end{align}
 
-\section{Interesting Findings}
+Let's look again at definition 2.1 and an equivalent way to write it:\\
+\begin{align}
+a_0 = 1 \\
+F(k) = p^k a_k \\
+F(r) = \sum_{k = 1}^r {r \choose k}p^kq^{r-k} F(r-k) \\
+= p^r\sum_{k = 1}^r {r \choose k}q^{r-k} [p^{k-r}F(r-k)] \\
+= p^r \sum_{k = 1}^r {r \choose k}q^{r-k} [p^{k-r}p^{r-k}a_{r-k}] \\
+= p^r \sum_{k = 1}^r {r \choose (r-k)}q^{r-k} [a_{r-k}] \\
+= p^r \sum_{k = 1}^r {r \choose k}q^{k} [a_{k}] 
+\end{align}
 
-\begin{itemize}
-\item Calculating the asymptotic behavior of a combination of s-sided dice and t-sided dice isn't particularly interesting;  if $s > t$, this less than $F_{1/t}(\infty)$ and more than $F_{1/s}(\infty)$.
-\item  no closed form - triangle exponent
-\item  non monotone commercial game
-\item  non monotone single game
-\item  pochhammer bounds, ultimate convergence 
-\item  can be made zero in p, not in n
-\item  note: different than best strategy (since others have knowledge) 
-\end{itemize}
+So $a_r = \sum_{k=1}^{r-1} q^k {r \choose k}a_k$, and $F(r) = p^r a_r$.
 
-
+Therefore, if we can find the ratio $\frac{a_{r+1}}{a_r}, r \rightarrow \infty$, we a
 
 
 \end{document}

@@ -73,6 +73,6 @@ for s in range(1,11):
     # print(calculate_evs([asymptotic_x], [1/s]))
 
 print("\n === Non-monotonic value: p=.495 GAME ==== \n")
-print(calculate_evs([asymptotic_x], [.495]))
+print(calculate_evs([asymptotic_x * 5], [.495]))
 
 
