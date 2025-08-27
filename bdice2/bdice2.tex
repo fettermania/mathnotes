@@ -59,22 +59,22 @@ style=alphabetic,
 \maketitle
 
 \begin{abstract}
-An earlier paper (http://fettermania.com/math/bdice.pdf) focused on a near-optimal strategy for maximizing expected value in gameplay for \textit{Bitches: A Dice Game}.  This paper focuses on a different question: what is the probability of playing a perfect game?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related question: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds, prove convergence, and find surprising results along the way.
+An earlier paper (http://fettermania.com/math/bdice.pdf) focused on a near-optimal strategy for maximizing expected value in gameplay for \textit{Bitches: A Dice Game}.  This paper focuses on a different question: what is the probability of playing a perfect game (and is there any subtlety to doing so)?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related question: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds, prove convergence, and find surprising results along the way.
 \end{abstract}
 
 \section{Introduction and the Commercial Game}
 
 Outside of ideological patron Larry Waldman, the publication of my original b. a. d. g. paper (http://fettermania.com/math/bdice.pdf) received little fanfare from humans.  However, the robots somehow picked up on this and brought it to the attention of Samuel Cox, creator of the game.  After dispensing mild praise about the paper and strong confusion about my interest in it, Mr. Cox suggested another problem. 
 
-Instead of ``how does one play the game with high/maximum expected value?'' (addressed in the first paper), Mr. Cox wondered how often a \textit{perfect game} (one in which the best possible score is achieved at the end) occurs if played optimally.  Though optimal play looks obvious (pick up all your good rolls), Mr. Cox has also debated with his class: ``is it always best to pick up all your maximum-roll dice?''   
+Instead of ``how does one play the game with high/maximum expected value?'' (addressed in the first paper), Mr. Cox wondered how often a \textit{perfect game} (one in which the best possible score is achieved at the end) occurs if played optimally.  Though optimal play looks obvious (pick up all your maximum rolls), Mr. Cox has also debated with his class: ``is it always best to pick up all your maximum-roll dice?''   
 
-I took this on and a day or so later, the solution to this particular question surfaced.  As usual, twinkly subproblems appeared along the way, and I left to find a solution to a related problem: \textit{does the probability of a perfect game converge as the number of dice increase to infinity?}.
+I took this on and a day or so later, the solution to this particular question surfaced.  As usual, twinkly subproblems appeared along the way, and I left to find a solution to a related problem: \textit{does the probability of a perfect game converge to a positive number as the number of dice increase to infinity?}.
 
 We'll briefly review the game's rules and the solution method for the commercially offered game before diving in to a discovered second quest: asymptotic behavior of infinite dice.  We'll note surprising or interesting findings in \textit{\textbf{bold-italic}}.
 
 \subsection{The Game}
 
-Though the rules to the multi-player game are detailed in the original paper (http://fettermania.com/math/bdice.pdf), we will reformulate this for a solitaire-style perfect game, which follows this pattern:
+Though the rules to the multi-player game are detailed in the original paper referenced above, we will reformulate this for a solitaire-style perfect game, which follows this pattern:
 \begin{enumerate}
 \item Begin with 12 standard dice of six sides, along with one eight-, one ten-, and one twelve-sided die.
 \item On each turn, roll all remaining dice in play.
@@ -83,7 +83,7 @@ Though the rules to the multi-player game are detailed in the original paper (ht
 \item Continue until no dice remain (you have a perfect game) or you have busted out.
 \end{enumerate}
 
-The question \textit{"how likely am I to get a perfect score?"} therefore relies on the \textit{strategy} one employs in picking up dice.  
+The question \textit{``how likely am I to get a perfect score?''} therefore relies on the \textit{strategy} one employs in picking up dice.  
 
 \subsection{Mistake 1: The Strategy Assumption}
 \begin{proposition}[Smoke 'em if you got 'em] The best strategy to achieve a perfect game is to always pick up as many dice with maximum face value as the turn allows.\end{proposition}
@@ -93,7 +93,7 @@ This proposition is:
 \item Simple
 \item Obvious
 \item The strategy any reasonable person would employ
-\item Assumed for the calculations in the next section
+\item Initially assumed for the calculations in the next section
 \item \textbf{\textit{Mathematically false}}
 \end{enumerate}
 
@@ -103,15 +103,14 @@ In the next section, we assume this simple, deterministic strategy in calculatin
 
 The following definitions will help us write a program to get our solution for the commercial game:
 \begin{itemize}
-\item The ``state'' $\vec{s} := [a,b,c,d]$ is how many dice of size 6, 8, 10, and 12 remain, respectively.  We start at $\vec{S} = [12, 1, 1, 1]$.  A perfect game ends at $\vec{s} = \vec{0}$.  A failure to roll any max roll ends the game in an unlisted `losing' state $\varnothing$.
+\item The ``state'' $\vec{s} := [a,b,c,d]$ is how many dice of size 6, 8, 10, and 12 remain, respectively\footnote{We refer to this often as an arbitrarily-sized vector as well}.  We start at $\vec{S} = [12, 1, 1, 1]$.  A perfect game ends at $\vec{s} = \vec{0}$.  A failure to roll any max roll ends the game in an unlisted `losing' state $\varnothing$.
 \item The ``probability vector'' $\vec{p} := [1/6, 1/8, 1/10, 1/12]$ is the chance of getting a max roll from each of the dice sizes, again here assumed to be 6, 8, 10, 12.
-\item With a win defined as value $1$ ($F(\vec{0}) = F([0,0,0,0]) = 1$) and a loss as value $0$ ($F(\varnothing) = 0$), the ``expected game value'' of any other state $\vec{s}$ is denoted as $F(\vec{s})$.  
-\item Said another way, $F(\vec{s})$ is the probability of ending up in winning state $\vec{0}$ from state $\vec{s}$.
+\item With a win defined as value $1$ ($F(\vec{0}) = F([0,0,0,0]) = 1$) and a loss as value $0$ ($F(\varnothing) = 0$), the ``expected game value'' of any other state $\vec{s}$ is denoted as $F(\vec{s})$.  Said another way, $F(\vec{s})$ is the probability of ending up in winning state $\vec{0}$ from state $\vec{s}$.
 \item We call any state $\vec{t} := [t_1,t_2 ... t_z]$  \textit{reachable} from state $\vec{s} := [s_1,s_2 ... s_z]$ if $t_i \leq s_i$ for all $1 \leq i \leq z$, but $\vec{s} \neq \vec{t}$.  More intuitively, if you can start at state $\vec{s}$ and get to state $\vec{t}$ in one roll (and corresponding pickup) of your dice, then $\vec{t}$ is reachable from $\vec{s}$.  This is just any non-bust state ``smaller than'' where you are now.
 \end{itemize}
 
 \subsection{Probability Lemmas}
-First, let's limit ourselves to a game (or state) with only a single flavor of dice, say $d$-sided, collapsing state vector $\vec{s}$ to a single integer $r$ ($r$ dice of size $d$ left).  Refer to Fig. \ref{fig:dice-transition} for a visualization of the states starting at $r$ dice left of size $d$, with $p := 1/d, q := 1-p$.
+First, let's limit ourselves to a game (or state) with only a single flavor of dice, say $d$-sided, collapsing state vector $\vec{s}$ to a single integer $r$ ($r$ dice of size $d$ left).  Refer to Fig. \ref{fig:dice-transition} for a partial visualization of the states and transitions starting at $r$ dice left of size $d$, with $p := 1/d, q := 1-p$.
 
 \begin{figure}[ht]
     \centering
@@ -178,7 +177,7 @@ Extending this to dice of $z$ different sizes is clear:
   $\prod_{i=0}^z P_{single}(\vec{s}_i ,\vec{t}_i,\vec{p}_i)$.\end{lemma}
 
 
-\textit{Proof:} Divide the turn's roll into $z$ independent subrolls, each rolling all $s_i$ dice, $1 \leq i \leq z$, each with $p_i$ chance of hitting a max.  The outcomes of these $z$ subrolls are all mutually independent, so $P_{transition}$ can be expressed as the product of $P_{single}$ quantities.
+\textit{Proof:} Divide the turn's roll into $z$ independent subrolls, each rolling all $s_i$ dice, $1 \leq i \leq z$, themselves each with $p_i$ chance of hitting a max.  The outcomes of these $z$ subrolls are all mutually independent, so $P_{transition}$ can be expressed as the product of $P_{single}$ quantities.
 
 \subsection{Simple recursive algorithm}
 
@@ -186,12 +185,13 @@ With these easy proofs and definitions in hand, the algorithm follows readily - 
 \begin{itemize}
 \item Steps 1 - 5 are definitions from the lemmas above.
 \item Step 6 creates a set of all states reachable from state $\vec{s}$, \textit{including $\vec{s}$ itself}.  
-\item Thinking of the states as a directed graph where a state points to all the states reachable from it, Step 7 creates an ordered list of states $s_1, s_2, s_3...$ , like $[0,0,0,0], [0,0,1,0], [0,1,0,0], [0,1,1,0]....$ where, when $s_i$, is encountered in the list, all states reachable from $s_i$ occur before $s_i$ in the list.  There are many such possible orders. This is required for step 9's $F(\vec{t})$ values to be defined.
+\item Thinking of the states as a directed graph where a state points to all the states reachable from it, Step 7 creates an ordered list of states $s_1, s_2, s_3...$ , \\
+like $[0,0,0,0], [0,0,1,0], [0,1,0,0], [0,1,1,0]....$ where, when $s_i$ is encountered in the list, all states reachable from $s_i$ occur before $s_i$ in the list.  There are many such possible orders. This is required for step 9's $F(\vec{t})$ values to be defined.
 \item Step 9 uses Lemma 1.3 to calculate $F(\vec{s})$ from the values of previously calculated substates.
 \end{itemize}
 
 
-\begin{algorithm}
+\begin{algorithm}[h]
 \caption{Dynamic program for $F(\vec{S})$}
 \begin{algorithmic}[1]
 \State $\vec{S} \gets [12,1,1,1]$
@@ -210,11 +210,11 @@ With these easy proofs and definitions in hand, the algorithm follows readily - 
 
 \subsection{Results for Commercial Game}
 
-Using the Smoke 'Em if you Got 'Em strategy, the chance of winning\footnote{Alternatively, expected value of being in state $F(\vec{s})$, with $F(\vec{0}) = 1, F(\varnothing) = 0$} $F(\vec{s})$ for every state $\vec{s}$, with $\vec{s}$ ranging from $\vec{0}$ to $\vec{S} = [12, 1, 1, 1]$ is listed in Figures \ref{fig:ev-tables-1} and \ref{fig:ev-tables-2}.  These are computed with the simple python program at https://github.com/fettermania/mathnotes/blob/main/bdice2/bdice2.py.  
+Using the Smoke 'Em if you Got 'Em strategy, the chance of winning\footnote{Alternatively, expected value of being in state $F(\vec{s})$, with $F(\vec{0}) = 1, F(\varnothing) = 0$} $F(\vec{s})$ for every state $\vec{s}$, with $\vec{s}$ ranging from $\vec{0}$ to $\vec{S} = [12, 1, 1, 1]$ is listed in Figures \ref{fig:ev-tables-1} and \ref{fig:ev-tables-2}.  These are computed with a simple python program\footnote{https://github.com/fettermania/mathnotes/blob/main/bdice2/bdice2.py}.
 
-Note that these are \textit{four-dimensional} results, with each dimension $i$ corresponding to the count of dice $s_i$ in each state.  Since the number of 8-, 10-, and 12-sided dice is either zero or one, we've collapsed these into four 12 by 2 tables, where $d_k$ notes the number of dice of size $k$.  
+Note that this state table is \textit{four-dimensional}, with each dimension $i$ corresponding to the count of dice $s_i$ in each state.  Since the number of 8-, 10-, and 12-sided dice is either zero or one, we've collapsed these into four 12 by 2 tables, where $d_k$ notes the number of dice of size $k$.  
 
-Our main \textit{initial} result is in the bottom-right corner of Fig. \ref{fig:ev-tables-2}.
+Our main \textit{initial} result for $F(\vec{S})$ is in the bottom-right corner of Fig. \ref{fig:ev-tables-2}.
 
 % First pair of tables
 \begin{figure}[ht]
@@ -324,8 +324,8 @@ Our main \textit{initial} result is in the bottom-right corner of Fig. \ref{fig:
 Observations from Figs. \ref{fig:ev-tables-1} and \ref{fig:ev-tables-2}:
 \begin{itemize}
 \item Most of the time, starting with some state $\vec{s}$ and picking up one or more dice will increase the expected value of winning.
-\item However, we do note some non-monotonicity: there are two surprising ``critical points'' at $[12,0,1,1]$ and $[9, 1, 1, 1]$, where instead of the EV decreasing as $d_6$ increases, the EV increases instead.  This means that, say, rolling two max-sixes and no other max dice in state $[10, 1, 1, 1]$ suggests the best strategy is to \textit{\textbf{leave one max die on the table}} so as to end up in slighly higher EV state $[9,1,1,1]$ over $[8,1,1,1]$.  We will revisit these in the next section.
-\item At all states reachable from $[12, 0, 1, 1]$, the best strategy is confirmed: pick up as many max-rolled dice as possible.  Deviating from this strategy produces an $F$-value smaller than those in the table. \textit{Note:} The ``bend'' at $[11,0,1,1]$ does not affect this; you have no alternative from [12,0,1,1] than to pick up if [11,0,1,1] is your new roll state.
+\item However, we do note some non-monotonicity: there are two surprising ``critical points'' at $[12,0,1,1]$ and $[9, 1, 1, 1]$, where instead of the EV decreasing as $d_6$ increases, the EV increases instead.  This means that, for example, the best strategy when rolling two max-sixes and no other max dice in state $[10, 1, 1, 1]$ is to \textit{\textbf{leave one max die on the table}} so as to end up in slightly higher EV state $[9,1,1,1]$ over $[8,1,1,1]$.  We will revisit these in the next section.
+\item At all states reachable from $[12, 0, 1, 1]$, the best strategy is confirmed: pick up as many max-rolled dice as possible.  Deviating from this strategy produces an $F$-value smaller than those in the table. \textit{Note:} The ``bend'' at $[11,0,1,1]$ does not affect this; you have no alternative from [12,0,1,1] than to pick up if [11,0,1,1] if you roll one max-six.
 \item At all states reachable from $[10,1,1,1]$, the simple strategy remains best.
 \item We can confirm that holding $d_6$ steady, it's always better to have zero than one of each of the 8, 10, and 12-sided dice.
 \end{itemize}
@@ -338,13 +338,11 @@ Observations from Figs. \ref{fig:ev-tables-1} and \ref{fig:ev-tables-2}:
 
 From examining the table it becomes clear that there are expected values for states $\vec{s}, \vec{t}$ such that $\vec{t}$ is reachable from $\vec{s}$ yet $F(\vec{t} ) < F(\vec{s})$.  
 
-This means that for state, say, $\vec{s}+e_1$, that even when rolling enough maxes to get to $\vec{t}$, picking up fewer dice than the Smoke 'em if you Got em strategy may be best.
-
 This means we need to refine our formula to choose the best selectable EV state from state $\vec{s}$, not just the furthest from $\vec{s}$.  With this definition in hand:
 
 $selectable\_states(\vec{s}, \vec{t}) := (substates(\vec{s}) - \vec{s}) - substates(\vec{t}) + \vec{t}$
 
-Update Step 9 of Algorithm 1 above to: 
+update Step 9 of Algorithm 1 above to: 
 
 $F(\vec{s}) \gets \sum_{\vec{t} \in \left(\text{substates}(\vec{s}) - \{\vec{s}\}\right)} 
      P_{\text{transition}}(\vec{s},\vec{t}) \cdot max_{\vec{u} \in selectable\_states(\vec{s}, \vec{t})} F(\vec{u})$
@@ -391,7 +389,7 @@ So it turns out Mr. Cox's students are correct - you may indeed want to ``save''
  \item $[12,1,1,1]$: Naive: Take both sixes (EV = 0.0044132805).  \textbf{Optimal}: Take only 1 six (EV = 0.0044456381).
 \end{itemize}
 
-It's nice to see the game is complex and non monotonic even in this constrained scenario.    There are likely higher configurations yielding other critical points in the space e, especially as more dimensions (dice types) are added.  Though the difference is minuscule in the commercial game, expanding $\vec{S}$ to something like $S^* = [24,2,2,2]$ yields a wider EV difference between simple and optimal strategies\footnote{$F(S^*) = 0.0033078600$ using the basic strategy and $0.0038614244$ using the optimal, a 17\% improvement}.
+It's nice to see the game is complex and non monotonic even in this constrained scenario.    There are likely higher configurations yielding other critical points in the space, especially as more dimensions (dice types) are added.  Though the difference is minuscule in the commercial game, expanding $\vec{S}$ to something like $\vec{S^*} = [24,2,2,2]$ yields a wider EV difference between simple and optimal strategies\footnote{$F(\vec{S^*}) = 0.0033078600$ using the basic strategy and $0.0038614244$ using the optimal, a 17\% improvement}.
 
 \section{The Second Quest: $d_6 \rightarrow \infty$}
 
@@ -445,16 +443,18 @@ Two notes:
 \begin{itemize}
 \item We only have one type of die now, and if we have $r$ of them left, the EV of that state is given as $F(r)$ (we changed $F$ to take integers now instead of vectors).
 \item  Unless we see an inflection point ($F(r)$ reverses direction and starts \textit{increasing} past a certain point), the simple strategy and optimal strategy (from section 1) are equivalent.  
-\item If we can find $F(r), r \rightarrow \infty$ with one type of 
+\item If we can find $\lim_{r \rightarrow \infty} F_d(r), $ with dice of size $d$ and $\lim_{r \rightarrow \infty} F_g(r)$ with dice of size $g > d$, then it's clear that an infinite proportional \textit{mix} of these dice will fall between them; this is not examined further.
 \end{itemize}
 
 \subsection{Mathematical Lemmas}
 
+\textit{Note: For some $d$-sided die, we assume $p := 1/d, q := 1-p$ for the rest of the paper.}
+
 To restate $F$ for a single die value:
 
-\begin{definition}[EV of Game at state $r$]: The expected value of the game with $r$ fixed $d$-sided dice is 1 at $r = 0 (F(0) = 1)$, and with $p := 1 / d, q := 1 - p$, is defined by $F(r) = \sum_{k = 1}^r {r \choose k}p^kq^{r-k} F(r-k)$ when $r > 0$.\end{definition}
+\begin{definition}[EV of Game at state $r$]The expected value of the game with $r$ fixed $d$-sided dice is 1 at $r = 0$, and when $r > 0$, is defined by $F(r) = \sum_{k = 1}^r {r \choose k}p^kq^{r-k} F(r-k)$.\end{definition}
 
-\begin{lemma}[Easy Cases Lemma] If $p = 0$, F(r) = 0.  If $p = 1, F(r) = 1$. If $s = 2$, for any $r > 0,F(r) = \frac{1}{2}$.
+\begin{lemma}[Easy Cases Lemma] If $p = 0$, F(r) = 0.  If $p = 1, F(r) = 1$. If $p = \frac1{2}$, for any $r > 0,F(r) = \frac{1}{2}$.
 \end{lemma}
 \textit{Proof}: 
 Though we won't be flipping infinite $(p=0)$ or 1-sided $(p=1)$, dice, these algebraic identities are obvious (can't succeed, can't fail, respectively) and will be useful later.
@@ -472,19 +472,19 @@ F(r) &= \sum_{k=1}^{r-1} {r \choose k} p^k q^{r-k} F(r-k) + {r \choose r} p^r q^
 
 For simplicity, we consider only $p \leq \frac1{2}$ from here on out\footnote{Swap ``$q$'' for ``$p$'' in all statements if $p > \frac1{2}$ and you'll find mirrored results (e.g. $p$ converges upward)}. 
 
-\begin{lemma}[Lazy Upper Bound for $F(r)$]: With $r \geq 1$ $d$-sided dice remaining and $p \leq \frac1{2}, F(r) \leq p$.
+\begin{lemma}[Lazy Upper Bound for $F(r)$] With $r \geq 1$ dice left and $F(r) \leq p$.
 \end{lemma}
-\textit{Proof}: See Fig. \ref{fig:dice-transition}.  Any successful path from state $r > 0$ to state $0$ has a final jump of the form $p^k, k \leq r$.  For instance, the ``low'' path in Fig. \ref{fig:dice-transition} would have probability $F(r) = [{r \choose 1}pq^{r-1}] [{r \choose 1}p^{r-3}q^2] [{2 \choose 1}pq] p^1$, or a single, miraculous jump would have probability $F(r) = p^r$.  In any case, $F(r) = M(r,p)p^k$ for some $M(r,p) \leq 1$, and some $k \geq 1$ for the final stage before 0.  Since $p^k \leq p$ for $k \geq 1$, $F(r) = M(r,p)p^k < p^k \leq p$.
+\textit{Proof}: See Fig. \ref{fig:dice-transition}.  Any successful path from state $r > 0$ to state $0$ has a final jump of the form $p^k, k \leq r$.  For instance, the ``low'' path in Fig. \ref{fig:dice-transition} would have probability $F(r) = [{r \choose 1}pq^{r-1}] [{r \choose 1}p^{r-3}q^2] [{2 \choose 1}pq] p^1$.  A single, near-miraculous jump from state $r$ would have probability $F(r) = p^r$.  In any case, $F(r) = M(r,p)p^k$ for some $M(r,p) \leq 1$, and some $k \geq 1$ for the final stage before 0.  Since $p^k \leq p$ for $k \geq 1$, $F(r) = M(r,p)p^k < p^k \leq p$.
 
-\begin{lemma}[Lazy Lower Bound for $F(r)$ (Pochhammer form)]: With $r \geq 1$ $d$-sided dice remaining, defining $p := 1/d$ with $p \leq \frac1{2}, F(r) \geq \prod_{i=1}^k (1-q^k)$.
+\begin{lemma}[Lazy Lower Bound for $F(r)$ (Pochhammer form)] With $r \geq 1$ dice remaining, $F(r) \geq \prod_{i=1}^k (1-q^k)$.
 \end{lemma}
-\textit{Proof}: See Fig. \ref{fig:dice-transition}.  Any successful path passes through a set of these stages $r, r-1 \ldots 1$ \textit{without once} falling into the state $\varnothing$.  This means that if state $k$ is included in the path, that there was a $(1-q^k)$ chance of not busting at that stage.  So, assuming our successful path visited every single stage (picking up exactly one die each time), the chance of success would be at least $F(r) = \prod_{i=1}^k (1-q^k)$, since we survived every ``bust trap''.  However, we need not visit every stage (we could possibly pick up more than one die).  Therefore, $F(r) \geq \prod_{i=1}^k (1-q^k)$.
+\textit{Proof}: See Fig. \ref{fig:dice-transition}.  Any successful path passes through a set of these stages $r \ldots 0$ \textit{without once} falling into the state $\varnothing$.  This means that if state $k$ is included in the path, that there was a $(1-q^k)$ chance of not busting at that stage.  So, assuming our successful path visited every single stage (picking up exactly one die each time), the chance of success would be at least $F(r) = \prod_{i=1}^k (1-q^k)$, since we survived every ``bust trap''.  However, we need not visit every stage (we could possibly pick up more than one die).  Therefore, $F(r) \geq \prod_{i=1}^k (1-q^k)$.
 
 Interestingly enough, \textit{\textbf{this lower bound for $F(r)$ is a known quantity called the q-Pochhammer symbol $(q;q)_\infty = \prod_{i=1}^k (1-q^k)$, with known convergence properties,}} appearing in areas like quantum algebra and physics.  News to me.  Neato.
 
 However, this symbol does not have a closed form evaluation.  Let's try to find a closed form bound that's even WORSE than this one.
 
-\begin{lemma}[Closed Form Lower Bound Lemma]For an unbounded set of $r > 0$ standard $d$-sided dice, $s \geq 2$, the probability $F(r)$ of getting a perfect game has a lower bound of $\exp(-\frac{q}{(1-q)^2})$, if we define  $q := 1-\frac1{d}$.
+\begin{lemma}[Closed Form Lower Bound Lemma]For an unbounded set of $r > 0$ dice, $p \leq \frac1{2}$, the probability $F(r)$ of getting a perfect game has a lower bound of $\exp(-\frac{q}{(1-q)^2})$.
 \end{lemma}
 \textit{Proof}:
 \begin{itemize}
@@ -537,11 +537,11 @@ q & P(\infty) & (q;q)_\infty & \exp\!\left(-\tfrac{q}{(1-q)^2}\right) \\
 9/10 & 1.1705 \times 10^{-4} & 1.2861 \times 10^{-6} & 8.1940 \times 10^{-40} \\
 \end{array}
 \]
-This is a very poor bound, especially when compared to $(q;q)_\infty$.   But being able to prove Lemma 2.3 and 2.5 in closed form yields this surprising result:
+This is a very poor bound, especially when compared to $(q;q)_\infty$.   But being able to prove Lemma 2.3 and 2.5 in closed form (or without relying on the Pochhammer result) yields this surprising result:
 
-\begin{corollary}[Bounded Results for $F(r)$ as $r \rightarrow \infty$] As $p \rightarrow 0, F(r) \rightarrow 0$.  However, for fixed $p > 0$, $F(r) > \epsilon$ as $r \rightarrow \infty$ for some $\epsilon > 0$.
+\begin{corollary}[Bounded Results for $F(r)$ as $r \rightarrow \infty$] As $p \rightarrow 0$, $F(r)$ can be made arbitrarily close to 0.  However, for fixed $p > 0$, $F(r) > \epsilon$ as $r \rightarrow \infty$ for some $\epsilon > 0$.
 \end{corollary}
-The upshot: \textit{\textbf{Though increasing the number of sides of the dice can drive F(r) to zero, increasing the number of dice (r) to $\infty$ will never drive F(r) below some fixed constant dependent only on $p$}}
+The upshot: \textit{\textbf{Though increasing the number of sides of the dice can drive F(r) to zero, increasing the number of dice (r) to infinity will never drive F(r) below some fixed constant dependent only on $p$.}}
 
 There are a few ways to make this stronger:
 \begin{enumerate}
@@ -554,12 +554,10 @@ We will show why (1) is unlikely, that (3) is true, and hope to one day get bett
 
 \subsection{An Unlikely Closed Form}
 
-Definition 2.1, again, is that our EV with $r > 0$ $d$-sided dice remaining, with $p = 1/d, q = 1-p$, is $F(r) = \sum_{k = 1}^r {r \choose k}p^kq^{r-k} F(r-k)$.
+Definition 2.1, again is $F(r) = \sum_{k = 1}^r {r \choose k}p^kq^{r-k} F(r-k), r > 0$, with $F(0) = 1$.
 
 
 Definition 2.1 is a complicated recurrence; each successive $F(r)$ depends not only on the previous result $F(r-1)$ but \textit{all} previous results $F(r-j), 0 \leq j \leq r$.
-Note that in successive tables, as always, $q$ is defined as $1-p, p \in \mathbb{R}$, and $0 < p \leq \frac1{2}$
-
 
 Applying Definition 2.1 by hand yields:
 
@@ -578,7 +576,7 @@ F(6) &= p^{6}\,\bigl(1 + 6q + 15q^{2} + 50q^{3} + 75q^{4} + 126q^{5} + 240q^{6} 
 \end{aligned}
 \]
 
-This form isn't yet obvious.  Let's look at differences $F(r) - F(r+1)$; if these converge or are bounded, we have hope for a closed form solution:
+This pattern in this form isn't yet obvious.  Let's look at differences $F(r) - F(r+1)$; if these converge or are bounded, we have hope for a closed form solution:
 
 \textbf{Table B: List of F(r) - F(r+1)}:
 
@@ -603,14 +601,14 @@ F(5) - F(6) &= p^{5}\,\bigl( 1 + 5q + 10q^{2} + 30q^{3} + 35q^{4} + 50q^{5} + 90
 
 \begin{proposition}[F(r) does not have a closed form] 
 \end{proposition}
-\textit{Thoughts}:
+\textit{Thoughts, not a proof}:
 \begin{itemize}
-\item Since the maximum degree of $p$ in $F(r)$ is $\frac{r(r+1)}{2}$, this suggests $F$'s successive values become more complicated than a closed from allows.
-\item Lemma 2.2 also shows $F(r)(\frac1{2})) = \frac1{2}$ for any $r > 0$.  This means that $F(r+1)-F(r)$ \textit{does} collapse always at $p = \frac1{2}$ (also 0, 1), but must be nonzero at some $p=\frac1{2} - \epsilon$ as well.  
+\item Since the degree of $p$ in $F(r)$ is $\frac{r(r+1)}{2}$, this suggests $F$'s successive functions become more complicated than a closed from allows.
+\item Lemma 2.2 also shows $F(r) =  \frac1{2}$ when $p = \frac1{2}$ for any $r > 0$.  This means that $F(r+1)-F(r)$ \textit{does} collapse always at $p = \frac1{2}$ (also 0, 1), but must be nonzero at some $p=\frac1{2} - \epsilon$ as well.  
 
 \end{itemize}
 
-Though not a proof, these suggest \textit{\textbf{there may not be a fundamentally simpler way to capture our multi-way recurrence than a polynomial whose leading coefficient is a triangle number in r!}}.  Then, my first attempt to find a solution focused instead on the seemingly monotonic behavior of $F(r), r \rightarrow \infty$ for fixed $p < \frac1{2}$.
+Though not a proof, these suggest \textit{\textbf{there may not be a fundamentally simpler way to capture our multi-way recurrence than a polynomial whose leading coefficient is a triangle number in r!}} Then, my next failed attempt to find a solution focused instead on the seemingly monotonic behavior of $F(r), r \rightarrow \infty$ for fixed $p < \frac1{2}$.
 
 \subsection{F(r) is non-monotonic}
 
@@ -622,9 +620,9 @@ The bugbear of $F(r)(\frac1{2})=\frac1{2}$ made sure, however, that successive d
 
 All hope was lost when the counterexample was found.
 
-\begin{proposition}[Counterexample of Monotonicity]$F(r) < F(r+1)$ for certain values of $r > 0, p < \frac1{2}$.\end{proposition}
+\begin{proposition}[Counterexample to Monotonicity]$F(r) < F(r+1)$ for certain values of $r > 0, p < \frac1{2}$.\end{proposition}
 
-Consider that at $p = \frac1{2}, F(r) = F(s) = \frac1{2}$ for any $r, s > 0$, and therefore, $F(r) - F(r+1) = 0$.  If $F(r) > F(r+1)$ when $p < \frac1{2}$, we can expect that with $p$ at some distance $\epsilon$ below $\frac1{2}$, that the difference will be positive.
+Consider that at $p = \frac1{2}, F(r) = F(s) = \frac1{2}$ for any $r, s > 0$, and therefore, $F(r) - F(r+1) = 0$.  If $F(r) > F(r+1)$ when $p < \frac1{2}$, we can know with $p$ at anydistance $\epsilon$ below $\frac1{2}$, that the difference will be positive.
   
 First, reformulate each of the expressions in \textbf{Table B} as dependent on this $\epsilon$: with $p \rightarrow \frac1{2} - \epsilon,  q \rightarrow \frac1{2} + \epsilon$:
 
@@ -646,7 +644,7 @@ F(5) - F(6) &= -720 \epsilon^{21} - 3600 \epsilon^{20} - 7200 \epsilon^{19} - 64
 
 We're looking to see if F(r) - F(r+1) is ever negative, and we need look no further than $F(5) - F(6)$, for small $\epsilon$.   Notice that if $\epsilon$ is almost zero, the final term in each sum $C\cdot \epsilon$ for some $C$ will dominate the expression, as $\epsilon^2, \epsilon^3...$ will be exceedingly small.  For $F(1) - F(2), F(2) - F(3), F(3) - F(4)$ and $F(4) - F(5)$, the final  $C$ is positive, but for $F(5) - F(6)$, C = $-\frac{423}{65536}$.  This means that for small epsilon, looking at $p = \frac1{2} - \epsilon$ may yield an increase in EV as we move from 5 to 6 dice left.
 
-Sure enough, for $\epsilon = .005 \rightarrow p = .495$, we see that $F(r+1)$ can be greater than $F(r)$ in Table  \ref{tab:p_values_epsilon}:
+Sure enough, for $\epsilon = .005, (p = .495)$, we see that $F(r+1)$ can be greater than $F(r)$ in Table  \ref{tab:p_values_epsilon}:
 
 
 \begin{table}[h]
