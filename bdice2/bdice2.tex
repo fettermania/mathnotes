@@ -679,6 +679,8 @@ With monotonicty and bounds, convergence is assured.  Without it, we must show c
 
 \subsection{F(r) converges as $r \rightarrow \infty$}
 
+\begin{theorem}[F(r) convergence]: $F(r)$ converges when $p \leq \frac1{2}$.\end{theorem}
+
 Notice that each term $F(k)$ in table A is of the form $F(k) = p^k a_k$, where $a_k$ is completely a function of $q$.
 
 \begin{align}
@@ -689,19 +691,84 @@ a_3 = 1+3q+3q^2+6q^3, F(3) = p^3a_3
 \end{align}
 
 Let's look again at definition 2.1 and an equivalent way to write it:\\
+
 \begin{align}
-a_0 = 1 \\
-F(k) = p^k a_k \\
+F(r) = p^r a_r \\
 F(r) = \sum_{k = 1}^r {r \choose k}p^kq^{r-k} F(r-k) \\
-= p^r\sum_{k = 1}^r {r \choose k}q^{r-k} [p^{k-r}F(r-k)] \\
-= p^r \sum_{k = 1}^r {r \choose k}q^{r-k} [p^{k-r}p^{r-k}a_{r-k}] \\
-= p^r \sum_{k = 1}^r {r \choose (r-k)}q^{r-k} [a_{r-k}] \\
-= p^r \sum_{k = 1}^r {r \choose k}q^{k} [a_{k}] 
+F(r) / p^r = \sum_{k = 1}^r {r \choose k}p^{k-r}q^{r-k} p^{r-k}a_{r-k} \\
+a_r = \sum_{k = 1}^r {r \choose k}q^{r-k}a_{r-k} \\
+= \sum_{m=0}^{r-1} \binom{r}{m}\,q^{\,m}\,a_{m}. 
 \end{align}
 
-So $a_r = \sum_{k=1}^{r-1} q^k {r \choose k}a_k$, and $F(r) = p^r a_r$.
 
-Therefore, if we can find the ratio $\frac{a_{r+1}}{a_r}, r \rightarrow \infty$, we a
+The final line works when reindexing as $m  = r - k$.
+
+If we can find the a ratio of  $\frac{F(r+1)}{F(r)} = p\frac{a_{r+1}}{a_r}, r \rightarrow \infty$ of constant or decreasing magnitude, we can assert convergence.   We will show that $R_r := \dfrac{a_{r+1}}{a_r}$ approaches $\frac1{1-q} = \frac1{p}$, so the ratio of $\frac{F(r+1)}{F(r)} \rightarrow 1$.
+ 
+\textit{Note: I used ChatGPT-4o for this section to help formalize this more clearly.}
+
+\textbf{Step 1: Express $a_{r+1}$ in terms of $a_r$.}  
+Using Pascal's identity,
+$$
+\begin{aligned}
+a_{r+1}
+&= \sum_{k=0}^{r} \binom{r+1}{k} q^{\,k} a_k \\
+&= \sum_{k=0}^{r} \Big(\binom{r}{k} + \binom{r}{k-1}\Big) q^{\,k} a_k \\
+&= \underbrace{\sum_{k=0}^{r-1} \binom{r}{k} q^{\,k} a_k}_{=\,a_r}
+\;+\; q^{\,r} a_r
+\;+\; q \sum_{k=0}^{r-1} \binom{r}{k} q^{\,k} a_{k+1}.
+\end{aligned}
+$$
+
+Dividing by $a_r$ gives
+$$
+R_r \;=\; 1 + q^{\,r} \;+\; q \sum_{k=0}^{r-1} \binom{r}{k} q^{\,k} \frac{a_{k+1}}{a_r}. 
+$$
+
+\textbf{Step 2: Two-sided bounds.}  
+Let
+$$
+m_{r-1} := \min_{0 \le k \le r-1} \frac{a_{k+1}}{a_k}, 
+\qquad 
+M_{r-1} := \max_{0 \le k \le r-1} \frac{a_{k+1}}{a_k}.
+$$
+
+Since 
+$\dfrac{a_{k+1}}{a_r} = \dfrac{a_{k+1}}{a_k} \cdot \dfrac{a_k}{a_r}$ 
+and $\sum_{k=0}^{r-1} \binom{r}{k} q^{\,k} a_k = a_r$, 
+equation (1) implies
+$$
+1 + q^{\,r} + q\,m_{r-1} \;\le\; R_r \;\le\; 1 + q^{\,r} + q\,M_{r-1}, 
+\qquad (r \ge 1).
+$$
+
+\textbf{Step 3: Take limits.}  
+Let $L := \limsup_{r\to\infty} R_r$ and $\ell := \liminf_{r\to\infty} R_r$.
+Since $q^{\,r} \to 0$, inequality (2) yields
+$$
+L \;\le\; 1 + qL, 
+\qquad 
+\ell \;\ge\; 1 + q\ell.
+$$
+
+Thus $(1-q)L \le 1$ and $(1-q)\ell \ge 1$, so 
+$\ell \ge \tfrac{1}{1-q} \ge L$. 
+Therefore $\ell=L=\tfrac{1}{1-q}$, i.e.
+$$
+\lim_{r\to\infty} \frac{a_{r+1}}{a_r} \;=\; \frac{1}{1-q}.
+$$
+
+\textit{Direction for $q > \tfrac{1}{2}$.}  
+From the upper bound in (2),
+$$
+R_r \;\le\; 1 + q\,Mf_{r-1} \;\le\; 1 + \frac{q}{1-q} \;=\; \frac{1}{1-q},
+$$
+so the approach is from below when $q>\tfrac{1}{2}$ (equivalently $p<\tfrac{1}{2}$).
+
+
+
+
+
 
 
 \end{document}
