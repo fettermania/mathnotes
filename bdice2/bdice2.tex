@@ -59,7 +59,7 @@ style=alphabetic,
 \maketitle
 
 \begin{abstract}
-An earlier paper (http://fettermania.com/math/bdice.pdf) focused on a near-optimal strategy for maximizing expected value in gameplay for \textit{Bitches: A Dice Game}.  This paper focuses on a different question: what is the probability of playing a perfect game (and is there any subtlety to doing so)?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related question: What's the expected win probability with $n$ standard dice of side count $s$ as $n \rightarrow \infty?$  We give poor bounds, prove convergence, and find surprising results along the way.
+An earlier paper (http://fettermania.com/math/bdice.pdf) focused on a near-optimal strategy for maximizing expected value in gameplay for \textit{Bitches: A Dice Game}.  This paper focuses on a different question: what is the probability of playing a perfect game (and is there any subtlety to doing so)?  Using standard recursive calculation, we calculate the probabilities with the out-of-box game setup.  Then we venture into a related question: What's the expected win probability with $r$ standard dice remaining of side count $d$ as $r \rightarrow \infty?$  We give poor bounds, prove convergence, and find surprising results along the way.
 \end{abstract}
 
 \section{Introduction and the Commercial Game}
@@ -68,13 +68,13 @@ Outside of ideological patron Larry Waldman, the publication of my original b. a
 
 Instead of ``how does one play the game with high/maximum expected value?'' (addressed in the first paper), Mr. Cox wondered how often a \textit{perfect game} (one in which the best possible score is achieved at the end) occurs if played optimally.  Though optimal play looks obvious (pick up all your maximum rolls), Mr. Cox has also debated with his class: ``is it always best to pick up all your maximum-roll dice?''   
 
-I took this on and a day or so later, the solution to this particular question surfaced.  As usual, twinkly subproblems appeared along the way, and I left to find a solution to a related problem: \textit{does the probability of a perfect game converge to a positive number as the number of dice increase to infinity?}.
+I took this on and a day or so later, the solution to this particular question surfaced.  As usual, twinkly subproblems appeared along the way, and I left to find a solution to a related problem: \textit{does the probability of a perfect game converge to a positive number as the number of dice increase to infinity?}
 
-We'll briefly review the game's rules and the solution method for the commercially offered game before diving in to a discovered second quest: asymptotic behavior of infinite dice.  We'll note surprising or interesting findings in \textit{\textbf{bold-italic}}.
+We'll briefly review this subgame's rules and the solution method for the commercially offered game before diving in to a discovered second quest: asymptotic behavior of infinite dice.  We'll note surprising or interesting findings in \textit{\textbf{bold-italic}}.
 
 \subsection{The Game}
 
-Though the rules to the multi-player game are detailed in the original paper referenced above, we will reformulate this for a solitaire-style perfect game, which follows this pattern:
+Though the rules to the multi-player game are detailed in the original paper referenced above, we will reformulate this for a solitaire-style game, which follows this pattern:
 \begin{enumerate}
 \item Begin with 12 standard dice of six sides, along with one eight-, one ten-, and one twelve-sided die.
 \item On each turn, roll all remaining dice in play.
@@ -162,7 +162,7 @@ First, let's limit ourselves to a game (or state) with only a single flavor of d
     \draw[->] (sr) -- node[lab,right] {$q^{r}$} (zr);
     
     \end{tikzpicture}
-    \caption{Transition graph of the dice game showing expected values $F(r)$ and transition probabilities.}
+    \caption{Transition graph of the dice game showing expected values $F(r)$ and a few transition probabilities.}
     \label{fig:dice-transition}
 \end{figure}
 
@@ -174,7 +174,7 @@ First, let's limit ourselves to a game (or state) with only a single flavor of d
 Extending this to dice of $z$ different sizes is clear:
 
 \begin{lemma}[State Transition lemma] $P_{transition}(\vec{s},\vec{t},\vec{p})$, the chance of transitioning from state $\vec{s}=[s_1,s_2,\ldots s_z]$ to state $\vec{t} = [{t}_1, {t}_2\ldots {t}_z]$ with probability vector $\vec{p} = [p_1, p_2 \ldots p_z]$ is equal to
-  $\prod_{i=0}^z P_{single}(\vec{s}_i ,\vec{t}_i,\vec{p}_i)$.\end{lemma}
+  $\prod_{i=1}^z P_{single}(\vec{s}_i ,\vec{t}_i,\vec{p}_i)$.\end{lemma}
 
 
 \textit{Proof:} Divide the turn's roll into $z$ independent subrolls, each rolling all $s_i$ dice, $1 \leq i \leq z$, themselves each with $p_i$ chance of hitting a max.  The outcomes of these $z$ subrolls are all mutually independent, so $P_{transition}$ can be expressed as the product of $P_{single}$ quantities.
@@ -185,8 +185,8 @@ With these easy proofs and definitions in hand, the algorithm follows readily - 
 \begin{itemize}
 \item Steps 1 - 5 are definitions from the lemmas above.
 \item Step 6 creates a set of all states reachable from state $\vec{s}$, \textit{including $\vec{s}$ itself}.  
-\item Thinking of the states as a directed graph where a state points to all the states reachable from it, Step 7 creates an ordered list of states $s_1, s_2, s_3...$ , \\
-like $[0,0,0,0], [0,0,1,0], [0,1,0,0], [0,1,1,0]....$ where, when $s_i$ is encountered in the list, all states reachable from $s_i$ occur before $s_i$ in the list.  There are many such possible orders. This is required for step 9's $F(\vec{t})$ values to be defined.
+\item Thinking of the states as a directed graph where a state points to all the states reachable from it, Step 7 creates an ordered list of states $\vec{s_1}, \vec{s_2}, \vec{s_3}...$ , \\
+like $[0,0,0,0], [0,0,1,0], [0,1,0,0], [0,1,1,0]....$ where, when $\vec{s_i}$ is encountered in the list, all states reachable from $\vec{s_i}$ occur before $\vec{s_i}$ in the list.  There are many such possible orders. This is required for step 9's $F(\vec{t})$ values to be defined.
 \item Step 9 uses Lemma 1.3 to calculate $F(\vec{s})$ from the values of previously calculated substates.
 \end{itemize}
 
@@ -389,11 +389,11 @@ So it turns out Mr. Cox's students are correct - you may indeed want to ``save''
  \item $[12,1,1,1]$: Naive: Take both sixes (EV = 0.0044132805).  \textbf{Optimal}: Take only 1 six (EV = 0.0044456381).
 \end{itemize}
 
-It's nice to see the game is complex and non monotonic even in this constrained scenario.    There are likely higher configurations yielding other critical points in the space, especially as more dimensions (dice types) are added.  Though the difference is minuscule in the commercial game, expanding $\vec{S}$ to something like $\vec{S^*} = [24,2,2,2]$ yields a wider EV difference between simple and optimal strategies\footnote{$F(\vec{S^*}) = 0.0033078600$ using the basic strategy and $0.0038614244$ using the optimal, a 17\% improvement}.
+It's nice to see the game is complex and non monotonic even in this constrained scenario.    There are configurations with more dice yielding other critical points in their spaces, especially as more dimensions (dice types) are added.  Though the difference is minuscule in the commercial game, expanding $\vec{S}$ to something like $\vec{S^*} = [24,2,2,2]$ yields a wider EV difference between simple and optimal strategies\footnote{$F(\vec{S^*}) = 0.0033078600$ using the basic strategy and $0.0038614244$ using its corresponding optimal strategy, a 17\% improvement}.
 
 \section{The Second Quest: $d_6 \rightarrow \infty$}
 
-But can we say nothing more definitive than that?  Looking at the left column on the first table (Fig. \ref{fig:ev-tables-1}) with only one type of die, it looks like a higher dice count both decreases our chance of winning, but may also do so asymptotically.
+But can we say nothing more definitive than that?  Looking at the left column on the first table (Fig. \ref{fig:ev-tables-1}) with only one type of die, it looks like a higher dice count both decreases our chance of winning, but may only do so asymptotically.
 
 Let's run $\vec{S} = [r, 0, 0, 0], r \rightarrow \infty$ and see (Table \ref{tab:p_values}).
 
@@ -472,7 +472,7 @@ F(r) &= \sum_{k=1}^{r-1} {r \choose k} p^k q^{r-k} F(r-k) + {r \choose r} p^r q^
 
 For simplicity, we consider only $p \leq \frac1{2}$ from here on out\footnote{Swap ``$q$'' for ``$p$'' in all statements if $p > \frac1{2}$ and you'll find mirrored results (e.g. $p$ converges upward)}. 
 
-\begin{lemma}[Lazy Upper Bound for $F(r)$] With $r \geq 1$ dice left and $F(r) \leq p$.
+\begin{lemma}[Lazy Upper Bound for $F(r)$] With $r \geq 1$ dice left, $F(r) \leq p$.
 \end{lemma}
 \textit{Proof}: See Fig. \ref{fig:dice-transition}.  Any successful path from state $r > 0$ to state $0$ has a final jump of the form $p^k, k \leq r$.  For instance, the ``low'' path in Fig. \ref{fig:dice-transition} would have probability $F(r) = [{r \choose 1}pq^{r-1}] [{r \choose 1}p^{r-3}q^2] [{2 \choose 1}pq] p^1$.  A single, near-miraculous jump from state $r$ would have probability $F(r) = p^r$.  In any case, $F(r) = M(r,p)p^k$ for some $M(r,p) \leq 1$, and some $k \geq 1$ for the final stage before 0.  Since $p^k \leq p$ for $k \geq 1$, $F(r) = M(r,p)p^k < p^k \leq p$.
 
@@ -604,11 +604,10 @@ F(5) - F(6) &= p^{5}\,\bigl( 1 + 5q + 10q^{2} + 30q^{3} + 35q^{4} + 50q^{5} + 90
 \textit{Thoughts, not a proof}:
 \begin{itemize}
 \item Since the degree of $p$ in $F(r)$ is $\frac{r(r+1)}{2}$, this suggests $F$'s successive functions become more complicated than a closed from allows.
-\item Lemma 2.2 also shows $F(r) =  \frac1{2}$ when $p = \frac1{2}$ for any $r > 0$.  This means that $F(r+1)-F(r)$ \textit{does} collapse always at $p = \frac1{2}$ (also 0, 1), but must be nonzero at some $p=\frac1{2} - \epsilon$ as well.  
-
+\item The successive differences are also complicated, as in Table B. By Lemma 2.2, the differences collapse at  $p = \frac1{2}$ for any $r > 0$, but must be nonzero at some $p=\frac1{2} - \epsilon$, but summing these to produce a closed form looks even less tenable.
 \end{itemize}
 
-Though not a proof, these suggest \textit{\textbf{there may not be a fundamentally simpler way to capture our multi-way recurrence than a polynomial whose leading coefficient is a triangle number in r!}} Then, my next failed attempt to find a solution focused instead on the seemingly monotonic behavior of $F(r), r \rightarrow \infty$ for fixed $p < \frac1{2}$.
+Though not a proof, these suggest \textit{\textbf{there may not be a fundamentally simpler way to capture our multi-way recurrence than a polynomial whose degree is a triangle number in r!}} Then, my next failed attempt to find a solution focused instead on the seemingly monotonic behavior of $F(r), r \rightarrow \infty$ for fixed $p < \frac1{2}$.
 
 \subsection{F(r) is non-monotonic}
 
@@ -673,7 +672,7 @@ $r$ & $F(r)$ \\
 
 We can see that $F(r)$ will reverse directions (yellow cells) as $r$ increases, though it does asymptotically approach something like 0.4913417493573063 as $r \rightarrow \infty$.
 
-With monotonicty and bounds, convergence is assured.  Without it, we must show convergence another way.
+With monotonicity and bounds, convergence is assured.  Without it, we must show convergence another way.
 
 \subsection{F(r) converges as $r \rightarrow \infty$}
 
@@ -699,7 +698,7 @@ a_r = \sum_{k = 1}^r {r \choose k}q^{r-k}a_{r-k} \\
 \end{align}
 
 
-The final line works when reindexing as $m  = r - k$.
+The final line works when reindexing as $m  = r - k$.  Now the pattern of successive functions from Table A emerges a little more clearly.
 
 If we can find the a ratio of  $\frac{F(r+1)}{F(r)} = p\frac{a_{r+1}}{a_r}, r \rightarrow \infty$ of constant or decreasing magnitude, we can assert convergence.   We will show that $R_r := \dfrac{a_{r+1}}{a_r}$ approaches $\frac1{1-q} = \frac1{p}$, so the ratio of $\frac{F(r+1)}{F(r)} \rightarrow 1$.
  
