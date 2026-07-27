@@ -1,0 +1,135 @@
+\documentclass[11pt, oneside]{article} 	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry} 		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}  		% ... or a4paper or a5paper or ... 
+\usepackage[parfill]{parskip} 		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{authblk}
+\usepackage[
+backend=biber,
+style=alphabetic,
+]{biblatex}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{verbatim}
+\usepackage{tikz} 
+\tikzset{
+    vertex/.style={circle,draw,minimum size=1.5em},
+    edge/.style={->,> = latex'}
+}
+\usetikzlibrary{arrows}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{xcolor,colortbl}
+
+\usepackage{listings}
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
+\usepackage{syntonly}
+
+\title{A meandering derivation of Fubini numbers}
+\author{Dave Fetterman}
+\affil{Surprisingly Employed}
+\date{7/26/26}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+As another paean to math muse Larry Waldman, descent of mathematician Guido Fubini, we endeavor to independently derive the Fubini numbers as coefficients of an exponential generating function (a well-known result), and encounter several interesting blind alleys while doing so.
+\end{abstract}
+
+\section{The Fubini Numbers and their direct calculation}
+
+The Fubini numbers $F_n$ (a likely non-standard signifier we use through this paper) are defined as the number of ways to split $[n] = \{1, 2, \dots n\}$ into an unordered partition $\{B_j\}_{1 \leq j \leq n}$ such that:
+\begin{itemize}
+\item $\bigcup B_j = [n]$
+\item $B_i \cap B_j = \emptyset$ iff $i \neq j$
+\item $B_j \neq \emptyset$ for all $1 \leq j \leq n$.
+\end{itemize}
+
+For example, if $n = 3$, then the set of ordered partitions is:
+\begin{itemize}
+\item $\{123\}$
+\item $\{12\}\{3\}, \{13\}\{2\}, \{23\}\{1\}, \{1\}\{23\}, \{2\}\{13\}, \{3\}\{12\}, \{1\}\{2\}\{3\}$
+\item $ \{1\}\{3\}\{2\}, \{2\}\{1\}\{3\}, \{2\}\{3\}\{1\}, \{3\}\{1\}\{2\},\{3\}\{2\}\{1\}$.
+\end{itemize}
+
+$F_0$ is defined as 1, and the sequence proceeds $1, 1, 3, 13, 75, 541 \ldots$
+
+\textbf{Theorem}: The Fubini numbers $F_i$ are the coefficients of the exponential generation function $G(x) = \frac{1}{2-e^x}$.
+
+This means that $G(x) = \sum_{i=0}^{\infty}F_i \frac{x^i}{i!}$.
+
+\textit{Proof}: 
+
+Rewrite $G(x)$ as $\frac{1}{1-(e^x-1)}$.  The geometric expansion formula then says that $G (x) = \sum_{i=0}^{\infty} (e^x-1)$.
+This becomes $(1) + (x + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} \dots) +  (x + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} \dots)^2 +   (x + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} \dots)^3 \dots$ 
+
+Consider each parenthesized term $(x + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} \dots)^i$ above as the number of such partitions where the partition size is $i$.  So for the sequence above for $F_3$, the sizes would be $\{1,2,2,2,2,2,2,3,3,3,3,3,3\}$.
+
+
+The coefficient of $\frac{x^r}{r}$ in the first expansion gets contributions foom some of all of the terms.  Its contribution from $(x + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} \dots)^r$ is the number of ways $[n]$ can be split into a partition of size $r$.
+
+An example will clarify.  Say $n=9$ and we want to know the pattens of type $\{3,2,4\}$, meaning the partitions of the 9 such that the first set has size 3, the second size 2, and the third size 4.  The 
+$(x + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} \dots)^3$ term will have (among others) this term in  the expansion: $\frac{x^3}{3!} \cdot \frac{x^2}{3!} \cdot \frac{x^4}{4!}$.    But this is just $\binom{9}{3}\binom{6}{2}\binom{4}{4}\frac{1}{9!}$.
+
+What does this mean?  Combinatorially, this means that the number of ordered partitions where the first set is of size 3, the second of size 2, and the third of size 4, is the product of:
+\begin{itemize}
+\item Choosing 3 elements of 9 for the first set,
+\item Choosing 2 elements of the remaining 6 for the second set,
+\item and taking the 4 elements of the remaining 4 as the third set.
+\end{itemize}
+
+Computationally, this is clear from reducing $\binom{9}{3}\binom{6}{2}\binom{4}{4}\frac{1}{9!} = \frac{9!}{3!6!}\frac{6!}{2!4!}\frac{4!}{4!0!}$ as the second terms of each denominator cancel and the first terms are the denominators of  $\frac{x^3}{3!} \cdot \frac{x^2}{3!} \cdot \frac{x^4}{4!}$, with the first numerator and the final $9!$ canceling.  This is the same pattern for every term of the fully expanded expression.
+
+If you expand $(1) + (x + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} \dots) +  (x + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} \dots)^2 +   (x + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} \dots)^3 \dots$  without grouping on $x^i$, it's clear that each term corresponds to the counts of a permutation type, and each permutation type is represented by a term.  
+
+\textbf{Theorem}: $F_n = 2 \Sigma_{i=0}^{\infty} 2^{-i} i^r$.
+
+Given our previous theorem, this is found by considering $\frac{1}{2-e^x}$ instead as $\frac{1}{2} \cdot \frac{1}{1 - \frac{e^x}{2}}$.
+
+Expanding via the geometric equivalence gives us $\frac{1}{2-e^x} =  \frac{1}{2}(1 + \frac{1}{2}e^x + \frac{1}{4}e^{2x} + \frac{1}{8}e^3x\dots)$. 
+
+Expanding each of \textit{these} terms through the Taylor expansion of $e^{kx}$ yields:
+
+\begin{align}
+\frac{1}{2-e^x}  = \frac{1}{2} \cdot \frac{1}{1 - \frac{e^x}{2}} = \\
+\frac{1}{2}(1 + \frac{1}{2}e^x + \frac{1}{4}e^{2x} + \frac{1}{8}e^{3x} + \dots ) = \\
+\frac{1}{2} \cdot (1) + \\ 
+\frac{1}{4} \cdot (1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots ) + \\
+\frac{1}{8} \cdot (1 + 2x + \frac{(2x)^2}{2!} + \frac{(2x)^3}{3!} + \dots ) +\\
+\dots \\
+\end{align}
+
+In this way, we see that the coefficient of $x^r$ in the final sum will be $\frac{1}{2}\Sigma_{i=0}^{\infty} 2^{-i}i^r$.
+
+\textit{Note}: These can each be computed by repeatedly taking derivatives of $g(x) = 1+1x+2x^2+... = \frac{1}{1-x}$ as in:
+$xg'(x) = \frac{x}{(1-x)^2} = 1^2 x + 2^2 x^2 + 3^2 x^3 + \dots$ and $x(\frac{x}{(1-x)^2})' =   1^3 x + 2^3 x^2 + 3^3 x^3 + \dots$ with $x=  \frac{1}{2}$, but the equivalence holds without computational requirements.
+
+\textbf{Theorem}: The Fubini number $F_n$ is equal to $\Sigma_{r=1}^n\Sigma_{i=1}^r (-1)^{i+r}\binom{r}{i}{i^n}$.
+
+This was a combinatorial blind alley that I was not able to connect to the first theorem, but interesting in any case.
+
+Consider $F(n, r)$ as the number of ordered partitions of $[n]$ into exactly $r$ non-empty sets.  
+
+If we release the restriction that each set is non-empty, then the mapping is simple: each of $n$ elements can be labeled with any of $r$ set memberships, so the total is $n^r$.
+
+However, if we wish to eliminate those results with one empty partition set, we must subtract all of those results with at least one empty partition set.  Subtracting those with one fixed empty partition set \textit{double subtracts} those with two fixed empty partition sets, so those must be added in, which \textit{double adds} those with three fixed empty partition sets, and so forth.
+
+We won't go into the theory here, but this is the principle of \textit{inclusion-exclusion}, in which a larger set is whittled down to a refined subset by successively refining its inclusion conditions.
+
+Therefore:
+\begin{align}
+F(3,3) = \binom{3}{3}3^3 - \binom{3}{2}2^3 + \binom{3}{1}1^3 = 6 \\
+F(3,2) = \binom{2}{2}2^3-\binom{2}{1}{1^3} = 6 \\ 
+F(3,1) = \binom{1}{1}1^3 = 1 
+\end{align}
+and, for example, $F_3 = 13$.
+
+\end{document}
